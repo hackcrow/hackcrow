@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Traductor Aurebesh</title>
+
+  <!-- Fuente Aurebesh -->
+  <link href="https://fonts.cdnfonts.com/css/aurebesh" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f172a, #020617);
+      color: white;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 700px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 30px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 2.2rem;
+    }
+
+    p {
+      text-align: center;
+      opacity: 0.8;
+      margin-bottom: 25px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 140px;
+      resize: vertical;
+      border: none;
+      outline: none;
+      border-radius: 14px;
+      padding: 15px;
+      font-size: 1rem;
+      margin-bottom: 20px;
+      background: rgba(255,255,255,0.08);
+      color: white;
+    }
+
+    .resultado {
+      width: 100%;
+      min-height: 140px;
+      border-radius: 14px;
+      padding: 15px;
+      background: rgba(255,255,255,0.08);
+      font-size: 2rem;
+      line-height: 1.7;
+      font-family: 'Aurebesh', sans-serif;
+      word-wrap: break-word;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 14px;
+      background: #3b82f6;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.25s;
+      margin-bottom: 20px;
+    }
+
+    button:hover {
+      background: #2563eb;
+      transform: scale(1.02);
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Traductor Aurebesh</h1>
+    <p>Escribe texto normal y conviértelo al idioma galáctico de Star Wars.</p>
+
+    <textarea id="texto" placeholder="Escribe aquí..."></textarea>
+
+    <button onclick="traducir()">Traducir</button>
+
+    <div class="resultado" id="resultado"></div>
+
+    <div class="footer">
+      Hecho para fans de Star Wars ✨
+    </div>
+  </div>
+
+  <script>
+    function traducir() {
+      const texto = document.getElementById('texto').value;
+      const resultado = document.getElementById('resultado');
+
+      // La fuente Aurebesh automáticamente reemplaza caracteres latinos
+      resultado.textContent = texto;
+    }
+
+    // Traducir en tiempo real
+    document.getElementById('texto').addEventListener('input', traducir);
+  </script>
+
+</body>
+</html>
