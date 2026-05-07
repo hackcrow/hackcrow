@@ -179,7 +179,7 @@
     <button onclick="descargarImagen()">Descargar imagen</button>
 
     <div class="footer">
-      Hecho para fans de Star Wars *✨
+      Hecho para fans de Star Wars ✨
     </div>
   </div>
 
@@ -188,12 +188,19 @@
       const texto = document.getElementById('texto').value;
       const resultado = document.getElementById('resultado');
 
-      // La fuente Aurebesh automáticamente reemplaza caracteres latinos
       resultado.textContent = texto;
     }
 
-    // Traducir en tiempo real
-    document.getElementById('texto').addEventListener('input', traducir);
+    // Traducción fluida en tiempo real
+    let timeoutTraduccion;
+
+    document.getElementById('texto').addEventListener('input', () => {
+      clearTimeout(timeoutTraduccion);
+
+      timeoutTraduccion = setTimeout(() => {
+        traducir();
+      }, 250);
+    });
 
     function descargarImagen() {
       const texto = document.getElementById('texto').value;
