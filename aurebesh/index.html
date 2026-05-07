@@ -59,8 +59,7 @@
       padding: 15px;
       font-size: 1rem;
       margin-bottom: 20px;
-      opacity: 0.5;
-      cursor: not-allowed;
+      cursor: text;
       background: rgba(255,255,255,0.08);
       color: white;
     }
@@ -78,6 +77,8 @@
     }
 
     button {
+      opacity: 0.5;
+      cursor: not-allowed;
       width: 100%;
       padding: 14px;
       border: 2px solid #facc15;
@@ -95,6 +96,13 @@
     button:enabled {
       opacity: 1;
       cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
     }
 
     button:hover {
@@ -189,7 +197,7 @@
     <button id="btnDescargar" onclick="descargarImagen()" disabled>DESCARGAR IMAGEN</button>
 
     <div class="footer">
-      Hecho para fans de Star Wars +✨ by Hackcr0w
+      Hecho para fans de Star Wars ✨ by Hackcr0w
     </div>
   </div>
 
