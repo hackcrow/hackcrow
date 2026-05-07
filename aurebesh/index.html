@@ -142,6 +142,8 @@
 
     <textarea id="texto" placeholder="Escribe aquí..."></textarea>
 
+    <div class="resultado" id="resultado"></div>
+
     <div class="opciones">
       <div class="grupo">
         <label>Color del texto</label>
@@ -178,8 +180,6 @@
 
     <button onclick="descargarImagen()">Descargar imagen</button>
 
-    <div class="resultado" id="resultado"></div>
-
     <div class="footer">
       Hecho para fans de Star Wars ✨
     </div>
@@ -206,8 +206,8 @@
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
 
-      canvas.width = 1200;
-      canvas.height = 600;
+      canvas.width = 900;
+      canvas.height = 220;
 
       // Fondo
       ctx.fillStyle = colorFondo;
@@ -219,20 +219,20 @@
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
 
-      const maxWidth = 1000;
+      const maxWidth = 780;
       const lineHeight = parseInt(tamano) + 20;
       const palabras = texto.split(' ');
       let linea = '';
-      let y = canvas.height / 2 - 50;
+      let y = canvas.height / 2;
 
       for (let n = 0; n < palabras.length; n++) {
         const testLinea = linea + palabras[n] + ' ';
         const medidas = ctx.measureText(testLinea);
 
         if (medidas.width > maxWidth && n > 0) {
-          ctx.fillText(linea, canvas.width / 2, y);
+          ctx.fillText(linea.trim(), canvas.width / 2, y); 2, y);
           linea = palabras[n] + ' ';
-          y += lineHeight;
+          y += lineHeight * 0.9;
         } else {
           linea = testLinea;
         }
