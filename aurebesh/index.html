@@ -59,6 +59,8 @@
       padding: 15px;
       font-size: 1rem;
       margin-bottom: 20px;
+      opacity: 0.5;
+      cursor: not-allowed;
       background: rgba(255,255,255,0.08);
       color: white;
     }
@@ -78,18 +80,25 @@
     button {
       width: 100%;
       padding: 14px;
-      border: none;
+      border: 2px solid #facc15;
       border-radius: 14px;
-      background: #3b82f6;
-      color: white;
+      background: #000000;
+      color: #facc15;
       font-size: 1rem;
       cursor: pointer;
       transition: 0.25s;
+      font-family: Impact, Arial Black, sans-serif;
+      letter-spacing: 2px;
       margin-bottom: 20px;
     }
 
+    button:enabled {
+      opacity: 1;
+      cursor: pointer;
+    }
+
     button:hover {
-      background: #2563eb;
+      background: #111111;
       transform: scale(1.02);
     }
 
@@ -176,7 +185,7 @@
       </div>
     </div>
 
-    <button onclick="descargarImagen()">Descargar imagen</button>
+    <button id="btnDescargar" onclick="descargarImagen()" disabled>DESCARGAR IMAGEN</button>
 
     <div class="footer">
       Hecho para fans de Star Wars ✨ by Hackcr0w
@@ -199,6 +208,9 @@
 
       timeoutTraduccion = setTimeout(() => {
         traducir();
+
+        const texto = document.getElementById('texto').value.trim();
+        document.getElementById('btnDescargar').disabled = texto === '';
       }, 250);
     });
 
