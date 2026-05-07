@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Hackcrow</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#030303;
+    overflow:hidden;
+    font-family:'Share Tech Mono', monospace;
+    color:#00ff88;
+}
+
+/* ===== LOADING SCREEN ===== */
+
+#loader{
+    position:fixed;
+    inset:0;
+    background:#030303;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+    overflow:hidden;
+}
+
+/* scanlines */
+
+#loader::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+    repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.03),
+        rgba(255,255,255,0.03) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+    pointer-events:none;
+    opacity:.15;
+}
+
+/* logo */
+
+.glitch{
+    position:relative;
+    font-size:5rem;
+    letter-spacing:8px;
+    font-weight:normal;
+    text-transform:uppercase;
+    animation:glitchSkew 3s infinite;
+    margin-bottom:30px;
+}
+
+.glitch::before,
+.glitch::after{
+    content:"HACKCROW";
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    overflow:hidden;
+}
+
+.glitch::before{
+    color:#00d9ff;
+    z-index:-1;
+    animation:glitch1 1.5s infinite linear alternate-reverse;
+}
+
+.glitch::after{
+    color:#b026ff;
+    z-index:-2;
+    animation:glitch2 2s infinite linear alternate-reverse;
+}
+
+@keyframes glitch1{
+    0%{transform:translate(0)}
+    20%{transform:translate(-2px,2px)}
+    40%{transform:translate(-2px,-2px)}
+    60%{transform:translate(2px,2px)}
+    80%{transform:translate(2px,-2px)}
+    100%{transform:translate(0)}
+}
+
+@keyframes glitch2{
+    0%{transform:translate(0)}
+    20%{transform:translate(2px,-2px)}
+    40%{transform:translate(2px,2px)}
+    60%{transform:translate(-2px,-2px)}
+    80%{transform:translate(-2px,2px)}
+    100%{transform:translate(0)}
+}
+
+@keyframes glitchSkew{
+    0%,100%{
+        transform:skew(0deg);
+    }
+    20%{
+        transform:skew(2deg);
+    }
+    40%{
+        transform:skew(-2deg);
+    }
+    60%{
+        transform:skew(1deg);
+    }
+    80%{
+        transform:skew(-1deg);
+    }
+}
+
+/* initializing */
+
+.init{
+    font-size:1.2rem;
+    margin-bottom:20px;
+    letter-spacing:3px;
+    text-shadow:0 0 10px #00ff88;
+}
+
+/* progress */
+
+.progress-container{
+    width:420px;
+    height:30px;
+    border:2px solid #00ff88;
+    padding:4px;
+    margin-bottom:15px;
+    box-shadow:0 0 15px #00ff8850;
+}
+
+.progress-bar{
+    height:100%;
+    width:0%;
+    background:#00ff88;
+    box-shadow:0 0 20px #00ff88;
+    transition:width .15s linear;
+}
+
+.percent{
+    margin-bottom:25px;
+    font-size:1.2rem;
+}
+
+/* logs */
+
+.logs{
+    width:500px;
+    height:180px;
+    border:1px solid #00ff8840;
+    padding:15px;
+    overflow:hidden;
+    background:rgba(0,255,136,.03);
+    box-shadow:0 0 20px #00ff8820 inset;
+}
+
+.log{
+    font-size:.95rem;
+    margin-bottom:8px;
+    opacity:0;
+    animation:fadeIn .3s forwards;
+}
+
+@keyframes fadeIn{
+    to{
+        opacity:1;
+    }
+}
+
+/* terminal box */
+
+.terminal-box{
+    margin-top:30px;
+    color:#00ff88;
+    font-size:1rem;
+    line-height:1.6;
+    text-shadow:0 0 8px #00ff88;
+}
+
+/* main */
+
+#mainContent{
+    display:none;
+    height:100vh;
+    justify-content:center;
+    align-items:center;
+    font-size:4rem;
+    letter-spacing:10px;
+}
+
+.show{
+    display:flex !important;
+}
+
+/* responsive */
+
+@media(max-width:700px){
+
+    .glitch{
+        font-size:3rem;
+        text-align:center;
+    }
+
+    .progress-container{
+        width:90%;
+    }
+
+    .logs{
+        width:90%;
+        font-size:.8rem;
+    }
+
+    .terminal-box{
+        font-size:.8rem;
+        text-align:center;
+    }
+
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+
+<div id="loader">
+
+    <div class="glitch">HACKCROW</div>
+
+    <div class="init">
+        INITIALIZING HACKCROW SYSTEM...
+    </div>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="bar"></div>
+    </div>
+
+    <div class="percent" id="percent">0%</div>
+
+    <div class="logs" id="logs"></div>
+
+    <div class="terminal-box">
+<pre>
+┌──────────────────────────┐
+│      HACKCROW.sh         │
+│  Secure access granted   │
+└──────────────────────────┘
+</pre>
+    </div>
+
+</div>
+
+<!-- MAIN CONTENT -->
+
+<div id="mainContent">
+    HACKCROW
+</div>
+
+<script>
+
+const bar = document.getElementById("bar");
+const percent = document.getElementById("percent");
+const logs = document.getElementById("logs");
+const loader = document.getElementById("loader");
+const main = document.getElementById("mainContent");
+
+const fakeLogs = [
+    "[00:00:01] Loading kernel modules... OK",
+    "[00:00:02] Establishing secure connection... OK",
+    "[00:00:03] Bypassing firewall... OK",
+    "[00:00:04] Encrypting payload... OK",
+    "[00:00:05] Injecting exploit vector... OK",
+    "[00:00:06] Accessing secure nodes... OK",
+    "[00:00:07] Elevating privileges... OK",
+    "[00:00:08] Cleaning traces... OK",
+    "[00:00:09] Access granted."
+];
+
+let progress = 0;
+let logIndex = 0;
+
+const interval = setInterval(() => {
+
+    progress++;
+
+    bar.style.width = progress + "%";
+    percent.innerText = progress + "%";
+
+    if(progress % 10 === 0 && logIndex < fakeLogs.length){
+
+        const log = document.createElement("div");
+        log.classList.add("log");
+        log.innerText = fakeLogs[logIndex];
+
+        logs.appendChild(log);
+
+        logs.scrollTop = logs.scrollHeight;
+
+        logIndex++;
+    }
+
+    if(progress >= 100){
+
+        clearInterval(interval);
+
+        setTimeout(() => {
+
+            loader.style.transition = "opacity 1s ease";
+            loader.style.opacity = "0";
+
+            setTimeout(() => {
+
+                loader.style.display = "none";
+                main.classList.add("show");
+
+            },1000);
+
+        },800);
+
+    }
+
+},60);
+
+</script>
+
+</body>
+</html>
