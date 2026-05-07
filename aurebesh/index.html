@@ -37,11 +37,14 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
-    h1 {$1font-size: 2.2rem;
+    h1 {
+      text-align: center;
       margin-bottom: 25px;
+      font-size: 2.2rem;
       text-transform: uppercase;
       color: #facc15;
       letter-spacing: 4px;
+      font-weight: 400;
     }
 
     p {$1margin-bottom: 40px;
@@ -111,7 +114,11 @@
       box-shadow: 0 0 10px #facc15, 0 0 25px #facc15;
     }
 
-    .opciones {$1margin-bottom: 35px;
+    .opciones {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-bottom: 35px;
     }
 
     .grupo {
