@@ -149,6 +149,7 @@
         <label>Color del texto</label>
         <select id="colorTexto">
           <option value="#ffffff">Blanco</option>
+          <option value="transparent">Transparente</option>
           <option value="#00ffcc">Cian</option>
           <option value="#00ff00">Verde</option>
           <option value="#ff3131">Rojo</option>
@@ -179,7 +180,7 @@
     <button onclick="descargarImagen()">Descargar imagen</button>
 
     <div class="footer">
-      Hecho para fans de Star Wars ✨
+      Hecho para fans de Star Wars ✨ by Hackcr0w
     </div>
   </div>
 
@@ -215,8 +216,10 @@
       canvas.height = 220;
 
       // Fondo
-      ctx.fillStyle = colorFondo;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      if (colorFondo !== 'transparent') {
+        ctx.fillStyle = colorFondo;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
 
       // Texto
       ctx.fillStyle = colorTexto;
