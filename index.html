@@ -61,18 +61,14 @@ body{
 }
 
 /* =========================
-   LOADER GLITCH
+   GLITCH TITLE
 ========================= */
 
 .glitch{
     position:relative;
-
     font-size:5rem;
-
     letter-spacing:10px;
-
     text-transform:uppercase;
-
     color:#00ff88;
 
     text-shadow:
@@ -80,8 +76,7 @@ body{
         0 0 15px #00ff88,
         0 0 40px #00ff88;
 
-    animation:
-        textShake 1.5s infinite;
+    animation:textShake 5s infinite;
 
     margin-bottom:30px;
 }
@@ -102,10 +97,9 @@ body{
     background:#030303;
 
     overflow:hidden;
-
 }
 
-/* cyan */
+/* cyan layer */
 
 .glitch::before{
 
@@ -113,12 +107,11 @@ body{
 
     text-shadow:-4px 0 #00d9ff;
 
-    animation:
-        glitchSlices1 0.7s infinite linear alternate-reverse;
+    animation:glitchSlices1 5s infinite;
 
 }
 
-/* purple */
+/* purple layer */
 
 .glitch::after{
 
@@ -126,8 +119,7 @@ body{
 
     text-shadow:4px 0 #b026ff;
 
-    animation:
-        glitchSlices2 0.5s infinite linear alternate-reverse;
+    animation:glitchSlices2 5s infinite;
 
 }
 
@@ -136,15 +128,10 @@ body{
 ========================= */
 
 .init{
-
     font-size:1.2rem;
-
     margin-bottom:20px;
-
     letter-spacing:3px;
-
     text-shadow:0 0 10px #00ff88;
-
 }
 
 /* =========================
@@ -152,41 +139,25 @@ body{
 ========================= */
 
 .progress-container{
-
     width:420px;
-
     height:30px;
-
     border:2px solid #00ff88;
-
     padding:4px;
-
     margin-bottom:15px;
-
     box-shadow:0 0 15px #00ff8850;
-
 }
 
 .progress-bar{
-
     height:100%;
-
     width:0%;
-
     background:#00ff88;
-
     box-shadow:0 0 20px #00ff88;
-
     transition:width .15s linear;
-
 }
 
 .percent{
-
     margin-bottom:25px;
-
     font-size:1.2rem;
-
 }
 
 /* =========================
@@ -194,41 +165,26 @@ body{
 ========================= */
 
 .logs{
-
     width:500px;
-
     height:180px;
-
     border:1px solid #00ff8840;
-
     padding:15px;
-
     overflow:hidden;
-
     background:rgba(0,255,136,.03);
-
     box-shadow:0 0 20px #00ff8820 inset;
-
 }
 
 .log{
-
     font-size:.95rem;
-
     margin-bottom:8px;
-
     opacity:0;
-
     animation:fadeIn .3s forwards;
-
 }
 
 @keyframes fadeIn{
-
     to{
         opacity:1;
     }
-
 }
 
 /* =========================
@@ -236,17 +192,11 @@ body{
 ========================= */
 
 .terminal-box{
-
     margin-top:30px;
-
     color:#00ff88;
-
     font-size:1rem;
-
     line-height:1.6;
-
     text-shadow:0 0 8px #00ff88;
-
 }
 
 /* =========================
@@ -254,17 +204,11 @@ body{
 ========================= */
 
 #mainContent{
-
     display:none;
-
     height:100vh;
-
     justify-content:center;
-
     align-items:center;
-
     background:#030303;
-
 }
 
 .show{
@@ -292,12 +236,11 @@ body{
         0 0 15px #00ff88,
         0 0 40px #00ff88;
 
-    animation:
-        textShake 1.5s infinite;
+    animation:textShake 5s infinite;
 
 }
 
-/* capas */
+/* glitch layers */
 
 .main-glitch::before,
 .main-glitch::after{
@@ -326,8 +269,7 @@ body{
 
     text-shadow:-4px 0 #00d9ff;
 
-    animation:
-        glitchSlices1 0.7s infinite linear alternate-reverse;
+    animation:glitchSlices1 5s infinite;
 
 }
 
@@ -339,8 +281,7 @@ body{
 
     text-shadow:4px 0 #b026ff;
 
-    animation:
-        glitchSlices2 0.5s infinite linear alternate-reverse;
+    animation:glitchSlices2 5s infinite;
 
 }
 
@@ -350,105 +291,100 @@ body{
 
 @keyframes textShake{
 
-    0%,100%{
+    0%,80%,100%{
         transform:translate(0);
     }
 
-    10%{
-        transform:translate(-2px,1px);
-    }
-
-    20%{
-        transform:translate(2px,-1px);
-    }
-
-    30%{
+    81%{
         transform:translate(-5px,2px);
     }
 
-    40%{
+    82%{
         transform:translate(5px,-2px);
     }
 
-    50%{
+    83%{
+        transform:translate(-8px,4px);
+    }
+
+    84%{
+        transform:translate(8px,-4px);
+    }
+
+    85%{
         transform:translate(-3px,1px);
     }
 
-    60%{
+    86%{
         transform:translate(3px,-1px);
     }
 
-    70%{
-        transform:translate(-6px,2px);
+    87%{
+        transform:translate(-10px,3px);
     }
 
-    80%{
-        transform:translate(6px,-2px);
+    88%{
+        transform:translate(10px,-3px);
     }
 
-    90%{
-        transform:translate(-2px,1px);
+    89%{
+        transform:translate(0);
     }
 
 }
 
 /* =========================
-   SLICES 1
+   GLITCH SLICES 1
 ========================= */
 
 @keyframes glitchSlices1{
 
-    0%{
+    0%,80%,100%{
+        clip-path:inset(0 0 0 0);
+        transform:translate(0);
+    }
+
+    81%{
         clip-path:inset(10% 0 80% 0);
-        transform:translate(-20px,-10px);
+        transform:translate(-25px,-10px);
     }
 
-    10%{
+    82%{
         clip-path:inset(40% 0 30% 0);
-        transform:translate(15px,5px);
+        transform:translate(20px,5px);
     }
 
-    20%{
+    83%{
         clip-path:inset(70% 0 5% 0);
-        transform:translate(-10px,8px);
+        transform:translate(-15px,8px);
     }
 
-    30%{
+    84%{
         clip-path:inset(15% 0 60% 0);
-        transform:translate(25px,-5px);
+        transform:translate(30px,-5px);
     }
 
-    40%{
+    85%{
         clip-path:inset(50% 0 20% 0);
-        transform:translate(-30px,3px);
+        transform:translate(-35px,3px);
     }
 
-    50%{
+    86%{
         clip-path:inset(80% 0 2% 0);
         transform:translate(20px,-8px);
     }
 
-    60%{
+    87%{
         clip-path:inset(25% 0 45% 0);
         transform:translate(-25px,4px);
     }
 
-    70%{
+    88%{
         clip-path:inset(60% 0 10% 0);
         transform:translate(18px,-4px);
     }
 
-    80%{
-        clip-path:inset(5% 0 75% 0);
-        transform:translate(-15px,6px);
-    }
-
-    90%{
-        clip-path:inset(35% 0 35% 0);
-        transform:translate(10px,-3px);
-    }
-
-    100%{
+    89%{
         clip-path:inset(0 0 0 0);
         transform:translate(0);
     }
@@ -456,62 +392,57 @@ body{
 }
 
 /* =========================
-   SLICES 2
+   GLITCH SLICES 2
 ========================= */
 
 @keyframes glitchSlices2{
 
-    0%{
+    0%,80%,100%{
+        clip-path:inset(0 0 0 0);
+        transform:translate(0);
+    }
+
+    81%{
         clip-path:inset(75% 0 5% 0);
-        transform:translate(20px,10px);
+        transform:translate(25px,10px);
     }
 
-    10%{
+    82%{
         clip-path:inset(5% 0 70% 0);
-        transform:translate(-15px,-5px);
+        transform:translate(-20px,-5px);
     }
 
-    20%{
+    83%{
         clip-path:inset(45% 0 25% 0);
-        transform:translate(30px,4px);
+        transform:translate(35px,4px);
     }
 
-    30%{
+    84%{
         clip-path:inset(20% 0 55% 0);
-        transform:translate(-25px,-4px);
+        transform:translate(-30px,-4px);
     }
 
-    40%{
+    85%{
         clip-path:inset(65% 0 15% 0);
-        transform:translate(15px,6px);
+        transform:translate(20px,6px);
     }
 
-    50%{
+    86%{
         clip-path:inset(10% 0 80% 0);
         transform:translate(-20px,-8px);
     }
 
-    60%{
+    87%{
         clip-path:inset(55% 0 20% 0);
         transform:translate(25px,2px);
     }
 
-    70%{
+    88%{
         clip-path:inset(30% 0 40% 0);
         transform:translate(-18px,-6px);
     }
 
-    80%{
-        clip-path:inset(85% 0 2% 0);
-        transform:translate(12px,5px);
-    }
-
-    90%{
-        clip-path:inset(40% 0 35% 0);
-        transform:translate(-10px,-3px);
-    }
-
-    100%{
+    89%{
         clip-path:inset(0 0 0 0);
         transform:translate(0);
     }
