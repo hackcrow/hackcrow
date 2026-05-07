@@ -59,7 +59,7 @@ body{
 }
 
 /* =========================
-   GLITCH TITLE
+   LOADER GLITCH
 ========================= */
 
 .glitch{
@@ -67,74 +67,64 @@ body{
     font-size:5rem;
     letter-spacing:8px;
     text-transform:uppercase;
-    animation:glitchSkew 3s infinite;
-    margin-bottom:30px;
+
     text-shadow:
         0 0 5px #00ff88,
         0 0 15px #00ff88,
         0 0 30px #00ff88;
+
+    animation:
+        intenseGlitch 2s infinite,
+        flicker 4s infinite;
+
+    margin-bottom:30px;
 }
 
 .glitch::before,
 .glitch::after{
     content:"HACKCROW";
     position:absolute;
-    left:0;
     top:0;
+    left:0;
     width:100%;
+    height:100%;
     overflow:hidden;
 }
 
 .glitch::before{
+
     color:#00d9ff;
+
     z-index:-1;
-    animation:glitch1 1.5s infinite linear alternate-reverse;
+
+    animation:
+        glitchTop 0.12s infinite,
+        glitchFlash 2s infinite;
+
+    clip-path:polygon(
+        0 2%,
+        100% 2%,
+        100% 45%,
+        0 45%
+    );
 }
 
 .glitch::after{
+
     color:#b026ff;
+
     z-index:-2;
-    animation:glitch2 2s infinite linear alternate-reverse;
-}
 
-@keyframes glitch1{
-    0%{transform:translate(0)}
-    20%{transform:translate(-2px,2px)}
-    40%{transform:translate(-2px,-2px)}
-    60%{transform:translate(2px,2px)}
-    80%{transform:translate(2px,-2px)}
-    100%{transform:translate(0)}
-}
+    animation:
+        glitchBottom 0.15s infinite,
+        glitchFlash2 1.7s infinite;
 
-@keyframes glitch2{
-    0%{transform:translate(0)}
-    20%{transform:translate(2px,-2px)}
-    40%{transform:translate(2px,2px)}
-    60%{transform:translate(-2px,-2px)}
-    80%{transform:translate(-2px,2px)}
-    100%{transform:translate(0)}
-}
-
-@keyframes glitchSkew{
-    0%,100%{
-        transform:skew(0deg);
-    }
-
-    20%{
-        transform:skew(2deg);
-    }
-
-    40%{
-        transform:skew(-2deg);
-    }
-
-    60%{
-        transform:skew(1deg);
-    }
-
-    80%{
-        transform:skew(-1deg);
-    }
+    clip-path:polygon(
+        0 60%,
+        100% 60%,
+        100% 100%,
+        0 100%
+    );
 }
 
 /* =========================
@@ -238,12 +228,19 @@ body{
     font-size:4rem;
     letter-spacing:10px;
     color:#00ff88;
+    text-transform:uppercase;
+
     text-shadow:
         0 0 5px #00ff88,
         0 0 15px #00ff88,
         0 0 30px #00ff88;
-    animation:mainGlitch 3s infinite;
+
+    animation:
+        intenseGlitch 2s infinite,
+        flicker 4s infinite;
 }
+
+/* capas glitch */
 
 .main-glitch::before,
 .main-glitch::after{
@@ -252,45 +249,107 @@ body{
     top:0;
     left:0;
     width:100%;
+    height:100%;
     overflow:hidden;
 }
 
+/* cyan */
+
 .main-glitch::before{
-    left:2px;
-    text-shadow:-2px 0 #00d9ff;
-    clip-path:inset(0 0 50% 0);
-    animation:glitchTop 2s infinite linear alternate-reverse;
+
+    color:#00d9ff;
+
+    z-index:-1;
+
+    animation:
+        glitchTop 0.12s infinite,
+        glitchFlash 2s infinite;
+
+    clip-path:polygon(
+        0 2%,
+        100% 2%,
+        100% 45%,
+        0 45%
+    );
 }
+
+/* purple */
 
 .main-glitch::after{
-    left:-2px;
-    text-shadow:2px 0 #b026ff;
-    clip-path:inset(50% 0 0 0);
-    animation:glitchBottom 2.5s infinite linear alternate-reverse;
+
+    color:#b026ff;
+
+    z-index:-2;
+
+    animation:
+        glitchBottom 0.15s infinite,
+        glitchFlash2 1.7s infinite;
+
+    clip-path:polygon(
+        0 60%,
+        100% 60%,
+        100% 100%,
+        0 100%
+    );
 }
 
-@keyframes mainGlitch{
+/* =========================
+   GLITCH ANIMATIONS
+========================= */
 
-    0%,100%{
+@keyframes intenseGlitch{
+
+    0%{
         transform:translate(0);
+        filter:blur(0);
+    }
+
+    5%{
+        transform:translate(-8px,2px) skewX(8deg);
+    }
+
+    10%{
+        transform:translate(6px,-3px) skewX(-10deg);
+    }
+
+    15%{
+        transform:translate(-12px,5px);
     }
 
     20%{
-        transform:translate(-1px,1px);
+        transform:translate(0);
+    }
+
+    25%{
+        transform:scaleX(1.04);
+    }
+
+    30%{
+        transform:translate(15px,-4px);
+    }
+
+    35%{
+        transform:translate(-15px,4px);
     }
 
     40%{
-        transform:translate(1px,-1px);
+        transform:translate(0);
     }
 
-    60%{
-        transform:translate(-2px,0);
+    45%{
+        filter:blur(2px);
     }
 
-    80%{
-        transform:translate(2px,1px);
+    50%{
+        filter:blur(0);
+    }
+
+    100%{
+        transform:translate(0);
     }
 }
+
+/* lineas superiores */
 
 @keyframes glitchTop{
 
@@ -299,25 +358,27 @@ body{
     }
 
     20%{
-        transform:translate(-3px,-2px);
+        transform:translate(-20px,-5px);
     }
 
     40%{
-        transform:translate(3px,2px);
+        transform:translate(20px,5px);
     }
 
     60%{
-        transform:translate(-2px,1px);
+        transform:translate(-30px,2px);
     }
 
     80%{
-        transform:translate(2px,-1px);
+        transform:translate(30px,-2px);
     }
 
     100%{
         transform:translate(0);
     }
 }
+
+/* lineas inferiores */
 
 @keyframes glitchBottom{
 
@@ -326,23 +387,96 @@ body{
     }
 
     20%{
-        transform:translate(2px,2px);
+        transform:translate(25px,5px);
     }
 
     40%{
-        transform:translate(-2px,-2px);
+        transform:translate(-25px,-5px);
     }
 
     60%{
-        transform:translate(3px,-1px);
+        transform:translate(35px,-2px);
     }
 
     80%{
-        transform:translate(-3px,1px);
+        transform:translate(-35px,2px);
     }
 
     100%{
         transform:translate(0);
+    }
+}
+
+/* flashes */
+
+@keyframes glitchFlash{
+
+    0%,100%{
+        opacity:0;
+    }
+
+    10%{
+        opacity:1;
+    }
+
+    11%{
+        opacity:0;
+    }
+
+    50%{
+        opacity:1;
+    }
+
+    51%{
+        opacity:0;
+    }
+}
+
+@keyframes glitchFlash2{
+
+    0%,100%{
+        opacity:0;
+    }
+
+    30%{
+        opacity:1;
+    }
+
+    31%{
+        opacity:0;
+    }
+
+    70%{
+        opacity:1;
+    }
+
+    71%{
+        opacity:0;
+    }
+}
+
+/* flicker */
+
+@keyframes flicker{
+
+    0%,100%{
+        opacity:1;
+    }
+
+    92%{
+        opacity:.8;
+    }
+
+    94%{
+        opacity:.4;
+    }
+
+    96%{
+        opacity:1;
+    }
+
+    98%{
+        opacity:.6;
     }
 }
 
