@@ -142,8 +142,6 @@
 
     <textarea id="texto" placeholder="Escribe aquí..."></textarea>
 
-    <div class="resultado" id="resultado"></div>
-
     <div class="opciones">
       <div class="grupo">
         <label>Color del texto</label>
@@ -176,9 +174,9 @@
       </div>
     </div>
 
-    <button onclick="traducir()">Traducir</button>
-
     <button onclick="descargarImagen()">Descargar imagen</button>
+
+    <div class="resultado" id="resultado"></div>
 
     <div class="footer">
       Hecho para fans de Star Wars ✨
@@ -230,7 +228,7 @@
         const medidas = ctx.measureText(testLinea);
 
         if (medidas.width > maxWidth && n > 0) {
-          ctx.fillText(linea.trim(), canvas.width / 2, y); 2, y);
+          ctx.fillText(linea.trim(), canvas.width / 2, y);
           linea = palabras[n] + ' ';
           y += lineHeight * 0.9;
         } else {
@@ -238,7 +236,7 @@
         }
       }
 
-      ctx.fillText(linea, canvas.width / 2, y);
+      ctx.fillText(linea.trim(), canvas.width / 2, y);
 
       const link = document.createElement('a');
       link.download = 'aurebesh.png';
