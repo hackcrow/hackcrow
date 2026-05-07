@@ -10,6 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -23,7 +24,9 @@ body{
     color:#00ff88;
 }
 
-/* ===== LOADING SCREEN ===== */
+/* =========================
+   LOADER
+========================= */
 
 #loader{
     position:fixed;
@@ -55,16 +58,21 @@ body{
     opacity:.15;
 }
 
-/* logo */
+/* =========================
+   GLITCH TITLE
+========================= */
 
 .glitch{
     position:relative;
     font-size:5rem;
     letter-spacing:8px;
-    font-weight:normal;
     text-transform:uppercase;
     animation:glitchSkew 3s infinite;
     margin-bottom:30px;
+    text-shadow:
+        0 0 5px #00ff88,
+        0 0 15px #00ff88,
+        0 0 30px #00ff88;
 }
 
 .glitch::before,
@@ -111,21 +119,27 @@ body{
     0%,100%{
         transform:skew(0deg);
     }
+
     20%{
         transform:skew(2deg);
     }
+
     40%{
         transform:skew(-2deg);
     }
+
     60%{
         transform:skew(1deg);
     }
+
     80%{
         transform:skew(-1deg);
     }
 }
 
-/* initializing */
+/* =========================
+   INITIALIZING
+========================= */
 
 .init{
     font-size:1.2rem;
@@ -134,7 +148,9 @@ body{
     text-shadow:0 0 10px #00ff88;
 }
 
-/* progress */
+/* =========================
+   PROGRESS BAR
+========================= */
 
 .progress-container{
     width:420px;
@@ -158,7 +174,9 @@ body{
     font-size:1.2rem;
 }
 
-/* logs */
+/* =========================
+   LOGS
+========================= */
 
 .logs{
     width:500px;
@@ -183,7 +201,9 @@ body{
     }
 }
 
-/* terminal box */
+/* =========================
+   TERMINAL BOX
+========================= */
 
 .terminal-box{
     margin-top:30px;
@@ -193,22 +213,142 @@ body{
     text-shadow:0 0 8px #00ff88;
 }
 
-/* main */
+/* =========================
+   MAIN CONTENT
+========================= */
 
 #mainContent{
     display:none;
     height:100vh;
     justify-content:center;
     align-items:center;
-    font-size:4rem;
-    letter-spacing:10px;
+    background:#030303;
 }
 
 .show{
     display:flex !important;
 }
 
-/* responsive */
+/* =========================
+   MAIN GLITCH
+========================= */
+
+.main-glitch{
+    position:relative;
+    font-size:4rem;
+    letter-spacing:10px;
+    color:#00ff88;
+    text-shadow:
+        0 0 5px #00ff88,
+        0 0 15px #00ff88,
+        0 0 30px #00ff88;
+    animation:mainGlitch 3s infinite;
+}
+
+.main-glitch::before,
+.main-glitch::after{
+    content:attr(data-text);
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    overflow:hidden;
+}
+
+.main-glitch::before{
+    left:2px;
+    text-shadow:-2px 0 #00d9ff;
+    clip-path:inset(0 0 50% 0);
+    animation:glitchTop 2s infinite linear alternate-reverse;
+}
+
+.main-glitch::after{
+    left:-2px;
+    text-shadow:2px 0 #b026ff;
+    clip-path:inset(50% 0 0 0);
+    animation:glitchBottom 2.5s infinite linear alternate-reverse;
+}
+
+@keyframes mainGlitch{
+
+    0%,100%{
+        transform:translate(0);
+    }
+
+    20%{
+        transform:translate(-1px,1px);
+    }
+
+    40%{
+        transform:translate(1px,-1px);
+    }
+
+    60%{
+        transform:translate(-2px,0);
+    }
+
+    80%{
+        transform:translate(2px,1px);
+    }
+}
+
+@keyframes glitchTop{
+
+    0%{
+        transform:translate(0);
+    }
+
+    20%{
+        transform:translate(-3px,-2px);
+    }
+
+    40%{
+        transform:translate(3px,2px);
+    }
+
+    60%{
+        transform:translate(-2px,1px);
+    }
+
+    80%{
+        transform:translate(2px,-1px);
+    }
+
+    100%{
+        transform:translate(0);
+    }
+}
+
+@keyframes glitchBottom{
+
+    0%{
+        transform:translate(0);
+    }
+
+    20%{
+        transform:translate(2px,2px);
+    }
+
+    40%{
+        transform:translate(-2px,-2px);
+    }
+
+    60%{
+        transform:translate(3px,-1px);
+    }
+
+    80%{
+        transform:translate(-3px,1px);
+    }
+
+    100%{
+        transform:translate(0);
+    }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media(max-width:700px){
 
@@ -231,16 +371,27 @@ body{
         text-align:center;
     }
 
+    .main-glitch{
+        font-size:2.2rem;
+        text-align:center;
+        letter-spacing:5px;
+    }
+
 }
+
 </style>
 </head>
 <body>
 
-<!-- LOADER -->
+<!-- =========================
+     LOADER
+========================= -->
 
 <div id="loader">
 
-    <div class="glitch">HACKCROW</div>
+    <div class="glitch">
+        HACKCROW
+    </div>
 
     <div class="init">
         INITIALIZING HACKCROW SYSTEM...
@@ -250,7 +401,9 @@ body{
         <div class="progress-bar" id="bar"></div>
     </div>
 
-    <div class="percent" id="percent">0%</div>
+    <div class="percent" id="percent">
+        0%
+    </div>
 
     <div class="logs" id="logs"></div>
 
@@ -265,10 +418,16 @@ body{
 
 </div>
 
-<!-- MAIN CONTENT -->
+<!-- =========================
+     MAIN CONTENT
+========================= -->
 
 <div id="mainContent">
-    HACKCROW
+
+    <div class="main-glitch" data-text="HACKCROW">
+        HACKCROW
+    </div>
+
 </div>
 
 <script>
@@ -280,6 +439,7 @@ const loader = document.getElementById("loader");
 const main = document.getElementById("mainContent");
 
 const fakeLogs = [
+
     "[00:00:01] Loading kernel modules... OK",
     "[00:00:02] Establishing secure connection... OK",
     "[00:00:03] Bypassing firewall... OK",
@@ -289,6 +449,7 @@ const fakeLogs = [
     "[00:00:07] Elevating privileges... OK",
     "[00:00:08] Cleaning traces... OK",
     "[00:00:09] Access granted."
+
 ];
 
 let progress = 0;
@@ -304,7 +465,9 @@ const interval = setInterval(() => {
     if(progress % 10 === 0 && logIndex < fakeLogs.length){
 
         const log = document.createElement("div");
+
         log.classList.add("log");
+
         log.innerText = fakeLogs[logIndex];
 
         logs.appendChild(log);
@@ -312,6 +475,7 @@ const interval = setInterval(() => {
         logs.scrollTop = logs.scrollHeight;
 
         logIndex++;
+
     }
 
     if(progress >= 100){
