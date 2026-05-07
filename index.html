@@ -59,72 +59,250 @@ body{
 }
 
 /* =========================
-   LOADER GLITCH
+   MAIN GLITCH REAL
 ========================= */
 
-.glitch{
+.main-glitch{
+
     position:relative;
+
     font-size:5rem;
-    letter-spacing:8px;
+
+    letter-spacing:12px;
+
+    color:#00ff88;
+
     text-transform:uppercase;
 
     text-shadow:
         0 0 5px #00ff88,
         0 0 15px #00ff88,
-        0 0 30px #00ff88;
+        0 0 40px #00ff88;
 
     animation:
-        intenseGlitch 2s infinite,
-        flicker 4s infinite;
+        textShake 1.5s infinite;
 
-    margin-bottom:30px;
 }
 
-.glitch::before,
-.glitch::after{
-    content:"HACKCROW";
+/* CAPAS */
+
+.main-glitch::before,
+.main-glitch::after{
+
+    content:attr(data-text);
+
     position:absolute;
+
     top:0;
     left:0;
+
     width:100%;
     height:100%;
+
+    background:#030303;
+
     overflow:hidden;
+
 }
 
-.glitch::before{
+/* CYAN */
 
-    color:#00d9ff;
+.main-glitch::before{
 
-    z-index:-1;
+    left:4px;
+
+    text-shadow:-4px 0 #00d9ff;
 
     animation:
-        glitchTop 0.12s infinite,
-        glitchFlash 2s infinite;
+        glitchSlices1 0.7s infinite linear alternate-reverse;
 
-    clip-path:polygon(
-        0 2%,
-        100% 2%,
-        100% 45%,
-        0 45%
-    );
 }
 
-.glitch::after{
+/* PURPLE */
 
-    color:#b026ff;
+.main-glitch::after{
 
-    z-index:-2;
+    left:-4px;
+
+    text-shadow:4px 0 #b026ff;
 
     animation:
-        glitchBottom 0.15s infinite,
-        glitchFlash2 1.7s infinite;
+        glitchSlices2 0.5s infinite linear alternate-reverse;
 
-    clip-path:polygon(
-        0 60%,
-        100% 60%,
-        100% 100%,
-        0 100%
-    );
+}
+
+/* =========================
+   SHAKE
+========================= */
+
+@keyframes textShake{
+
+    0%,100%{
+        transform:translate(0);
+    }
+
+    10%{
+        transform:translate(-2px,1px);
+    }
+
+    20%{
+        transform:translate(2px,-1px);
+    }
+
+    30%{
+        transform:translate(-5px,2px);
+    }
+
+    40%{
+        transform:translate(5px,-2px);
+    }
+
+    50%{
+        transform:translate(-3px,1px);
+    }
+
+    60%{
+        transform:translate(3px,-1px);
+    }
+
+    70%{
+        transform:translate(-6px,2px);
+    }
+
+    80%{
+        transform:translate(6px,-2px);
+    }
+
+    90%{
+        transform:translate(-2px,1px);
+    }
+
+}
+
+/* =========================
+   SLICES 1
+========================= */
+
+@keyframes glitchSlices1{
+
+    0%{
+        clip-path:inset(10% 0 80% 0);
+        transform:translate(-20px,-10px);
+    }
+
+    10%{
+        clip-path:inset(40% 0 30% 0);
+        transform:translate(15px,5px);
+    }
+
+    20%{
+        clip-path:inset(70% 0 5% 0);
+        transform:translate(-10px,8px);
+    }
+
+    30%{
+        clip-path:inset(15% 0 60% 0);
+        transform:translate(25px,-5px);
+    }
+
+    40%{
+        clip-path:inset(50% 0 20% 0);
+        transform:translate(-30px,3px);
+    }
+
+    50%{
+        clip-path:inset(80% 0 2% 0);
+        transform:translate(20px,-8px);
+    }
+
+    60%{
+        clip-path:inset(25% 0 45% 0);
+        transform:translate(-25px,4px);
+    }
+
+    70%{
+        clip-path:inset(60% 0 10% 0);
+        transform:translate(18px,-4px);
+    }
+
+    80%{
+        clip-path:inset(5% 0 75% 0);
+        transform:translate(-15px,6px);
+    }
+
+    90%{
+        clip-path:inset(35% 0 35% 0);
+        transform:translate(10px,-3px);
+    }
+
+    100%{
+        clip-path:inset(0 0 0 0);
+        transform:translate(0);
+    }
+
+}
+
+/* =========================
+   SLICES 2
+========================= */
+
+@keyframes glitchSlices2{
+
+    0%{
+        clip-path:inset(75% 0 5% 0);
+        transform:translate(20px,10px);
+    }
+
+    10%{
+        clip-path:inset(5% 0 70% 0);
+        transform:translate(-15px,-5px);
+    }
+
+    20%{
+        clip-path:inset(45% 0 25% 0);
+        transform:translate(30px,4px);
+    }
+
+    30%{
+        clip-path:inset(20% 0 55% 0);
+        transform:translate(-25px,-4px);
+    }
+
+    40%{
+        clip-path:inset(65% 0 15% 0);
+        transform:translate(15px,6px);
+    }
+
+    50%{
+        clip-path:inset(10% 0 80% 0);
+        transform:translate(-20px,-8px);
+    }
+
+    60%{
+        clip-path:inset(55% 0 20% 0);
+        transform:translate(25px,2px);
+    }
+
+    70%{
+        clip-path:inset(30% 0 40% 0);
+        transform:translate(-18px,-6px);
+    }
+
+    80%{
+        clip-path:inset(85% 0 2% 0);
+        transform:translate(12px,5px);
+    }
+
+    90%{
+        clip-path:inset(40% 0 35% 0);
+        transform:translate(-10px,-3px);
+    }
+
+    100%{
+        clip-path:inset(0 0 0 0);
+        transform:translate(0);
+    }
+
 }
 
 /* =========================
