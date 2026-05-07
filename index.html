@@ -46,6 +46,7 @@ body{
     content:"";
     position:absolute;
     inset:0;
+
     background:
     repeating-linear-gradient(
         to bottom,
@@ -54,12 +55,224 @@ body{
         transparent 1px,
         transparent 3px
     );
+
     pointer-events:none;
     opacity:.15;
 }
 
 /* =========================
-   MAIN GLITCH REAL
+   LOADER GLITCH
+========================= */
+
+.glitch{
+    position:relative;
+
+    font-size:5rem;
+
+    letter-spacing:10px;
+
+    text-transform:uppercase;
+
+    color:#00ff88;
+
+    text-shadow:
+        0 0 5px #00ff88,
+        0 0 15px #00ff88,
+        0 0 40px #00ff88;
+
+    animation:
+        textShake 1.5s infinite;
+
+    margin-bottom:30px;
+}
+
+.glitch::before,
+.glitch::after{
+
+    content:"HACKCROW";
+
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    background:#030303;
+
+    overflow:hidden;
+
+}
+
+/* cyan */
+
+.glitch::before{
+
+    left:4px;
+
+    text-shadow:-4px 0 #00d9ff;
+
+    animation:
+        glitchSlices1 0.7s infinite linear alternate-reverse;
+
+}
+
+/* purple */
+
+.glitch::after{
+
+    left:-4px;
+
+    text-shadow:4px 0 #b026ff;
+
+    animation:
+        glitchSlices2 0.5s infinite linear alternate-reverse;
+
+}
+
+/* =========================
+   INITIALIZING
+========================= */
+
+.init{
+
+    font-size:1.2rem;
+
+    margin-bottom:20px;
+
+    letter-spacing:3px;
+
+    text-shadow:0 0 10px #00ff88;
+
+}
+
+/* =========================
+   PROGRESS BAR
+========================= */
+
+.progress-container{
+
+    width:420px;
+
+    height:30px;
+
+    border:2px solid #00ff88;
+
+    padding:4px;
+
+    margin-bottom:15px;
+
+    box-shadow:0 0 15px #00ff8850;
+
+}
+
+.progress-bar{
+
+    height:100%;
+
+    width:0%;
+
+    background:#00ff88;
+
+    box-shadow:0 0 20px #00ff88;
+
+    transition:width .15s linear;
+
+}
+
+.percent{
+
+    margin-bottom:25px;
+
+    font-size:1.2rem;
+
+}
+
+/* =========================
+   LOGS
+========================= */
+
+.logs{
+
+    width:500px;
+
+    height:180px;
+
+    border:1px solid #00ff8840;
+
+    padding:15px;
+
+    overflow:hidden;
+
+    background:rgba(0,255,136,.03);
+
+    box-shadow:0 0 20px #00ff8820 inset;
+
+}
+
+.log{
+
+    font-size:.95rem;
+
+    margin-bottom:8px;
+
+    opacity:0;
+
+    animation:fadeIn .3s forwards;
+
+}
+
+@keyframes fadeIn{
+
+    to{
+        opacity:1;
+    }
+
+}
+
+/* =========================
+   TERMINAL BOX
+========================= */
+
+.terminal-box{
+
+    margin-top:30px;
+
+    color:#00ff88;
+
+    font-size:1rem;
+
+    line-height:1.6;
+
+    text-shadow:0 0 8px #00ff88;
+
+}
+
+/* =========================
+   MAIN CONTENT
+========================= */
+
+#mainContent{
+
+    display:none;
+
+    height:100vh;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:#030303;
+
+}
+
+.show{
+    display:flex !important;
+}
+
+/* =========================
+   MAIN GLITCH
 ========================= */
 
 .main-glitch{
@@ -84,7 +297,7 @@ body{
 
 }
 
-/* CAPAS */
+/* capas */
 
 .main-glitch::before,
 .main-glitch::after{
@@ -105,7 +318,7 @@ body{
 
 }
 
-/* CYAN */
+/* cyan */
 
 .main-glitch::before{
 
@@ -118,7 +331,7 @@ body{
 
 }
 
-/* PURPLE */
+/* purple */
 
 .main-glitch::after{
 
@@ -306,359 +519,6 @@ body{
 }
 
 /* =========================
-   INITIALIZING
-========================= */
-
-.init{
-    font-size:1.2rem;
-    margin-bottom:20px;
-    letter-spacing:3px;
-    text-shadow:0 0 10px #00ff88;
-}
-
-/* =========================
-   PROGRESS BAR
-========================= */
-
-.progress-container{
-    width:420px;
-    height:30px;
-    border:2px solid #00ff88;
-    padding:4px;
-    margin-bottom:15px;
-    box-shadow:0 0 15px #00ff8850;
-}
-
-.progress-bar{
-    height:100%;
-    width:0%;
-    background:#00ff88;
-    box-shadow:0 0 20px #00ff88;
-    transition:width .15s linear;
-}
-
-.percent{
-    margin-bottom:25px;
-    font-size:1.2rem;
-}
-
-/* =========================
-   LOGS
-========================= */
-
-.logs{
-    width:500px;
-    height:180px;
-    border:1px solid #00ff8840;
-    padding:15px;
-    overflow:hidden;
-    background:rgba(0,255,136,.03);
-    box-shadow:0 0 20px #00ff8820 inset;
-}
-
-.log{
-    font-size:.95rem;
-    margin-bottom:8px;
-    opacity:0;
-    animation:fadeIn .3s forwards;
-}
-
-@keyframes fadeIn{
-    to{
-        opacity:1;
-    }
-}
-
-/* =========================
-   TERMINAL BOX
-========================= */
-
-.terminal-box{
-    margin-top:30px;
-    color:#00ff88;
-    font-size:1rem;
-    line-height:1.6;
-    text-shadow:0 0 8px #00ff88;
-}
-
-/* =========================
-   MAIN CONTENT
-========================= */
-
-#mainContent{
-    display:none;
-    height:100vh;
-    justify-content:center;
-    align-items:center;
-    background:#030303;
-}
-
-.show{
-    display:flex !important;
-}
-
-/* =========================
-   MAIN GLITCH
-========================= */
-
-.main-glitch{
-    position:relative;
-    font-size:4rem;
-    letter-spacing:10px;
-    color:#00ff88;
-    text-transform:uppercase;
-
-    text-shadow:
-        0 0 5px #00ff88,
-        0 0 15px #00ff88,
-        0 0 30px #00ff88;
-
-    animation:
-        intenseGlitch 2s infinite,
-        flicker 4s infinite;
-}
-
-/* capas glitch */
-
-.main-glitch::before,
-.main-glitch::after{
-    content:attr(data-text);
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    overflow:hidden;
-}
-
-/* cyan */
-
-.main-glitch::before{
-
-    color:#00d9ff;
-
-    z-index:-1;
-
-    animation:
-        glitchTop 0.12s infinite,
-        glitchFlash 2s infinite;
-
-    clip-path:polygon(
-        0 2%,
-        100% 2%,
-        100% 45%,
-        0 45%
-    );
-}
-
-/* purple */
-
-.main-glitch::after{
-
-    color:#b026ff;
-
-    z-index:-2;
-
-    animation:
-        glitchBottom 0.15s infinite,
-        glitchFlash2 1.7s infinite;
-
-    clip-path:polygon(
-        0 60%,
-        100% 60%,
-        100% 100%,
-        0 100%
-    );
-}
-
-/* =========================
-   GLITCH ANIMATIONS
-========================= */
-
-@keyframes intenseGlitch{
-
-    0%{
-        transform:translate(0);
-        filter:blur(0);
-    }
-
-    5%{
-        transform:translate(-8px,2px) skewX(8deg);
-    }
-
-    10%{
-        transform:translate(6px,-3px) skewX(-10deg);
-    }
-
-    15%{
-        transform:translate(-12px,5px);
-    }
-
-    20%{
-        transform:translate(0);
-    }
-
-    25%{
-        transform:scaleX(1.04);
-    }
-
-    30%{
-        transform:translate(15px,-4px);
-    }
-
-    35%{
-        transform:translate(-15px,4px);
-    }
-
-    40%{
-        transform:translate(0);
-    }
-
-    45%{
-        filter:blur(2px);
-    }
-
-    50%{
-        filter:blur(0);
-    }
-
-    100%{
-        transform:translate(0);
-    }
-}
-
-/* lineas superiores */
-
-@keyframes glitchTop{
-
-    0%{
-        transform:translate(0);
-    }
-
-    20%{
-        transform:translate(-20px,-5px);
-    }
-
-    40%{
-        transform:translate(20px,5px);
-    }
-
-    60%{
-        transform:translate(-30px,2px);
-    }
-
-    80%{
-        transform:translate(30px,-2px);
-    }
-
-    100%{
-        transform:translate(0);
-    }
-}
-
-/* lineas inferiores */
-
-@keyframes glitchBottom{
-
-    0%{
-        transform:translate(0);
-    }
-
-    20%{
-        transform:translate(25px,5px);
-    }
-
-    40%{
-        transform:translate(-25px,-5px);
-    }
-
-    60%{
-        transform:translate(35px,-2px);
-    }
-
-    80%{
-        transform:translate(-35px,2px);
-    }
-
-    100%{
-        transform:translate(0);
-    }
-}
-
-/* flashes */
-
-@keyframes glitchFlash{
-
-    0%,100%{
-        opacity:0;
-    }
-
-    10%{
-        opacity:1;
-    }
-
-    11%{
-        opacity:0;
-    }
-
-    50%{
-        opacity:1;
-    }
-
-    51%{
-        opacity:0;
-    }
-}
-
-@keyframes glitchFlash2{
-
-    0%,100%{
-        opacity:0;
-    }
-
-    30%{
-        opacity:1;
-    }
-
-    31%{
-        opacity:0;
-    }
-
-    70%{
-        opacity:1;
-    }
-
-    71%{
-        opacity:0;
-    }
-}
-
-/* flicker */
-
-@keyframes flicker{
-
-    0%,100%{
-        opacity:1;
-    }
-
-    92%{
-        opacity:.8;
-    }
-
-    94%{
-        opacity:.4;
-    }
-
-    96%{
-        opacity:1;
-    }
-
-    98%{
-        opacity:.6;
-    }
-}
-
-/* =========================
    RESPONSIVE
 ========================= */
 
@@ -772,6 +632,7 @@ const interval = setInterval(() => {
     progress++;
 
     bar.style.width = progress + "%";
+
     percent.innerText = progress + "%";
 
     if(progress % 10 === 0 && logIndex < fakeLogs.length){
@@ -797,11 +658,13 @@ const interval = setInterval(() => {
         setTimeout(() => {
 
             loader.style.transition = "opacity 1s ease";
+
             loader.style.opacity = "0";
 
             setTimeout(() => {
 
                 loader.style.display = "none";
+
                 main.classList.add("show");
 
             },1000);
