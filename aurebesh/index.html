@@ -93,6 +93,39 @@
       transform: scale(1.02);
     }
 
+    .opciones {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .grupo {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .grupo label {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    select {
+      padding: 12px;
+      border-radius: 12px;
+      border: none;
+      background: rgba(255,255,255,0.08);
+      color: white;
+      outline: none;
+      cursor: pointer;
+    }
+
+    select option {
+      background: #111827;
+      color: white;
+    }
+
     .footer {
       text-align: center;
       margin-top: 20px;
@@ -109,7 +142,41 @@
 
     <textarea id="texto" placeholder="Escribe aquí..."></textarea>
 
+    <div class="opciones">
+      <div class="grupo">
+        <label>Color del texto</label>
+        <select id="colorTexto">
+          <option value="#ffffff">Blanco</option>
+          <option value="#00ffcc">Cian</option>
+          <option value="#00ff00">Verde</option>
+          <option value="#ff3131">Rojo</option>
+          <option value="#ffd700">Dorado</option>
+        </select>
+      </div>
+
+      <div class="grupo">
+        <label>Color del fondo</label>
+        <select id="colorFondo">
+          <option value="#000000">Negro</option>
+          <option value="#111827">Azul oscuro</option>
+          <option value="#1e293b">Gris oscuro</option>
+          <option value="#ffffff">Blanco</option>
+        </select>
+      </div>
+
+      <div class="grupo">
+        <label>Tamaño</label>
+        <select id="tamanoTexto">
+          <option value="40">Pequeño</option>
+          <option value="60" selected>Mediano</option>
+          <option value="90">Grande</option>
+        </select>
+      </div>
+    </div>
+
     <button onclick="traducir()">Traducir</button>
+
+    <button onclick="descargarImagen()">Descargar imagen</button>
 
     <div class="resultado" id="resultado"></div>
 
@@ -129,6 +196,55 @@
 
     // Traducir en tiempo real
     document.getElementById('texto').addEventListener('input', traducir);
+
+    function descargarImagen() {
+      const texto = document.getElementById('texto').value;
+      const colorTexto = document.getElementById('colorTexto').value;
+      const colorFondo = document.getElementById('colorFondo').value;
+      const tamano = document.getElementById('tamanoTexto').value;
+
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+
+      canvas.width = 1200;
+      canvas.height = 600;
+
+      // Fondo
+      ctx.fillStyle = colorFondo;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Texto
+      ctx.fillStyle = colorTexto;
+      ctx.font = `${tamano}px Aurebesh`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      const maxWidth = 1000;
+      const lineHeight = parseInt(tamano) + 20;
+      const palabras = texto.split(' ');
+      let linea = '';
+      let y = canvas.height / 2 - 50;
+
+      for (let n = 0; n < palabras.length; n++) {
+        const testLinea = linea + palabras[n] + ' ';
+        const medidas = ctx.measureText(testLinea);
+
+        if (medidas.width > maxWidth && n > 0) {
+          ctx.fillText(linea, canvas.width / 2, y);
+          linea = palabras[n] + ' ';
+          y += lineHeight;
+        } else {
+          linea = testLinea;
+        }
+      }
+
+      ctx.fillText(linea, canvas.width / 2, y);
+
+      const link = document.createElement('a');
+      link.download = 'aurebesh.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
   </script>
 
 </body>
