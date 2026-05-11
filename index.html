@@ -25,18 +25,32 @@ body{
 }
 
 /* ==================================================
-   INPUT INVISIBLE
+   INPUT INVISIBLE IOS
 ================================================== */
 
 #hiddenInput{
 
     position:fixed;
 
-    top:-100px;
+    bottom:10px;
 
-    opacity:0;
+    left:10px;
 
-    pointer-events:none;
+    width:1px;
+
+    height:1px;
+
+    opacity:0.01;
+
+    background:transparent;
+
+    border:none;
+
+    color:transparent;
+
+    caret-color:transparent;
+
+    z-index:-1;
 
 }
 
@@ -576,7 +590,14 @@ body{
      INPUT INVISIBLE
 ================================================== -->
 
-<input type="text" id="hiddenInput" autocomplete="off">
+<input 
+type="text" 
+id="hiddenInput" 
+autocomplete="off" 
+autocapitalize="off"
+autocorrect="off"
+spellcheck="false"
+>
 
 <!-- ==================================================
      SECRET MENU
@@ -675,7 +696,7 @@ const fakeLogs = [
 let progress = 0;
 let logIndex = 0;
 
-/* MUCHO MÁS RÁPIDO */
+/* loader mucho más rápido */
 
 const interval = setInterval(() => {
 
@@ -737,39 +758,35 @@ const secretMenu = document.getElementById("secretMenu");
 
 const hiddenInput = document.getElementById("hiddenInput");
 
-let buffer = "";
+let typed = "";
 
 /* activar teclado móvil */
 
-document.addEventListener("touchstart",()=>{
+document.addEventListener("touchstart", () => {
+
+    hiddenInput.focus();
+
+}, { passive:true });
+
+document.addEventListener("click", () => {
 
     hiddenInput.focus();
 
 });
 
-document.addEventListener("click",()=>{
+/* soporte iPhone / Android */
 
-    hiddenInput.focus();
+hiddenInput.addEventListener("input", (e) => {
 
-});
+    typed += e.target.value;
 
-/* iPhone / Android */
+    typed = typed.slice(-2).toLowerCase();
 
-hiddenInput.addEventListener("input",()=>{
-
-    buffer += hiddenInput.value;
-
-    buffer = buffer.slice(-2);
-
-    const normalized = buffer.toLowerCase();
-
-    if(
-        normalized === "hk"
-    ){
+    if(typed === "hk"){
 
         secretMenu.classList.toggle("showMenu");
 
-        buffer = "";
+        typed = "";
 
         hiddenInput.value = "";
 
@@ -777,23 +794,19 @@ hiddenInput.addEventListener("input",()=>{
 
 });
 
-/* computadora */
+/* soporte PC */
 
-document.addEventListener("keydown",(e)=>{
+document.addEventListener("keydown", (e) => {
 
-    buffer += e.key;
+    typed += e.key;
 
-    buffer = buffer.slice(-2);
+    typed = typed.slice(-2).toLowerCase();
 
-    const normalized = buffer.toLowerCase();
-
-    if(
-        normalized === "hk"
-    ){
+    if(typed === "hk"){
 
         secretMenu.classList.toggle("showMenu");
 
-        buffer = "";
+        typed = "";
 
     }
 
