@@ -25,32 +25,32 @@ body{
 }
 
 /* ==================================================
-   INPUT INVISIBLE IOS
+   INPUT IOS
 ================================================== */
 
 #hiddenInput{
 
     position:fixed;
 
-    bottom:10px;
+    bottom:0;
 
-    left:10px;
+    left:0;
 
-    width:1px;
+    width:2px;
 
-    height:1px;
+    height:2px;
 
     opacity:0.01;
 
-    background:transparent;
-
     border:none;
+
+    background:transparent;
 
     color:transparent;
 
     caret-color:transparent;
 
-    z-index:-1;
+    z-index:99999;
 
 }
 
@@ -79,8 +79,6 @@ body{
     overflow:hidden;
 
 }
-
-/* scanlines */
 
 #loader::before{
 
@@ -131,8 +129,6 @@ body{
 
 }
 
-/* capas */
-
 .glitch::before,
 .glitch::after,
 .main-glitch::before,
@@ -181,7 +177,7 @@ body{
 }
 
 /* ==================================================
-   INITIALIZING
+   TEXTOS
 ================================================== */
 
 .init{
@@ -199,7 +195,7 @@ body{
 }
 
 /* ==================================================
-   PROGRESS BAR
+   BARRA
 ================================================== */
 
 .progress-container{
@@ -228,7 +224,7 @@ body{
 
     box-shadow:0 0 20px #00ff88;
 
-    transition:width .04s linear;
+    transition:width .03s linear;
 
 }
 
@@ -295,7 +291,7 @@ body{
 }
 
 /* ==================================================
-   MAIN CONTENT
+   MAIN
 ================================================== */
 
 #mainContent{
@@ -317,7 +313,7 @@ body{
 }
 
 /* ==================================================
-   SECRET MENU
+   MENU
 ================================================== */
 
 #secretMenu{
@@ -342,7 +338,7 @@ body{
 
     padding:20px;
 
-    z-index:10000;
+    z-index:100000;
 
     transition:.5s ease;
 
@@ -465,7 +461,7 @@ body{
 }
 
 /* ==================================================
-   GLITCH SLICES 1
+   GLITCH 1
 ================================================== */
 
 @keyframes glitchSlices1{
@@ -508,7 +504,7 @@ body{
 }
 
 /* ==================================================
-   GLITCH SLICES 2
+   GLITCH 2
 ================================================== */
 
 @keyframes glitchSlices2{
@@ -587,20 +583,20 @@ body{
 <body>
 
 <!-- ==================================================
-     INPUT INVISIBLE
+     INPUT IOS
 ================================================== -->
 
-<input 
-type="text" 
-id="hiddenInput" 
-autocomplete="off" 
-autocapitalize="off"
+<input
+type="text"
+id="hiddenInput"
+autocomplete="off"
 autocorrect="off"
+autocapitalize="off"
 spellcheck="false"
 >
 
 <!-- ==================================================
-     SECRET MENU
+     MENU
 ================================================== -->
 
 <div id="secretMenu">
@@ -696,7 +692,7 @@ const fakeLogs = [
 let progress = 0;
 let logIndex = 0;
 
-/* loader mucho más rápido */
+/* loader ultra rápido */
 
 const interval = setInterval(() => {
 
@@ -732,7 +728,7 @@ const interval = setInterval(() => {
 
         setTimeout(() => {
 
-            loader.style.transition = "opacity .4s ease";
+            loader.style.transition = "opacity .35s ease";
 
             loader.style.opacity = "0";
 
@@ -742,13 +738,13 @@ const interval = setInterval(() => {
 
                 main.classList.add("show");
 
-            },400);
+            },350);
 
-        },150);
+        },120);
 
     }
 
-},18);
+},16);
 
 /* ==================================================
    SECRET MENU
@@ -760,49 +756,49 @@ const hiddenInput = document.getElementById("hiddenInput");
 
 let typed = "";
 
-/* activar teclado móvil */
+/* foco automático */
 
-document.addEventListener("touchstart", () => {
-
-    hiddenInput.focus();
-
-}, { passive:true });
-
-document.addEventListener("click", () => {
+function activateInput(){
 
     hiddenInput.focus();
 
-});
+}
 
-/* soporte iPhone / Android */
+document.addEventListener("touchstart", activateInput, {passive:true});
 
-hiddenInput.addEventListener("input", (e) => {
+document.addEventListener("click", activateInput);
 
-    typed += e.target.value;
+/* móvil */
 
-    typed = typed.slice(-2).toLowerCase();
+hiddenInput.addEventListener("keyup", () => {
 
-    if(typed === "hk"){
+    typed = hiddenInput.value.toLowerCase();
+
+    if(
+        typed.includes("hk")
+    ){
 
         secretMenu.classList.toggle("showMenu");
 
-        typed = "";
-
         hiddenInput.value = "";
+
+        typed = "";
 
     }
 
 });
 
-/* soporte PC */
+/* pc */
 
 document.addEventListener("keydown", (e) => {
 
-    typed += e.key;
+    typed += e.key.toLowerCase();
 
-    typed = typed.slice(-2).toLowerCase();
+    typed = typed.slice(-2);
 
-    if(typed === "hk"){
+    if(
+        typed === "hk"
+    ){
 
         secretMenu.classList.toggle("showMenu");
 
