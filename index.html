@@ -18,27 +18,25 @@
 }
 
 body{
-
     background:#030303;
     overflow:hidden;
     font-family:'Share Tech Mono', monospace;
     color:#00ff88;
-
 }
 
 /* ==================================================
-   HIDDEN INPUT
+   INPUT INVISIBLE
 ================================================== */
 
 #hiddenInput{
 
     position:fixed;
 
+    top:-100px;
+
     opacity:0;
 
     pointer-events:none;
-
-    top:-100px;
 
 }
 
@@ -49,13 +47,17 @@ body{
 #loader{
 
     position:fixed;
+
     inset:0;
 
     background:#030303;
 
     display:flex;
+
     flex-direction:column;
+
     justify-content:center;
+
     align-items:center;
 
     z-index:9999;
@@ -71,6 +73,7 @@ body{
     content:"";
 
     position:absolute;
+
     inset:0;
 
     background:
@@ -211,7 +214,7 @@ body{
 
     box-shadow:0 0 20px #00ff88;
 
-    transition:width .08s linear;
+    transition:width .04s linear;
 
 }
 
@@ -288,6 +291,7 @@ body{
     height:100vh;
 
     justify-content:center;
+
     align-items:center;
 
     background:#030303;
@@ -339,7 +343,9 @@ body{
 .menu-box{
 
     display:flex;
+
     flex-direction:column;
+
     gap:15px;
 
 }
@@ -445,7 +451,7 @@ body{
 }
 
 /* ==================================================
-   SLICES 1
+   GLITCH SLICES 1
 ================================================== */
 
 @keyframes glitchSlices1{
@@ -488,7 +494,7 @@ body{
 }
 
 /* ==================================================
-   SLICES 2
+   GLITCH SLICES 2
 ================================================== */
 
 @keyframes glitchSlices2{
@@ -669,11 +675,15 @@ const fakeLogs = [
 let progress = 0;
 let logIndex = 0;
 
-/* loader 45% más rápido */
+/* MUCHO MÁS RÁPIDO */
 
 const interval = setInterval(() => {
 
-    progress++;
+    progress += 2;
+
+    if(progress > 100){
+        progress = 100;
+    }
 
     bar.style.width = progress + "%";
 
@@ -701,7 +711,7 @@ const interval = setInterval(() => {
 
         setTimeout(() => {
 
-            loader.style.transition = "opacity .6s ease";
+            loader.style.transition = "opacity .4s ease";
 
             loader.style.opacity = "0";
 
@@ -711,13 +721,13 @@ const interval = setInterval(() => {
 
                 main.classList.add("show");
 
-            },600);
+            },400);
 
-        },300);
+        },150);
 
     }
 
-},33);
+},18);
 
 /* ==================================================
    SECRET MENU
@@ -731,13 +741,13 @@ let buffer = "";
 
 /* activar teclado móvil */
 
-document.addEventListener("click",()=>{
+document.addEventListener("touchstart",()=>{
 
     hiddenInput.focus();
 
 });
 
-document.addEventListener("touchstart",()=>{
+document.addEventListener("click",()=>{
 
     hiddenInput.focus();
 
@@ -747,11 +757,15 @@ document.addEventListener("touchstart",()=>{
 
 hiddenInput.addEventListener("input",()=>{
 
-    buffer += hiddenInput.value.toLowerCase();
+    buffer += hiddenInput.value;
 
     buffer = buffer.slice(-2);
 
-    if(buffer === "hk"){
+    const normalized = buffer.toLowerCase();
+
+    if(
+        normalized === "hk"
+    ){
 
         secretMenu.classList.toggle("showMenu");
 
@@ -767,11 +781,15 @@ hiddenInput.addEventListener("input",()=>{
 
 document.addEventListener("keydown",(e)=>{
 
-    buffer += e.key.toLowerCase();
+    buffer += e.key;
 
     buffer = buffer.slice(-2);
 
-    if(buffer === "hk"){
+    const normalized = buffer.toLowerCase();
+
+    if(
+        normalized === "hk"
+    ){
 
         secretMenu.classList.toggle("showMenu");
 
