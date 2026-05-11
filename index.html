@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Hackcrow</title>
 
@@ -18,32 +18,42 @@
 }
 
 body{
+
     background:#030303;
     overflow:hidden;
     font-family:'Share Tech Mono', monospace;
     color:#00ff88;
+
 }
 
-/* =========================
+/* ==================================================
    LOADER
-========================= */
+================================================== */
 
 #loader{
+
     position:fixed;
     inset:0;
+
     background:#030303;
+
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
+
     z-index:9999;
+
     overflow:hidden;
+
 }
 
 /* scanlines */
 
 #loader::before{
+
     content:"";
+
     position:absolute;
     inset:0;
 
@@ -56,169 +66,17 @@ body{
         transparent 3px
     );
 
-    pointer-events:none;
     opacity:.15;
-}
 
-/* =========================
-   GLITCH TITLE
-========================= */
-
-.glitch{
-    position:relative;
-    font-size:5rem;
-    letter-spacing:10px;
-    text-transform:uppercase;
-    color:#00ff88;
-
-    text-shadow:
-        0 0 5px #00ff88,
-        0 0 15px #00ff88,
-        0 0 40px #00ff88;
-
-    animation:textShake 5s infinite;
-
-    margin-bottom:30px;
-}
-
-.glitch::before,
-.glitch::after{
-
-    content:"HACKCROW";
-
-    position:absolute;
-
-    top:0;
-    left:0;
-
-    width:100%;
-    height:100%;
-
-    background:#030303;
-
-    overflow:hidden;
-}
-
-/* cyan layer */
-
-.glitch::before{
-
-    left:4px;
-
-    text-shadow:-4px 0 #00d9ff;
-
-    animation:glitchSlices1 7s infinite ease-in-out;
+    pointer-events:none;
 
 }
 
-/* purple layer */
+/* ==================================================
+   GLITCH
+================================================== */
 
-.glitch::after{
-
-    left:-4px;
-
-    text-shadow:4px 0 #b026ff;
-
-    animation:glitchSlices2 7s infinite ease-in-out;
-
-}
-
-/* =========================
-   INITIALIZING
-========================= */
-
-.init{
-    font-size:1.2rem;
-    margin-bottom:20px;
-    letter-spacing:3px;
-    text-shadow:0 0 10px #00ff88;
-}
-
-/* =========================
-   PROGRESS BAR
-========================= */
-
-.progress-container{
-    width:420px;
-    height:30px;
-    border:2px solid #00ff88;
-    padding:4px;
-    margin-bottom:15px;
-    box-shadow:0 0 15px #00ff8850;
-}
-
-.progress-bar{
-    height:100%;
-    width:0%;
-    background:#00ff88;
-    box-shadow:0 0 20px #00ff88;
-    transition:width .15s linear;
-}
-
-.percent{
-    margin-bottom:25px;
-    font-size:1.2rem;
-}
-
-/* =========================
-   LOGS
-========================= */
-
-.logs{
-    width:500px;
-    height:180px;
-    border:1px solid #00ff8840;
-    padding:15px;
-    overflow:hidden;
-    background:rgba(0,255,136,.03);
-    box-shadow:0 0 20px #00ff8820 inset;
-}
-
-.log{
-    font-size:.95rem;
-    margin-bottom:8px;
-    opacity:0;
-    animation:fadeIn .3s forwards;
-}
-
-@keyframes fadeIn{
-    to{
-        opacity:1;
-    }
-}
-
-/* =========================
-   TERMINAL BOX
-========================= */
-
-.terminal-box{
-    margin-top:30px;
-    color:#00ff88;
-    font-size:1rem;
-    line-height:1.6;
-    text-shadow:0 0 8px #00ff88;
-}
-
-/* =========================
-   MAIN CONTENT
-========================= */
-
-#mainContent{
-    display:none;
-    height:100vh;
-    justify-content:center;
-    align-items:center;
-    background:#030303;
-}
-
-.show{
-    display:flex !important;
-}
-
-/* =========================
-   MAIN GLITCH
-========================= */
-
+.glitch,
 .main-glitch{
 
     position:relative;
@@ -227,21 +85,23 @@ body{
 
     letter-spacing:12px;
 
-    color:#00ff88;
-
     text-transform:uppercase;
+
+    color:#00ff88;
 
     text-shadow:
         0 0 5px #00ff88,
         0 0 15px #00ff88,
         0 0 40px #00ff88;
 
-    animation:textShake 5s infinite;
+    animation:textShake 7s infinite ease-in-out;
 
 }
 
-/* glitch layers */
+/* capas */
 
+.glitch::before,
+.glitch::after,
 .main-glitch::before,
 .main-glitch::after{
 
@@ -255,26 +115,28 @@ body{
     width:100%;
     height:100%;
 
-    background:#030303;
-
     overflow:hidden;
+
+    background:#030303;
 
 }
 
 /* cyan */
 
+.glitch::before,
 .main-glitch::before{
 
     left:4px;
 
     text-shadow:-4px 0 #00d9ff;
 
-    animation:glitchSlices1 5s infinite;
+    animation:glitchSlices1 7s infinite ease-in-out;
 
 }
 
 /* purple */
 
+.glitch::after,
 .main-glitch::after{
 
     left:-4px;
@@ -285,212 +147,150 @@ body{
 
 }
 
-/* =========================
-   SHAKE
-========================= */
+/* ==================================================
+   INITIALIZING
+================================================== */
 
-@keyframes textShake{
+.init{
 
-    0%,80%,100%{
-        transform:translate(0);
-    }
+    margin-top:25px;
 
-    81%{
-        transform:translate(-5px,2px);
-    }
+    margin-bottom:20px;
 
-    82%{
-        transform:translate(5px,-2px);
-    }
+    font-size:1.1rem;
 
-    83%{
-        transform:translate(-8px,4px);
-    }
+    letter-spacing:3px;
 
-    84%{
-        transform:translate(8px,-4px);
-    }
+    text-shadow:0 0 10px #00ff88;
 
-    85%{
-        transform:translate(-3px,1px);
-    }
+}
 
-    86%{
-        transform:translate(3px,-1px);
-    }
+/* ==================================================
+   PROGRESS BAR
+================================================== */
 
-    87%{
-        transform:translate(-10px,3px);
-    }
+.progress-container{
 
-    88%{
-        transform:translate(10px,-3px);
-    }
+    width:420px;
 
-    89%{
-        transform:translate(0);
+    height:28px;
+
+    border:2px solid #00ff88;
+
+    padding:4px;
+
+    margin-bottom:15px;
+
+    box-shadow:0 0 15px #00ff8850;
+
+}
+
+.progress-bar{
+
+    height:100%;
+
+    width:0%;
+
+    background:#00ff88;
+
+    box-shadow:0 0 20px #00ff88;
+
+    transition:width .08s linear;
+
+}
+
+.percent{
+
+    margin-bottom:20px;
+
+    font-size:1.1rem;
+
+}
+
+/* ==================================================
+   LOGS
+================================================== */
+
+.logs{
+
+    width:500px;
+
+    height:180px;
+
+    overflow:hidden;
+
+    border:1px solid rgba(0,255,136,.2);
+
+    background:rgba(0,255,136,.03);
+
+    padding:15px;
+
+    box-shadow:0 0 20px rgba(0,255,136,.1) inset;
+
+}
+
+.log{
+
+    margin-bottom:8px;
+
+    font-size:.9rem;
+
+    opacity:0;
+
+    animation:fadeIn .3s forwards;
+
+}
+
+@keyframes fadeIn{
+
+    to{
+        opacity:1;
     }
 
 }
 
-/* =========================
-   GLITCH SLICES 1
-========================= */
+/* ==================================================
+   TERMINAL
+================================================== */
 
-@keyframes glitchSlices1{
+.terminal-box{
 
-    0%,80%,100%{
-        clip-path:inset(0 0 0 0);
-        transform:translate(0);
-    }
+    margin-top:25px;
 
-    81%{
-        clip-path:inset(10% 0 80% 0);
-        transform:translate(-25px,-10px);
-    }
-
-    82%{
-        clip-path:inset(40% 0 30% 0);
-        transform:translate(20px,5px);
-    }
-
-    83%{
-        clip-path:inset(70% 0 5% 0);
-        transform:translate(-15px,8px);
-    }
-
-    84%{
-        clip-path:inset(15% 0 60% 0);
-        transform:translate(30px,-5px);
-    }
-
-    85%{
-        clip-path:inset(50% 0 20% 0);
-        transform:translate(-35px,3px);
-    }
-
-    86%{
-        clip-path:inset(80% 0 2% 0);
-        transform:translate(20px,-8px);
-    }
-
-    87%{
-        clip-path:inset(25% 0 45% 0);
-        transform:translate(-25px,4px);
-    }
-
-    88%{
-        clip-path:inset(60% 0 10% 0);
-        transform:translate(18px,-4px);
-    }
-
-    89%{
-        clip-path:inset(0 0 0 0);
-        transform:translate(0);
-    }
+    text-shadow:0 0 10px #00ff88;
 
 }
 
-/* =========================
-   GLITCH SLICES 2
-========================= */
+/* ==================================================
+   MAIN CONTENT
+================================================== */
 
-@keyframes glitchSlices2{
+#mainContent{
 
-    0%,80%,100%{
-        clip-path:inset(0 0 0 0);
-        transform:translate(0);
-    }
+    display:none;
 
-    81%{
-        clip-path:inset(75% 0 5% 0);
-        transform:translate(25px,10px);
-    }
+    height:100vh;
 
-    82%{
-        clip-path:inset(5% 0 70% 0);
-        transform:translate(-20px,-5px);
-    }
+    justify-content:center;
+    align-items:center;
 
-    83%{
-        clip-path:inset(45% 0 25% 0);
-        transform:translate(35px,4px);
-    }
-
-    84%{
-        clip-path:inset(20% 0 55% 0);
-        transform:translate(-30px,-4px);
-    }
-
-    85%{
-        clip-path:inset(65% 0 15% 0);
-        transform:translate(20px,6px);
-    }
-
-    86%{
-        clip-path:inset(10% 0 80% 0);
-        transform:translate(-20px,-8px);
-    }
-
-    87%{
-        clip-path:inset(55% 0 20% 0);
-        transform:translate(25px,2px);
-    }
-
-    88%{
-        clip-path:inset(30% 0 40% 0);
-        transform:translate(-18px,-6px);
-    }
-
-    89%{
-        clip-path:inset(0 0 0 0);
-        transform:translate(0);
-    }
+    background:#030303;
 
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media(max-width:700px){
-
-    .glitch{
-        font-size:3rem;
-        text-align:center;
-    }
-
-    .progress-container{
-        width:90%;
-    }
-
-    .logs{
-        width:90%;
-        font-size:.8rem;
-    }
-
-    .terminal-box{
-        font-size:.8rem;
-        text-align:center;
-    }
-
-    .main-glitch{
-        font-size:2.2rem;
-        text-align:center;
-        letter-spacing:5px;
-    }
-
+.show{
+    display:flex !important;
 }
 
-/* =========================
+/* ==================================================
    SECRET MENU
-========================= */
+================================================== */
 
 #secretMenu{
 
     position:fixed;
 
-    top:-300px;
+    top:-400px;
 
     left:50%;
 
@@ -498,13 +298,13 @@ body{
 
     width:320px;
 
-    background:rgba(0,0,0,.9);
+    background:rgba(0,0,0,.92);
 
     border:1px solid #00ff88;
 
     box-shadow:
         0 0 20px #00ff88,
-        0 0 60px rgba(0,255,136,.2);
+        0 0 50px rgba(0,255,136,.15);
 
     padding:20px;
 
@@ -521,9 +321,11 @@ body{
 }
 
 .menu-box{
+
     display:flex;
     flex-direction:column;
     gap:15px;
+
 }
 
 .menu-title{
@@ -535,8 +337,6 @@ body{
     letter-spacing:4px;
 
     margin-bottom:10px;
-
-    color:#00ff88;
 
     text-shadow:0 0 10px #00ff88;
 
@@ -572,17 +372,211 @@ body{
 
 }
 
+/* ==================================================
+   SHAKE
+================================================== */
+
+@keyframes textShake{
+
+    0%,75%,100%{
+        transform:translate(0);
+    }
+
+    76%{
+        transform:translate(-2px,1px);
+    }
+
+    77%{
+        transform:translate(3px,-1px);
+    }
+
+    78%{
+        transform:translate(-5px,2px);
+    }
+
+    79%{
+        transform:translate(5px,-2px);
+    }
+
+    80%{
+        transform:translate(-7px,3px);
+    }
+
+    81%{
+        transform:translate(7px,-3px);
+    }
+
+    82%{
+        transform:translate(-4px,1px);
+    }
+
+    83%{
+        transform:translate(4px,-1px);
+    }
+
+    84%{
+        transform:translate(-8px,2px);
+    }
+
+    85%{
+        transform:translate(8px,-2px);
+    }
+
+    86%{
+        transform:translate(0);
+    }
+
+}
+
+/* ==================================================
+   SLICES 1
+================================================== */
+
+@keyframes glitchSlices1{
+
+    0%,75%,100%{
+        clip-path:inset(0 0 0 0);
+        transform:translate(0);
+    }
+
+    76%{
+        clip-path:inset(10% 0 80% 0);
+        transform:translate(-10px,-3px);
+    }
+
+    78%{
+        clip-path:inset(40% 0 30% 0);
+        transform:translate(12px,3px);
+    }
+
+    80%{
+        clip-path:inset(70% 0 5% 0);
+        transform:translate(-15px,4px);
+    }
+
+    82%{
+        clip-path:inset(20% 0 50% 0);
+        transform:translate(18px,-3px);
+    }
+
+    84%{
+        clip-path:inset(55% 0 15% 0);
+        transform:translate(-20px,2px);
+    }
+
+    86%{
+        clip-path:inset(0 0 0 0);
+        transform:translate(0);
+    }
+
+}
+
+/* ==================================================
+   SLICES 2
+================================================== */
+
+@keyframes glitchSlices2{
+
+    0%,75%,100%{
+        clip-path:inset(0 0 0 0);
+        transform:translate(0);
+    }
+
+    76%{
+        clip-path:inset(75% 0 5% 0);
+        transform:translate(10px,3px);
+    }
+
+    78%{
+        clip-path:inset(5% 0 70% 0);
+        transform:translate(-12px,-3px);
+    }
+
+    80%{
+        clip-path:inset(45% 0 25% 0);
+        transform:translate(15px,4px);
+    }
+
+    82%{
+        clip-path:inset(25% 0 45% 0);
+        transform:translate(-18px,-2px);
+    }
+
+    84%{
+        clip-path:inset(60% 0 10% 0);
+        transform:translate(20px,2px);
+    }
+
+    86%{
+        clip-path:inset(0 0 0 0);
+        transform:translate(0);
+    }
+
+}
+
+/* ==================================================
+   RESPONSIVE
+================================================== */
+
+@media(max-width:700px){
+
+    .glitch,
+    .main-glitch{
+
+        font-size:2.5rem;
+
+        letter-spacing:5px;
+
+        text-align:center;
+
+    }
+
+    .progress-container{
+        width:90%;
+    }
+
+    .logs{
+        width:90%;
+        font-size:.8rem;
+    }
+
+    #secretMenu{
+        width:90%;
+    }
+
+}
+
 </style>
 </head>
 <body>
 
-<!-- =========================
+<!-- ==================================================
+     SECRET MENU
+================================================== -->
+
+<div id="secretMenu">
+
+    <div class="menu-box">
+
+        <div class="menu-title">
+            HACKCROW MENU
+        </div>
+
+        <button>Option 01</button>
+        <button>Option 02</button>
+        <button>Option 03</button>
+
+    </div>
+
+</div>
+
+<!-- ==================================================
      LOADER
-========================= -->
+================================================== -->
 
 <div id="loader">
 
-    <div class="glitch">
+    <div class="glitch" data-text="HACKCROW">
         HACKCROW
     </div>
 
@@ -611,9 +605,9 @@ body{
 
 </div>
 
-<!-- =========================
+<!-- ==================================================
      MAIN CONTENT
-========================= -->
+================================================== -->
 
 <div id="mainContent">
 
@@ -625,9 +619,14 @@ body{
 
 <script>
 
+/* ==================================================
+   LOADER
+================================================== */
+
 const bar = document.getElementById("bar");
 const percent = document.getElementById("percent");
 const logs = document.getElementById("logs");
+
 const loader = document.getElementById("loader");
 const main = document.getElementById("mainContent");
 
@@ -647,6 +646,8 @@ const fakeLogs = [
 
 let progress = 0;
 let logIndex = 0;
+
+/* 45% más rápido */
 
 const interval = setInterval(() => {
 
@@ -678,7 +679,7 @@ const interval = setInterval(() => {
 
         setTimeout(() => {
 
-            loader.style.transition = "opacity 1s ease";
+            loader.style.transition = "opacity .6s ease";
 
             loader.style.opacity = "0";
 
@@ -688,57 +689,53 @@ const interval = setInterval(() => {
 
                 main.classList.add("show");
 
-            },1000);
+            },600);
 
-        },800);
+        },300);
 
     }
 
-},60);
+},33);
 
-/* =========================
-   SECRET KEY MENU
-========================= */
+/* ==================================================
+   SECRET MENU
+================================================== */
 
 const secretMenu = document.getElementById("secretMenu");
 
-let typedKeys = "";
+let buffer = "";
 
-/* teclado PC + celular */
+/* teclado */
 
 document.addEventListener("keydown",(e)=>{
 
-    typedKeys += e.key.toLowerCase();
+    buffer += e.key.toLowerCase();
 
-    if(typedKeys.length > 2){
-        typedKeys = typedKeys.slice(-2);
-    }
+    buffer = buffer.slice(-2);
 
-    if(typedKeys === "hk"){
+    if(buffer === "hk"){
 
         secretMenu.classList.toggle("showMenu");
 
-        typedKeys = "";
+        buffer = "";
 
     }
 
 });
 
-/* soporte móvil */
+/* móvil */
 
-document.addEventListener("input",(e)=>{
+document.addEventListener("keyup",(e)=>{
 
-    typedKeys += e.data?.toLowerCase() || "";
+    buffer += e.key.toLowerCase();
 
-    if(typedKeys.length > 2){
-        typedKeys = typedKeys.slice(-2);
-    }
+    buffer = buffer.slice(-2);
 
-    if(typedKeys === "hk"){
+    if(buffer === "hk"){
 
         secretMenu.classList.toggle("showMenu");
 
-        typedKeys = "";
+        buffer = "";
 
     }
 
@@ -746,24 +743,5 @@ document.addEventListener("input",(e)=>{
 
 </script>
 
-    <!-- =========================
-     SECRET MENU
-========================= -->
-
-<div id="secretMenu">
-
-    <div class="menu-box">
-
-        <div class="menu-title">
-            HACKCROW MENU
-        </div>
-
-        <button>Option 01</button>
-        <button>Option 02</button>
-        <button>Option 03</button>
-
-    </div>
-
-</div>
 </body>
 </html>
