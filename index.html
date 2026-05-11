@@ -22,36 +22,9 @@ body{
     overflow:hidden;
     font-family:'Share Tech Mono', monospace;
     color:#00ff88;
-}
-
-/* ==================================================
-   INPUT IOS
-================================================== */
-
-#hiddenInput{
-
-    position:fixed;
-
-    bottom:0;
-
-    left:0;
-
-    width:2px;
-
-    height:2px;
-
-    opacity:0.01;
-
-    border:none;
-
-    background:transparent;
-
-    color:transparent;
-
-    caret-color:transparent;
-
-    z-index:99999;
-
+    user-select:none;
+    -webkit-user-select:none;
+    -webkit-tap-highlight-color:transparent;
 }
 
 /* ==================================================
@@ -79,6 +52,8 @@ body{
     overflow:hidden;
 
 }
+
+/* scanlines */
 
 #loader::before{
 
@@ -177,7 +152,7 @@ body{
 }
 
 /* ==================================================
-   TEXTOS
+   INITIALIZING
 ================================================== */
 
 .init{
@@ -195,7 +170,7 @@ body{
 }
 
 /* ==================================================
-   BARRA
+   PROGRESS BAR
 ================================================== */
 
 .progress-container{
@@ -291,7 +266,7 @@ body{
 }
 
 /* ==================================================
-   MAIN
+   MAIN CONTENT
 ================================================== */
 
 #mainContent{
@@ -313,7 +288,7 @@ body{
 }
 
 /* ==================================================
-   MENU
+   SECRET MENU
 ================================================== */
 
 #secretMenu{
@@ -583,20 +558,7 @@ body{
 <body>
 
 <!-- ==================================================
-     INPUT IOS
-================================================== -->
-
-<input
-type="text"
-id="hiddenInput"
-autocomplete="off"
-autocorrect="off"
-autocapitalize="off"
-spellcheck="false"
->
-
-<!-- ==================================================
-     MENU
+     SECRET MENU
 ================================================== -->
 
 <div id="secretMenu">
@@ -692,7 +654,7 @@ const fakeLogs = [
 let progress = 0;
 let logIndex = 0;
 
-/* loader ultra rápido */
+/* loader más rápido */
 
 const interval = setInterval(() => {
 
@@ -752,43 +714,11 @@ const interval = setInterval(() => {
 
 const secretMenu = document.getElementById("secretMenu");
 
-const hiddenInput = document.getElementById("hiddenInput");
+/* =========================================
+   COMPUTADORA = HK
+========================================= */
 
 let typed = "";
-
-/* foco automático */
-
-function activateInput(){
-
-    hiddenInput.focus();
-
-}
-
-document.addEventListener("touchstart", activateInput, {passive:true});
-
-document.addEventListener("click", activateInput);
-
-/* móvil */
-
-hiddenInput.addEventListener("keyup", () => {
-
-    typed = hiddenInput.value.toLowerCase();
-
-    if(
-        typed.includes("hk")
-    ){
-
-        secretMenu.classList.toggle("showMenu");
-
-        hiddenInput.value = "";
-
-        typed = "";
-
-    }
-
-});
-
-/* pc */
 
 document.addEventListener("keydown", (e) => {
 
@@ -796,15 +726,35 @@ document.addEventListener("keydown", (e) => {
 
     typed = typed.slice(-2);
 
-    if(
-        typed === "hk"
-    ){
+    if(typed === "hk"){
 
         secretMenu.classList.toggle("showMenu");
 
         typed = "";
 
     }
+
+});
+
+/* =========================================
+   CELULAR = DOUBLE TAP
+========================================= */
+
+let lastTap = 0;
+
+document.addEventListener("touchend", function(e){
+
+    const currentTime = new Date().getTime();
+
+    const tapLength = currentTime - lastTap;
+
+    if(tapLength < 300 && tapLength > 0){
+
+        secretMenu.classList.toggle("showMenu");
+
+    }
+
+    lastTap = currentTime;
 
 });
 
