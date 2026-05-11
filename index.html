@@ -482,6 +482,96 @@ body{
 
 }
 
+/* =========================
+   SECRET MENU
+========================= */
+
+#secretMenu{
+
+    position:fixed;
+
+    top:-300px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:320px;
+
+    background:rgba(0,0,0,.9);
+
+    border:1px solid #00ff88;
+
+    box-shadow:
+        0 0 20px #00ff88,
+        0 0 60px rgba(0,255,136,.2);
+
+    padding:20px;
+
+    z-index:10000;
+
+    transition:.5s ease;
+
+    backdrop-filter:blur(10px);
+
+}
+
+#secretMenu.showMenu{
+    top:20px;
+}
+
+.menu-box{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.menu-title{
+
+    text-align:center;
+
+    font-size:1.2rem;
+
+    letter-spacing:4px;
+
+    margin-bottom:10px;
+
+    color:#00ff88;
+
+    text-shadow:0 0 10px #00ff88;
+
+}
+
+.menu-box button{
+
+    background:#050505;
+
+    border:1px solid #00ff88;
+
+    color:#00ff88;
+
+    padding:12px;
+
+    cursor:pointer;
+
+    font-family:'Share Tech Mono', monospace;
+
+    font-size:1rem;
+
+    transition:.3s;
+
+}
+
+.menu-box button:hover{
+
+    background:#00ff88;
+
+    color:#000;
+
+    box-shadow:0 0 20px #00ff88;
+
+}
+
 </style>
 </head>
 <body>
@@ -606,7 +696,74 @@ const interval = setInterval(() => {
 
 },60);
 
+/* =========================
+   SECRET KEY MENU
+========================= */
+
+const secretMenu = document.getElementById("secretMenu");
+
+let typedKeys = "";
+
+/* teclado PC + celular */
+
+document.addEventListener("keydown",(e)=>{
+
+    typedKeys += e.key.toLowerCase();
+
+    if(typedKeys.length > 2){
+        typedKeys = typedKeys.slice(-2);
+    }
+
+    if(typedKeys === "hk"){
+
+        secretMenu.classList.toggle("showMenu");
+
+        typedKeys = "";
+
+    }
+
+});
+
+/* soporte móvil */
+
+document.addEventListener("input",(e)=>{
+
+    typedKeys += e.data?.toLowerCase() || "";
+
+    if(typedKeys.length > 2){
+        typedKeys = typedKeys.slice(-2);
+    }
+
+    if(typedKeys === "hk"){
+
+        secretMenu.classList.toggle("showMenu");
+
+        typedKeys = "";
+
+    }
+
+});
+
 </script>
 
+    <!-- =========================
+     SECRET MENU
+========================= -->
+
+<div id="secretMenu">
+
+    <div class="menu-box">
+
+        <div class="menu-title">
+            HACKCROW MENU
+        </div>
+
+        <button>Option 01</button>
+        <button>Option 02</button>
+        <button>Option 03</button>
+
+    </div>
+
+</div>
 </body>
 </html>
