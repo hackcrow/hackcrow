@@ -27,6 +27,22 @@ body{
 }
 
 /* ==================================================
+   HIDDEN INPUT
+================================================== */
+
+#hiddenInput{
+
+    position:fixed;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    top:-100px;
+
+}
+
+/* ==================================================
    LOADER
 ================================================== */
 
@@ -551,6 +567,12 @@ body{
 <body>
 
 <!-- ==================================================
+     INPUT INVISIBLE
+================================================== -->
+
+<input type="text" id="hiddenInput" autocomplete="off">
+
+<!-- ==================================================
      SECRET MENU
 ================================================== -->
 
@@ -647,7 +669,7 @@ const fakeLogs = [
 let progress = 0;
 let logIndex = 0;
 
-/* 45% más rápido */
+/* loader 45% más rápido */
 
 const interval = setInterval(() => {
 
@@ -703,13 +725,29 @@ const interval = setInterval(() => {
 
 const secretMenu = document.getElementById("secretMenu");
 
+const hiddenInput = document.getElementById("hiddenInput");
+
 let buffer = "";
 
-/* teclado */
+/* activar teclado móvil */
 
-document.addEventListener("keydown",(e)=>{
+document.addEventListener("click",()=>{
 
-    buffer += e.key.toLowerCase();
+    hiddenInput.focus();
+
+});
+
+document.addEventListener("touchstart",()=>{
+
+    hiddenInput.focus();
+
+});
+
+/* iPhone / Android */
+
+hiddenInput.addEventListener("input",()=>{
+
+    buffer += hiddenInput.value.toLowerCase();
 
     buffer = buffer.slice(-2);
 
@@ -719,13 +757,15 @@ document.addEventListener("keydown",(e)=>{
 
         buffer = "";
 
+        hiddenInput.value = "";
+
     }
 
 });
 
-/* móvil */
+/* computadora */
 
-document.addEventListener("keyup",(e)=>{
+document.addEventListener("keydown",(e)=>{
 
     buffer += e.key.toLowerCase();
 
