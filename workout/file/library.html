@@ -1,3 +1,4 @@
+<!-- workout/file/library.html — v2 -->
 <!DOCTYPE html>
 <html lang="es" data-theme="dark">
 <head>
@@ -8,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/library.css">
 </head>
 <body>
 
@@ -86,6 +88,252 @@
 
   </div>
 </main>
+
+<!-- =============================================
+     LIGHTBOX
+============================================= -->
+<div id="lightboxOverlay" class="lb-overlay">
+  <div class="lb-panel">
+
+    <!-- HEADER con botones -->
+    <div class="lb-header">
+      <button class="lb-btn-cancel" id="lbCancel">Cancelar</button>
+      <span class="lb-header-title">Editar ejercicio</span>
+      <button class="lb-btn-save" id="lbSave">Guardar</button>
+    </div>
+
+    <!-- BODY scrollable -->
+    <div class="lb-body">
+
+      <!-- IMAGEN -->
+      <div class="lb-field">
+        <label class="lb-label">Imagen del ejercicio</label>
+        <div class="lb-image-upload" id="lbImageArea">
+          <input type="file" id="lbImageInput" accept="image/*" hidden>
+          <div class="lb-image-preview" id="lbImagePreview">
+            <div class="lb-image-placeholder" id="lbImagePlaceholder">
+              <span class="lb-upload-icon">＋</span>
+              <span class="lb-upload-text">Subir imagen</span>
+            </div>
+            <img id="lbImageEl" src="" alt="" style="display:none;">
+          </div>
+        </div>
+      </div>
+
+      <!-- NOMBRE -->
+      <div class="lb-field">
+        <label class="lb-label" for="lbNombre">Nombre del ejercicio</label>
+        <input class="lb-input" type="text" id="lbNombre" placeholder="Ej. Flexiones estándar">
+      </div>
+
+      <!-- TIPO DE EJERCICIO -->
+      <div class="lb-field">
+        <label class="lb-label" for="lbTipo">Tipo de ejercicio</label>
+        <div class="lb-select-wrap">
+          <select class="lb-select" id="lbTipo">
+            <option value="">— Seleccionar —</option>
+            <option value="fuerza">Fuerza</option>
+            <option value="cardio">Cardio</option>
+            <option value="flexibilidad">Flexibilidad</option>
+            <option value="movilidad">Movilidad</option>
+            <option value="isometrico">Isométrico</option>
+            <option value="pliometrico">Pliométrico</option>
+            <option value="resistencia">Resistencia</option>
+          </select>
+          <span class="lb-select-arrow">›</span>
+        </div>
+      </div>
+
+      <!-- EQUIPO -->
+      <div class="lb-field">
+        <label class="lb-label" for="lbEquipo">Equipo</label>
+        <div class="lb-select-wrap">
+          <select class="lb-select" id="lbEquipo">
+            <option value="">— Seleccionar —</option>
+            <option value="peso_corporal">Peso corporal</option>
+            <option value="mancuernas">Mancuernas</option>
+            <option value="peso_extra">Peso extra</option>
+            <option value="banda">Banda</option>
+            <option value="rueda_abdominal">Rueda abdominal</option>
+          </select>
+          <span class="lb-select-arrow">›</span>
+        </div>
+      </div>
+
+      <!-- MÚSCULO PRIMARIO -->
+      <div class="lb-field">
+        <label class="lb-label" for="lbMusculoPrimario">Músculo primario</label>
+        <div class="lb-select-wrap">
+          <select class="lb-select" id="lbMusculoPrimario">
+            <option value="">— Seleccionar —</option>
+            <option value="chest">Chest — Pecho</option>
+            <option value="back">Back — Espalda</option>
+            <option value="shoulders">Shoulders — Hombros</option>
+            <option value="biceps">Biceps — Bíceps</option>
+            <option value="triceps">Triceps — Tríceps</option>
+            <option value="forearms">Forearms — Antebrazos</option>
+            <option value="upper_arms">Upper Arms — Parte superior del brazo</option>
+            <option value="waist">Waist — Cintura / abdomen</option>
+            <option value="hips">Hips — Caderas</option>
+            <option value="quadriceps">Quadriceps — Cuádriceps</option>
+            <option value="hamstrings">Hamstrings — Isquiotibiales</option>
+            <option value="calves">Calves — Pantorrillas</option>
+            <option value="neck">Neck — Cuello</option>
+            <option value="thighs">Thighs — Muslos</option>
+            <option value="glutes">Glutes — Glúteos</option>
+            <option value="abs">Abs / Abdominals — Abdominales</option>
+            <option value="obliques">Obliques — Oblicuos</option>
+            <option value="lower_back">Lower Back — Espalda baja</option>
+            <option value="lats">Lats / Latissimus Dorsi — Dorsales</option>
+            <option value="trapezius">Trapezius — Trapecio</option>
+            <option value="rhomboids">Rhomboids — Romboides</option>
+            <option value="deltoids">Deltoids — Deltoides</option>
+            <option value="deltoid_anterior">Deltoid Anterior — Deltoide anterior</option>
+            <option value="deltoid_lateral">Deltoid Lateral — Deltoide lateral</option>
+            <option value="deltoid_posterior">Deltoid Posterior — Deltoide posterior</option>
+            <option value="pectorals">Pectorals — Pectorales</option>
+            <option value="erector_spinae">Erector Spinae — Erectores espinales</option>
+            <option value="adductors">Adductors — Aductores</option>
+            <option value="abductors">Abductors — Abductores</option>
+            <option value="gastrocnemius">Gastrocnemius — Gastrocnemio</option>
+            <option value="soleus">Soleus — Sóleo</option>
+            <option value="tibialis_anterior">Tibialis Anterior — Tibial anterior</option>
+            <option value="serratus_anterior">Serratus Anterior — Serrato anterior</option>
+            <option value="rotator_cuff">Rotator Cuff — Manguito rotador</option>
+            <option value="teres_major">Teres Major — Redondo mayor</option>
+            <option value="teres_minor">Teres Minor — Redondo menor</option>
+            <option value="infraspinatus">Infraspinatus — Infraespinoso</option>
+            <option value="supraspinatus">Supraspinatus — Supraespinoso</option>
+            <option value="brachialis">Brachialis — Braquial</option>
+            <option value="brachioradialis">Brachioradialis — Braquiorradial</option>
+            <option value="core">Core — Core / zona media</option>
+            <option value="full_body">Full Body — Cuerpo completo</option>
+          </select>
+          <span class="lb-select-arrow">›</span>
+        </div>
+      </div>
+
+      <!-- MÚSCULO SECUNDARIO -->
+      <div class="lb-field">
+        <label class="lb-label" for="lbMusculoSecundario">Músculo secundario</label>
+        <div class="lb-select-wrap">
+          <select class="lb-select" id="lbMusculoSecundario">
+            <option value="">— Seleccionar —</option>
+            <option value="abdominals">Abdominals — Abdominales</option>
+            <option value="obliques">Obliques — Oblicuos</option>
+            <option value="core">Core — Core / zona media</option>
+            <option value="lower_back">Lower Back — Espalda baja</option>
+            <option value="erector_spinae">Erector Spinae — Erectores espinales</option>
+            <option value="deltoid_anterior">Deltoid Anterior — Deltoide anterior</option>
+            <option value="deltoid_lateral">Deltoid Lateral — Deltoide lateral</option>
+            <option value="deltoid_posterior">Deltoid Posterior — Deltoide posterior</option>
+            <option value="deltoids">Deltoids — Deltoides</option>
+            <option value="trapezius">Trapezius — Trapecio</option>
+            <option value="rhomboids">Rhomboids — Romboides</option>
+            <option value="latissimus_dorsi">Latissimus Dorsi — Dorsal ancho</option>
+            <option value="teres_major">Teres Major — Redondo mayor</option>
+            <option value="teres_minor">Teres Minor — Redondo menor</option>
+            <option value="infraspinatus">Infraspinatus — Infraespinoso</option>
+            <option value="supraspinatus">Supraspinatus — Supraespinoso</option>
+            <option value="serratus_anterior">Serratus Anterior — Serrato anterior</option>
+            <option value="rotator_cuff">Rotator Cuff — Manguito rotador</option>
+            <option value="biceps">Biceps — Bíceps</option>
+            <option value="biceps_brachii">Biceps Brachii — Bíceps braquial</option>
+            <option value="triceps">Triceps — Tríceps</option>
+            <option value="triceps_brachii">Triceps Brachii — Tríceps braquial</option>
+            <option value="brachialis">Brachialis — Braquial</option>
+            <option value="brachioradialis">Brachioradialis — Braquiorradial</option>
+            <option value="forearms">Forearms — Antebrazos</option>
+            <option value="upper_arms">Upper Arms — Parte superior del brazo</option>
+            <option value="glutes">Glutes — Glúteos</option>
+            <option value="gluteus_maximus">Gluteus Maximus — Glúteo mayor</option>
+            <option value="gluteus_medius">Gluteus Medius — Glúteo medio</option>
+            <option value="hamstrings">Hamstrings — Isquiotibiales</option>
+            <option value="quadriceps">Quadriceps — Cuádriceps</option>
+            <option value="adductors">Adductors — Aductores</option>
+            <option value="abductors">Abductors — Abductores</option>
+            <option value="hip_flexors">Hip Flexors — Flexores de cadera</option>
+            <option value="calves">Calves — Pantorrillas</option>
+            <option value="gastrocnemius">Gastrocnemius — Gastrocnemio</option>
+            <option value="soleus">Soleus — Sóleo</option>
+            <option value="tibialis_anterior">Tibialis Anterior — Tibial anterior</option>
+            <option value="neck">Neck — Cuello</option>
+            <option value="chest">Chest — Pecho</option>
+            <option value="pectorals">Pectorals — Pectorales</option>
+            <option value="shoulders">Shoulders — Hombros</option>
+            <option value="back">Back — Espalda</option>
+            <option value="thighs">Thighs — Muslos</option>
+            <option value="waist">Waist — Cintura</option>
+          </select>
+          <span class="lb-select-arrow">›</span>
+        </div>
+      </div>
+
+      <!-- PARTE DEL CUERPO -->
+      <div class="lb-field">
+        <label class="lb-label" for="lbParteCuerpo">Parte del cuerpo</label>
+        <div class="lb-select-wrap">
+          <select class="lb-select" id="lbParteCuerpo">
+            <option value="">— Seleccionar —</option>
+            <option value="abdominals">Abdominals — Abdominales</option>
+            <option value="obliques">Obliques — Oblicuos</option>
+            <option value="core">Core — Core / zona media</option>
+            <option value="lower_back">Lower Back — Espalda baja</option>
+            <option value="erector_spinae">Erector Spinae — Erectores espinales</option>
+            <option value="deltoid_anterior">Deltoid Anterior — Deltoide anterior</option>
+            <option value="deltoid_lateral">Deltoid Lateral — Deltoide lateral</option>
+            <option value="deltoid_posterior">Deltoid Posterior — Deltoide posterior</option>
+            <option value="deltoids">Deltoids — Deltoides</option>
+            <option value="trapezius">Trapezius — Trapecio</option>
+            <option value="rhomboids">Rhomboids — Romboides</option>
+            <option value="latissimus_dorsi">Latissimus Dorsi — Dorsal ancho</option>
+            <option value="teres_major">Teres Major — Redondo mayor</option>
+            <option value="teres_minor">Teres Minor — Redondo menor</option>
+            <option value="infraspinatus">Infraspinatus — Infraespinoso</option>
+            <option value="supraspinatus">Supraspinatus — Supraespinoso</option>
+            <option value="serratus_anterior">Serratus Anterior — Serrato anterior</option>
+            <option value="rotator_cuff">Rotator Cuff — Manguito rotador</option>
+            <option value="biceps">Biceps — Bíceps</option>
+            <option value="biceps_brachii">Biceps Brachii — Bíceps braquial</option>
+            <option value="triceps">Triceps — Tríceps</option>
+            <option value="triceps_brachii">Triceps Brachii — Tríceps braquial</option>
+            <option value="brachialis">Brachialis — Braquial</option>
+            <option value="brachioradialis">Brachioradialis — Braquiorradial</option>
+            <option value="forearms">Forearms — Antebrazos</option>
+            <option value="upper_arms">Upper Arms — Parte superior del brazo</option>
+            <option value="glutes">Glutes — Glúteos</option>
+            <option value="gluteus_maximus">Gluteus Maximus — Glúteo mayor</option>
+            <option value="gluteus_medius">Gluteus Medius — Glúteo medio</option>
+            <option value="hamstrings">Hamstrings — Isquiotibiales</option>
+            <option value="quadriceps">Quadriceps — Cuádriceps</option>
+            <option value="adductors">Adductors — Aductores</option>
+            <option value="abductors">Abductors — Abductores</option>
+            <option value="hip_flexors">Hip Flexors — Flexores de cadera</option>
+            <option value="calves">Calves — Pantorrillas</option>
+            <option value="gastrocnemius">Gastrocnemius — Gastrocnemio</option>
+            <option value="soleus">Soleus — Sóleo</option>
+            <option value="tibialis_anterior">Tibialis Anterior — Tibial anterior</option>
+            <option value="neck">Neck — Cuello</option>
+            <option value="chest">Chest — Pecho</option>
+            <option value="pectorals">Pectorals — Pectorales</option>
+            <option value="shoulders">Shoulders — Hombros</option>
+            <option value="back">Back — Espalda</option>
+            <option value="thighs">Thighs — Muslos</option>
+            <option value="waist">Waist — Cintura</option>
+          </select>
+          <span class="lb-select-arrow">›</span>
+        </div>
+      </div>
+
+      <!-- VIDEO URL -->
+      <div class="lb-field">
+        <label class="lb-label" for="lbVideo">URL de video de referencia</label>
+        <input class="lb-input" type="url" id="lbVideo" placeholder="https://youtube.com/watch?v=...">
+      </div>
+
+    </div><!-- /lb-body -->
+  </div><!-- /lb-panel -->
+</div><!-- /lightboxOverlay -->
 
 <script src="../js/app.js"></script>
 <script src="../js/library.js"></script>
