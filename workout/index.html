@@ -1,18 +1,122 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Workout</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="version">version 6</div>
-  <header class="topbar"><div class="logo">Work<span>out</span></div></header>
-  <main class="container">
-    <h1>Dashboard</h1>
-    <a class="link-btn" href="file/library.html">Biblioteca de ejercicios</a>
-  </main>
-  <script src="src/app.js"></script>
+
+<div class="version-indicator">version 7</div>
+
+<div id="overlay"></div>
+
+<header id="topbar">
+  <div class="topbar-left">
+    <div class="logo">Work<span>out</span></div>
+  </div>
+
+  <div class="topbar-right">
+    <button class="theme-toggle" id="themeToggle">
+      <span class="moon-icon">🌙</span>
+      <span class="sun-icon">☀️</span>
+    </button>
+
+    <button class="menu-btn" id="menuBtn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<nav id="dropMenu">
+  <div class="menu-section">
+    <div class="menu-section-label">Principal</div>
+    <a class="menu-item active" href="index.html">
+      <span class="item-icon">⊞</span>
+      Dashboard
+    </a>
+  </div>
+
+  <div class="menu-divider"></div>
+
+  <div class="menu-section">
+    <div class="menu-section-label">Herramientas</div>
+    <a class="menu-item" href="file/library.html">
+      <span class="item-icon">📚</span>
+      Biblioteca de Ejercicios
+      <span class="item-badge">NEW</span>
+    </a>
+  </div>
+</nav>
+
+<main id="app">
+  <div id="page-dashboard">
+
+    <section class="hero">
+      <div class="greeting">// sistema activo</div>
+      <h1 class="hero-title">Hola, <strong>Atleta</strong>.<br>¿Listo para entrenar?</h1>
+    </section>
+
+    <div class="dashboard">
+
+      <div class="card card-third">
+        <div class="card-accent-line"></div>
+        <div class="card-label">Racha actual</div>
+        <div class="card-value">0 <span class="unit">días</span></div>
+        <div class="card-subtext">Empieza hoy tu primera racha</div>
+        <div class="streak-dots" id="streakDots"></div>
+      </div>
+
+      <div class="card card-third">
+        <div class="card-label">Esta semana</div>
+        <div class="card-value">0 <span class="unit">sesiones</span></div>
+        <div class="card-subtext">Meta: 4 sesiones / semana</div>
+        <div class="week-chart" id="weekChart"></div>
+      </div>
+
+      <div class="card card-third">
+        <div class="card-label">Ejercicios registrados</div>
+        <div class="card-value">0</div>
+        <div class="card-subtext">Accede a la biblioteca para explorar</div>
+        <br>
+        <a class="btn btn-ghost" href="file/library.html">Ver biblioteca →</a>
+      </div>
+
+      <div class="card card-half">
+        <div class="card-label">Acceso rápido</div>
+        <div class="quick-list">
+          <a class="quick-item" href="file/library.html">
+            <span class="q-icon">📚</span>
+            Biblioteca de Ejercicios
+            <span class="q-arrow">›</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="card card-half" style="display:flex;flex-direction:column;justify-content:space-between;">
+        <div>
+          <div class="card-label">Empezar ahora</div>
+          <p style="font-size:0.85rem;color:var(--text-muted);line-height:1.6;margin-top:4px;">
+            Explora la biblioteca de ejercicios y comienza a registrar tu progreso.
+          </p>
+        </div>
+        <div style="margin-top:20px;">
+          <a class="btn" href="file/library.html">Ir a Biblioteca →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<script src="src/app.js"></script>
 </body>
 </html>
