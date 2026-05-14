@@ -1,18 +1,56 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Biblioteca</title>
-  <link rel="stylesheet" href="../css/library.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-  <div class="version">version 5</div>
-  <header class="topbar"><div class="logo">Work<span>out</span></div></header>
-  <main class="container">
-    <a class="back-link" href="../index.html">← volver al index</a>
-    <h1>Biblioteca de Ejercicios</h1>
-  </main>
-  <script src="../src/library.js"></script>
+
+<div class="version-indicator">version 7</div>
+
+<div id="overlay"></div>
+
+<header id="topbar">
+  <div class="topbar-left">
+    <div class="logo">Work<span>out</span></div>
+  </div>
+</header>
+
+<main id="app">
+  <div id="page-biblioteca" style="display:block;">
+
+    <a href="../index.html" class="back-btn">← volver al index</a>
+
+    <div class="page-header">
+      <div>
+        <div class="page-title">Biblioteca de Ejercicios</div>
+        <div class="page-subtitle">// Ejercicios para casa · sin equipo</div>
+      </div>
+    </div>
+
+    <div class="filter-pills">
+      <button class="pill active" data-filter="todos">Todos</button>
+      <button class="pill" data-filter="pecho">Pecho</button>
+      <button class="pill" data-filter="espalda">Espalda</button>
+      <button class="pill" data-filter="piernas">Piernas</button>
+      <button class="pill" data-filter="hombros">Hombros</button>
+      <button class="pill" data-filter="core">Core</button>
+      <button class="pill" data-filter="brazos">Brazos</button>
+      <button class="pill" data-filter="cardio">Cardio</button>
+    </div>
+
+    <div class="exercise-grid" id="exerciseGrid"></div>
+
+  </div>
+</main>
+
+<script src="../src/library.js"></script>
 </body>
 </html>
