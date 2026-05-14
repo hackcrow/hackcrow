@@ -1,288 +1,86 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Traductor Aurebesh</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Fuente Aurebesh -->
-  <link href="https://fonts.cdnfonts.com/css/aurebesh" rel="stylesheet">
+<title>Hackcrow</title>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
-    body {
-      background: linear-gradient(135deg, #0f172a, #020617);
-      color: white;
-      font-family: Impact, Arial Black, sans-serif;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 700px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 20px;
-      padding: 30px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 25px;
-      font-size: 2.2rem;
-      text-transform: uppercase;
-      color: #facc15;
-      letter-spacing: 4px;
-      font-weight: 400;
-    }
-
-    p {
-      text-align: center;
-      opacity: 0.8;
-      margin-bottom: 40px;
-      line-height: 1.8;
-      font-family: Arial, sans-serif;
-    }
-
-    textarea {
-      width: 100%;
-      min-height: 140px;
-      resize: vertical;
-      border: none;
-      outline: none;
-      border-radius: 14px;
-      padding: 15px;
-      font-size: 1rem;
-      margin-bottom: 20px;
-      cursor: text;
-      background: rgba(255,255,255,0.08);
-      color: white;
-    }
-
-    .resultado {
-      margin-bottom: 35px;
-      width: 100%;
-      min-height: 140px;
-      border-radius: 14px;
-      padding: 15px;
-      background: rgba(255,255,255,0.08);
-      font-size: 2rem;
-      line-height: 1.7;
-      font-family: 'Aurebesh', sans-serif;
-      word-wrap: break-word;
-    }
-
-    button {
-      opacity: 0.5;
-      cursor: not-allowed;
-      width: 100%;
-      padding: 14px;
-      border: 2px solid #facc15;
-      border-radius: 14px;
-      background: #000000;
-      color: #facc15;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      font-family: Impact, Arial Black, sans-serif;
-      letter-spacing: 2px;
-      margin-bottom: 20px;
-    }
-
-    button:enabled {
-      opacity: 1;
-      cursor: pointer;
-    }
-
-    button:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-      box-shadow: none;
-      transform: none;
-    }
-
-    button:hover {
-      background: #111111;
-      transform: scale(1.05);
-      box-shadow: 0 0 10px #facc15, 0 0 25px #facc15;
-    }
-
-    .opciones {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      margin-bottom: 35px;
-    }
-
-    .grupo {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .grupo label {
-      font-size: 0.9rem;
-      opacity: 0.8;
-      font-family: Arial, sans-serif;
-      font-weight: 400;
-    }
-
-    select {
-      padding: 12px;
-      border-radius: 12px;
-      border: none;
-      background: rgba(255,255,255,0.08);
-      color: white;
-      outline: none;
-      cursor: pointer;
-    }
-
-    select option {
-      background: #111827;
-      color: white;
-    }
-
-    .footer {
-      text-align: center;
-      margin-top: 20px;
-      opacity: 0.6;
-      font-size: 0.9rem;
-    }
-  </style>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <div class="container">
-    <h1>Traductor Aurebesh</h1>
-    <p>Escribe texto normal y conviértelo al idioma galáctico de Star Wars.</p>
+<!-- ==================================================
+     SECRET MENU
+================================================== -->
 
-    <textarea id="texto" placeholder="Escribe aquí..."></textarea>
+<div id="secretMenu">
 
-    <div class="resultado" id="resultado"></div>
+    <div class="menu-box">
 
-    <div class="opciones">
-      <div class="grupo">
-        <label>Color del texto</label>
-        <select id="colorTexto">$1
-          <option value="#00ffcc">Cian</option>
-          <option value="#00ff00">Verde</option>
-          <option value="#ff3131">Rojo</option>
-          <option value="#ffd700">Dorado</option>
-        </select>
-      </div>
+        <div class="menu-title">
+            HACKCROW MENU
+        </div>
 
-      <div class="grupo">
-        <label>Color del fondo</label>
-        <select id="colorFondo">
-          <option value="transparent">Transparente</option>
-          <option value="#000000">Negro</option>
-          <option value="#111827">Azul oscuro</option>
-          <option value="#1e293b">Gris oscuro</option>
-          <option value="#ffffff">Blanco</option>
-        </select>
-      </div>
+        <button>Option 01</button>
+        <button>Option 02</button>
+        <button>Option 03</button>
 
-      <div class="grupo">
-        <label>Tamaño</label>
-        <select id="tamanoTexto">
-          <option value="40">Pequeño</option>
-          <option value="60" selected>Mediano</option>
-          <option value="90">Grande</option>
-        </select>
-      </div>
     </div>
 
-    <button id="btnDescargar" onclick="descargarImagen()" disabled>DESCARGAR IMAGEN</button>
+</div>
 
-    <div class="footer">
-      Hecho para fans de Star Wars ✨ by Hackcr0w
+<!-- ==================================================
+     LOADER
+================================================== -->
+
+<div id="loader">
+
+    <div class="glitch" data-text="HACKCROW">
+        HACKCROW
     </div>
-  </div>
 
-  <script>
-    function traducir() {
-      const texto = document.getElementById('texto').value;
-      const resultado = document.getElementById('resultado');
+    <div class="init">
+        INITIALIZING HACKCROW SYSTEM...
+    </div>
 
-      resultado.textContent = texto;
-    }
+    <div class="progress-container">
+        <div class="progress-bar" id="bar"></div>
+    </div>
 
-    // Traducción fluida en tiempo real
-    let timeoutTraduccion;
+    <div class="percent" id="percent">
+        0%
+    </div>
 
-    document.getElementById('texto').addEventListener('input', () => {
-      clearTimeout(timeoutTraduccion);
+    <div class="logs" id="logs"></div>
 
-      timeoutTraduccion = setTimeout(() => {
-        traducir();
+    <div class="terminal-box">
+<pre>
+┌──────────────────────────┐
+│      HACKCROW.sh         │
+│  Secure access granted   │
+└──────────────────────────┘
+</pre>
+    </div>
 
-        const texto = document.getElementById('texto').value.trim();
-        document.getElementById('btnDescargar').disabled = texto === '';
-      }, 250);
-    });
+</div>
 
-    function descargarImagen() {
-      const texto = document.getElementById('texto').value;
-      const colorTexto = document.getElementById('colorTexto').value;
-      const colorFondo = document.getElementById('colorFondo').value;
-      const tamano = document.getElementById('tamanoTexto').value;
+<!-- ==================================================
+     MAIN CONTENT
+================================================== -->
 
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
+<div id="mainContent">
 
-      canvas.width = 900;
-      canvas.height = 220;
+    <div class="main-glitch" data-text="HACKCROW">
+        HACKCROW
+    </div>
 
-      // Fondo
-      if (colorFondo !== 'transparent') {
-        ctx.fillStyle = colorFondo;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-      }
+</div>
 
-      // Texto
-      ctx.fillStyle = colorTexto;
-      ctx.font = `${tamano}px Aurebesh`;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-
-      const maxWidth = 780;
-      const lineHeight = parseInt(tamano) + 20;
-      const palabras = texto.split(' ');
-      let linea = '';
-      let y = canvas.height / 2;
-
-      for (let n = 0; n < palabras.length; n++) {
-        const testLinea = linea + palabras[n] + ' ';
-        const medidas = ctx.measureText(testLinea);
-
-        if (medidas.width > maxWidth && n > 0) {
-          ctx.fillText(linea.trim(), canvas.width / 2, y);
-          linea = palabras[n] + ' ';
-          y += lineHeight * 0.9;
-        } else {
-          linea = testLinea;
-        }
-      }
-
-      ctx.fillText(linea.trim(), canvas.width / 2, y);
-
-      const link = document.createElement('a');
-      link.download = 'aurebesh.png';
-      link.href = canvas.toDataURL('image/png');
-      link.click();
-    }
-  </script>
+<script src="src/app.js"></script>
 
 </body>
 </html>
