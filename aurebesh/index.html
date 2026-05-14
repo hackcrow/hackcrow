@@ -1,764 +1,288 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Hackcrow</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    background:#030303;
-    overflow:hidden;
-    font-family:'Share Tech Mono', monospace;
-    color:#00ff88;
-    user-select:none;
-    -webkit-user-select:none;
-    -webkit-tap-highlight-color:transparent;
-}
-
-/* ==================================================
-   LOADER
-================================================== */
-
-#loader{
-
-    position:fixed;
-
-    inset:0;
-
-    background:#030303;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    align-items:center;
-
-    z-index:9999;
-
-    overflow:hidden;
-
-}
-
-/* scanlines */
-
-#loader::before{
-
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background:
-    repeating-linear-gradient(
-        to bottom,
-        rgba(255,255,255,0.03),
-        rgba(255,255,255,0.03) 1px,
-        transparent 1px,
-        transparent 3px
-    );
-
-    opacity:.15;
-
-    pointer-events:none;
-
-}
-
-/* ==================================================
-   GLITCH
-================================================== */
-
-.glitch,
-.main-glitch{
-
-    position:relative;
-
-    font-size:5rem;
-
-    letter-spacing:12px;
-
-    text-transform:uppercase;
-
-    color:#00ff88;
-
-    text-shadow:
-        0 0 5px #00ff88,
-        0 0 15px #00ff88,
-        0 0 40px #00ff88;
-
-    animation:textShake 7s infinite ease-in-out;
-
-}
-
-.glitch::before,
-.glitch::after,
-.main-glitch::before,
-.main-glitch::after{
-
-    content:attr(data-text);
-
-    position:absolute;
-
-    top:0;
-    left:0;
-
-    width:100%;
-    height:100%;
-
-    overflow:hidden;
-
-    background:#030303;
-
-}
-
-/* cyan */
-
-.glitch::before,
-.main-glitch::before{
-
-    left:4px;
-
-    text-shadow:-4px 0 #00d9ff;
-
-    animation:glitchSlices1 7s infinite ease-in-out;
-
-}
-
-/* purple */
-
-.glitch::after,
-.main-glitch::after{
-
-    left:-4px;
-
-    text-shadow:4px 0 #b026ff;
-
-    animation:glitchSlices2 7s infinite ease-in-out;
-
-}
-
-/* ==================================================
-   INITIALIZING
-================================================== */
-
-.init{
-
-    margin-top:25px;
-
-    margin-bottom:20px;
-
-    font-size:1.1rem;
-
-    letter-spacing:3px;
-
-    text-shadow:0 0 10px #00ff88;
-
-}
-
-/* ==================================================
-   PROGRESS BAR
-================================================== */
-
-.progress-container{
-
-    width:420px;
-
-    height:28px;
-
-    border:2px solid #00ff88;
-
-    padding:4px;
-
-    margin-bottom:15px;
-
-    box-shadow:0 0 15px #00ff8850;
-
-}
-
-.progress-bar{
-
-    height:100%;
-
-    width:0%;
-
-    background:#00ff88;
-
-    box-shadow:0 0 20px #00ff88;
-
-    transition:width .03s linear;
-
-}
-
-.percent{
-
-    margin-bottom:20px;
-
-    font-size:1.1rem;
-
-}
-
-/* ==================================================
-   LOGS
-================================================== */
-
-.logs{
-
-    width:500px;
-
-    height:180px;
-
-    overflow:hidden;
-
-    border:1px solid rgba(0,255,136,.2);
-
-    background:rgba(0,255,136,.03);
-
-    padding:15px;
-
-    box-shadow:0 0 20px rgba(0,255,136,.1) inset;
-
-}
-
-.log{
-
-    margin-bottom:8px;
-
-    font-size:.9rem;
-
-    opacity:0;
-
-    animation:fadeIn .3s forwards;
-
-}
-
-@keyframes fadeIn{
-
-    to{
-        opacity:1;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Traductor Aurebesh</title>
+
+  <!-- Fuente Aurebesh -->
+  <link href="https://fonts.cdnfonts.com/css/aurebesh" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-}
-
-/* ==================================================
-   TERMINAL
-================================================== */
-
-.terminal-box{
-
-    margin-top:25px;
-
-    text-shadow:0 0 10px #00ff88;
-
-}
-
-/* ==================================================
-   MAIN CONTENT
-================================================== */
-
-#mainContent{
-
-    display:none;
-
-    height:100vh;
-
-    justify-content:center;
-
-    align-items:center;
-
-    background:#030303;
-
-}
-
-.show{
-    display:flex !important;
-}
-
-/* ==================================================
-   SECRET MENU
-================================================== */
-
-#secretMenu{
-
-    position:fixed;
-
-    top:-400px;
-
-    left:50%;
-
-    transform:translateX(-50%);
-
-    width:320px;
-
-    background:rgba(0,0,0,.92);
-
-    border:1px solid #00ff88;
-
-    box-shadow:
-        0 0 20px #00ff88,
-        0 0 50px rgba(0,255,136,.15);
-
-    padding:20px;
-
-    z-index:100000;
-
-    transition:.5s ease;
-
-    backdrop-filter:blur(10px);
-
-}
-
-#secretMenu.showMenu{
-    top:20px;
-}
-
-.menu-box{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:15px;
-
-}
-
-.menu-title{
-
-    text-align:center;
-
-    font-size:1.2rem;
-
-    letter-spacing:4px;
-
-    margin-bottom:10px;
-
-    text-shadow:0 0 10px #00ff88;
-
-}
-
-.menu-box button{
-
-    background:#050505;
-
-    border:1px solid #00ff88;
-
-    color:#00ff88;
-
-    padding:12px;
-
-    cursor:pointer;
-
-    font-family:'Share Tech Mono', monospace;
-
-    font-size:1rem;
-
-    transition:.3s;
-
-}
-
-.menu-box button:hover{
-
-    background:#00ff88;
-
-    color:#000;
-
-    box-shadow:0 0 20px #00ff88;
-
-}
-
-/* ==================================================
-   SHAKE
-================================================== */
-
-@keyframes textShake{
-
-    0%,75%,100%{
-        transform:translate(0);
+    body {
+      background: linear-gradient(135deg, #0f172a, #020617);
+      color: white;
+      font-family: Impact, Arial Black, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
     }
 
-    76%{
-        transform:translate(-2px,1px);
+    .container {
+      width: 100%;
+      max-width: 700px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 30px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
-    77%{
-        transform:translate(3px,-1px);
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 2.2rem;
+      text-transform: uppercase;
+      color: #facc15;
+      letter-spacing: 4px;
+      font-weight: 400;
     }
 
-    78%{
-        transform:translate(-5px,2px);
+    p {
+      text-align: center;
+      opacity: 0.8;
+      margin-bottom: 40px;
+      line-height: 1.8;
+      font-family: Arial, sans-serif;
     }
 
-    79%{
-        transform:translate(5px,-2px);
+    textarea {
+      width: 100%;
+      min-height: 140px;
+      resize: vertical;
+      border: none;
+      outline: none;
+      border-radius: 14px;
+      padding: 15px;
+      font-size: 1rem;
+      margin-bottom: 20px;
+      cursor: text;
+      background: rgba(255,255,255,0.08);
+      color: white;
     }
 
-    80%{
-        transform:translate(-7px,3px);
+    .resultado {
+      margin-bottom: 35px;
+      width: 100%;
+      min-height: 140px;
+      border-radius: 14px;
+      padding: 15px;
+      background: rgba(255,255,255,0.08);
+      font-size: 2rem;
+      line-height: 1.7;
+      font-family: 'Aurebesh', sans-serif;
+      word-wrap: break-word;
     }
 
-    81%{
-        transform:translate(7px,-3px);
+    button {
+      opacity: 0.5;
+      cursor: not-allowed;
+      width: 100%;
+      padding: 14px;
+      border: 2px solid #facc15;
+      border-radius: 14px;
+      background: #000000;
+      color: #facc15;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-family: Impact, Arial Black, sans-serif;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
     }
 
-    82%{
-        transform:translate(-4px,1px);
+    button:enabled {
+      opacity: 1;
+      cursor: pointer;
     }
 
-    83%{
-        transform:translate(4px,-1px);
+    button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
     }
 
-    84%{
-        transform:translate(-8px,2px);
+    button:hover {
+      background: #111111;
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #facc15, 0 0 25px #facc15;
     }
 
-    85%{
-        transform:translate(8px,-2px);
+    .opciones {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-bottom: 35px;
     }
 
-    86%{
-        transform:translate(0);
+    .grupo {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
-}
-
-/* ==================================================
-   GLITCH 1
-================================================== */
-
-@keyframes glitchSlices1{
-
-    0%,75%,100%{
-        clip-path:inset(0 0 0 0);
-        transform:translate(0);
+    .grupo label {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      font-family: Arial, sans-serif;
+      font-weight: 400;
     }
 
-    76%{
-        clip-path:inset(10% 0 80% 0);
-        transform:translate(-10px,-3px);
+    select {
+      padding: 12px;
+      border-radius: 12px;
+      border: none;
+      background: rgba(255,255,255,0.08);
+      color: white;
+      outline: none;
+      cursor: pointer;
     }
 
-    78%{
-        clip-path:inset(40% 0 30% 0);
-        transform:translate(12px,3px);
+    select option {
+      background: #111827;
+      color: white;
     }
 
-    80%{
-        clip-path:inset(70% 0 5% 0);
-        transform:translate(-15px,4px);
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      opacity: 0.6;
+      font-size: 0.9rem;
     }
-
-    82%{
-        clip-path:inset(20% 0 50% 0);
-        transform:translate(18px,-3px);
-    }
-
-    84%{
-        clip-path:inset(55% 0 15% 0);
-        transform:translate(-20px,2px);
-    }
-
-    86%{
-        clip-path:inset(0 0 0 0);
-        transform:translate(0);
-    }
-
-}
-
-/* ==================================================
-   GLITCH 2
-================================================== */
-
-@keyframes glitchSlices2{
-
-    0%,75%,100%{
-        clip-path:inset(0 0 0 0);
-        transform:translate(0);
-    }
-
-    76%{
-        clip-path:inset(75% 0 5% 0);
-        transform:translate(10px,3px);
-    }
-
-    78%{
-        clip-path:inset(5% 0 70% 0);
-        transform:translate(-12px,-3px);
-    }
-
-    80%{
-        clip-path:inset(45% 0 25% 0);
-        transform:translate(15px,4px);
-    }
-
-    82%{
-        clip-path:inset(25% 0 45% 0);
-        transform:translate(-18px,-2px);
-    }
-
-    84%{
-        clip-path:inset(60% 0 10% 0);
-        transform:translate(20px,2px);
-    }
-
-    86%{
-        clip-path:inset(0 0 0 0);
-        transform:translate(0);
-    }
-
-}
-
-/* ==================================================
-   RESPONSIVE
-================================================== */
-
-@media(max-width:700px){
-
-    .glitch,
-    .main-glitch{
-
-        font-size:2.5rem;
-
-        letter-spacing:5px;
-
-        text-align:center;
-
-    }
-
-    .progress-container{
-        width:90%;
-    }
-
-    .logs{
-        width:90%;
-        font-size:.8rem;
-    }
-
-    #secretMenu{
-        width:90%;
-    }
-
-}
-
-</style>
+  </style>
 </head>
 <body>
 
-<!-- ==================================================
-     SECRET MENU
-================================================== -->
+  <div class="container">
+    <h1>Traductor Aurebesh</h1>
+    <p>Escribe texto normal y conviértelo al idioma galáctico de Star Wars.</p>
 
-<div id="secretMenu">
+    <textarea id="texto" placeholder="Escribe aquí..."></textarea>
 
-    <div class="menu-box">
+    <div class="resultado" id="resultado"></div>
 
-        <div class="menu-title">
-            HACKCROW MENU
-        </div>
+    <div class="opciones">
+      <div class="grupo">
+        <label>Color del texto</label>
+        <select id="colorTexto">$1
+          <option value="#00ffcc">Cian</option>
+          <option value="#00ff00">Verde</option>
+          <option value="#ff3131">Rojo</option>
+          <option value="#ffd700">Dorado</option>
+        </select>
+      </div>
 
-        <button>Option 01</button>
-        <button>Option 02</button>
-        <button>Option 03</button>
+      <div class="grupo">
+        <label>Color del fondo</label>
+        <select id="colorFondo">
+          <option value="transparent">Transparente</option>
+          <option value="#000000">Negro</option>
+          <option value="#111827">Azul oscuro</option>
+          <option value="#1e293b">Gris oscuro</option>
+          <option value="#ffffff">Blanco</option>
+        </select>
+      </div>
 
+      <div class="grupo">
+        <label>Tamaño</label>
+        <select id="tamanoTexto">
+          <option value="40">Pequeño</option>
+          <option value="60" selected>Mediano</option>
+          <option value="90">Grande</option>
+        </select>
+      </div>
     </div>
 
-</div>
+    <button id="btnDescargar" onclick="descargarImagen()" disabled>DESCARGAR IMAGEN</button>
 
-<!-- ==================================================
-     LOADER
-================================================== -->
-
-<div id="loader">
-
-    <div class="glitch" data-text="HACKCROW">
-        HACKCROW
+    <div class="footer">
+      Hecho para fans de Star Wars ✨ by Hackcr0w
     </div>
+  </div>
 
-    <div class="init">
-        INITIALIZING HACKCROW SYSTEM...
-    </div>
+  <script>
+    function traducir() {
+      const texto = document.getElementById('texto').value;
+      const resultado = document.getElementById('resultado');
 
-    <div class="progress-container">
-        <div class="progress-bar" id="bar"></div>
-    </div>
-
-    <div class="percent" id="percent">
-        0%
-    </div>
-
-    <div class="logs" id="logs"></div>
-
-    <div class="terminal-box">
-<pre>
-┌──────────────────────────┐
-│      HACKCROW.sh         │
-│  Secure access granted   │
-└──────────────────────────┘
-</pre>
-    </div>
-
-</div>
-
-<!-- ==================================================
-     MAIN CONTENT
-================================================== -->
-
-<div id="mainContent">
-
-    <div class="main-glitch" data-text="HACKCROW">
-        HACKCROW
-    </div>
-
-</div>
-
-<script>
-
-/* ==================================================
-   LOADER
-================================================== */
-
-const bar = document.getElementById("bar");
-const percent = document.getElementById("percent");
-const logs = document.getElementById("logs");
-
-const loader = document.getElementById("loader");
-const main = document.getElementById("mainContent");
-
-const fakeLogs = [
-
-    "[00:00:01] Loading kernel modules... OK",
-    "[00:00:02] Establishing secure connection... OK",
-    "[00:00:03] Bypassing firewall... OK",
-    "[00:00:04] Encrypting payload... OK",
-    "[00:00:05] Injecting exploit vector... OK",
-    "[00:00:06] Accessing secure nodes... OK",
-    "[00:00:07] Elevating privileges... OK",
-    "[00:00:08] Cleaning traces... OK",
-    "[00:00:09] Access granted."
-
-];
-
-let progress = 0;
-let logIndex = 0;
-
-/* loader más rápido */
-
-const interval = setInterval(() => {
-
-    progress += 2;
-
-    if(progress > 100){
-        progress = 100;
+      resultado.textContent = texto;
     }
 
-    bar.style.width = progress + "%";
+    // Traducción fluida en tiempo real
+    let timeoutTraduccion;
 
-    percent.innerText = progress + "%";
+    document.getElementById('texto').addEventListener('input', () => {
+      clearTimeout(timeoutTraduccion);
 
-    if(progress % 10 === 0 && logIndex < fakeLogs.length){
+      timeoutTraduccion = setTimeout(() => {
+        traducir();
 
-        const log = document.createElement("div");
+        const texto = document.getElementById('texto').value.trim();
+        document.getElementById('btnDescargar').disabled = texto === '';
+      }, 250);
+    });
 
-        log.classList.add("log");
+    function descargarImagen() {
+      const texto = document.getElementById('texto').value;
+      const colorTexto = document.getElementById('colorTexto').value;
+      const colorFondo = document.getElementById('colorFondo').value;
+      const tamano = document.getElementById('tamanoTexto').value;
 
-        log.innerText = fakeLogs[logIndex];
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
 
-        logs.appendChild(log);
+      canvas.width = 900;
+      canvas.height = 220;
 
-        logs.scrollTop = logs.scrollHeight;
+      // Fondo
+      if (colorFondo !== 'transparent') {
+        ctx.fillStyle = colorFondo;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
 
-        logIndex++;
+      // Texto
+      ctx.fillStyle = colorTexto;
+      ctx.font = `${tamano}px Aurebesh`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
 
+      const maxWidth = 780;
+      const lineHeight = parseInt(tamano) + 20;
+      const palabras = texto.split(' ');
+      let linea = '';
+      let y = canvas.height / 2;
+
+      for (let n = 0; n < palabras.length; n++) {
+        const testLinea = linea + palabras[n] + ' ';
+        const medidas = ctx.measureText(testLinea);
+
+        if (medidas.width > maxWidth && n > 0) {
+          ctx.fillText(linea.trim(), canvas.width / 2, y);
+          linea = palabras[n] + ' ';
+          y += lineHeight * 0.9;
+        } else {
+          linea = testLinea;
+        }
+      }
+
+      ctx.fillText(linea.trim(), canvas.width / 2, y);
+
+      const link = document.createElement('a');
+      link.download = 'aurebesh.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
     }
-
-    if(progress >= 100){
-
-        clearInterval(interval);
-
-        setTimeout(() => {
-
-            loader.style.transition = "opacity .35s ease";
-
-            loader.style.opacity = "0";
-
-            setTimeout(() => {
-
-                loader.style.display = "none";
-
-                main.classList.add("show");
-
-            },350);
-
-        },120);
-
-    }
-
-},16);
-
-/* ==================================================
-   SECRET MENU
-================================================== */
-
-const secretMenu = document.getElementById("secretMenu");
-
-/* =========================================
-   COMPUTADORA = HK
-========================================= */
-
-let typed = "";
-
-document.addEventListener("keydown", (e) => {
-
-    typed += e.key.toLowerCase();
-
-    typed = typed.slice(-2);
-
-    if(typed === "hk"){
-
-        secretMenu.classList.toggle("showMenu");
-
-        typed = "";
-
-    }
-
-});
-
-/* =========================================
-   CELULAR = DOUBLE TAP
-========================================= */
-
-let lastTap = 0;
-
-document.addEventListener("touchend", function(e){
-
-    const currentTime = new Date().getTime();
-
-    const tapLength = currentTime - lastTap;
-
-    if(tapLength < 300 && tapLength > 0){
-
-        secretMenu.classList.toggle("showMenu");
-
-    }
-
-    lastTap = currentTime;
-
-});
-
-</script>
+  </script>
 
 </body>
 </html>
