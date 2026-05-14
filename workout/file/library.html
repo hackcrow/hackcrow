@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biblioteca</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --accent:#00ff88;
+  --bg:#0a0a0a;
+  --bg2:#111;
+  --border:rgba(255,255,255,0.07);
+  --text:#f0f0f0;
+  --text-muted:#777;
+  --radius:14px;
+  --font-mono:'DM Mono', monospace;
+  --font-sans:'DM Sans', sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-sans);
+}
+.version{
+  text-align:center;
+  font-family:var(--font-mono);
+  font-size:.7rem;
+  color:var(--accent);
+  padding:10px 0 4px;
+  letter-spacing:2px;
+}
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:24px;
+}
+.page-title{
+  font-size:1.6rem;
+  margin-bottom:10px;
+}
+.page-subtitle{
+  font-family:var(--font-mono);
+  font-size:.8rem;
+  color:var(--text-muted);
+  margin-bottom:30px;
+}
+.back{
+  display:inline-block;
+  margin-bottom:24px;
+  color:var(--accent);
+  text-decoration:none;
+}
+.exercise-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:12px;
+}
+.exercise-card{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:18px;
+}
+.ex-muscle{
+  font-family:var(--font-mono);
+  font-size:.65rem;
+  color:var(--accent);
+  margin-bottom:8px;
+}
+.ex-name{
+  font-weight:600;
+  margin-bottom:6px;
+}
+.ex-desc{
+  font-size:.8rem;
+  color:var(--text-muted);
+}
+</style>
+</head>
+<body>
+
+<div class="version">version 2</div>
+
+<div class="container">
+  <a href="index.html" class="back">← Volver</a>
+  <div class="page-title">Biblioteca de Ejercicios</div>
+  <div class="page-subtitle">// Ejercicios para casa · sin equipo</div>
+
+  <div class="exercise-grid">
+    <div class="exercise-card">
+      <div class="ex-muscle">Pecho</div>
+      <div class="ex-name">Flexiones estándar</div>
+      <div class="ex-desc">Posición clásica de empuje.</div>
+    </div>
+
+    <div class="exercise-card">
+      <div class="ex-muscle">Piernas</div>
+      <div class="ex-name">Sentadilla</div>
+      <div class="ex-desc">Ejercicio básico de tren inferior.</div>
+    </div>
+
+    <div class="exercise-card">
+      <div class="ex-muscle">Core</div>
+      <div class="ex-name">Plancha</div>
+      <div class="ex-desc">Mantén el cuerpo recto.</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
