@@ -1,171 +1,18 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="dark">
+<html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Workout</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-<style>
-:root {
-  --accent:#00ff88;
-  --accent-dim:rgba(0,255,136,0.12);
-  --accent-border:rgba(0,255,136,0.25);
-  --bg:#0a0a0a;
-  --bg2:#111111;
-  --bg3:#1a1a1a;
-  --border:rgba(255,255,255,0.07);
-  --text:#f0f0f0;
-  --text-muted:#777;
-  --radius:14px;
-  --radius-sm:8px;
-  --font-mono:'DM Mono', monospace;
-  --font-sans:'DM Sans', sans-serif;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-  font-family:var(--font-sans);
-  background:var(--bg);
-  color:var(--text);
-  overflow-x:hidden;
-}
-.version{
-  text-align:center;
-  font-family:var(--font-mono);
-  font-size:.7rem;
-  letter-spacing:2px;
-  color:var(--accent);
-  padding:10px 0 0;
-}
-#topbar{
-  height:60px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 24px;
-  border-bottom:1px solid var(--border);
-}
-.logo{
-  font-family:var(--font-mono);
-  letter-spacing:3px;
-}
-.logo span{color:var(--accent)}
-.hero{
-  padding:40px 24px 28px;
-  max-width:900px;
-  margin:auto;
-}
-.greeting{
-  font-family:var(--font-mono);
-  font-size:.72rem;
-  letter-spacing:2px;
-  color:var(--accent);
-  margin-bottom:10px;
-}
-.hero-title{
-  font-size:clamp(1.8rem,5vw,2.8rem);
-  font-weight:300;
-}
-.hero-title strong{font-weight:600}
-.dashboard{
-  padding:0 24px 40px;
-  max-width:900px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:repeat(12,1fr);
-  gap:14px;
-}
-.card{
-  background:var(--bg2);
-  border:1px solid var(--border);
-  border-radius:var(--radius);
-  padding:20px;
-}
-.card-third{grid-column:span 4}
-.card-half{grid-column:span 6}
-.card-label{
-  font-family:var(--font-mono);
-  font-size:.65rem;
-  letter-spacing:2px;
-  color:var(--text-muted);
-  margin-bottom:14px;
-}
-.card-value{
-  font-size:2.2rem;
-  font-weight:600;
-}
-.card-subtext{
-  font-size:.8rem;
-  color:var(--text-muted);
-  margin-top:6px;
-}
-.btn{
-  display:inline-block;
-  margin-top:16px;
-  padding:10px 18px;
-  background:var(--accent);
-  color:#000;
-  text-decoration:none;
-  border-radius:8px;
-  font-weight:600;
-}
-.btn-ghost{
-  background:transparent;
-  border:1px solid var(--accent-border);
-  color:var(--accent);
-}
-@media(max-width:640px){
-  .card-third,.card-half{grid-column:span 12}
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workout</title>
+  <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
-
-<div class="version">version 3</div>
-
-<header id="topbar">
-  <div class="logo">Work<span>out</span></div>
-</header>
-
-<section class="hero">
-  <div class="greeting">// sistema activo</div>
-  <h1 class="hero-title">Hola, <strong>Atleta</strong>.<br>¿Listo para entrenar?</h1>
-</section>
-
-<div class="dashboard">
-
-  <div class="card card-third">
-    <div class="card-label">Racha actual</div>
-    <div class="card-value">0 días</div>
-    <div class="card-subtext">Empieza hoy tu primera racha</div>
-  </div>
-
-  <div class="card card-third">
-    <div class="card-label">Esta semana</div>
-    <div class="card-value">0 sesiones</div>
-    <div class="card-subtext">Meta: 4 sesiones / semana</div>
-  </div>
-
-  <div class="card card-third">
-    <div class="card-label">Ejercicios registrados</div>
-    <div class="card-value">22</div>
-    <div class="card-subtext">Accede a la biblioteca para explorar</div>
-    <a class="btn btn-ghost" href="file/library.html">Ver biblioteca →</a>
-  </div>
-
-  <div class="card card-half">
-    <div class="card-label">Acceso rápido</div>
-    <a class="btn" href="file/library.html">Biblioteca de ejercicios →</a>
-  </div>
-
-  <div class="card card-half">
-    <div class="card-label">Empezar ahora</div>
-    <p class="card-subtext">Explora la biblioteca y comienza a registrar tu progreso.</p>
-    <a class="btn" href="file/library.html">Ir a Biblioteca →</a>
-  </div>
-
-</div>
-
+  <div class="version">version 5</div>
+  <header class="topbar"><div class="logo">Work<span>out</span></div></header>
+  <main class="container">
+    <h1>Dashboard</h1>
+    <a class="link-btn" href="file/library.html">Biblioteca de ejercicios</a>
+  </main>
+  <script src="src/app.js"></script>
 </body>
 </html>
