@@ -1,3 +1,8 @@
+/* Workout v7 - app.js */
+
+/* =============================================
+   STREAK DOTS
+============================================= */
 function renderStreak() {
   const dots = document.getElementById("streakDots");
   if (!dots) return;
@@ -11,6 +16,9 @@ function renderStreak() {
   }).join("");
 }
 
+/* =============================================
+   WEEK CHART
+============================================= */
 function renderWeekChart() {
   const chart = document.getElementById("weekChart");
   if (!chart) return;
@@ -32,7 +40,32 @@ function renderWeekChart() {
   }).join("");
 }
 
-/* MENU */
+/* =============================================
+   NAVIGATION
+============================================= */
+function navigate(page) {
+  const dashboard = document.getElementById("page-dashboard");
+  const biblioteca = document.getElementById("page-biblioteca");
+
+  if (dashboard) {
+    dashboard.style.display = page === "dashboard" ? "" : "none";
+  }
+
+  if (biblioteca) {
+    biblioteca.className = page === "biblioteca" ? "active" : "";
+  }
+
+  document.querySelectorAll(".menu-item").forEach(el => {
+    el.classList.toggle("active", el.dataset.page === page);
+  });
+
+  closeMenu();
+  window.scrollTo(0, 0);
+}
+
+/* =============================================
+   MENU
+============================================= */
 const menuBtn = document.getElementById("menuBtn");
 const dropMenu = document.getElementById("dropMenu");
 const overlay = document.getElementById("overlay");
@@ -59,7 +92,16 @@ if (overlay) {
   overlay.addEventListener("click", closeMenu);
 }
 
-/* THEME */
+document.addEventListener("click", e => {
+  const el = e.target.closest("[data-page]");
+  if (el && el.dataset.page) {
+    navigate(el.dataset.page);
+  }
+});
+
+/* =============================================
+   THEME TOGGLE
+============================================= */
 const themeToggle = document.getElementById("themeToggle");
 
 if (themeToggle) {
@@ -70,6 +112,10 @@ if (themeToggle) {
   });
 }
 
-/* INIT */
-renderStreak();
-renderWeekChart();
+/* =============================================
+   INIT
+============================================= */
+document.addEventListener("DOMContentLoaded", () => {
+  renderStreak();
+  renderWeekChart();
+});
