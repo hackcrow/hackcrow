@@ -6,1150 +6,148 @@
 <title>Workout</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 <style>
-
-/* =============================================
-   VARIABLES
-============================================= */
-
-:root {
-  --accent: #00ff88;
-  --accent-dim: rgba(0,255,136,0.12);
-  --accent-border: rgba(0,255,136,0.25);
-
-  --bg:        #0a0a0a;
-  --bg2:       #111111;
-  --bg3:       #1a1a1a;
-  --border:    rgba(255,255,255,0.07);
-  --text:      #f0f0f0;
+:root{
+  --accent:#00ff88;
+  --accent-dim:rgba(0,255,136,0.12);
+  --accent-border:rgba(0,255,136,0.25);
+  --bg:#0a0a0a;
+  --bg2:#111;
+  --bg3:#1a1a1a;
+  --border:rgba(255,255,255,0.07);
+  --text:#f0f0f0;
   --text-muted:#777;
-  --text-dim:  #444;
-
-  --radius: 14px;
-  --radius-sm: 8px;
-  --font-mono: 'DM Mono', monospace;
-  --font-sans: 'DM Sans', sans-serif;
-
-  --transition: 0.22s ease;
+  --radius:14px;
+  --radius-sm:8px;
+  --font-mono:'DM Mono', monospace;
+  --font-sans:'DM Sans', sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:var(--font-sans);
+  background:var(--bg);
+  color:var(--text);
+}
+.version{
+  text-align:center;
+  font-family:var(--font-mono);
+  font-size:.7rem;
+  color:var(--accent);
+  padding:10px 0 4px;
+  letter-spacing:2px;
+}
+#topbar{
+  height:60px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 24px;
+  border-bottom:1px solid var(--border);
+}
+.logo{
+  font-family:var(--font-mono);
+  letter-spacing:3px;
+}
+.logo span{color:var(--accent)}
+.hero{
+  max-width:900px;
+  margin:auto;
+  padding:40px 24px 28px;
+}
+.greeting{
+  font-family:var(--font-mono);
+  font-size:.72rem;
+  color:var(--accent);
+  margin-bottom:10px;
+}
+.hero-title{
+  font-size:clamp(1.8rem,5vw,2.8rem);
+  font-weight:300;
+}
+.dashboard{
+  max-width:900px;
+  margin:auto;
+  padding:0 24px 40px;
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:14px;
+}
+.card{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:20px;
+}
+.card-third{grid-column:span 4}
+.card-half{grid-column:span 6}
+.card-label{
+  font-family:var(--font-mono);
+  font-size:.65rem;
+  color:var(--text-muted);
+  margin-bottom:14px;
+}
+.card-value{
+  font-size:2rem;
+  font-weight:600;
+}
+.btn{
+  display:inline-block;
+  margin-top:16px;
+  padding:10px 18px;
+  border-radius:8px;
+  text-decoration:none;
+  background:var(--accent);
+  color:#000;
+  font-weight:600;
+}
+@media(max-width:640px){
+  .card-third,.card-half{grid-column:span 12}
 }
-
-[data-theme="light"] {
-  --bg:        #f5f5f3;
-  --bg2:       #ebebea;
-  --bg3:       #e0e0de;
-  --border:    rgba(0,0,0,0.08);
-  --text:      #111111;
-  --text-muted:#888;
-  --text-dim:  #bbb;
-}
-
-/* =============================================
-   RESET
-============================================= */
-
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: var(--font-sans);
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  transition: background var(--transition), color var(--transition);
-  overflow-x: hidden;
-}
-
-/* =============================================
-   TOPBAR
-============================================= */
-
-#topbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 24px;
-  background: var(--bg);
-  border-bottom: 1px solid var(--border);
-  transition: background var(--transition), border-color var(--transition);
-}
-
-.topbar-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.logo {
-  font-family: var(--font-mono);
-  font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--text);
-}
-
-.logo span {
-  color: var(--accent);
-}
-
-.topbar-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* THEME TOGGLE */
-
-.theme-toggle {
-  background: none;
-  border: 1px solid var(--border);
-  border-radius: 50px;
-  width: 44px;
-  height: 26px;
-  cursor: pointer;
-  position: relative;
-  transition: border-color var(--transition), background var(--transition);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-}
-
-.theme-toggle:hover {
-  border-color: var(--accent);
-}
-
-.moon-icon {
-  font-size: 14px;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  position: absolute;
-}
-
-.sun-icon {
-  font-size: 14px;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  position: absolute;
-  opacity: 0;
-  transform: rotate(90deg) scale(0.5);
-}
-
-[data-theme="light"] .moon-icon {
-  opacity: 0;
-  transform: rotate(-90deg) scale(0.5);
-}
-
-[data-theme="light"] .sun-icon {
-  opacity: 1;
-  transform: rotate(0deg) scale(1);
-}
-
-/* MENU BUTTON */
-
-.menu-btn {
-  background: none;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  width: 38px;
-  height: 38px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  transition: border-color var(--transition);
-}
-
-.menu-btn:hover {
-  border-color: var(--accent);
-}
-
-.menu-btn span {
-  display: block;
-  width: 16px;
-  height: 1.5px;
-  background: var(--text);
-  transition: background var(--transition), transform 0.25s ease, opacity 0.25s ease;
-}
-
-.menu-btn.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-.menu-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-.menu-btn.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-/* =============================================
-   DROPDOWN MENU
-============================================= */
-
-#dropMenu {
-  position: fixed;
-  top: 60px;
-  right: 0;
-  width: min(320px, 100vw);
-  background: var(--bg2);
-  border-left: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  z-index: 999;
-  transform: translateX(100%);
-  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
-  overflow: hidden;
-}
-
-#dropMenu.open {
-  transform: translateX(0);
-}
-
-.menu-section {
-  padding: 8px 0;
-}
-
-.menu-section-label {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  padding: 12px 20px 6px;
-}
-
-.menu-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 13px 20px;
-  cursor: pointer;
-  transition: background var(--transition);
-  text-decoration: none;
-  color: var(--text);
-  font-size: 0.9rem;
-  font-weight: 400;
-  border-left: 2px solid transparent;
-  transition: all var(--transition);
-}
-
-.menu-item:hover {
-  background: var(--accent-dim);
-  border-left-color: var(--accent);
-}
-
-.menu-item.active {
-  background: var(--accent-dim);
-  border-left-color: var(--accent);
-  color: var(--accent);
-}
-
-.menu-item .item-icon {
-  font-size: 1.1rem;
-  width: 22px;
-  text-align: center;
-  flex-shrink: 0;
-}
-
-.menu-item .item-badge {
-  margin-left: auto;
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  background: var(--accent-dim);
-  color: var(--accent);
-  padding: 2px 7px;
-  border-radius: 20px;
-  border: 1px solid var(--accent-border);
-}
-
-.menu-divider {
-  height: 1px;
-  background: var(--border);
-  margin: 4px 0;
-}
-
-/* =============================================
-   MAIN LAYOUT
-============================================= */
-
-#app {
-  padding-top: 60px;
-  min-height: 100vh;
-}
-
-/* =============================================
-   HERO / GREETING
-============================================= */
-
-.hero {
-  padding: 40px 24px 28px;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.greeting {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 10px;
-}
-
-.hero-title {
-  font-size: clamp(1.8rem, 5vw, 2.8rem);
-  font-weight: 300;
-  line-height: 1.2;
-  color: var(--text);
-  letter-spacing: -0.5px;
-}
-
-.hero-title strong {
-  font-weight: 600;
-}
-
-/* =============================================
-   DASHBOARD GRID
-============================================= */
-
-.dashboard {
-  padding: 0 24px 40px;
-  max-width: 900px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 14px;
-}
-
-/* CARD BASE */
-
-.card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 20px;
-  transition: background var(--transition), border-color var(--transition);
-  position: relative;
-  overflow: hidden;
-}
-
-.card:hover {
-  border-color: var(--accent-border);
-}
-
-/* CARD SIZES */
-
-.card-full  { grid-column: span 12; }
-.card-half  { grid-column: span 6; }
-.card-third { grid-column: span 4; }
-
-@media (max-width: 640px) {
-  .card-half,
-  .card-third { grid-column: span 12; }
-}
-
-/* CARD LABEL */
-
-.card-label {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 14px;
-}
-
-.card-value {
-  font-size: 2.2rem;
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: -1px;
-}
-
-.card-value .unit {
-  font-size: 0.9rem;
-  font-weight: 400;
-  color: var(--text-muted);
-  margin-left: 4px;
-}
-
-.card-subtext {
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  margin-top: 6px;
-}
-
-.card-accent-line {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--accent);
-  opacity: 0.7;
-}
-
-/* =============================================
-   STREAK CARD
-============================================= */
-
-.streak-dots {
-  display: flex;
-  gap: 5px;
-  margin-top: 14px;
-  flex-wrap: wrap;
-}
-
-.streak-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  transition: background var(--transition);
-}
-
-.streak-dot.done {
-  background: var(--accent);
-  border-color: var(--accent);
-  box-shadow: 0 0 5px rgba(0,255,136,0.4);
-}
-
-.streak-dot.today {
-  border-color: var(--accent);
-  background: var(--bg3);
-  animation: pulseDot 1.8s infinite;
-}
-
-@keyframes pulseDot {
-  0%,100% { box-shadow: 0 0 0 0 rgba(0,255,136,0.4); }
-  50%      { box-shadow: 0 0 0 4px rgba(0,255,136,0); }
-}
-
-/* =============================================
-   QUICK ACCESS CARD
-============================================= */
-
-.quick-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 4px;
-}
-
-.quick-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: all var(--transition);
-  color: var(--text);
-  font-size: 0.85rem;
-  text-decoration: none;
-  border-left: 2px solid transparent;
-}
-
-.quick-item:hover {
-  border-left-color: var(--accent);
-  background: var(--accent-dim);
-}
-
-.quick-item .q-icon {
-  font-size: 1rem;
-  width: 20px;
-  text-align: center;
-  flex-shrink: 0;
-}
-
-.quick-item .q-arrow {
-  margin-left: auto;
-  color: var(--text-dim);
-  font-size: 0.8rem;
-  transition: transform var(--transition), color var(--transition);
-}
-
-.quick-item:hover .q-arrow {
-  transform: translateX(3px);
-  color: var(--accent);
-}
-
-/* =============================================
-   WEEKLY CHART
-============================================= */
-
-.week-chart {
-  display: flex;
-  align-items: flex-end;
-  gap: 6px;
-  height: 60px;
-  margin-top: 16px;
-}
-
-.week-bar-wrap {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-  height: 100%;
-  justify-content: flex-end;
-}
-
-.week-bar {
-  width: 100%;
-  border-radius: 4px 4px 0 0;
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  transition: background var(--transition), height 0.5s cubic-bezier(0.4,0,0.2,1);
-  min-height: 4px;
-}
-
-.week-bar.done {
-  background: var(--accent);
-  border-color: var(--accent);
-  opacity: 0.85;
-}
-
-.week-bar.today {
-  background: var(--accent);
-  border-color: var(--accent);
-  box-shadow: 0 0 8px rgba(0,255,136,0.35);
-}
-
-.week-day {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-/* =============================================
-   BUTTON
-============================================= */
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 18px;
-  background: var(--accent);
-  color: #000;
-  border: none;
-  border-radius: var(--radius-sm);
-  font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: 0.82rem;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  transition: all var(--transition);
-  text-decoration: none;
-}
-
-.btn:hover {
-  background: #00e87b;
-  box-shadow: 0 0 18px rgba(0,255,136,0.3);
-  transform: translateY(-1px);
-}
-
-.btn-ghost {
-  background: transparent;
-  color: var(--accent);
-  border: 1px solid var(--accent-border);
-}
-
-.btn-ghost:hover {
-  background: var(--accent-dim);
-  box-shadow: none;
-}
-
-/* =============================================
-   BIBLIOTECA PAGE
-============================================= */
-
-#page-biblioteca {
-  display: none;
-  padding: 24px;
-  max-width: 900px;
-  margin: 0 auto;
-  animation: fadeUp 0.3s ease;
-}
-
-#page-biblioteca.active {
-  display: block;
-}
-
-#page-dashboard.hidden {
-  display: none;
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.page-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 28px;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.page-title {
-  font-size: 1.4rem;
-  font-weight: 600;
-  letter-spacing: -0.3px;
-}
-
-.page-subtitle {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  margin-top: 2px;
-  font-family: var(--font-mono);
-  letter-spacing: 1px;
-}
-
-.back-btn {
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--text-muted);
-  border-radius: var(--radius-sm);
-  padding: 7px 14px;
-  font-size: 0.8rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--font-sans);
-  transition: all var(--transition);
-}
-
-.back-btn:hover {
-  color: var(--text);
-  border-color: var(--text-muted);
-}
-
-/* FILTER PILLS */
-
-.filter-pills {
-  display: flex;
-  gap: 7px;
-  flex-wrap: wrap;
-  margin-bottom: 22px;
-}
-
-.pill {
-  padding: 6px 14px;
-  border-radius: 50px;
-  border: 1px solid var(--border);
-  background: none;
-  color: var(--text-muted);
-  font-size: 0.78rem;
-  cursor: pointer;
-  font-family: var(--font-sans);
-  transition: all var(--transition);
-}
-
-.pill:hover, .pill.active {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: var(--accent-dim);
-}
-
-/* EXERCISE GRID */
-
-.exercise-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 12px;
-}
-
-.exercise-card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 18px;
-  cursor: pointer;
-  transition: all var(--transition);
-  position: relative;
-  overflow: hidden;
-}
-
-.exercise-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--accent-dim);
-  opacity: 0;
-  transition: opacity var(--transition);
-}
-
-.exercise-card:hover {
-  border-color: var(--accent-border);
-  transform: translateY(-2px);
-}
-
-.exercise-card:hover::before {
-  opacity: 1;
-}
-
-.ex-muscle {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 8px;
-  position: relative;
-}
-
-.ex-name {
-  font-size: 0.95rem;
-  font-weight: 600;
-  margin-bottom: 5px;
-  position: relative;
-}
-
-.ex-desc {
-  font-size: 0.76rem;
-  color: var(--text-muted);
-  line-height: 1.5;
-  position: relative;
-}
-
-.ex-tags {
-  display: flex;
-  gap: 5px;
-  margin-top: 12px;
-  flex-wrap: wrap;
-  position: relative;
-}
-
-.ex-tag {
-  font-size: 0.65rem;
-  padding: 2px 8px;
-  border-radius: 20px;
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  color: var(--text-muted);
-}
-
-/* =============================================
-   EMPTY STATE
-============================================= */
-
-.empty-state {
-  text-align: center;
-  padding: 60px 20px;
-  color: var(--text-muted);
-}
-
-.empty-state .empty-icon {
-  font-size: 2.5rem;
-  margin-bottom: 12px;
-  opacity: 0.4;
-}
-
-.empty-state p {
-  font-size: 0.85rem;
-}
-
-/* =============================================
-   OVERLAY (menu backdrop)
-============================================= */
-
-#overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 998;
-  background: rgba(0,0,0,0.3);
-  backdrop-filter: blur(2px);
-}
-
-#overlay.active { display: block; }
-
-/* =============================================
-   SCROLLBAR
-============================================= */
-
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-
 </style>
 </head>
 <body>
 
-<!-- OVERLAY -->
-<div id="overlay"></div>
+<div class="version">version 2</div>
 
-<!-- =============================================
-     TOPBAR
-============================================= -->
 <header id="topbar">
-
-  <div class="topbar-left">
-    <div class="logo">Work<span>out</span></div>
-  </div>
-
-  <div class="topbar-right">
-
-    <!-- THEME TOGGLE -->
-    <button class="theme-toggle" id="themeToggle" title="Cambiar tema" aria-label="Cambiar tema">
-      <span class="moon-icon">🌙</span>
-      <span class="sun-icon">☀️</span>
-    </button>
-
-    <!-- MENU BUTTON -->
-    <button class="menu-btn" id="menuBtn" aria-label="Menú">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-
-  </div>
-
+  <div class="logo">Work<span>out</span></div>
 </header>
 
-<!-- =============================================
-     DROPDOWN MENU
-============================================= -->
-<nav id="dropMenu">
+<section class="hero">
+  <div class="greeting">// sistema activo</div>
+  <h1 class="hero-title">Hola, <strong>Atleta</strong>.<br>¿Listo para entrenar?</h1>
+</section>
 
-  <div class="menu-section">
-    <div class="menu-section-label">Principal</div>
-    <a class="menu-item active" data-page="dashboard">
-      <span class="item-icon">⊞</span>
-      Dashboard
-    </a>
+<div class="dashboard">
+
+  <div class="card card-third">
+    <div class="card-label">Racha actual</div>
+    <div class="card-value">0 días</div>
   </div>
 
-  <div class="menu-divider"></div>
-
-  <div class="menu-section">
-    <div class="menu-section-label">Herramientas</div>
-    <a class="menu-item" data-page="biblioteca">
-      <span class="item-icon">📚</span>
-      Biblioteca de Ejercicios
-      <span class="item-badge">NEW</span>
-    </a>
-    <a class="menu-item disabled" style="opacity:0.4;pointer-events:none;">
-      <span class="item-icon">📈</span>
-      Mi Progreso
-      <span class="item-badge">PRONTO</span>
-    </a>
-    <a class="menu-item disabled" style="opacity:0.4;pointer-events:none;">
-      <span class="item-icon">🗓️</span>
-      Rutinas
-      <span class="item-badge">PRONTO</span>
-    </a>
+  <div class="card card-third">
+    <div class="card-label">Esta semana</div>
+    <div class="card-value">0 sesiones</div>
   </div>
 
-</nav>
-
-<!-- =============================================
-     APP
-============================================= -->
-<main id="app">
-
-  <!-- ===== DASHBOARD ===== -->
-  <div id="page-dashboard">
-
-    <section class="hero">
-      <div class="greeting">// sistema activo</div>
-      <h1 class="hero-title">Hola, <strong>Atleta</strong>.<br>¿Listo para entrenar?</h1>
-    </section>
-
-    <div class="dashboard">
-
-      <!-- RACHA -->
-      <div class="card card-third">
-        <div class="card-accent-line"></div>
-        <div class="card-label">Racha actual</div>
-        <div class="card-value">0 <span class="unit">días</span></div>
-        <div class="card-subtext">Empieza hoy tu primera racha</div>
-        <div class="streak-dots" id="streakDots"></div>
-      </div>
-
-      <!-- SEMANA -->
-      <div class="card card-third">
-        <div class="card-label">Esta semana</div>
-        <div class="card-value">0 <span class="unit">sesiones</span></div>
-        <div class="card-subtext">Meta: 4 sesiones / semana</div>
-        <div class="week-chart" id="weekChart"></div>
-      </div>
-
-      <!-- EJERCICIOS -->
-      <div class="card card-third">
-        <div class="card-label">Ejercicios registrados</div>
-        <div class="card-value">0</div>
-        <div class="card-subtext">Accede a la biblioteca para explorar</div>
-        <br>
-        <a class="btn btn-ghost" style="font-size:0.78rem;padding:8px 14px;" data-page="biblioteca">
-          Ver biblioteca →
-        </a>
-      </div>
-
-      <!-- ACCESO RÁPIDO -->
-      <div class="card card-half">
-        <div class="card-label">Acceso rápido</div>
-        <div class="quick-list">
-          <a class="quick-item" data-page="biblioteca">
-            <span class="q-icon">📚</span>
-            Biblioteca de Ejercicios
-            <span class="q-arrow">›</span>
-          </a>
-          <a class="quick-item" style="opacity:0.45;pointer-events:none;">
-            <span class="q-icon">📈</span>
-            Mi Progreso <span style="font-size:0.65rem;margin-left:6px;color:var(--text-dim)">(pronto)</span>
-            <span class="q-arrow">›</span>
-          </a>
-          <a class="quick-item" style="opacity:0.45;pointer-events:none;">
-            <span class="q-icon">🗓️</span>
-            Rutinas <span style="font-size:0.65rem;margin-left:6px;color:var(--text-dim)">(pronto)</span>
-            <span class="q-arrow">›</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- INICIO RÁPIDO -->
-      <div class="card card-half" style="display:flex;flex-direction:column;justify-content:space-between;">
-        <div>
-          <div class="card-label">Empezar ahora</div>
-          <p style="font-size:0.85rem;color:var(--text-muted);line-height:1.6;margin-top:4px;">
-            Explora la biblioteca de ejercicios y comienza a registrar tu progreso.
-          </p>
-        </div>
-        <div style="margin-top:20px;">
-          <a class="btn" data-page="biblioteca">
-            Ir a Biblioteca →
-          </a>
-        </div>
-      </div>
-
-    </div>
-
+  <div class="card card-third">
+    <div class="card-label">Ejercicios registrados</div>
+    <div class="card-value">22</div>
+    <a class="btn" href="library.html">Ver biblioteca</a>
   </div>
 
-  <!-- ===== BIBLIOTECA ===== -->
-  <div id="page-biblioteca">
-
-    <div class="page-header">
-      <div>
-        <div class="page-title">Biblioteca de Ejercicios</div>
-        <div class="page-subtitle">// Ejercicios para casa · sin equipo</div>
-      </div>
-      <button class="back-btn" data-page="dashboard">← Volver</button>
-    </div>
-
-    <!-- FILTROS -->
-    <div class="filter-pills">
-      <button class="pill active" data-filter="todos">Todos</button>
-      <button class="pill" data-filter="pecho">Pecho</button>
-      <button class="pill" data-filter="espalda">Espalda</button>
-      <button class="pill" data-filter="piernas">Piernas</button>
-      <button class="pill" data-filter="hombros">Hombros</button>
-      <button class="pill" data-filter="core">Core</button>
-      <button class="pill" data-filter="brazos">Brazos</button>
-      <button class="pill" data-filter="cardio">Cardio</button>
-    </div>
-
-    <!-- EJERCICIOS -->
-    <div class="exercise-grid" id="exerciseGrid"></div>
-
+  <div class="card card-half">
+    <div class="card-label">Acceso rápido</div>
+    <a class="btn" href="library.html">Ir a Biblioteca →</a>
   </div>
 
-</main>
+  <div class="card card-half">
+    <div class="card-label">Empezar ahora</div>
+    <a class="btn" href="library.html">Abrir biblioteca →</a>
+  </div>
 
-<script>
+</div>
 
-/* =============================================
-   DATA — EJERCICIOS
-============================================= */
-
-const ejercicios = [
-  // PECHO
-  { nombre:"Flexiones estándar",       musculo:"Pecho",    desc:"Posición clásica de empuje. Manos al ancho de hombros.",            tags:["sin equipo","empuje"],  filtro:"pecho"    },
-  { nombre:"Flexiones diamante",        musculo:"Pecho",    desc:"Manos formando un diamante. Mayor activación de tríceps.",           tags:["sin equipo","tríceps"], filtro:"pecho"    },
-  { nombre:"Flexiones declinadas",      musculo:"Pecho",    desc:"Pies elevados para trabajar el pecho superior.",                    tags:["sin equipo","empuje"],  filtro:"pecho"    },
-  { nombre:"Flexiones inclinadas",      musculo:"Pecho",    desc:"Manos elevadas. Activa el pecho inferior.",                        tags:["sin equipo","empuje"],  filtro:"pecho"    },
-  // PIERNAS
-  { nombre:"Sentadilla",                musculo:"Piernas",  desc:"El ejercicio fundamental de tren inferior. Rodillas sobre pies.",  tags:["sin equipo","básico"],  filtro:"piernas"  },
-  { nombre:"Zancada estática",          musculo:"Piernas",  desc:"Un pie adelantado. Baja la rodilla trasera hacia el suelo.",       tags:["sin equipo","glúteo"],  filtro:"piernas"  },
-  { nombre:"Sentadilla búlgara",        musculo:"Piernas",  desc:"Pie trasero elevado. Excelente para equilibrio y fuerza unilateral.",tags:["silla","glúteo"],      filtro:"piernas"  },
-  { nombre:"Puente de glúteo",          musculo:"Piernas",  desc:"Tumbado boca arriba. Eleva caderas contrayendo glúteos.",          tags:["suelo","glúteo"],       filtro:"piernas"  },
-  // CORE
-  { nombre:"Plancha",                   musculo:"Core",     desc:"Posición isométrica. Mantén el cuerpo recto como tabla.",          tags:["sin equipo","isometría"],filtro:"core"     },
-  { nombre:"Crunch",                    musculo:"Core",     desc:"Eleva solo los hombros del suelo. Contrae el abdomen.",            tags:["suelo","básico"],       filtro:"core"     },
-  { nombre:"Elevación de piernas",      musculo:"Core",     desc:"Tumbado, sube y baja las piernas sin tocar el suelo.",            tags:["suelo","bajo vientre"], filtro:"core"     },
-  { nombre:"Mountain climbers",         musculo:"Core",     desc:"En posición de plancha, alterna rodillas al pecho rápido.",       tags:["sin equipo","cardio"],  filtro:"core"     },
-  // ESPALDA
-  { nombre:"Superman",                  musculo:"Espalda",  desc:"Boca abajo, eleva brazos y piernas simultáneamente.",             tags:["suelo","lumbar"],       filtro:"espalda"  },
-  { nombre:"Remo invertido (mesa)",     musculo:"Espalda",  desc:"Bajo una mesa, tira del cuerpo hacia arriba con los brazos.",     tags:["mesa","tirón"],         filtro:"espalda"  },
-  // HOMBROS
-  { nombre:"Pike push-up",             musculo:"Hombros",  desc:"En V invertida, flexiona codos para bajar la cabeza al suelo.",   tags:["sin equipo","empuje"],  filtro:"hombros"  },
-  { nombre:"Flexión de hombro lateral",musculo:"Hombros",  desc:"De pie, eleva los brazos lateralmente con peso corporal o no.",   tags:["sin equipo","básico"],  filtro:"hombros"  },
-  // BRAZOS
-  { nombre:"Fondos en silla",           musculo:"Brazos",   desc:"Manos en silla detrás, baja y sube flexionando los codos.",       tags:["silla","tríceps"],      filtro:"brazos"   },
-  { nombre:"Curl de bícep (sin peso)",  musculo:"Brazos",   desc:"Simula curl usando la resistencia del brazo contrario.",          tags:["sin equipo","bícep"],   filtro:"brazos"   },
-  // CARDIO
-  { nombre:"Jumping jacks",            musculo:"Cardio",   desc:"Salta abriendo y cerrando piernas y brazos. Activa el cuerpo.",   tags:["sin equipo","calentamiento"],filtro:"cardio"},
-  { nombre:"Burpees",                  musculo:"Cardio",   desc:"Plancha + salto. El ejercicio de cuerpo completo más exigente.",  tags:["sin equipo","completo"], filtro:"cardio"   },
-  { nombre:"Salto de cuerda (sin cuerda)",musculo:"Cardio",desc:"Imita el salto de cuerda sin usarla. Excelente cardio en casa.",  tags:["sin equipo","ritmo"],   filtro:"cardio"   },
-];
-
-/* =============================================
-   RENDER EJERCICIOS
-============================================= */
-
-function renderEjercicios(filtro = "todos") {
-  const grid = document.getElementById("exerciseGrid");
-  const lista = filtro === "todos" ? ejercicios : ejercicios.filter(e => e.filtro === filtro);
-
-  if (!lista.length) {
-    grid.innerHTML = `<div class="empty-state"><div class="empty-icon">🔍</div><p>Sin ejercicios en esta categoría aún.</p></div>`;
-    return;
-  }
-
-  grid.innerHTML = lista.map(e => `
-    <div class="exercise-card">
-      <div class="ex-muscle">${e.musculo}</div>
-      <div class="ex-name">${e.nombre}</div>
-      <div class="ex-desc">${e.desc}</div>
-      <div class="ex-tags">${e.tags.map(t=>`<span class="ex-tag">${t}</span>`).join("")}</div>
-    </div>
-  `).join("");
-}
-
-/* =============================================
-   STREAK DOTS (7 días)
-============================================= */
-
-function renderStreak() {
-  const dots = document.getElementById("streakDots");
-  const days = 7;
-  const todayIndex = new Date().getDay(); // 0=Dom
-  dots.innerHTML = Array.from({length: days}, (_, i) => {
-    const cls = i < todayIndex ? "done" : i === todayIndex ? "today" : "";
-    return `<div class="streak-dot ${cls}"></div>`;
-  }).join("");
-}
-
-/* =============================================
-   WEEK CHART
-============================================= */
-
-function renderWeekChart() {
-  const chart = document.getElementById("weekChart");
-  const labels = ["L","M","X","J","V","S","D"];
-  const today = new Date().getDay();
-  const todayIdx = today === 0 ? 6 : today - 1; // 0=Lunes
-
-  chart.innerHTML = labels.map((d, i) => {
-    const cls = i < todayIdx ? "done" : i === todayIdx ? "today" : "";
-    const h = i < todayIdx ? Math.floor(Math.random()*30+20) : i === todayIdx ? 15 : 4;
-    return `
-      <div class="week-bar-wrap">
-        <div class="week-bar ${cls}" style="height:${h}px"></div>
-        <div class="week-day">${d}</div>
-      </div>`;
-  }).join("");
-}
-
-/* =============================================
-   NAVIGATION
-============================================= */
-
-function navigate(page) {
-  document.getElementById("page-dashboard").style.display  = page === "dashboard"  ? "" : "none";
-  document.getElementById("page-biblioteca").className = page === "biblioteca" ? "active" : "";
-
-  // actualizar menu item activo
-  document.querySelectorAll(".menu-item").forEach(el => {
-    el.classList.toggle("active", el.dataset.page === page);
-  });
-
-  closeMenu();
-  window.scrollTo(0, 0);
-}
-
-/* =============================================
-   MENU
-============================================= */
-
-const menuBtn  = document.getElementById("menuBtn");
-const dropMenu = document.getElementById("dropMenu");
-const overlay  = document.getElementById("overlay");
-
-function openMenu()  {
-  menuBtn.classList.add("open");
-  dropMenu.classList.add("open");
-  overlay.classList.add("active");
-}
-
-function closeMenu() {
-  menuBtn.classList.remove("open");
-  dropMenu.classList.remove("open");
-  overlay.classList.remove("active");
-}
-
-menuBtn.addEventListener("click", () => {
-  dropMenu.classList.contains("open") ? closeMenu() : openMenu();
-});
-
-overlay.addEventListener("click", closeMenu);
-
-// delegación de clicks en menú
-document.addEventListener("click", e => {
-  const el = e.target.closest("[data-page]");
-  if (el && el.dataset.page) {
-    navigate(el.dataset.page);
-  }
-});
-
-/* =============================================
-   FILTROS BIBLIOTECA
-============================================= */
-
-document.querySelectorAll(".pill").forEach(pill => {
-  pill.addEventListener("click", () => {
-    document.querySelectorAll(".pill").forEach(p => p.classList.remove("active"));
-    pill.classList.add("active");
-    renderEjercicios(pill.dataset.filter);
-  });
-});
-
-/* =============================================
-   THEME TOGGLE
-============================================= */
-
-const themeToggle = document.getElementById("themeToggle");
-
-themeToggle.addEventListener("click", () => {
-  const html = document.documentElement;
-  const current = html.getAttribute("data-theme");
-  html.setAttribute("data-theme", current === "dark" ? "light" : "dark");
-});
-
-/* =============================================
-   INIT
-============================================= */
-
-renderStreak();
-renderWeekChart();
-renderEjercicios();
-
-</script>
 </body>
 </html>
