@@ -98,14 +98,16 @@ function openLightbox(idx) {
 
   document.getElementById("lbNombre").value = ex.nombre || "";
   document.getElementById("lbDescripcion").value = ex.descripcion || "";
+
+  // selects
   document.getElementById("lbTipo").value = ex.tipo || "";
   document.getElementById("lbEquipo").value = ex.equipo || "";
   document.getElementById("lbMusculoPrimario").value = ex.musculo_primario || "";
   document.getElementById("lbMusculoSecundario").value = ex.musculo_secundario || "";
   document.getElementById("lbParteCuerpo").value = ex.parte_cuerpo || "";
-  document.getElementById("lbUnidad").value = ex.unidad || "";
+
+  // otros
   document.getElementById("lbVideo").value = ex.video_url || "";
-  document.getElementById("lbImagen").value = ex.imagen || "";
 
   document.getElementById("lightboxOverlay").classList.add("open");
 }
