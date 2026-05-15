@@ -67,21 +67,19 @@ function renderEjercicios(filtro = "todos") {
     ? ejercicios
     : ejercicios.filter(e => e.filtro === filtro);
 
-   grid.innerHTML = lista.map((e) => `
+  grid.innerHTML = lista.map((e) => `
     <div class="exercise-card">
       <button class="edit-btn" data-id="${e.id}" title="Editar">
-        <svg viewBox="0 0 24 24" class="edit-icon">
+        <svg viewBox="0 0 24 24" class="edit-icon" aria-hidden="true">
           <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm17.71-10.04a1.003 1.003 0 0 0 0-1.42l-2.5-2.5a1.003 1.003 0 0 0-1.42 0l-1.96 1.96 3.75 3.75 2.13-1.79z"/>
         </svg>
       </button>
-  
-      ${e.imagen ? `<img class="card-thumb" src="${e.imagen}" alt="${e.nombre}">` : ""}
-  
+
       <div class="ex-muscle">${e.musculo}</div>
       <div class="ex-name">${e.nombre}</div>
-      
+
       ${e.imagen ? `<img class="card-thumb" src="${e.imagen}" alt="${e.nombre}">` : ""}
-      
+
       <div class="ex-desc">${e.desc || ""}</div>
     </div>
   `).join("");
