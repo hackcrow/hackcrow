@@ -66,18 +66,28 @@ function renderEjercicios(filtro = "todos") {
     ? ejercicios
     : ejercicios.filter(e => e.filtro === filtro);
 
-  grid.innerHTML = lista.map((e, i) => `
+  grid.innerHTML = lista.map((e) => `
     <div class="exercise-card">
-      <button class="edit-btn" data-idx="${i}">✎</button>
+      <button class="edit-btn" data-id="${e.id}" title="Editar">
+        ✎
+      </button>
+
       <div class="ex-muscle">${e.musculo}</div>
       <div class="ex-name">${e.nombre}</div>
-      <div class="ex-desc">${e.desc}</div>
+      <div class="ex-desc">${e.desc || ""}</div>
     </div>
   `).join("");
 
   document.querySelectorAll(".edit-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      openLightbox(parseInt(btn.dataset.idx));
+    btn.addEventListener("click", (ev) => {
+      ev.stopPropagation();
+
+      const id = parseInt(btn.dataset.id);
+      const idx = ejercicios.findIndex(e => e.id === id);
+
+      if (idx !== -1) {
+        openLightbox(idx);
+      }
     });
   });
 }
