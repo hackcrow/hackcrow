@@ -139,18 +139,21 @@ async function saveLightbox() {
 
   if (selectedImageFile) {
     const fileName = `${Date.now()}-${selectedImageFile.name}`;
-
-    const { error: uploadError } = await supabaseClient.storage
+  
+    const { data: uploadData, error: uploadError } = await supabaseClient.storage
       .from("exercise-images")
       .upload(fileName, selectedImageFile);
-
-    if (!uploadError) {
-      const { data } = supabaseClient.storage
-        .from("exercise-images")
-        .getPublicUrl(fileName);
-
-      imageUrl = data.publicUrl;
+  
+    if (uploadError) {
+      alert(uploadError.message);
+      return;
     }
+  
+    const { data } = supabaseClient.storage
+      .from("exercise-images")
+      .getPublicUrl(fileName);
+  
+    imageUrl = data.publicUrl;
   }
 
   const payload = {
