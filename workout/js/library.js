@@ -98,7 +98,14 @@ function openLightbox(idx) {
 
   document.getElementById("lbNombre").value = ex.nombre || "";
   document.getElementById("lbDescripcion").value = ex.descripcion || "";
+  document.getElementById("lbTipo").value = ex.tipo || "";
+  document.getElementById("lbEquipo").value = ex.equipo || "";
+  document.getElementById("lbMusculoPrimario").value = ex.musculo_primario || "";
+  document.getElementById("lbMusculoSecundario").value = ex.musculo_secundario || "";
+  document.getElementById("lbParteCuerpo").value = ex.parte_cuerpo || "";
+  document.getElementById("lbUnidad").value = ex.unidad || "";
   document.getElementById("lbVideo").value = ex.video_url || "";
+  document.getElementById("lbImagen").value = ex.imagen || "";
 
   document.getElementById("lightboxOverlay").classList.add("open");
 }
@@ -115,7 +122,14 @@ async function saveLightbox() {
   const payload = {
     nombre: document.getElementById("lbNombre").value,
     descripcion: document.getElementById("lbDescripcion").value,
-    video_url: document.getElementById("lbVideo").value
+    tipo: document.getElementById("lbTipo").value,
+    equipo: document.getElementById("lbEquipo").value,
+    musculo_primario: document.getElementById("lbMusculoPrimario").value,
+    musculo_secundario: document.getElementById("lbMusculoSecundario").value,
+    parte_cuerpo: document.getElementById("lbParteCuerpo").value,
+    unidad: document.getElementById("lbUnidad").value,
+    video_url: document.getElementById("lbVideo").value,
+    imagen: document.getElementById("lbImagen").value
   };
 
   const { error } = await supabaseClient
