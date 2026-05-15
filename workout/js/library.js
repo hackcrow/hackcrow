@@ -79,6 +79,9 @@ function renderEjercicios(filtro = "todos") {
   
       <div class="ex-muscle">${e.musculo}</div>
       <div class="ex-name">${e.nombre}</div>
+      
+      ${e.imagen ? `<img class="card-thumb" src="${e.imagen}" alt="${e.nombre}">` : ""}
+      
       <div class="ex-desc">${e.desc || ""}</div>
     </div>
   `).join("");
