@@ -2,9 +2,31 @@ let ejercicios = [];
 let ejercicioData = [];
 let currentIdx = null;
 
-/* =============================================
+/* =========================
+   LOCAL STORAGE
+========================= */
+
+function guardarLocal() {
+  localStorage.setItem("workout_ejercicios", JSON.stringify(ejercicios));
+  localStorage.setItem("workout_ejercicioData", JSON.stringify(ejercicioData));
+}
+
+function cargarLocal() {
+  const ejerciciosGuardados = localStorage.getItem("workout_ejercicios");
+  const dataGuardada = localStorage.getItem("workout_ejercicioData");
+
+  if (ejerciciosGuardados) {
+    ejercicios = JSON.parse(ejerciciosGuardados);
+  }
+
+  if (dataGuardada) {
+    ejercicioData = JSON.parse(dataGuardada);
+  }
+}
+
+/* =========================
    UTILIDADES
-============================================= */
+========================= */
 
 function mapearFiltro(parte) {
   const mapa = {
@@ -38,34 +60,39 @@ function traducirMusculo(parte) {
   return mapa[parte] || parte;
 }
 
-/* =============================================
+/* =========================
    CARGAR JSON
-============================================= */
+========================= */
 
 async function cargarEjercicios() {
   try {
     const response = await fetch("../src/exercises.json");
     const data = await response.json();
 
-    ejercicios = data.map(e => ({
-      ...e,
-      musculo: traducirMusculo(e.parte_cuerpo),
-      desc: e.descripcion || "",
-      tags: [e.equipo.replaceAll("_", " "), e.tipo],
-      filtro: mapearFiltro(e.parte_cuerpo)
-    }));
+    if (!localStorage.getItem("workout_ejercicios")) {
+      ejercicios = data.map(e => ({
+        ...e,
+        musculo: traducirMusculo(e.parte_cuerpo),
+        desc: e.descripcion || "",
+        tags: [e.equipo.replaceAll("_", " "), e.tipo],
+        filtro: mapearFiltro(e.parte_cuerpo)
+      }));
 
-    ejercicioData = ejercicios.map(e => ({
-      imagen: e.imagen || null,
-      descripcion: e.descripcion || "",
-      tipo: e.tipo || "",
-      equipo: e.equipo || "",
-      musculoPrimario: e.musculo_primario || "",
-      musculoSecundario: e.musculo_secundario || "",
-      parteCuerpo: e.parte_cuerpo || "",
-      video: e.video_url || "",
-    }));
+      ejercicioData = ejercicios.map(e => ({
+        imagen: e.imagen || null,
+        descripcion: e.descripcion || "",
+        tipo: e.tipo || "",
+        equipo: e.equipo || "",
+        musculoPrimario: e.musculo_primario || "",
+        musculoSecundario: e.musculo_secundario || "",
+        parteCuerpo: e.parte_cuerpo || "",
+        video: e.video_url || ""
+      }));
 
+      guardarLocal();
+    }
+
+    cargarLocal();
     renderEjercicios();
 
   } catch (error) {
@@ -73,9 +100,9 @@ async function cargarEjercicios() {
   }
 }
 
-/* =============================================
+/* =========================
    RENDER
-============================================= */
+========================= */
 
 function renderEjercicios(filtro = "todos") {
   const grid = document.getElementById("exerciseGrid");
@@ -86,7 +113,8 @@ function renderEjercicios(filtro = "todos") {
     : ejercicios.map((e, i) => ({ ...e, _idx: i })).filter(e => e.filtro === filtro);
 
   grid.innerHTML = lista.map(e => `
-    <div class="exercise-card" data-idx="${e._idx}">
+    <div class="exercise-card">
+      <button class="edit-btn" data-idx="${e._idx}">✎</button>
       <div class="ex-muscle">${e.musculo}</div>
       <div class="ex-name">${e.nombre}</div>
       <div class="ex-desc">${e.desc}</div>
@@ -96,16 +124,16 @@ function renderEjercicios(filtro = "todos") {
     </div>
   `).join("");
 
-  grid.querySelectorAll(".exercise-card").forEach(card => {
-    card.addEventListener("click", () => {
-      openLightbox(parseInt(card.dataset.idx));
+  document.querySelectorAll(".edit-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      openLightbox(parseInt(btn.dataset.idx));
     });
   });
 }
 
-/* =============================================
+/* =========================
    LIGHTBOX
-============================================= */
+========================= */
 
 const lbOverlay = document.getElementById("lightboxOverlay");
 const lbCancel = document.getElementById("lbCancel");
@@ -147,13 +175,13 @@ function saveLightbox() {
   ejercicioData[currentIdx].parteCuerpo = document.getElementById("lbParteCuerpo").value;
   ejercicioData[currentIdx].video = document.getElementById("lbVideo").value;
 
+  guardarLocal();
+
   closeLightbox();
 
   const activePill = document.querySelector(".pill.active");
   renderEjercicios(activePill.dataset.filter);
 }
-
-/* EVENTOS */
 
 lbCancel.addEventListener("click", closeLightbox);
 lbSave.addEventListener("click", saveLightbox);
