@@ -68,7 +68,7 @@ function renderEjercicios(filtro = "todos") {
     : ejercicios.filter(e => e.filtro === filtro);
 
   grid.innerHTML = lista.map((e) => `
-    <div class="exercise-card">
+    <div class="exercise-card" data-id="${e.id}">
       <button class="edit-btn" data-id="${e.id}" title="Editar">
         <svg viewBox="0 0 24 24" class="edit-icon" aria-hidden="true">
           <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm17.71-10.04a1.003 1.003 0 0 0 0-1.42l-2.5-2.5a1.003 1.003 0 0 0-1.42 0l-1.96 1.96 3.75 3.75 2.13-1.79z"/>
@@ -84,6 +84,7 @@ function renderEjercicios(filtro = "todos") {
     </div>
   `).join("");
 
+  // click en lápiz = editar
   document.querySelectorAll(".edit-btn").forEach(btn => {
     btn.addEventListener("click", (ev) => {
       ev.stopPropagation();
@@ -93,6 +94,18 @@ function renderEjercicios(filtro = "todos") {
 
       if (idx !== -1) {
         openLightbox(idx);
+      }
+    });
+  });
+
+  // click en tarjeta = ver detalle
+  document.querySelectorAll(".exercise-card").forEach(card => {
+    card.addEventListener("click", () => {
+      const id = parseInt(card.dataset.id);
+      const idx = ejercicios.findIndex(e => e.id === id);
+
+      if (idx !== -1) {
+        openViewLightbox(idx);
       }
     });
   });
