@@ -15,28 +15,25 @@
 <body>
 
 <div class="version-bar">v2</div>
-
 <div id="overlay"></div>
 
-<!-- TOPBAR -->
 <header id="topbar">
   <div class="topbar-left">
     <div class="logo">Work<span>out</span></div>
   </div>
 
   <div class="topbar-right">
-    <button class="theme-toggle" id="themeToggle" title="Cambiar tema">
+    <button class="theme-toggle" id="themeToggle">
       <span class="moon-icon">🌙</span>
       <span class="sun-icon">☀️</span>
     </button>
 
-    <button class="menu-btn" id="menuBtn" aria-label="Menú">
+    <button class="menu-btn" id="menuBtn">
       <span></span><span></span><span></span>
     </button>
   </div>
 </header>
 
-<!-- MENU -->
 <nav id="dropMenu">
   <div class="menu-section">
     <div class="menu-section-label">Principal</div>
@@ -50,16 +47,13 @@
 
   <div class="menu-section">
     <div class="menu-section-label">Herramientas</div>
-
     <a class="menu-item active" href="library.html">
       <span class="item-icon">📚</span>
       Biblioteca de Ejercicios
-      <span class="item-badge">NEW</span>
     </a>
   </div>
 </nav>
 
-<!-- MAIN -->
 <main id="app">
   <div id="page-biblioteca">
 
@@ -72,7 +66,6 @@
       <a class="back-btn" href="../index.html">← Volver</a>
     </div>
 
-    <!-- FILTROS -->
     <div class="filter-pills">
       <button class="pill active" data-filter="todos">Todos</button>
       <button class="pill" data-filter="pecho">Pecho</button>
@@ -84,13 +77,11 @@
       <button class="pill" data-filter="cardio">Cardio</button>
     </div>
 
-    <!-- GRID -->
     <div class="exercise-grid" id="exerciseGrid"></div>
 
   </div>
 </main>
 
-<!-- LIGHTBOX -->
 <div id="lightboxOverlay" class="lb-overlay">
   <div class="lb-panel">
 
@@ -106,13 +97,11 @@
         <label class="lb-label">Imagen del ejercicio</label>
         <div class="lb-image-upload" id="lbImageArea">
           <input type="file" id="lbImageInput" accept="image/*" hidden>
-
-          <div class="lb-image-preview" id="lbImagePreview">
+          <div class="lb-image-preview">
             <div class="lb-image-placeholder" id="lbImagePlaceholder">
               <span class="lb-upload-icon">＋</span>
               <span class="lb-upload-text">Subir imagen</span>
             </div>
-
             <img id="lbImageEl" src="" alt="" style="display:none;">
           </div>
         </div>
@@ -124,22 +113,18 @@
       </div>
 
       <div class="lb-field">
-        <label class="lb-label" for="lbTipo">Tipo de ejercicio</label>
-        <select class="lb-select" id="lbTipo">
-          <option value="">Seleccionar</option>
-          <option value="fuerza">Fuerza</option>
-          <option value="cardio">Cardio</option>
-          <option value="isometrico">Isométrico</option>
-        </select>
+        <label class="lb-label" for="lbDescripcion">Descripción</label>
+        <textarea class="lb-input" id="lbDescripcion" rows="4"></textarea>
+      </div>
+
+      <div class="lb-field">
+        <label class="lb-label" for="lbTipo">Tipo</label>
+        <input class="lb-input" type="text" id="lbTipo">
       </div>
 
       <div class="lb-field">
         <label class="lb-label" for="lbEquipo">Equipo</label>
-        <select class="lb-select" id="lbEquipo">
-          <option value="">Seleccionar</option>
-          <option value="peso_corporal">Peso corporal</option>
-          <option value="mancuernas">Mancuernas</option>
-        </select>
+        <input class="lb-input" type="text" id="lbEquipo">
       </div>
 
       <div class="lb-field">
@@ -158,7 +143,7 @@
       </div>
 
       <div class="lb-field">
-        <label class="lb-label" for="lbVideo">URL de video</label>
+        <label class="lb-label" for="lbVideo">Video URL</label>
         <input class="lb-input" type="url" id="lbVideo">
       </div>
 
