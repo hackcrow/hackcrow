@@ -5,6 +5,7 @@ const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let ejercicios = [];
 let currentIdx = null;
+let selectedImageFile = null;
 
 function mapearFiltro(parte) {
   const mapa = {
@@ -96,20 +97,30 @@ function renderEjercicios(filtro = "todos") {
 
 function openLightbox(idx) {
   currentIdx = idx;
+  selectedImageFile = null;
+
   const ex = ejercicios[idx];
 
   document.getElementById("lbNombre").value = ex.nombre || "";
   document.getElementById("lbDescripcion").value = ex.descripcion || "";
-
-  // selects
   document.getElementById("lbTipo").value = ex.tipo || "";
   document.getElementById("lbEquipo").value = ex.equipo || "";
   document.getElementById("lbMusculoPrimario").value = ex.musculo_primario || "";
   document.getElementById("lbMusculoSecundario").value = ex.musculo_secundario || "";
   document.getElementById("lbParteCuerpo").value = ex.parte_cuerpo || "";
-
-  // otros
   document.getElementById("lbVideo").value = ex.video_url || "";
+
+  const imgEl = document.getElementById("lbImageEl");
+  const placeholder = document.getElementById("lbImagePlaceholder");
+
+  if (ex.imagen) {
+    imgEl.src = ex.imagen;
+    imgEl.style.display = "block";
+    placeholder.style.display = "none";
+  } else {
+    imgEl.style.display = "none";
+    placeholder.style.display = "flex";
+  }
 
   document.getElementById("lightboxOverlay").classList.add("open");
 }
@@ -122,6 +133,23 @@ async function saveLightbox() {
   if (currentIdx === null) return;
 
   const ex = ejercicios[currentIdx];
+  let imageUrl = ex.imagen || "";
+
+  if (selectedImageFile) {
+    const fileName = `${Date.now()}-${selectedImageFile.name}`;
+
+    const { error: uploadError } = await supabaseClient.storage
+      .from("exercise-images")
+      .upload(fileName, selectedImageFile);
+
+    if (!uploadError) {
+      const { data } = supabaseClient.storage
+        .from("exercise-images")
+        .getPublicUrl(fileName);
+
+      imageUrl = data.publicUrl;
+    }
+  }
 
   const payload = {
     nombre: document.getElementById("lbNombre").value,
@@ -131,9 +159,8 @@ async function saveLightbox() {
     musculo_primario: document.getElementById("lbMusculoPrimario").value,
     musculo_secundario: document.getElementById("lbMusculoSecundario").value,
     parte_cuerpo: document.getElementById("lbParteCuerpo").value,
-    unidad: document.getElementById("lbUnidad").value,
     video_url: document.getElementById("lbVideo").value,
-    imagen: document.getElementById("lbImagen").value
+    imagen: imageUrl
   };
 
   const { error } = await supabaseClient
@@ -164,4 +191,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("lbCancel").addEventListener("click", closeLightbox);
   document.getElementById("lbSave").addEventListener("click", saveLightbox);
+
+  const imageArea = document.getElementById("lbImageArea");
+const imageInput = document.getElementById("lbImageInput");
+
+imageArea.addEventListener("click", () => {
+  imageInput.click();
+});
+
+imageInput.addEventListener("change", (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  selectedImageFile = file;
+
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    document.getElementById("lbImageEl").src = ev.target.result;
+    document.getElementById("lbImageEl").style.display = "block";
+    document.getElementById("lbImagePlaceholder").style.display = "none";
+  };
+  reader.readAsDataURL(file);
+});
 });
