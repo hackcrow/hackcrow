@@ -1,5 +1,3 @@
-/* workout/js/library.js — usando exercises.json */
-
 let ejercicios = [];
 let ejercicioData = [];
 let currentIdx = null;
@@ -47,23 +45,19 @@ function traducirMusculo(parte) {
 async function cargarEjercicios() {
   try {
     const response = await fetch("../src/exercises.json");
-
-    if (!response.ok) {
-      throw new Error("No se pudo cargar exercises.json");
-    }
-
     const data = await response.json();
 
     ejercicios = data.map(e => ({
       ...e,
       musculo: traducirMusculo(e.parte_cuerpo),
-      desc: `${e.tipo} · ${e.equipo.replaceAll("_", " ")}`,
-      tags: [e.tipo, e.equipo.replaceAll("_", " ")],
+      desc: e.descripcion || "",
+      tags: [e.equipo.replaceAll("_", " "), e.tipo],
       filtro: mapearFiltro(e.parte_cuerpo)
     }));
 
     ejercicioData = ejercicios.map(e => ({
       imagen: e.imagen || null,
+      descripcion: e.descripcion || "",
       tipo: e.tipo || "",
       equipo: e.equipo || "",
       musculoPrimario: e.musculo_primario || "",
@@ -75,12 +69,12 @@ async function cargarEjercicios() {
     renderEjercicios();
 
   } catch (error) {
-    console.error("Error cargando ejercicios:", error);
+    console.error(error);
   }
 }
 
 /* =============================================
-   RENDER TARJETAS
+   RENDER
 ============================================= */
 
 function renderEjercicios(filtro = "todos") {
@@ -89,18 +83,7 @@ function renderEjercicios(filtro = "todos") {
 
   const lista = filtro === "todos"
     ? ejercicios.map((e, i) => ({ ...e, _idx: i }))
-    : ejercicios
-        .map((e, i) => ({ ...e, _idx: i }))
-        .filter(e => e.filtro === filtro);
-
-  if (!lista.length) {
-    grid.innerHTML = `
-      <div class="empty-state">
-        <div class="empty-icon">🔍</div>
-        <p>Sin ejercicios en esta categoría aún.</p>
-      </div>`;
-    return;
-  }
+    : ejercicios.map((e, i) => ({ ...e, _idx: i })).filter(e => e.filtro === filtro);
 
   grid.innerHTML = lista.map(e => `
     <div class="exercise-card" data-idx="${e._idx}">
@@ -124,104 +107,56 @@ function renderEjercicios(filtro = "todos") {
    LIGHTBOX
 ============================================= */
 
-const lbOverlay    = document.getElementById("lightboxOverlay");
-const lbCancel     = document.getElementById("lbCancel");
-const lbSave       = document.getElementById("lbSave");
-const lbImageArea  = document.getElementById("lbImageArea");
-const lbImageInput = document.getElementById("lbImageInput");
-const lbImageEl    = document.getElementById("lbImageEl");
-const lbImagePh    = document.getElementById("lbImagePlaceholder");
+const lbOverlay = document.getElementById("lightboxOverlay");
+const lbCancel = document.getElementById("lbCancel");
+const lbSave = document.getElementById("lbSave");
 
 function openLightbox(idx) {
   currentIdx = idx;
-  const ex   = ejercicios[idx];
+  const ex = ejercicios[idx];
   const data = ejercicioData[idx];
 
-  document.getElementById("lbNombre").value            = ex.nombre;
-  document.getElementById("lbTipo").value              = data.tipo;
-  document.getElementById("lbEquipo").value            = data.equipo;
-  document.getElementById("lbMusculoPrimario").value   = data.musculoPrimario;
+  document.getElementById("lbNombre").value = ex.nombre;
+  document.getElementById("lbDescripcion").value = data.descripcion;
+  document.getElementById("lbTipo").value = data.tipo;
+  document.getElementById("lbEquipo").value = data.equipo;
+  document.getElementById("lbMusculoPrimario").value = data.musculoPrimario;
   document.getElementById("lbMusculoSecundario").value = data.musculoSecundario;
-  document.getElementById("lbParteCuerpo").value       = data.parteCuerpo;
-  document.getElementById("lbVideo").value             = data.video;
-
-  if (data.imagen) {
-    lbImageEl.src = data.imagen;
-    lbImageEl.style.display = "block";
-    lbImagePh.style.display = "none";
-  } else {
-    lbImageEl.style.display = "none";
-    lbImagePh.style.display = "flex";
-  }
+  document.getElementById("lbParteCuerpo").value = data.parteCuerpo;
+  document.getElementById("lbVideo").value = data.video;
 
   lbOverlay.classList.add("open");
-  document.body.style.overflow = "hidden";
 }
 
 function closeLightbox() {
   lbOverlay.classList.remove("open");
-  document.body.style.overflow = "";
   currentIdx = null;
 }
 
 function saveLightbox() {
   if (currentIdx === null) return;
 
-  const nuevoNombre = document.getElementById("lbNombre").value.trim();
-  if (nuevoNombre) ejercicios[currentIdx].nombre = nuevoNombre;
+  ejercicios[currentIdx].nombre = document.getElementById("lbNombre").value;
+  ejercicios[currentIdx].desc = document.getElementById("lbDescripcion").value;
 
-  ejercicioData[currentIdx] = {
-    imagen: ejercicioData[currentIdx].imagen,
-    tipo: document.getElementById("lbTipo").value,
-    equipo: document.getElementById("lbEquipo").value,
-    musculoPrimario: document.getElementById("lbMusculoPrimario").value,
-    musculoSecundario: document.getElementById("lbMusculoSecundario").value,
-    parteCuerpo: document.getElementById("lbParteCuerpo").value,
-    video: document.getElementById("lbVideo").value,
-  };
+  ejercicioData[currentIdx].descripcion = document.getElementById("lbDescripcion").value;
+  ejercicioData[currentIdx].tipo = document.getElementById("lbTipo").value;
+  ejercicioData[currentIdx].equipo = document.getElementById("lbEquipo").value;
+  ejercicioData[currentIdx].musculoPrimario = document.getElementById("lbMusculoPrimario").value;
+  ejercicioData[currentIdx].musculoSecundario = document.getElementById("lbMusculoSecundario").value;
+  ejercicioData[currentIdx].parteCuerpo = document.getElementById("lbParteCuerpo").value;
+  ejercicioData[currentIdx].video = document.getElementById("lbVideo").value;
 
   closeLightbox();
 
   const activePill = document.querySelector(".pill.active");
-  renderEjercicios(activePill ? activePill.dataset.filter : "todos");
+  renderEjercicios(activePill.dataset.filter);
 }
 
-/* =============================================
-   EVENTOS
-============================================= */
-
-lbImageArea.addEventListener("click", () => lbImageInput.click());
-
-lbImageInput.addEventListener("change", () => {
-  const file = lbImageInput.files[0];
-  if (!file || currentIdx === null) return;
-
-  const reader = new FileReader();
-  reader.onload = e => {
-    ejercicioData[currentIdx].imagen = e.target.result;
-    lbImageEl.src = e.target.result;
-    lbImageEl.style.display = "block";
-    lbImagePh.style.display = "none";
-  };
-  reader.readAsDataURL(file);
-});
+/* EVENTOS */
 
 lbCancel.addEventListener("click", closeLightbox);
 lbSave.addEventListener("click", saveLightbox);
-
-lbOverlay.addEventListener("click", e => {
-  if (e.target === lbOverlay) closeLightbox();
-});
-
-document.addEventListener("keydown", e => {
-  if (e.key === "Escape" && lbOverlay.classList.contains("open")) {
-    closeLightbox();
-  }
-});
-
-/* =============================================
-   INIT
-============================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
   cargarEjercicios();
