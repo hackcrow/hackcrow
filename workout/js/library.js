@@ -220,3 +220,32 @@ imageInput.addEventListener("change", (e) => {
   reader.readAsDataURL(file);
 });
 });
+
+function openViewLightbox(idx) {
+  currentIdx = idx;
+  const ex = ejercicios[idx];
+
+  const content = `
+    ${ex.imagen ? `<img class="detail-img" src="${ex.imagen}" alt="${ex.nombre}">` : ""}
+
+    <div class="detail-section">
+      <h2>${ex.nombre}</h2>
+      <p>${ex.descripcion || ""}</p>
+
+      <div class="detail-meta"><strong>Tipo:</strong> ${ex.tipo || "-"}</div>
+      <div class="detail-meta"><strong>Equipo:</strong> ${ex.equipo || "-"}</div>
+      <div class="detail-meta"><strong>Músculo primario:</strong> ${ex.musculo_primario || "-"}</div>
+      <div class="detail-meta"><strong>Músculo secundario:</strong> ${ex.musculo_secundario || "-"}</div>
+      <div class="detail-meta"><strong>Parte del cuerpo:</strong> ${ex.parte_cuerpo || "-"}</div>
+
+      ${ex.video_url ? `<a class="detail-video" href="${ex.video_url}" target="_blank">Ver video</a>` : ""}
+    </div>
+  `;
+
+  document.getElementById("viewContent").innerHTML = content;
+  document.getElementById("viewOverlay").classList.add("open");
+}
+
+function closeViewLightbox() {
+  document.getElementById("viewOverlay").classList.remove("open");
+}
