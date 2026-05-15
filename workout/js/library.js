@@ -46,7 +46,7 @@ function traducirMusculo(parte) {
 
 async function cargarEjercicios() {
   try {
-    const response = await fetch("../data/exercises.json");
+    const response = await fetch("../src/exercises.json");
 
     if (!response.ok) {
       throw new Error("No se pudo cargar exercises.json");
