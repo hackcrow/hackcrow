@@ -37,33 +37,24 @@
 <nav id="dropMenu">
   <div class="menu-section">
     <div class="menu-section-label">Principal</div>
-    <a class="menu-item" href="../index.html">
-      <span class="item-icon">⊞</span>
-      Dashboard
-    </a>
+    <a class="menu-item" href="../index.html">Dashboard</a>
   </div>
 
   <div class="menu-divider"></div>
 
   <div class="menu-section">
     <div class="menu-section-label">Herramientas</div>
-    <a class="menu-item active" href="library.html">
-      <span class="item-icon">📚</span>
-      Biblioteca de Ejercicios
-    </a>
+    <a class="menu-item active" href="library.html">Biblioteca de Ejercicios</a>
   </div>
 </nav>
 
 <main id="app">
   <div id="page-biblioteca">
-
     <div class="page-header">
       <div>
         <div class="page-title">Biblioteca de Ejercicios</div>
         <div class="page-subtitle">// Ejercicios para casa · sin equipo</div>
       </div>
-
-      <a class="back-btn" href="../index.html">← Volver</a>
     </div>
 
     <div class="filter-pills">
@@ -78,14 +69,11 @@
     </div>
 
     <div class="exercise-grid" id="exerciseGrid"></div>
-
   </div>
 </main>
 
-<!-- LIGHTBOX -->
 <div id="lightboxOverlay" class="lb-overlay">
   <div class="lb-panel">
-
     <div class="lb-header">
       <button class="lb-btn-cancel" id="lbCancel">Cancelar</button>
       <span class="lb-header-title">Editar ejercicio</span>
@@ -93,67 +81,25 @@
     </div>
 
     <div class="lb-body">
-
       <div class="lb-field">
-        <label class="lb-label">Imagen del ejercicio</label>
-        <div class="lb-image-upload" id="lbImageArea">
-          <input type="file" id="lbImageInput" accept="image/*" hidden>
-
-          <div class="lb-image-preview">
-            <div class="lb-image-placeholder" id="lbImagePlaceholder">
-              <span class="lb-upload-icon">＋</span>
-              <span class="lb-upload-text">Subir imagen</span>
-            </div>
-
-            <img id="lbImageEl" src="" alt="" style="display:none;">
-          </div>
-        </div>
+        <label class="lb-label">Nombre</label>
+        <input class="lb-input" id="lbNombre">
       </div>
 
       <div class="lb-field">
-        <label class="lb-label" for="lbNombre">Nombre del ejercicio</label>
-        <input class="lb-input" type="text" id="lbNombre">
-      </div>
-
-      <div class="lb-field">
-        <label class="lb-label" for="lbDescripcion">Descripción</label>
+        <label class="lb-label">Descripción</label>
         <textarea class="lb-input" id="lbDescripcion" rows="4"></textarea>
       </div>
 
       <div class="lb-field">
-        <label class="lb-label" for="lbTipo">Tipo</label>
-        <input class="lb-input" type="text" id="lbTipo">
+        <label class="lb-label">Video URL</label>
+        <input class="lb-input" id="lbVideo">
       </div>
-
-      <div class="lb-field">
-        <label class="lb-label" for="lbEquipo">Equipo</label>
-        <input class="lb-input" type="text" id="lbEquipo">
-      </div>
-
-      <div class="lb-field">
-        <label class="lb-label" for="lbMusculoPrimario">Músculo primario</label>
-        <input class="lb-input" type="text" id="lbMusculoPrimario">
-      </div>
-
-      <div class="lb-field">
-        <label class="lb-label" for="lbMusculoSecundario">Músculo secundario</label>
-        <input class="lb-input" type="text" id="lbMusculoSecundario">
-      </div>
-
-      <div class="lb-field">
-        <label class="lb-label" for="lbParteCuerpo">Parte del cuerpo</label>
-        <input class="lb-input" type="text" id="lbParteCuerpo">
-      </div>
-
-      <div class="lb-field">
-        <label class="lb-label" for="lbVideo">Video URL</label>
-        <input class="lb-input" type="url" id="lbVideo">
-      </div>
-
     </div>
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../js/app.js"></script>
 <script src="../js/library.js"></script>
 
