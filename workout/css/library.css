@@ -321,3 +321,18 @@
   transform: scale(1.15);
   fill: #33ffaa;
 }
+
+.card-thumb {
+  width: 100%;
+  max-height: 140px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 12px;
+  border-radius: 10px;
+}
+
+.exercise-card img {
+  width: 100%;
+  max-height: 140px;
+  object-fit: contain;
+}
