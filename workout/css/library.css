@@ -478,3 +478,17 @@
   margin-bottom: 10px;
   line-height: 1.5;
 }
+.ex-name-en {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.ex-name-es {
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+  text-align: center;
+  margin-bottom: 12px;
+}
