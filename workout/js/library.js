@@ -80,7 +80,10 @@ function renderEjercicios(filtro = "todos") {
       <div class="ex-name-en">${e.nombre_en || e.nombre}</div>
       <div class="ex-name-es">${e.nombre || ""}</div>
 
-      ${e.imagen ? `<img class="card-thumb" src="${e.imagen}" alt="${e.nombre}">` : ""}
+      ${e.imagen
+        ? `<img class="card-thumb" src="${e.imagen}" alt="${e.nombre}">`
+        : `<div class="card-thumb no-image">No image</div>`
+      }
 
       <div class="ex-desc">${e.descripcion || ""}</div>
     </div>
