@@ -556,3 +556,29 @@
   0%, 50% { opacity: 1; }
   51%, 100% { opacity: 0; }
 }
+
+.lb-image-preview {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.lb-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  color: #00ff88;
+  font-family: "DM Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  text-transform: uppercase;
+}
+
+.lb-image-preview:hover .lb-image-overlay {
+  opacity: 1;
+}
