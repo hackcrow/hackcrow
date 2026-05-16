@@ -466,12 +466,12 @@
 }
 
 .meta-label {
-  color: #00ff88;
+  color: rgba(255,255,255,0.82);
   font-weight: 600;
 }
 
 .meta-value {
-  color: rgba(255,255,255,0.82);
+  color: #00ff88;
 }
 
 .detail-meta {
