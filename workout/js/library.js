@@ -226,4 +226,28 @@ document.addEventListener("DOMContentLoaded", () => {
     closeViewLightbox();
     openLightbox(currentIdx);
   });
+
+  const imageArea = document.getElementById("lbImageArea");
+const imageInput = document.getElementById("lbImageInput");
+
+if (imageArea && imageInput) {
+  imageArea.addEventListener("click", () => {
+    imageInput.click();
+  });
+
+  imageInput.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    selectedImageFile = file;
+
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      document.getElementById("lbImageEl").src = ev.target.result;
+      document.getElementById("lbImageEl").style.display = "block";
+      document.getElementById("lbImagePlaceholder").style.display = "none";
+    };
+    reader.readAsDataURL(file);
+  });
+}
 });
