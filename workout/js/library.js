@@ -65,6 +65,7 @@ function renderEjercicios(filtro = "todos") {
 }
 
 function openLightbox(idx) {
+  document.getElementById("lbTitle").textContent = "Editar ejercicio";
   currentIdx = idx;
   const ex = ejercicios[idx];
 
@@ -255,6 +256,7 @@ const addBtn = document.getElementById("addExerciseBtn");
 const scrollBtn = document.getElementById("scrollTopBtn");
 
 if (addBtn) {
+  document.getElementById("lbTitle").textContent = "Agregar ejercicio";
   addBtn.addEventListener("click", () => {
     currentIdx = null;
 
