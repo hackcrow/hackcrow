@@ -122,12 +122,24 @@ function openViewLightbox(idx) {
 
   document.getElementById("viewContent").innerHTML = `
     ${ex.imagen ? `<img class="detail-img" src="${ex.imagen}" alt="${nombreEs}">` : ""}
+
     <div class="detail-section">
       <h2 class="detail-name-en">${nombreEn || nombreEs}</h2>
       <div class="detail-name-es">${nombreEs}</div>
+
       <p>${ex.descripcion || ""}</p>
+
       <div class="detail-meta"><span class="meta-label">Tipo:</span> <span class="meta-value">${ex.tipo || "-"}</span></div>
       <div class="detail-meta"><span class="meta-label">Equipo:</span> <span class="meta-value">${ex.equipo || "-"}</span></div>
+      <div class="detail-meta"><span class="meta-label">Músculo primario:</span> <span class="meta-value">${ex.musculo_primario || "-"}</span></div>
+      <div class="detail-meta"><span class="meta-label">Músculo secundario:</span> <span class="meta-value">${ex.musculo_secundario || "-"}</span></div>
+      <div class="detail-meta"><span class="meta-label">Parte del cuerpo:</span> <span class="meta-value">${ex.parte_cuerpo || "-"}</span></div>
+
+      ${
+        ex.video_url
+          ? `<a class="detail-video" href="${ex.video_url}" target="_blank">Ver video ↗</a>`
+          : ""
+      }
     </div>
   `;
 
