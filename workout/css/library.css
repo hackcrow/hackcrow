@@ -486,12 +486,12 @@
   margin-bottom: 4px;
 }
 
-.ex-name-es {
-  font-size: 11px;
-  color: rgba(255,255,255,0.45);
+.ex-name-en {
+  font-size: 18px;
+  font-weight: 700;
+  color: #00ff88;
   text-align: center;
-  margin-bottom: 12px;
-  letter-spacing: 0.3px;
+  margin-bottom: 4px;
 }
 
 .no-image {
