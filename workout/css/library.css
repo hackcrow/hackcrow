@@ -524,3 +524,13 @@
   opacity: 0.28;
   filter: grayscale(100%);
 }
+.no-image-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.28);
+  font-size: 12px;
+  border: 1px dashed rgba(255,255,255,0.12);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.02);
+}
