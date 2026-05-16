@@ -40,6 +40,8 @@ function traducirMusculo(parte) {
 }
 
 async function cargarEjercicios() {
+  document.getElementById("loadingExercises").style.display = "block";
+  
   const { data, error } = await supabaseClient
     .from("exercises")
     .select("*")
@@ -57,6 +59,8 @@ async function cargarEjercicios() {
     filtro: mapearFiltro(e.parte_cuerpo)
   }));
 
+  document.getElementById("loadingExercises").style.display = "none";
+  
   renderEjercicios();
 }
 
