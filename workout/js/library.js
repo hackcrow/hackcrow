@@ -114,6 +114,42 @@ async function saveLightbox() {
   await cargarEjercicios();
 }
 
+function formatValue(value) {
+  if (!value) return "-";
+
+  const map = {
+    peso_corporal: "Peso corporal",
+    peso_extra: "Peso extra",
+    rueda_abdominal: "Rueda abdominal",
+    upper_arms: "Brazos",
+    full_body: "Cuerpo completo",
+    chest: "Pecho",
+    back: "Espalda",
+    thighs: "Piernas",
+    glutes: "Glúteos",
+    shoulders: "Hombros",
+    abdominals: "Abdominales",
+    core: "Core",
+    pectorals: "Pectorales",
+    quadriceps: "Cuádriceps",
+    biceps: "Bíceps",
+    triceps: "Tríceps",
+    hamstrings: "Isquiotibiales",
+    obliques: "Oblicuos",
+    fuerza: "Fuerza",
+    cardio: "Cardio",
+    flexibilidad: "Flexibilidad",
+    movilidad: "Movilidad",
+    isometrico: "Isométrico",
+    pliometrico: "Pliométrico",
+    resistencia: "Resistencia",
+    mancuernas: "Mancuernas",
+    banda: "Banda"
+  };
+
+  return map[value] || value.replaceAll("_", " ");
+}
+
 function openViewLightbox(idx) {
   currentIdx = idx;
   const ex = ejercicios[idx];
@@ -129,11 +165,11 @@ function openViewLightbox(idx) {
 
       <p>${ex.descripcion || ""}</p>
 
-      <div class="detail-meta"><span class="meta-label">Tipo:</span> <span class="meta-value">${ex.tipo || "-"}</span></div>
-      <div class="detail-meta"><span class="meta-label">Equipo:</span> <span class="meta-value">${ex.equipo || "-"}</span></div>
-      <div class="detail-meta"><span class="meta-label">Músculo primario:</span> <span class="meta-value">${ex.musculo_primario || "-"}</span></div>
-      <div class="detail-meta"><span class="meta-label">Músculo secundario:</span> <span class="meta-value">${ex.musculo_secundario || "-"}</span></div>
-      <div class="detail-meta"><span class="meta-label">Parte del cuerpo:</span> <span class="meta-value">${ex.parte_cuerpo || "-"}</span></div>
+      <div class="detail-meta"><span class="meta-label">Tipo:</span> <span class="meta-value">${formatValue(ex.tipo)}</span></div>
+      <div class="detail-meta"><span class="meta-label">Equipo:</span> <span class="meta-value">${formatValue(ex.equipo)}</span></div>
+      <div class="detail-meta"><span class="meta-label">Músculo primario:</span> <span class="meta-value">${formatValue(ex.musculo_primario)}</span></div>
+      <div class="detail-meta"><span class="meta-label">Músculo secundario:</span> <span class="meta-value">${formatValue(ex.musculo_secundario)}</span></div>
+      <div class="detail-meta"><span class="meta-label">Parte del cuerpo:</span> <span class="meta-value">${formatValue(ex.parte_cuerpo)}</span></div>
 
       ${
         ex.video_url
