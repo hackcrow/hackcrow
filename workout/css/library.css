@@ -612,3 +612,27 @@
   bottom: 24px;
   display: none;
 }
+
+.filter-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.inline-add-btn {
+  background: transparent;
+  border: none;
+  color: #00ff88;
+  font-size: 34px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 8px;
+  font-weight: 300;
+  transition: transform 0.18s ease, opacity 0.18s ease;
+}
+
+.inline-add-btn:hover {
+  transform: scale(1.15);
+  opacity: 0.85;
+}
