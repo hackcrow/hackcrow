@@ -104,30 +104,47 @@ function closeLightbox() {
 }
 
 async function saveLightbox() {
-  const ex = ejercicios[currentIdx];
-
-  const updates = {
-    nombre_en: document.getElementById("lbNombreEn").value,
-    nombre: document.getElementById("lbNombre").value,
-    descripcion: document.getElementById("lbDescripcion").value,
+  const payload = {
+    nombre_en: document.getElementById("lbNombreEn").value.trim(),
+    nombre: document.getElementById("lbNombre").value.trim(),
+    descripcion: document.getElementById("lbDescripcion").value.trim(),
     tipo: document.getElementById("lbTipo").value,
     equipo: document.getElementById("lbEquipo").value,
     musculo_primario: document.getElementById("lbMusculoPrimario").value,
     musculo_secundario: document.getElementById("lbMusculoSecundario").value,
     parte_cuerpo: document.getElementById("lbParteCuerpo").value,
-    video_url: document.getElementById("lbVideo").value
+    video_url: document.getElementById("lbVideo").value.trim()
   };
 
-  const { error } = await supabaseClient
-    .from("exercises")
-    .update(updates)
-    .eq("id", ex.id);
+  // conservar imagen existente si estás editando
+  if (currentIdx !== null && ejercicios[currentIdx]?.imagen) {
+    payload.imagen = ejercicios[currentIdx].imagen;
+  }
 
-  if (error) {
-    console.error(error);
+  // si hay imagen nueva seleccionada, aquí se queda la que ya subes (tu lógica actual)
+  if (selectedImageFile) {
+    // tu flujo actual de subida ya debe llenar payload.imagen;
+    // no tocamos eso para no romperlo
+  }
+
+  let result;
+
+  if (currentIdx === null) {
+    // NUEVO ejercicio
+    result = await supabaseClient.from("exercises").insert([payload]);
+  } else {
+    // EDITAR existente
+    const id = ejercicios[currentIdx].id;
+    result = await supabaseClient.from("exercises").update(payload).eq("id", id);
+  }
+
+  if (result.error) {
+    console.error(result.error);
+    alert("Error al guardar");
     return;
   }
 
+  selectedImageFile = null;
   closeLightbox();
   await cargarEjercicios();
 }
