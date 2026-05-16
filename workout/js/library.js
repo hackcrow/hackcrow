@@ -67,36 +67,36 @@ function renderEjercicios(filtro = "todos") {
     ? ejercicios
     : ejercicios.filter(e => e.filtro === filtro);
 
-  grid.innerHTML = lista.map((e) => `
-    <div class="exercise-card" data-id="${e.id}">
-      <button class="edit-btn" data-id="${e.id}" title="Editar">
-        <svg viewBox="0 0 24 24" class="edit-icon" aria-hidden="true">
-          <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm17.71-10.04a1.003 1.003 0 0 0 0-1.42l-2.5-2.5a1.003 1.003 0 0 0-1.42 0l-1.96 1.96 3.75 3.75 2.13-1.79z"/>
-        </svg>
-      </button>
+  grid.innerHTML = lista.map((e) => {
+    const imagenHTML = e.imagen
+      ? `<img class="card-thumb" src="${e.imagen}" alt="${e.nombre || ''}">`
+      : `<div class="card-thumb no-image-box">No image</div>`;
 
-      <div class="ex-muscle">${e.musculo || ""}</div>
+    return `
+      <div class="exercise-card" data-id="${e.id}">
+        <button class="edit-btn" data-id="${e.id}" title="Editar">
+          <svg viewBox="0 0 24 24" class="edit-icon" aria-hidden="true">
+            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm17.71-10.04a1.003 1.003 0 0 0 0-1.42l-2.5-2.5a1.003 1.003 0 0 0-1.42 0l-1.96 1.96 3.75 3.75 2.13-1.79z"/>
+          </svg>
+        </button>
 
-      <div class="ex-name-en">${e.nombre_en || e.nombre || ""}</div>
-      <div class="ex-name-es">${e.nombre || ""}</div>
+        <div class="ex-muscle">${e.musculo || ""}</div>
 
-      ${
-        e.imagen
-          ? `<img class="card-thumb" src="${e.imagen}" alt="${e.nombre || ''}">`
-          : `<div class="card-thumb no-image-box">No image</div>`
-      }
+        <div class="ex-name-en">${e.nombre_en || e.nombre || ""}</div>
+        <div class="ex-name-es">${e.nombre || ""}</div>
 
-      <div class="ex-desc">${e.descripcion || ""}</div>
-    </div>
-  `).join("");
+        ${imagenHTML}
+
+        <div class="ex-desc">${e.descripcion || ""}</div>
+      </div>
+    `;
+  }).join("");
 
   document.querySelectorAll(".edit-btn").forEach(btn => {
     btn.addEventListener("click", (ev) => {
       ev.stopPropagation();
-
       const id = parseInt(btn.dataset.id);
       const idx = ejercicios.findIndex(e => e.id === id);
-
       if (idx !== -1) openLightbox(idx);
     });
   });
@@ -105,7 +105,6 @@ function renderEjercicios(filtro = "todos") {
     card.addEventListener("click", () => {
       const id = parseInt(card.dataset.id);
       const idx = ejercicios.findIndex(e => e.id === id);
-
       if (idx !== -1) openViewLightbox(idx);
     });
   });
