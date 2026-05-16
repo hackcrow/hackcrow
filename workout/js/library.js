@@ -82,7 +82,13 @@ function renderEjercicios(filtro = "todos") {
 
       ${e.imagen
         ? `<img class="card-thumb" src="${e.imagen}" alt="${e.nombre}">`
-        : `<div class="card-thumb no-image">No image</div>`
+        : `
+          <div class="card-thumb no-image">
+            <svg viewBox="0 0 24 24" class="no-image-icon" aria-hidden="true">
+              <path d="M21 19V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2zM8.5 11.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm10.5 6H5l4.5-6 3.5 4.5 2.5-3z"/>
+            </svg>
+          </div>
+          `
       }
 
       <div class="ex-desc">${e.descripcion || ""}</div>
