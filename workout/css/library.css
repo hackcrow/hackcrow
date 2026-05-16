@@ -583,3 +583,32 @@
 .lb-image-preview:hover .lb-image-overlay {
   opacity: 1;
 }
+.floating-btn {
+  position: fixed;
+  right: 22px;
+  width: 52px;
+  height: 52px;
+  border: none;
+  border-radius: 50%;
+  background: #00ff88;
+  color: #08110d;
+  font-size: 28px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 255, 136, 0.25);
+  z-index: 999;
+  transition: transform 0.18s ease, opacity 0.2s ease;
+}
+
+.floating-btn:hover {
+  transform: scale(1.08);
+}
+
+.add-btn {
+  bottom: 90px;
+}
+
+.top-btn {
+  bottom: 24px;
+  display: none;
+}
