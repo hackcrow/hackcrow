@@ -250,4 +250,50 @@ if (imageArea && imageInput) {
     reader.readAsDataURL(file);
   });
 }
+
+const addBtn = document.getElementById("addExerciseBtn");
+const scrollBtn = document.getElementById("scrollTopBtn");
+
+if (addBtn) {
+  addBtn.addEventListener("click", () => {
+    currentIdx = null;
+
+    document.getElementById("lbNombreEn").value = "";
+    document.getElementById("lbNombre").value = "";
+    document.getElementById("lbDescripcion").value = "";
+    document.getElementById("lbTipo").value = "";
+    document.getElementById("lbEquipo").value = "";
+    document.getElementById("lbMusculoPrimario").value = "";
+    document.getElementById("lbMusculoSecundario").value = "";
+    document.getElementById("lbParteCuerpo").value = "";
+    document.getElementById("lbVideo").value = "";
+
+    document.getElementById("lbImageEl").style.display = "none";
+    document.getElementById("lbImagePlaceholder").style.display = "flex";
+
+    document.getElementById("lightboxOverlay").classList.add("open");
+  });
+}
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 300) {
+    scrollBtn.style.display = "block";
+  } else {
+    scrollBtn.style.display = "none";
+  }
 });
+
+if (scrollBtn) {
+  scrollBtn.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+}
+  
+});
+
+
+
+
