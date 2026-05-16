@@ -127,6 +127,17 @@ async function saveLightbox() {
     // no tocamos eso para no romperlo
   }
 
+  if (selectedImageFile) {
+  const reader = new FileReader();
+
+  const imageBase64 = await new Promise((resolve) => {
+    reader.onload = e => resolve(e.target.result);
+    reader.readAsDataURL(selectedImageFile);
+  });
+
+  payload.imagen = imageBase64;
+}
+  
   let result;
 
   if (currentIdx === null) {
