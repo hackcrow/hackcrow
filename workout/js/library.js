@@ -80,7 +80,7 @@ function openLightbox(idx) {
 
   const imgEl = document.getElementById("lbImageEl");
   const placeholder = document.getElementById("lbImagePlaceholder");
-
+  
   if (ex.imagen) {
     imgEl.src = ex.imagen;
     imgEl.style.display = "block";
@@ -89,6 +89,10 @@ function openLightbox(idx) {
     imgEl.src = "";
     imgEl.style.display = "none";
     placeholder.style.display = "flex";
+  
+    placeholder.innerHTML = `
+      <span class="lb-upload-text">NO IMAGE<br><small>click to upload</small></span>
+    `;
   }
 
   document.getElementById("lightboxOverlay").classList.add("open");
