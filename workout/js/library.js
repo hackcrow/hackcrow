@@ -249,7 +249,7 @@ function openViewLightbox(idx) {
 
     <div class="detail-section">
       <h2 class="detail-name-en">${nombreEn || nombreEs}</h2>
-      ${nombreEn ? `<div class="detail-name-es">${nombreEs}</div>` : ""}
+      <div class="detail-name-es">${nombreEs}</div>
 
       <p>${ex.descripcion || ""}</p>
 
