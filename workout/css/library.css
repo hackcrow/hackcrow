@@ -455,13 +455,13 @@
 .detail-name-en {
   font-size: 24px;
   font-weight: 700;
-  color: #ffffff;
+  color: #00ff88;
   margin-bottom: 4px;
 }
 
 .detail-name-es {
-  font-size: 14px;
-  color: rgba(255,255,255,0.52);
+  font-size: 13px;
+  color: rgba(255,255,255,0.45);
   margin-bottom: 16px;
 }
 
