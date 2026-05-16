@@ -534,3 +534,25 @@
   border-radius: 12px;
   background: rgba(255,255,255,0.02);
 }
+
+.terminal-loading {
+  display: none;
+  text-align: center;
+  margin: 40px 0;
+  font-family: "Courier New", monospace;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: #00ff88;
+  opacity: 0.85;
+  text-transform: uppercase;
+}
+
+.terminal-loading::after {
+  content: "_";
+  animation: blinkCursor 0.9s infinite;
+}
+
+@keyframes blinkCursor {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
