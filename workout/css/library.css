@@ -520,3 +520,7 @@
   height: 42px;
   fill: rgba(255,255,255,0.22);
 }
+.placeholder-img {
+  opacity: 0.28;
+  filter: grayscale(100%);
+}
