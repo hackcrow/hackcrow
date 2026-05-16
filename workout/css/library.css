@@ -451,3 +451,30 @@
   text-decoration: none;
   font-weight: 600;
 }
+
+.detail-name-en {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.detail-name-es {
+  font-size: 14px;
+  color: rgba(255,255,255,0.52);
+  margin-bottom: 16px;
+}
+
+.meta-label {
+  color: #00ff88;
+  font-weight: 600;
+}
+
+.meta-value {
+  color: rgba(255,255,255,0.82);
+}
+
+.detail-meta {
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
