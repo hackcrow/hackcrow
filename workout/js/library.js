@@ -238,20 +238,48 @@ function openViewLightbox(idx) {
   currentIdx = idx;
   const ex = ejercicios[idx];
 
+  const nombreEs = ex.nombre || "";
+  const nombreEn = ex.nombre_en || "";
+
   const content = `
-    ${ex.imagen ? `<img class="detail-img" src="${ex.imagen}" alt="${ex.nombre}">` : ""}
+    ${ex.imagen ? `<img class="detail-img" src="${ex.imagen}" alt="${nombreEs}">` : ""}
 
     <div class="detail-section">
-      <h2>${ex.nombre}</h2>
+      <h2 class="detail-name-en">${nombreEn || nombreEs}</h2>
+      ${nombreEn ? `<div class="detail-name-es">${nombreEs}</div>` : ""}
+
       <p>${ex.descripcion || ""}</p>
 
-      <div class="detail-meta"><strong>Tipo:</strong> ${ex.tipo || "-"}</div>
-      <div class="detail-meta"><strong>Equipo:</strong> ${ex.equipo || "-"}</div>
-      <div class="detail-meta"><strong>Músculo primario:</strong> ${ex.musculo_primario || "-"}</div>
-      <div class="detail-meta"><strong>Músculo secundario:</strong> ${ex.musculo_secundario || "-"}</div>
-      <div class="detail-meta"><strong>Parte del cuerpo:</strong> ${ex.parte_cuerpo || "-"}</div>
+      <div class="detail-meta">
+        <span class="meta-label">Tipo:</span>
+        <span class="meta-value">${ex.tipo || "-"}</span>
+      </div>
 
-      ${ex.video_url ? `<a class="detail-video" href="${ex.video_url}" target="_blank">Ver video</a>` : ""}
+      <div class="detail-meta">
+        <span class="meta-label">Equipo:</span>
+        <span class="meta-value">${ex.equipo || "-"}</span>
+      </div>
+
+      <div class="detail-meta">
+        <span class="meta-label">Músculo primario:</span>
+        <span class="meta-value">${ex.musculo_primario || "-"}</span>
+      </div>
+
+      <div class="detail-meta">
+        <span class="meta-label">Músculo secundario:</span>
+        <span class="meta-value">${ex.musculo_secundario || "-"}</span>
+      </div>
+
+      <div class="detail-meta">
+        <span class="meta-label">Parte del cuerpo:</span>
+        <span class="meta-value">${ex.parte_cuerpo || "-"}</span>
+      </div>
+
+      ${ex.video_url ? `
+        <a class="detail-video" href="${ex.video_url}" target="_blank">
+          Ver video ↗
+        </a>
+      ` : ""}
     </div>
   `;
 
