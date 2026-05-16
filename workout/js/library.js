@@ -75,16 +75,18 @@ function renderEjercicios(filtro = "todos") {
         </svg>
       </button>
 
-      <div class="ex-muscle">${e.musculo}</div>
-      <div class="ex-name">${e.nombre}</div>
+      <div class="ex-muscle">${e.musculo || ""}</div>
+
+      <div class="ex-name-en">${e.nombre_en || e.nombre}</div>
+      <div class="ex-name-es">${e.nombre || ""}</div>
 
       ${e.imagen ? `<img class="card-thumb" src="${e.imagen}" alt="${e.nombre}">` : ""}
 
-      <div class="ex-desc">${e.desc || ""}</div>
+      <div class="ex-desc">${e.descripcion || ""}</div>
     </div>
   `).join("");
 
-  // click en lápiz = editar
+  // click lápiz
   document.querySelectorAll(".edit-btn").forEach(btn => {
     btn.addEventListener("click", (ev) => {
       ev.stopPropagation();
@@ -92,21 +94,17 @@ function renderEjercicios(filtro = "todos") {
       const id = parseInt(btn.dataset.id);
       const idx = ejercicios.findIndex(e => e.id === id);
 
-      if (idx !== -1) {
-        openLightbox(idx);
-      }
+      if (idx !== -1) openLightbox(idx);
     });
   });
 
-  // click en tarjeta = ver detalle
+  // click tarjeta
   document.querySelectorAll(".exercise-card").forEach(card => {
     card.addEventListener("click", () => {
       const id = parseInt(card.dataset.id);
       const idx = ejercicios.findIndex(e => e.id === id);
 
-      if (idx !== -1) {
-        openViewLightbox(idx);
-      }
+      if (idx !== -1) openViewLightbox(idx);
     });
   });
 }
