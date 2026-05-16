@@ -77,19 +77,19 @@ function renderEjercicios(filtro = "todos") {
 
       <div class="ex-muscle">${e.musculo || ""}</div>
 
-      <div class="ex-name-en">${e.nombre_en || e.nombre}</div>
+      <div class="ex-name-en">${e.nombre_en || e.nombre || ""}</div>
       <div class="ex-name-es">${e.nombre || ""}</div>
 
-      ${e.imagen
-        ? `<img class="card-thumb" src="${e.imagen}" alt="${e.nombre}">`
-        : `<img class="card-thumb placeholder-img" src="../src/images/no-image.png" alt="No image">`
+      ${
+        e.imagen
+          ? `<img class="card-thumb" src="${e.imagen}" alt="${e.nombre || ''}">`
+          : `<div class="card-thumb no-image-box">No image</div>`
       }
 
       <div class="ex-desc">${e.descripcion || ""}</div>
     </div>
   `).join("");
 
-  // click lápiz
   document.querySelectorAll(".edit-btn").forEach(btn => {
     btn.addEventListener("click", (ev) => {
       ev.stopPropagation();
@@ -97,26 +97,10 @@ function renderEjercicios(filtro = "todos") {
       const id = parseInt(btn.dataset.id);
       const idx = ejercicios.findIndex(e => e.id === id);
 
-      if (idx !== -1) {
-        openLightbox(idx);
-      }
+      if (idx !== -1) openLightbox(idx);
     });
   });
 
-  // click tarjeta
-  document.querySelectorAll(".exercise-card").forEach(card => {
-    card.addEventListener("click", () => {
-      const id = parseInt(card.dataset.id);
-      const idx = ejercicios.findIndex(e => e.id === id);
-
-      if (idx !== -1) {
-        openViewLightbox(idx);
-      }
-    });
-  });
-}
-
-  // click tarjeta
   document.querySelectorAll(".exercise-card").forEach(card => {
     card.addEventListener("click", () => {
       const id = parseInt(card.dataset.id);
