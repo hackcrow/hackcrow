@@ -78,6 +78,19 @@ function openLightbox(idx) {
   document.getElementById("lbParteCuerpo").value = ex.parte_cuerpo || "";
   document.getElementById("lbVideo").value = ex.video_url || "";
 
+  const imgEl = document.getElementById("lbImageEl");
+  const placeholder = document.getElementById("lbImagePlaceholder");
+
+  if (ex.imagen) {
+    imgEl.src = ex.imagen;
+    imgEl.style.display = "block";
+    placeholder.style.display = "none";
+  } else {
+    imgEl.src = "";
+    imgEl.style.display = "none";
+    placeholder.style.display = "flex";
+  }
+
   document.getElementById("lightboxOverlay").classList.add("open");
 }
 
