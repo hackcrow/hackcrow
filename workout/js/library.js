@@ -82,11 +82,7 @@ function renderEjercicios(filtro = "todos") {
 
       ${e.imagen
         ? `<img class="card-thumb" src="${e.imagen}" alt="${e.nombre}">`
-        : `
-        <div class="card-thumb no-image">
-          <span class="no-image-icon">🖼️</span>
-        </div>
-        `
+        : `<img class="card-thumb placeholder-img" src="../src/images/no-image.png" alt="No image">`
       }
 
       <div class="ex-desc">${e.descripcion || ""}</div>
@@ -101,9 +97,24 @@ function renderEjercicios(filtro = "todos") {
       const id = parseInt(btn.dataset.id);
       const idx = ejercicios.findIndex(e => e.id === id);
 
-      if (idx !== -1) openLightbox(idx);
+      if (idx !== -1) {
+        openLightbox(idx);
+      }
     });
   });
+
+  // click tarjeta
+  document.querySelectorAll(".exercise-card").forEach(card => {
+    card.addEventListener("click", () => {
+      const id = parseInt(card.dataset.id);
+      const idx = ejercicios.findIndex(e => e.id === id);
+
+      if (idx !== -1) {
+        openViewLightbox(idx);
+      }
+    });
+  });
+}
 
   // click tarjeta
   document.querySelectorAll(".exercise-card").forEach(card => {
