@@ -66,6 +66,18 @@ function renderEjercicios(filtro = "todos") {
 
 function openLightbox(idx) {
   currentIdx = idx;
+  const ex = ejercicios[idx];
+
+  document.getElementById("lbNombreEn").value = ex.nombre_en || "";
+  document.getElementById("lbNombre").value = ex.nombre || "";
+  document.getElementById("lbDescripcion").value = ex.descripcion || "";
+  document.getElementById("lbTipo").value = ex.tipo || "";
+  document.getElementById("lbEquipo").value = ex.equipo || "";
+  document.getElementById("lbMusculoPrimario").value = ex.musculo_primario || "";
+  document.getElementById("lbMusculoSecundario").value = ex.musculo_secundario || "";
+  document.getElementById("lbParteCuerpo").value = ex.parte_cuerpo || "";
+  document.getElementById("lbVideo").value = ex.video_url || "";
+
   document.getElementById("lightboxOverlay").classList.add("open");
 }
 
@@ -74,6 +86,30 @@ function closeLightbox() {
 }
 
 async function saveLightbox() {
+  const ex = ejercicios[currentIdx];
+
+  const updates = {
+    nombre_en: document.getElementById("lbNombreEn").value,
+    nombre: document.getElementById("lbNombre").value,
+    descripcion: document.getElementById("lbDescripcion").value,
+    tipo: document.getElementById("lbTipo").value,
+    equipo: document.getElementById("lbEquipo").value,
+    musculo_primario: document.getElementById("lbMusculoPrimario").value,
+    musculo_secundario: document.getElementById("lbMusculoSecundario").value,
+    parte_cuerpo: document.getElementById("lbParteCuerpo").value,
+    video_url: document.getElementById("lbVideo").value
+  };
+
+  const { error } = await supabaseClient
+    .from("exercises")
+    .update(updates)
+    .eq("id", ex.id);
+
+  if (error) {
+    console.error(error);
+    return;
+  }
+
   closeLightbox();
   await cargarEjercicios();
 }
