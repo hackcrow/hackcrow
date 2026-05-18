@@ -195,7 +195,7 @@ function openViewLightbox(idx) {
   document.getElementById("viewContent").innerHTML = `
     ${ex.imagen
       ? `<img class="detail-img" src="${ex.imagen}" alt="${nombreEs}">`
-      : `<div class="detail-img no-image-box">No image</div>`
+      : `<div class="card-thumb no-image-box">No image</div>`
     }
 
     <div class="detail-section">
