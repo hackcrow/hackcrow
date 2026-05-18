@@ -193,10 +193,10 @@ function openViewLightbox(idx) {
   const nombreEn = ex.nombre_en || "";
 
   document.getElementById("viewContent").innerHTML = `
-    ${ex.imagen ? `<img class="detail-img" src="${ex.imagen}" ${ex.imagen
+    ${ex.imagen
       ? `<img class="detail-img" src="${ex.imagen}" alt="${nombreEs}">`
-      : `<img class="detail-img" src="../src/images/no-image.png" alt="No image">`
-    }alt="${nombreEs}">` : ""}
+      : `<div class="detail-img no-image-box">No image</div>`
+    }
 
     <div class="detail-section">
       <h2 class="detail-name-en">${nombreEn || nombreEs}</h2>
