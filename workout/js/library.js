@@ -282,9 +282,24 @@ function renderDeleteTable(lista = ejercicios) {
       }
 
       await cargarEjercicios();
-      renderDeleteTable();
+
+      aplicarFiltrosDelete(); // refresca manteniendo filtros
     });
   });
+}
+
+function aplicarFiltrosDelete() {
+  const en = document.getElementById("filterNameEn").value.toLowerCase().trim();
+  const es = document.getElementById("filterNameEs").value.toLowerCase().trim();
+
+  const filtrados = ejercicios.filter(e => {
+    const nombreEn = (e.nombre_en || "").toLowerCase();
+    const nombreEs = (e.nombre || "").toLowerCase();
+
+    return nombreEn.includes(en) && nombreEs.includes(es);
+  });
+
+  renderDeleteTable(filtrados);
 }
 
 function closeViewLightbox() {
@@ -397,6 +412,20 @@ if (scrollBtn) {
         document.getElementById("deleteOverlay").classList.remove("open");
       });
     }
+
+    const filterNameEn = document.getElementById("filterNameEn");
+    const filterNameEs = document.getElementById("filterNameEs");
+  
+    if (filterNameEn) {
+      filterNameEn.addEventListener("input", aplicarFiltrosDelete);
+    }
+  
+    if (filterNameEs) {
+      filterNameEs.addEventListener("input", aplicarFiltrosDelete);
+    }
+  
+  });
+  
 });
 
 
