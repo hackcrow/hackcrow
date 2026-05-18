@@ -91,4 +91,19 @@ if (themeToggle) {
 document.addEventListener("DOMContentLoaded", () => {
   renderStreak();
   renderWeekChart();
+   cargarContadorEjercicios();
 });
+
+async function cargarContadorEjercicios() {
+  const { count, error } = await supabaseClient
+    .from("exercises")
+    .select("*", { count: "exact", head: true });
+
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  const el = document.getElementById("exerciseCount");
+  if (el) el.textContent = count || 0;
+}
