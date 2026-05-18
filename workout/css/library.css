@@ -732,3 +732,8 @@
     font-size: 12px;
   }
 }
+#deleteListBtn {
+  font-size: 28px !important;
+  transform: translateY(-2px);
+  margin-right: 2px;
+}
