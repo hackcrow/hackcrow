@@ -96,6 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderWeekChart();
    cargarContadorEjercicios();
    cargarContadorRutinas();
+   cargarContadorRutinas();
 });
 
 async function cargarContadorEjercicios() {
@@ -117,4 +118,9 @@ async function cargarContadorRutinas() {
   if (el) {
     el.textContent = 0;
   }
+}
+
+function cargarContadorRutinas() {
+  const el = document.getElementById("routineCount");
+  if (el) el.textContent = 0;
 }
