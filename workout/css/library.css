@@ -881,3 +881,12 @@ html, body {
     font-size: 16px !important;
   }
 }
+
+@media (max-width: 768px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+    -webkit-text-size-adjust: 100%;
+  }
+}
