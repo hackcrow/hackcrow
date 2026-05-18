@@ -267,8 +267,8 @@ function renderDeleteTable(lista = ejercicios) {
     btn.addEventListener("click", async () => {
       const id = parseInt(btn.dataset.id);
 
-      const ok = confirm("¿Eliminar este ejercicio?");
-      if (!ok) return;
+      const confirmar = confirm("¿Seguro que quieres eliminar este ejercicio?");
+      if (!confirmar) return;
 
       const { error } = await supabaseClient
         .from("exercises")
@@ -281,9 +281,10 @@ function renderDeleteTable(lista = ejercicios) {
         return;
       }
 
-      await cargarEjercicios();
+      ejercicios = ejercicios.filter(e => e.id !== id);
 
-      aplicarFiltrosDelete(); // refresca manteniendo filtros
+      aplicarFiltrosDelete(); // mantiene filtros
+      renderEjercicios();     // refresca tarjetas
     });
   });
 }
