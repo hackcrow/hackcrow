@@ -790,3 +790,38 @@
     overflow-y: auto;
   }
 }
+
+.confirm-box {
+  width: min(92vw, 420px);
+  background: #0d0f14;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 22px;
+  padding: 28px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.45);
+  text-align: center;
+}
+
+.confirm-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.confirm-text {
+  font-size: 14px;
+  color: #9aa0aa;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.confirm-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.danger-btn {
+  background: #ff2d55 !important;
+  color: #fff !important;
+}
