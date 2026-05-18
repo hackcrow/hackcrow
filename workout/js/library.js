@@ -267,8 +267,35 @@ function renderDeleteTable(lista = ejercicios) {
     btn.addEventListener("click", async () => {
       const id = parseInt(btn.dataset.id);
 
-      const confirmar = confirm("¿Seguro que quieres eliminar este ejercicio?");
-      if (!confirmar) return;
+      const confirmOverlay = document.getElementById("confirmDeleteOverlay");
+      const confirmOk = document.getElementById("confirmDeleteOk");
+      const confirmCancel = document.getElementById("confirmDeleteCancel");
+      
+      confirmOverlay.classList.add("open");
+      
+      confirmCancel.onclick = () => {
+        confirmOverlay.classList.remove("open");
+      };
+      
+      confirmOk.onclick = async () => {
+        confirmOverlay.classList.remove("open");
+      
+        const { error } = await supabaseClient
+          .from("exercises")
+          .delete()
+          .eq("id", id);
+      
+        if (error) {
+          console.error(error);
+          alert("No se pudo eliminar");
+          return;
+        }
+      
+        ejercicios = ejercicios.filter(e => e.id !== id);
+        aplicarFiltrosDelete();
+        renderEjercicios();
+      };
+      return;
 
       const { error } = await supabaseClient
         .from("exercises")
