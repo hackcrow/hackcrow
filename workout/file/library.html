@@ -73,6 +73,7 @@
       <button class="pill" data-filter="cardio">Cardio</button>
     
       <button id="addExerciseBtn" class="pill-add-btn" title="Agregar ejercicio">+</button>
+      <button id="deleteListBtn" class="pill-add-btn" title="Eliminar ejercicios">🗑</button>
     </div>
 
     <div id="loadingExercises" class="terminal-loading">Loading exercises...</div>
@@ -242,6 +243,39 @@
     </div>
 
     <div class="lb-body" id="viewContent"></div>
+
+  </div>
+</div>
+
+<!-- LIGHTBOX VER Eliminar -->
+<div id="deleteOverlay" class="lb-overlay">
+  <div class="lb-panel detail-panel">
+
+    <div class="lb-header">
+      <button class="lb-btn-cancel" id="deleteClose">Cerrar</button>
+      <span class="lb-header-title">Eliminar ejercicios</span>
+      <button class="lb-btn-save" style="visibility:hidden;">.</button>
+    </div>
+
+    <div class="lb-body">
+      <div class="delete-filters">
+        <input id="filterNameEn" class="lb-input" placeholder="Buscar inglés">
+        <input id="filterNameEs" class="lb-input" placeholder="Buscar español">
+      </div>
+
+      <div class="delete-table-wrap">
+        <table class="delete-table">
+          <thead>
+            <tr>
+              <th>English</th>
+              <th>Español</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="deleteTableBody"></tbody>
+        </table>
+      </div>
+    </div>
 
   </div>
 </div>
