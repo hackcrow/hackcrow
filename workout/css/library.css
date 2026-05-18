@@ -751,3 +751,11 @@
 #addExerciseBtn {
   margin-left: 0 !important;
 }
+
+.action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
