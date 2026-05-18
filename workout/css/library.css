@@ -737,3 +737,13 @@
   transform: translateY(-2px);
   margin-right: 2px;
 }
+#deleteListBtn {
+  margin-left: auto !important;
+  margin-right: 4px;
+  font-size: 28px !important;
+  transform: translateY(-2px);
+}
+
+#addExerciseBtn {
+  margin-left: 0 !important;
+}
