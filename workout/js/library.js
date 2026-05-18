@@ -423,9 +423,6 @@ if (scrollBtn) {
     if (filterNameEs) {
       filterNameEs.addEventListener("input", aplicarFiltrosDelete);
     }
-  
-  });
-  
 });
 
 
