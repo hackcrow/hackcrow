@@ -776,3 +776,17 @@
   height: 20px;
   stroke: currentColor;
 }
+
+@media (max-width: 768px) {
+  #deleteOverlay {
+    align-items: flex-start !important;
+    padding-top: 70px;
+    overflow-y: auto;
+  }
+
+  #deleteOverlay .lb-panel {
+    margin: 0 auto;
+    max-height: calc(100vh - 90px);
+    overflow-y: auto;
+  }
+}
