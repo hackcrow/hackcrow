@@ -116,35 +116,25 @@ async function saveLightbox() {
     video_url: document.getElementById("lbVideo").value.trim()
   };
 
-  // conservar imagen existente si estás editando
-  if (currentIdx !== null && ejercicios[currentIdx]?.imagen) {
+  // si se seleccionó imagen nueva
+  if (selectedImageFile) {
+    const imageBase64 = await new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (e) => resolve(e.target.result);
+      reader.readAsDataURL(selectedImageFile);
+    });
+
+    payload.imagen = imageBase64;
+  } else if (currentIdx !== null && ejercicios[currentIdx]?.imagen) {
+    // conservar imagen existente al editar
     payload.imagen = ejercicios[currentIdx].imagen;
   }
 
-  // si hay imagen nueva seleccionada, aquí se queda la que ya subes (tu lógica actual)
-  if (selectedImageFile) {
-    // tu flujo actual de subida ya debe llenar payload.imagen;
-    // no tocamos eso para no romperlo
-  }
-
-  if (selectedImageFile) {
-  const reader = new FileReader();
-
-  const imageBase64 = await new Promise((resolve) => {
-    reader.onload = e => resolve(e.target.result);
-    reader.readAsDataURL(selectedImageFile);
-  });
-
-  payload.imagen = imageBase64;
-}
-  
   let result;
 
   if (currentIdx === null) {
-    // NUEVO ejercicio
     result = await supabaseClient.from("exercises").insert([payload]);
   } else {
-    // EDITAR existente
     const id = ejercicios[currentIdx].id;
     result = await supabaseClient.from("exercises").update(payload).eq("id", id);
   }
@@ -203,7 +193,10 @@ function openViewLightbox(idx) {
   const nombreEn = ex.nombre_en || "";
 
   document.getElementById("viewContent").innerHTML = `
-    ${ex.imagen ? `<img class="detail-img" src="${ex.imagen}" alt="${nombreEs}">` : ""}
+    ${ex.imagen ? `<img class="detail-img" src="${ex.imagen}" ${ex.imagen
+      ? `<img class="detail-img" src="${ex.imagen}" alt="${nombreEs}">`
+      : `<img class="detail-img" src="../src/images/no-image.png" alt="No image">`
+    }alt="${nombreEs}">` : ""}
 
     <div class="detail-section">
       <h2 class="detail-name-en">${nombreEn || nombreEs}</h2>
