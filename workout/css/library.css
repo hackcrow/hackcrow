@@ -688,3 +688,47 @@
   font-family: "DM Sans", sans-serif;
   line-height: 1;
 }
+.delete-filters {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.delete-table-wrap {
+  max-height: 420px;
+  overflow-y: auto;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+}
+
+.delete-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.delete-table th,
+.delete-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.delete-trash-btn {
+  background: none;
+  border: none;
+  color: #00ff88;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .delete-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .delete-table {
+    font-size: 12px;
+  }
+}
