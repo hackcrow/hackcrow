@@ -837,3 +837,21 @@
     margin: 0 auto;
   }
 }
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+#page-biblioteca {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.exercise-grid,
+.lb-panel,
+.delete-table-wrap {
+  max-width: 100%;
+  box-sizing: border-box;
+}
