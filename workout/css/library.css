@@ -733,15 +733,19 @@
   }
 }
 #deleteListBtn {
-  font-size: 28px !important;
-  transform: translateY(-2px);
-  margin-right: 2px;
-}
-#deleteListBtn {
   margin-left: auto !important;
   margin-right: 4px;
-  font-size: 28px !important;
-  transform: translateY(-2px);
+  color: #ff2d55 !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(0);
+}
+
+#deleteListBtn svg {
+  width: 24px;
+  height: 24px;
+  display: block;
 }
 
 #addExerciseBtn {
