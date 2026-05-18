@@ -293,6 +293,18 @@
 
 <button id="scrollTopBtn" class="floating-btn top-btn">↑</button>
 
+<div id="confirmDeleteOverlay" class="lb-overlay">
+  <div class="confirm-box">
+    <div class="confirm-title">Eliminar ejercicio</div>
+    <div class="confirm-text">¿Seguro que deseas eliminar este ejercicio?</div>
+
+    <div class="confirm-actions">
+      <button id="confirmDeleteCancel" class="lb-btn-cancel">Cancelar</button>
+      <button id="confirmDeleteOk" class="lb-btn-save danger-btn">Eliminar</button>
+    </div>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../js/app.js"></script>
 <script src="../js/library.js"></script>
