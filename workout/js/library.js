@@ -25,7 +25,19 @@ async function cargarEjercicios() {
 
 function renderEjercicios(filtro = "todos") {
   const grid = document.getElementById("exerciseGrid");
-  const lista = filtro === "todos" ? ejercicios : ejercicios.filter(e => e.filtro === filtro);
+  const mapaFiltros = {
+    pecho: "chest",
+    espalda: "back",
+    piernas: "thighs",
+    hombros: "shoulders",
+    core: "abdominals",
+    brazos: "upper_arms",
+    cardio: "cardio"
+  };
+
+const lista = filtro === "todos"
+  ? ejercicios
+  : ejercicios.filter(e => e.parte_cuerpo === mapaFiltros[filtro]);
 
   grid.innerHTML = lista.map((e) => {
     const imagenHTML = e.imagen
