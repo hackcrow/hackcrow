@@ -825,3 +825,15 @@
   background: #ff2d55 !important;
   color: #fff !important;
 }
+
+@media (max-width: 768px) {
+  #confirmDeleteOverlay {
+    align-items: flex-start !important;
+    padding-top: 120px;
+    overflow-y: auto;
+  }
+
+  #confirmDeleteOverlay .confirm-box {
+    margin: 0 auto;
+  }
+}
