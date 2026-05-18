@@ -42,6 +42,12 @@ function renderEjercicios(filtro = "todos") {
         <div class="ex-name-es">${e.nombre || ""}</div>
         ${imagenHTML}
         <div class="ex-desc">${e.descripcion || ""}</div>
+
+        <div class="card-tags">
+          ${e.equipo ? `<span class="card-tag">${formatValue(e.equipo)}</span>` : ""}
+          ${e.parte_cuerpo ? `<span class="card-tag">${formatValue(e.parte_cuerpo)}</span>` : ""}
+        </div>
+        
       </div>
     `;
   }).join("");
