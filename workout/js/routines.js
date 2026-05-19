@@ -8,6 +8,9 @@ const routineClient = window.supabase.createClient(
 
 let rutinas = [];
 
+let ejerciciosDisponibles = [];
+let rutinaActualId = null;
+
 async function cargarRutinas() {
   const loading = document.getElementById("loadingRoutines");
   if (loading) loading.style.display = "block";
@@ -118,6 +121,8 @@ async function guardarRutina() {
 }
 
 function abrirDetalleRutina(id) {
+  rutinaActualId = id;
+  
   const rutina = rutinas.find(r => r.id === id);
   if (!rutina) return;
 
@@ -138,10 +143,74 @@ function abrirDetalleRutina(id) {
   `;
 
   document.getElementById("viewRoutineOverlay").classList.add("open");
+
+  document.getElementById("addExerciseToRoutine")
+  .addEventListener("click", abrirSelectorEjercicios);
 }
 
 function cerrarDetalleRutina() {
   document.getElementById("viewRoutineOverlay").classList.remove("open");
+}
+
+async function abrirSelectorEjercicios() {
+  const { data, error } = await routineClient
+    .from("exercises")
+    .select("id,nombre,nombre_en")
+    .order("nombre");
+
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  ejerciciosDisponibles = data || [];
+  renderSelectorEjercicios(ejerciciosDisponibles);
+
+  document.getElementById("addExerciseOverlay").classList.add("open");
+}
+
+function cerrarSelectorEjercicios() {
+  document.getElementById("addExerciseOverlay").classList.remove("open");
+}
+
+function renderSelectorEjercicios(lista) {
+  const box = document.getElementById("exercisePickerList");
+
+  box.innerHTML = lista.map(e => `
+    <div class="picker-row" data-id="${e.id}">
+      <div>
+        <div style="font-size:0.85rem;color:#00ff88;">${e.nombre_en || ""}</div>
+        <div style="font-size:0.78rem;color:var(--text-muted);">${e.nombre || ""}</div>
+      </div>
+      <button class="picker-add-btn" data-id="${e.id}">＋</button>
+    </div>
+  `).join("");
+
+  document.querySelectorAll(".picker-add-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const exId = parseInt(btn.dataset.id);
+      agregarEjercicioARutina(exId);
+    });
+  });
+}
+
+async function agregarEjercicioARutina(exerciseId) {
+  const { error } = await routineClient
+    .from("routine_exercises")
+    .insert([{
+      routine_id: rutinaActualId,
+      exercise_id: exerciseId,
+      orden: 1
+    }]);
+
+  if (error) {
+    console.error(error);
+    alert("No se pudo agregar");
+    return;
+  }
+
+  cerrarSelectorEjercicios();
+  abrirDetalleRutina(rutinaActualId);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -156,5 +225,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (saveBtn) saveBtn.addEventListener("click", guardarRutina);
 
   const closeView = document.getElementById("viewRoutineClose");
-if (closeView) closeView.addEventListener("click", cerrarDetalleRutina);
+  if (closeView) closeView.addEventListener("click", cerrarDetalleRutina);
+
+  const addExerciseClose = document.getElementById("addExerciseClose");
+  if (addExerciseClose) addExerciseClose.addEventListener("click", cerrarSelectorEjercicios);
 });
