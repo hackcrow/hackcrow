@@ -222,6 +222,9 @@ function renderSelectorEjercicios(lista) {
       btn.textContent = "✓";
       btn.style.color = "#00ff88";
       btn.style.pointerEvents = "none";
+
+      await abrirDetalleRutina(rutinaActualId);
+      cerrarSelectorEjercicios();
     });
   });
 
