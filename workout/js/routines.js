@@ -7,6 +7,7 @@ const routineClient = window.supabase.createClient(
 );
 
 let rutinas = [];
+let rutinaActualId = null;
 
 let ejerciciosDisponibles = [];
 let rutinaActualId = null;
@@ -194,6 +195,35 @@ function renderSelectorEjercicios(lista) {
       <button class="picker-add-btn" data-id="${e.id}">＋</button>
     </div>
   `).join("");
+  
+  document.querySelectorAll(".picker-add-btn").forEach(btn => {
+    btn.addEventListener("click", async (ev) => {
+      ev.stopPropagation();
+  
+      const exerciseId = parseInt(btn.dataset.id);
+  
+      if (!rutinaActualId) return;
+  
+      const { error } = await routineClient
+        .from("routine_exercises")
+        .insert([
+          {
+            routine_id: rutinaActualId,
+            exercise_id: exerciseId
+          }
+        ]);
+  
+      if (error) {
+        console.error(error);
+        alert("No se pudo agregar");
+        return;
+      }
+  
+      btn.textContent = "✓";
+      btn.style.color = "#00ff88";
+      btn.style.pointerEvents = "none";
+    });
+  });
 
   // botón agregar
   document.querySelectorAll(".picker-add-btn").forEach(btn => {
