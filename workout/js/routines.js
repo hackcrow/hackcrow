@@ -235,12 +235,12 @@ function renderSelectorEjercicios(lista) {
   });
 
   // click en nombre
-  document.querySelectorAll(".picker-info").forEach(item => {
+  /*document.querySelectorAll(".picker-info").forEach(item => {
     item.addEventListener("click", () => {
       const exId = parseInt(item.dataset.id);
       abrirVistaEjercicio(exId);
     });
-  });
+  });*/
 }
 
 async function abrirVistaEjercicio(exId) {
