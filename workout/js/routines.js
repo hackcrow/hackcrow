@@ -121,3 +121,30 @@ document.addEventListener("DOMContentLoaded", () => {
   if (cancelBtn) cancelBtn.addEventListener("click", cerrarRoutineLightbox);
   if (saveBtn) saveBtn.addEventListener("click", guardarRutina);
 });
+
+function abrirDetalleRutina(id) {
+  const rutina = rutinas.find(r => r.id === id);
+  if (!rutina) return;
+
+  document.getElementById("viewRoutineTitle").textContent = rutina.nombre;
+
+  document.getElementById("viewRoutineContent").innerHTML = `
+    <p style="margin-bottom:14px;color:var(--text-muted);">
+      ${rutina.descripcion || "Sin descripción"}
+    </p>
+
+    <div style="font-size:0.85rem;color:var(--text-dim);margin-bottom:18px;">
+      Categoría: ${rutina.categoria || "General"}
+    </div>
+
+    <button id="addExerciseToRoutine" class="btn">+ Agregar ejercicio</button>
+
+    <div id="routineExerciseList" style="margin-top:18px;"></div>
+  `;
+
+  document.getElementById("viewRoutineOverlay").classList.add("open");
+}
+
+function cerrarDetalleRutina() {
+  document.getElementById("viewRoutineOverlay").classList.remove("open");
+}
