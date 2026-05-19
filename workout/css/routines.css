@@ -205,3 +205,22 @@
     padding: 18px;
   }
 }
+
+#rtCategoria {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  background: #111;
+  border: 1px solid var(--border-soft);
+  color: var(--text-main);
+  font-size: 0.9rem;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+}
+
+#rtCategoria option {
+  background: #111;
+  color: #eaeaea;
+}
