@@ -121,27 +121,11 @@ async function guardarRutina() {
   await cargarRutinas();
 }
 
-async function abrirDetalleRutina(id) {
+function abrirDetalleRutina(id) {
   rutinaActualId = id;
-
+  
   const rutina = rutinas.find(r => r.id === id);
   if (!rutina) return;
-
-  const { data: ejerciciosRutina, error: exError } = await routineClient
-    .from("routine_exercises")
-    .select(`
-      exercise_id,
-      exercises (
-        id,
-        nombre,
-        nombre_en
-      )
-    `)
-    .eq("routine_id", id);
-
-  if (exError) {
-    console.error(exError);
-  }
 
   document.getElementById("viewRoutineTitle").textContent = rutina.nombre;
 
@@ -156,38 +140,13 @@ async function abrirDetalleRutina(id) {
 
     <button id="addExerciseToRoutine" class="btn">+ Agregar ejercicio</button>
 
-    <div style="margin-top:18px;">
-      <div style="font-size:0.8rem;color:var(--text-dim);margin-bottom:10px;letter-spacing:0.08em;">
-        EJERCICIOS
-      </div>
-
-      ${
-        ejerciciosRutina && ejerciciosRutina.length
-          ? ejerciciosRutina.map(item => `
-              <div style="
-                padding:10px 12px;
-                border:1px solid var(--border-soft);
-                border-radius:12px;
-                margin-bottom:8px;
-                background:rgba(255,255,255,0.02);
-              ">
-                <div style="color:#00ff88;font-size:0.84rem;">
-                  ${item.exercises?.nombre_en || ""}
-                </div>
-                <div style="color:var(--text-muted);font-size:0.78rem;">
-                  ${item.exercises?.nombre || ""}
-                </div>
-              </div>
-            `).join("")
-          : `<div style="color:var(--text-dim);font-size:0.82rem;">Sin ejercicios aún</div>`
-      }
-    </div>
+    <div id="routineExerciseList" style="margin-top:18px;"></div>
   `;
 
   document.getElementById("viewRoutineOverlay").classList.add("open");
 
   document.getElementById("addExerciseToRoutine")
-    .addEventListener("click", abrirSelectorEjercicios);
+  .addEventListener("click", abrirSelectorEjercicios);
 }
 
 function cerrarDetalleRutina() {
@@ -236,25 +195,15 @@ function renderSelectorEjercicios(lista) {
       <button class="picker-add-btn" data-id="${e.id}">＋</button>
     </div>
   `).join("");
-
-  // click en nombre → ver detalle
-  document.querySelectorAll(".picker-info").forEach(item => {
-    item.onclick = () => {
-      const exId = parseInt(item.dataset.id);
-      abrirVistaEjercicio(exId);
-    };
-  });
-
-  // click en + → agregar
+  
   document.querySelectorAll(".picker-add-btn").forEach(btn => {
-    btn.onclick = async (ev) => {
+    btn.addEventListener("click", async (ev) => {
       ev.stopPropagation();
-
+  
       const exerciseId = parseInt(btn.dataset.id);
+  
       if (!rutinaActualId) return;
-
-      btn.disabled = true;
-
+  
       const { error } = await routineClient
         .from("routine_exercises")
         .insert([
@@ -263,22 +212,18 @@ function renderSelectorEjercicios(lista) {
             exercise_id: exerciseId
           }
         ]);
-
+  
       if (error) {
         console.error(error);
-        btn.disabled = false;
         alert("No se pudo agregar");
         return;
       }
-
+  
       btn.textContent = "✓";
       btn.style.color = "#00ff88";
-
-      await abrirDetalleRutina(rutinaActualId);
-      cerrarSelectorEjercicios();
-    };
+      btn.style.pointerEvents = "none";
+    });
   });
-}
 
   // botón agregar
   document.querySelectorAll(".picker-add-btn").forEach(btn => {
