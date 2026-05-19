@@ -349,6 +349,7 @@ async function agregarEjercicioARutina(exerciseId) {
 
   cerrarSelectorEjercicios();
   abrirDetalleRutina(rutinaActualId);
+   await cargarEjerciciosDeRutina(rutinaActualId);
 }
 
 async function cargarEjerciciosDeRutina(rutinaId) {
@@ -376,6 +377,10 @@ async function cargarEjerciciosDeRutina(rutinaId) {
       <div>${item.exercises?.nombre_en || item.exercises?.nombre}</div>
     </div>
   `).join("");
+}
+
+async function refrescarEjerciciosRutina() {
+  await cargarEjerciciosDeRutina(rutinaActualId);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
