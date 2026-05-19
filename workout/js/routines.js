@@ -133,7 +133,7 @@ function abrirDetalleRutina(id) {
       ${rutina.descripcion || "Sin descripción"}
     </p>
 
-    <div style="font-size:0.85rem;color:var(--text-dim);margin-bottom:18px;">
+    <div style="font-size:0.85rem;color:var(--text-muted);margin-bottom:18px;">
       Categoría: ${rutina.categoria || "General"}
     </div>
 
@@ -177,8 +177,8 @@ function renderSelectorEjercicios(lista) {
   const box = document.getElementById("exercisePickerList");
 
   box.innerHTML = lista.map(e => `
-    <div class="picker-row" data-id="${e.id}">
-      <div>
+    <div class="picker-row">
+      <div class="picker-info" data-id="${e.id}">
         <div style="font-size:0.85rem;color:#00ff88;">${e.nombre_en || ""}</div>
         <div style="font-size:0.78rem;color:var(--text-muted);">${e.nombre || ""}</div>
       </div>
@@ -192,6 +192,40 @@ function renderSelectorEjercicios(lista) {
       agregarEjercicioARutina(exId);
     });
   });
+
+  document.querySelectorAll(".picker-info").forEach(row => {
+    row.addEventListener("click", () => {
+      const exId = parseInt(row.dataset.id);
+      abrirVistaEjercicio(exId);
+    });
+  });
+}
+
+async function abrirVistaEjercicio(exId) {
+  const { data, error } = await routineClient
+    .from("exercises")
+    .select("*")
+    .eq("id", exId)
+    .single();
+
+  if (error || !data) return;
+
+  const ex = data;
+
+  document.getElementById("viewRoutineTitle").textContent = ex.nombre_en || ex.nombre;
+
+  document.getElementById("viewRoutineContent").innerHTML = `
+    ${ex.imagen
+      ? `<img class="detail-img" src="${ex.imagen}" style="width:100%;border-radius:12px;margin-bottom:16px;">`
+      : `<div class="card-thumb no-image-box">No image</div>`
+    }
+
+    <p style="margin-top:10px;color:var(--text-muted);">
+      ${ex.descripcion || ""}
+    </p>
+  `;
+
+  document.getElementById("viewRoutineOverlay").classList.add("open");
 }
 
 async function agregarEjercicioARutina(exerciseId) {
