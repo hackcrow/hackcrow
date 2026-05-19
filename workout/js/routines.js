@@ -1,7 +1,6 @@
 const ROUTINE_SUPABASE_URL  = "https://xqcqzvcvqpwbjdsdxcan.supabase.co";
 const ROUTINE_SUPABASE_KEY  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhxY3F6dmN2cXB3Ympkc2R4Y2FuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg4NjI3OTQsImV4cCI6MjA5NDQzODc5NH0.vAwo9NS7MoiVCFikfk39YM9nBr2usyB4jMW2uYXhH98";
 
-
 const routineClient = window.supabase.createClient(
   ROUTINE_SUPABASE_URL,
   ROUTINE_SUPABASE_KEY
@@ -11,7 +10,6 @@ let rutinas = [];
 
 async function cargarRutinas() {
   const loading = document.getElementById("loadingRoutines");
-
   if (loading) loading.style.display = "block";
 
   const { data, error } = await routineClient
@@ -35,6 +33,16 @@ async function renderRutinas() {
   const grid = document.getElementById("routineGrid");
   if (!grid) return;
 
+  if (!rutinas.length) {
+    grid.innerHTML = `
+      <div class="routine-card">
+        <div class="routine-name">Sin rutinas</div>
+        <div class="routine-desc">Presiona + para crear tu primera rutina.</div>
+      </div>
+    `;
+    return;
+  }
+
   const cards = await Promise.all(
     rutinas.map(async (r) => {
       const { count } = await routineClient
@@ -46,7 +54,6 @@ async function renderRutinas() {
         <div class="routine-card" data-id="${r.id}">
           <div class="routine-name">${r.nombre}</div>
           <div class="routine-desc">${r.descripcion || "Sin descripción"}</div>
-
           <div class="routine-meta">
             <span>${r.categoria || "General"}</span>
             <span class="routine-count">${count || 0} ejercicios</span>
@@ -57,6 +64,24 @@ async function renderRutinas() {
   );
 
   grid.innerHTML = cards.join("");
+}
+
+function abrirRoutineLightbox() {
+  const overlay = document.getElementById("routineLightbox");
+  if (!overlay) {
+    console.error("No existe #routineLightbox en HTML");
+    return;
+  }
+
+  document.getElementById("rtNombre").value = "";
+  document.getElementById("rtDescripcion").value = "";
+  document.getElementById("rtCategoria").value = "";
+
+  overlay.classList.add("open");
+}
+
+function cerrarRoutineLightbox() {
+  document.getElementById("routineLightbox").classList.remove("open");
 }
 
 async function guardarRutina() {
@@ -82,18 +107,7 @@ async function guardarRutina() {
   }
 
   cerrarRoutineLightbox();
-  cargarRutinas();
-}
-
-function abrirRoutineLightbox() {
-  document.getElementById("rtNombre").value = "";
-  document.getElementById("rtDescripcion").value = "";
-  document.getElementById("rtCategoria").value = "";
-  document.getElementById("routineLightbox").classList.add("open");
-}
-
-function cerrarRoutineLightbox() {
-  document.getElementById("routineLightbox").classList.remove("open");
+  await cargarRutinas();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -103,17 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const cancelBtn = document.getElementById("rtCancel");
   const saveBtn = document.getElementById("rtSave");
 
-  if (addBtn) {
-    addBtn.addEventListener("click", () => {
-      abrirRoutineLightbox();
-    });
-  }
-
-  if (cancelBtn) {
-    cancelBtn.addEventListener("click", cerrarRoutineLightbox);
-  }
-
-  if (saveBtn) {
-    saveBtn.addEventListener("click", guardarRutina);
-  }
+  if (addBtn) addBtn.addEventListener("click", abrirRoutineLightbox);
+  if (cancelBtn) cancelBtn.addEventListener("click", cerrarRoutineLightbox);
+  if (saveBtn) saveBtn.addEventListener("click", guardarRutina);
 });
