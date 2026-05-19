@@ -268,6 +268,42 @@ async function abrirVistaEjercicio(exId) {
   document.getElementById("viewRoutineOverlay").classList.add("open");
 }
 
+function formatValue(value) {
+  if (!value) return "-";
+
+  const map = {
+    peso_corporal: "Peso corporal",
+    peso_extra: "Peso extra",
+    rueda_abdominal: "Rueda abdominal",
+    upper_arms: "Brazos",
+    full_body: "Cuerpo completo",
+    chest: "Pecho",
+    back: "Espalda",
+    thighs: "Piernas",
+    glutes: "Glúteos",
+    shoulders: "Hombros",
+    abdominals: "Abdominales",
+    core: "Core",
+    pectorals: "Pectorales",
+    quadriceps: "Cuádriceps",
+    biceps: "Bíceps",
+    triceps: "Tríceps",
+    hamstrings: "Isquiotibiales",
+    obliques: "Oblicuos",
+    fuerza: "Fuerza",
+    cardio: "Cardio",
+    flexibilidad: "Flexibilidad",
+    movilidad: "Movilidad",
+    isometrico: "Isométrico",
+    pliometrico: "Pliométrico",
+    resistencia: "Resistencia",
+    mancuernas: "Mancuernas",
+    banda: "Banda"
+  };
+
+  return map[value] || value.replaceAll("_", " ");
+}
+
 async function agregarEjercicioARutina(exerciseId) {
   const { error } = await routineClient
     .from("routine_exercises")
