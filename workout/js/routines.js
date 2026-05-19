@@ -240,7 +240,7 @@ async function abrirVistaEjercicio(exId) {
 
   document.getElementById("viewRoutineContent").innerHTML = `
     ${ex.imagen
-      ? `<img class="detail-img" src="${ex.imagen}" style="width:100%;border-radius:12px;margin-bottom:16px;">`
+      ? `<img class="detail-img" src="${ex.imagen}" style="width:100%;max-height:240px;object-fit:cover;border-radius:12px;margin-bottom:16px;">`
       : `<div class="card-thumb no-image-box">No image</div>`
     }
 
