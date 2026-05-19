@@ -236,15 +236,25 @@ function renderSelectorEjercicios(lista) {
       <button class="picker-add-btn" data-id="${e.id}">＋</button>
     </div>
   `).join("");
-  
+
+  // click en nombre → ver detalle
+  document.querySelectorAll(".picker-info").forEach(item => {
+    item.onclick = () => {
+      const exId = parseInt(item.dataset.id);
+      abrirVistaEjercicio(exId);
+    };
+  });
+
+  // click en + → agregar
   document.querySelectorAll(".picker-add-btn").forEach(btn => {
-    btn.addEventListener("click", async (ev) => {
+    btn.onclick = async (ev) => {
       ev.stopPropagation();
-  
+
       const exerciseId = parseInt(btn.dataset.id);
-  
       if (!rutinaActualId) return;
-  
+
+      btn.disabled = true;
+
       const { error } = await routineClient
         .from("routine_exercises")
         .insert([
@@ -253,21 +263,22 @@ function renderSelectorEjercicios(lista) {
             exercise_id: exerciseId
           }
         ]);
-  
+
       if (error) {
         console.error(error);
+        btn.disabled = false;
         alert("No se pudo agregar");
         return;
       }
-  
+
       btn.textContent = "✓";
       btn.style.color = "#00ff88";
-      btn.style.pointerEvents = "none";
 
       await abrirDetalleRutina(rutinaActualId);
       cerrarSelectorEjercicios();
-    });
+    };
   });
+}
 
   // botón agregar
   document.querySelectorAll(".picker-add-btn").forEach(btn => {
