@@ -82,8 +82,14 @@
       </div>
     
       <div class="action-buttons">
-        <button id="deleteRoutineBtn" class="delete-ex-btn" title="Eliminar rutinas">
-          🗑
+       <button id="deleteRoutineBtn" class="delete-ex-btn" title="Eliminar rutinas">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6h18"/>
+            <path d="M8 6V4h8v2"/>
+            <path d="M19 6l-1 14H6L5 6"/>
+            <path d="M10 11v6"/>
+            <path d="M14 11v6"/>
+          </svg>
         </button>
         <button id="addRoutineBtn" class="add-ex-btn" title="Agregar rutina">＋</button>
       </div>
@@ -94,6 +100,31 @@
 
   </div>
 </main>
+<div id="routineLightbox" class="lightbox-overlay">
+    <div class="lightbox-card">
+      <div class="lightbox-header">
+        <h2 id="routineLbTitle">Nueva rutina</h2>
+      </div>
+  
+      <div class="lightbox-body">
+        <input id="rtNombre" type="text" placeholder="Nombre de rutina">
+        <textarea id="rtDescripcion" placeholder="Descripción"></textarea>
+  
+        <select id="rtCategoria">
+          <option value="">Categoría</option>
+          <option value="push">Push</option>
+          <option value="pull">Pull</option>
+          <option value="pierna">Pierna</option>
+          <option value="full body">Full Body</option>
+        </select>
+      </div>
+  
+      <div class="lightbox-actions">
+        <button id="rtCancel" class="btn btn-ghost">Cancelar</button>
+        <button id="rtSave" class="btn">Guardar</button>
+      </div>
+    </div>
+  </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../js/app.js"></script>
