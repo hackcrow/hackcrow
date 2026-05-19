@@ -245,3 +245,20 @@
   font-size: 1.4rem;
   cursor: pointer;
 }
+
+#searchExerciseInput {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  background: #111;
+  border: 1px solid var(--border-soft);
+  color: var(--text-main);
+  font-size: 0.9rem;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#searchExerciseInput::placeholder {
+  color: var(--text-dim);
+}
