@@ -195,15 +195,19 @@ function renderSelectorEjercicios(lista) {
       <button class="picker-add-btn" data-id="${e.id}">＋</button>
     </div>
   `).join("");
-  
+
+  // BOTÓN AGREGAR
   document.querySelectorAll(".picker-add-btn").forEach(btn => {
     btn.addEventListener("click", async (ev) => {
       ev.stopPropagation();
-  
+
       const exerciseId = parseInt(btn.dataset.id);
-  
       if (!rutinaActualId) return;
-  
+
+      // evita doble click rápido
+      if (btn.dataset.loading === "true") return;
+      btn.dataset.loading = "true";
+
       const { error } = await routineClient
         .from("routine_exercises")
         .insert([
@@ -212,29 +216,21 @@ function renderSelectorEjercicios(lista) {
             exercise_id: exerciseId
           }
         ]);
-  
+
       if (error) {
         console.error(error);
         alert("No se pudo agregar");
+        btn.dataset.loading = "false";
         return;
       }
-  
+
       btn.textContent = "✓";
       btn.style.color = "#00ff88";
       btn.style.pointerEvents = "none";
     });
   });
 
-  // botón agregar
-  document.querySelectorAll(".picker-add-btn").forEach(btn => {
-    btn.addEventListener("click", (ev) => {
-      ev.stopPropagation();
-      const exId = parseInt(btn.dataset.id);
-      agregarEjercicioARutina(exId);
-    });
-  });
-
-  // click en nombre
+  // CLICK EN INFO (ver ejercicio)
   document.querySelectorAll(".picker-info").forEach(item => {
     item.addEventListener("click", () => {
       const exId = parseInt(item.dataset.id);
