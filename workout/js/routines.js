@@ -235,25 +235,31 @@ async function abrirVistaEjercicio(exId) {
 
   const ex = data;
 
-  document.getElementById("viewRoutineTitle").textContent =
-    ex.nombre_en || ex.nombre;
-
   document.getElementById("viewRoutineContent").innerHTML = `
-    ${ex.imagen
-      ? `<img class="detail-img" src="${ex.imagen}" style="width:100%;max-height:220px;object-fit:contain;border-radius:12px;margin-bottom:16px;background:#0a0a0a;">`
-      : `<div class="card-thumb no-image-box">No image</div>`
+  ${ex.imagen
+    ? `<img class="detail-img" src="${ex.imagen}" style="width:100%;max-height:220px;object-fit:contain;border-radius:12px;margin-bottom:16px;background:#0a0a0a;">`
+    : `<div class="card-thumb no-image-box">No image</div>`
+  }
+
+  <div class="detail-section">
+    <h2 class="detail-name-en">${ex.nombre_en || ex.nombre}</h2>
+    <div class="detail-name-es">${ex.nombre || ""}</div>
+
+    <p>${ex.descripcion || ""}</p>
+
+    <div class="detail-meta"><span class="meta-label">Tipo:</span> <span class="meta-value">${formatValue(ex.tipo)}</span></div>
+    <div class="detail-meta"><span class="meta-label">Equipo:</span> <span class="meta-value">${formatValue(ex.equipo)}</span></div>
+    <div class="detail-meta"><span class="meta-label">Músculo primario:</span> <span class="meta-value">${formatValue(ex.musculo_primario)}</span></div>
+    <div class="detail-meta"><span class="meta-label">Músculo secundario:</span> <span class="meta-value">${formatValue(ex.musculo_secundario)}</span></div>
+    <div class="detail-meta"><span class="meta-label">Parte del cuerpo:</span> <span class="meta-value">${formatValue(ex.parte_cuerpo)}</span></div>
+
+    ${
+      ex.video_url
+        ? `<a class="detail-video" href="${ex.video_url}" target="_blank">Ver video ↗</a>`
+        : ""
     }
-
-    <div style="margin-top:10px;">
-      <div style="font-size:0.95rem;color:var(--text-main);margin-bottom:8px;">
-        ${ex.nombre || ""}
-      </div>
-
-      <p style="color:var(--text-muted);line-height:1.6;">
-        ${ex.descripcion || ""}
-      </p>
-    </div>
-  `;
+  </div>
+`;
 
   document.getElementById("viewRoutineOverlay").dataset.returnToSelector =
     selectorAbierto ? "true" : "false";
