@@ -205,17 +205,23 @@ function renderSelectorEjercicios(lista) {
 }
 
 async function abrirVistaEjercicio(exId) {
+  cerrarSelectorEjercicios();
+
   const { data, error } = await routineClient
     .from("exercises")
     .select("*")
     .eq("id", exId)
     .single();
 
-  if (error || !data) return;
+  if (error || !data) {
+    console.error(error);
+    return;
+  }
 
   const ex = data;
 
-  document.getElementById("viewRoutineTitle").textContent = ex.nombre_en || ex.nombre;
+  document.getElementById("viewRoutineTitle").textContent =
+    ex.nombre_en || ex.nombre;
 
   document.getElementById("viewRoutineContent").innerHTML = `
     ${ex.imagen
@@ -223,9 +229,15 @@ async function abrirVistaEjercicio(exId) {
       : `<div class="card-thumb no-image-box">No image</div>`
     }
 
-    <p style="margin-top:10px;color:var(--text-muted);">
-      ${ex.descripcion || ""}
-    </p>
+    <div style="margin-top:10px;">
+      <div style="font-size:0.95rem;color:var(--text-main);margin-bottom:8px;">
+        ${ex.nombre || ""}
+      </div>
+
+      <p style="color:var(--text-muted);line-height:1.6;">
+        ${ex.descripcion || ""}
+      </p>
+    </div>
   `;
 
   document.getElementById("viewRoutineOverlay").classList.add("open");
