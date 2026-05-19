@@ -179,23 +179,26 @@ function renderSelectorEjercicios(lista) {
   box.innerHTML = lista.map(e => `
     <div class="picker-row">
       <div class="picker-info" data-id="${e.id}">
-        <div style="font-size:0.85rem;color:#00ff88;">${e.nombre_en || ""}</div>
-        <div style="font-size:0.78rem;color:var(--text-muted);">${e.nombre || ""}</div>
+        <div class="picker-name-en">${e.nombre_en || ""}</div>
+        <div class="picker-name-es">${e.nombre || ""}</div>
       </div>
       <button class="picker-add-btn" data-id="${e.id}">＋</button>
     </div>
   `).join("");
 
+  // botón agregar
   document.querySelectorAll(".picker-add-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", (ev) => {
+      ev.stopPropagation();
       const exId = parseInt(btn.dataset.id);
       agregarEjercicioARutina(exId);
     });
   });
 
-  document.querySelectorAll(".picker-info").forEach(row => {
-    row.addEventListener("click", () => {
-      const exId = parseInt(row.dataset.id);
+  // click en nombre
+  document.querySelectorAll(".picker-info").forEach(item => {
+    item.addEventListener("click", () => {
+      const exId = parseInt(item.dataset.id);
       abrirVistaEjercicio(exId);
     });
   });
