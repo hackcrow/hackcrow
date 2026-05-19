@@ -147,6 +147,8 @@ function abrirDetalleRutina(id) {
 
   document.getElementById("addExerciseToRoutine")
   .addEventListener("click", abrirSelectorEjercicios);
+
+  cargarEjerciciosDeRutina(id);
 }
 
 function cerrarDetalleRutina() {
@@ -347,6 +349,33 @@ async function agregarEjercicioARutina(exerciseId) {
 
   cerrarSelectorEjercicios();
   abrirDetalleRutina(rutinaActualId);
+}
+
+async function cargarEjerciciosDeRutina(rutinaId) {
+  const { data, error } = await routineClient
+    .from("routine_exercises")
+    .select(`
+      exercise_id,
+      exercises (
+        id,
+        nombre,
+        nombre_en
+      )
+    `)
+    .eq("routine_id", rutinaId);
+
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  const box = document.getElementById("routineExerciseList");
+
+  box.innerHTML = (data || []).map(item => `
+    <div class="routine-ex-item">
+      <div>${item.exercises?.nombre_en || item.exercises?.nombre}</div>
+    </div>
+  `).join("");
 }
 
 document.addEventListener("DOMContentLoaded", () => {
