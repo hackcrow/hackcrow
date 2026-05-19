@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Rutinas — Workout</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/library.css">
+
+  <link rel="icon" type="image/x-icon" href="../src/images/favicon.ico">
+</head>
+<body>
+
+<div class="version-bar">v2</div>
+<div id="overlay"></div>
+
+<header id="topbar">
+  <div class="topbar-left">
+    <div class="logo">Work<span>out</span></div>
+  </div>
+  <div class="topbar-right">
+    <button class="theme-toggle" id="themeToggle" title="Cambiar tema">
+      <span class="moon-icon">🌙</span>
+      <span class="sun-icon">☀️</span>
+    </button>
+    <button class="menu-btn" id="menuBtn" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<nav id="dropMenu">
+  <div class="menu-section">
+    <div class="menu-section-label">Principal</div>
+    <a class="menu-item" href="../index.html">
+      <span class="item-icon">⊞</span>
+      Dashboard
+    </a>
+  </div>
+
+  <div class="menu-divider"></div>
+
+  <div class="menu-section">
+    <div class="menu-section-label">Herramientas</div>
+
+    <a class="menu-item active" href="routines.html">
+      <span class="item-icon">🗓️</span>
+      Rutinas
+      <span class="item-badge">NEW</span>
+    </a>
+
+    <a class="menu-item" href="library.html">
+      <span class="item-icon">📚</span>
+      Biblioteca de Ejercicios
+    </a>
+  </div>
+</nav>
+
+<main id="app">
+  <div id="page-routines">
+
+    <div class="page-header">
+      <div>
+        <div class="page-title">Rutinas</div>
+        <div class="page-subtitle">// Organiza tus entrenamientos</div>
+      </div>
+      <a class="back-btn" href="../index.html">← Volver</a>
+    </div>
+
+    <div class="filter-bar">
+      <div class="filter-pills">
+        <button class="pill active">Todas</button>
+        <button class="pill">Push</button>
+        <button class="pill">Pull</button>
+        <button class="pill">Pierna</button>
+        <button class="pill">Full Body</button>
+      </div>
+
+      <button id="addRoutineBtn" class="add-ex-btn" title="Agregar rutina">＋</button>
+    </div>
+
+    <div id="loadingRoutines" class="terminal-loading">Loading routines...</div>
+    <div id="routineGrid" class="exercise-grid"></div>
+
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/app.js"></script>
+<script src="../js/routines.js"></script>
+
+</body>
+</html>
