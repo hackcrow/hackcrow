@@ -247,11 +247,11 @@ async function abrirVistaEjercicio(exId) {
   
       <p>${ex.descripcion || ""}</p>
   
-      <div class="detail-meta"><span class="meta-label">Tipo:</span> <span class="meta-value">${formatValue(ex.tipo)}</span></div>
-      <div class="detail-meta"><span class="meta-label">Equipo:</span> <span class="meta-value">${formatValue(ex.equipo)}</span></div>
-      <div class="detail-meta"><span class="meta-label">Músculo primario:</span> <span class="meta-value">${formatValue(ex.musculo_primario)}</span></div>
-      <div class="detail-meta"><span class="meta-label">Músculo secundario:</span> <span class="meta-value">${formatValue(ex.musculo_secundario)}</span></div>
-      <div class="detail-meta"><span class="meta-label">Parte del cuerpo:</span> <span class="meta-value">${formatValue(ex.parte_cuerpo)}</span></div>
+      <div class="detail-meta"><span style="color:#e5e7eb;font-weight:600;">Tipo:</span> <span style="color:#00ff88;">${formatValue(ex.tipo)}</span></div>
+<div class="detail-meta"><span style="color:#e5e7eb;font-weight:600;">Equipo:</span> <span style="color:#00ff88;">${formatValue(ex.equipo)}</span></div>
+<div class="detail-meta"><span style="color:#e5e7eb;font-weight:600;">Músculo primario:</span> <span style="color:#00ff88;">${formatValue(ex.musculo_primario)}</span></div>
+<div class="detail-meta"><span style="color:#e5e7eb;font-weight:600;">Músculo secundario:</span> <span style="color:#00ff88;">${formatValue(ex.musculo_secundario)}</span></div>
+<div class="detail-meta"><span style="color:#e5e7eb;font-weight:600;">Parte del cuerpo:</span> <span style="color:#00ff88;">${formatValue(ex.parte_cuerpo)}</span></div>
   
       ${
         ex.video_url
