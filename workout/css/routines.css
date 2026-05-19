@@ -94,6 +94,7 @@
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 10px;
+  color: #00ff88;
 }
 
 .routine-desc {
@@ -223,4 +224,8 @@
 #rtCategoria option {
   background: #111;
   color: #eaeaea;
+}
+
+#viewRoutineTitle {
+  color: #00ff88;
 }
