@@ -262,3 +262,22 @@
 #searchExerciseInput::placeholder {
   color: var(--text-dim);
 }
+
+.picker-info {
+  flex: 1;
+  cursor: pointer;
+}
+
+.picker-name-en {
+  font-size: 0.85rem;
+  color: #00ff88;
+}
+
+.picker-name-es {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.picker-info:hover {
+  opacity: 0.8;
+}
