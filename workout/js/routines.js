@@ -62,3 +62,47 @@ async function renderRutinas() {
 document.addEventListener("DOMContentLoaded", () => {
   cargarRutinas();
 });
+
+async function guardarRutina() {
+  const payload = {
+    nombre: document.getElementById("rtNombre").value.trim(),
+    descripcion: document.getElementById("rtDescripcion").value.trim(),
+    categoria: document.getElementById("rtCategoria").value
+  };
+
+  if (!payload.nombre) return;
+
+  const { error } = await routineClient
+    .from("routines")
+    .insert([payload]);
+
+  if (error) {
+    console.error(error);
+    alert("No se pudo guardar");
+    return;
+  }
+
+  cerrarRoutineLightbox();
+  cargarRutinas();
+}
+
+function abrirRoutineLightbox() {
+  document.getElementById("rtNombre").value = "";
+  document.getElementById("rtDescripcion").value = "";
+  document.getElementById("rtCategoria").value = "";
+  document.getElementById("routineLightbox").classList.add("open");
+}
+
+function cerrarRoutineLightbox() {
+  document.getElementById("routineLightbox").classList.remove("open");
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const addBtn = document.getElementById("addRoutineBtn");
+  const cancelBtn = document.getElementById("rtCancel");
+  const saveBtn = document.getElementById("rtSave");
+
+  if (addBtn) addBtn.addEventListener("click", abrirRoutineLightbox);
+  if (cancelBtn) cancelBtn.addEventListener("click", cerrarRoutineLightbox);
+  if (saveBtn) saveBtn.addEventListener("click", guardarRutina);
+});
