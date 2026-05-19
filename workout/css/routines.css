@@ -282,3 +282,52 @@
 .picker-info:hover {
   opacity: 0.8;
 }
+
+.detail-section {
+  margin-top: 8px;
+}
+
+.detail-name-en {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #00ff88;
+  margin-bottom: 4px;
+}
+
+.detail-name-es {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.detail-section p {
+  font-size: 0.85rem;
+  color: var(--text-main);
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+.detail-meta {
+  font-size: 0.83rem;
+  margin-bottom: 6px;
+}
+
+.meta-label {
+  color: var(--text-dim);
+}
+
+.meta-value {
+  color: var(--text-main);
+}
+
+.detail-video {
+  display: inline-block;
+  margin-top: 14px;
+  color: #00ff88;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.detail-video:hover {
+  opacity: 0.85;
+}
