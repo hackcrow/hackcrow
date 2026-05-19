@@ -121,11 +121,27 @@ async function guardarRutina() {
   await cargarRutinas();
 }
 
-function abrirDetalleRutina(id) {
+async function abrirDetalleRutina(id) {
   rutinaActualId = id;
-  
+
   const rutina = rutinas.find(r => r.id === id);
   if (!rutina) return;
+
+  const { data: ejerciciosRutina, error: exError } = await routineClient
+    .from("routine_exercises")
+    .select(`
+      exercise_id,
+      exercises (
+        id,
+        nombre,
+        nombre_en
+      )
+    `)
+    .eq("routine_id", id);
+
+  if (exError) {
+    console.error(exError);
+  }
 
   document.getElementById("viewRoutineTitle").textContent = rutina.nombre;
 
@@ -140,13 +156,38 @@ function abrirDetalleRutina(id) {
 
     <button id="addExerciseToRoutine" class="btn">+ Agregar ejercicio</button>
 
-    <div id="routineExerciseList" style="margin-top:18px;"></div>
+    <div style="margin-top:18px;">
+      <div style="font-size:0.8rem;color:var(--text-dim);margin-bottom:10px;letter-spacing:0.08em;">
+        EJERCICIOS
+      </div>
+
+      ${
+        ejerciciosRutina && ejerciciosRutina.length
+          ? ejerciciosRutina.map(item => `
+              <div style="
+                padding:10px 12px;
+                border:1px solid var(--border-soft);
+                border-radius:12px;
+                margin-bottom:8px;
+                background:rgba(255,255,255,0.02);
+              ">
+                <div style="color:#00ff88;font-size:0.84rem;">
+                  ${item.exercises?.nombre_en || ""}
+                </div>
+                <div style="color:var(--text-muted);font-size:0.78rem;">
+                  ${item.exercises?.nombre || ""}
+                </div>
+              </div>
+            `).join("")
+          : `<div style="color:var(--text-dim);font-size:0.82rem;">Sin ejercicios aún</div>`
+      }
+    </div>
   `;
 
   document.getElementById("viewRoutineOverlay").classList.add("open");
 
   document.getElementById("addExerciseToRoutine")
-  .addEventListener("click", abrirSelectorEjercicios);
+    .addEventListener("click", abrirSelectorEjercicios);
 }
 
 function cerrarDetalleRutina() {
