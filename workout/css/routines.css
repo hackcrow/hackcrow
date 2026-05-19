@@ -139,3 +139,21 @@
 .delete-ex-btn svg {
   display: block;
 }
+
+#routineLightbox input,
+#routineLightbox textarea,
+#routineLightbox select {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-soft);
+  color: var(--text-main);
+  font-size: 0.9rem;
+}
+
+#routineLightbox textarea {
+  min-height: 90px;
+  resize: vertical;
+}
