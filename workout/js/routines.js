@@ -242,17 +242,21 @@ async function abrirVistaEjercicio(exId) {
   }
 
   <div class="detail-section">
-    <h2 class="detail-name-en">${ex.nombre_en || ex.nombre}</h2>
-    <div class="detail-name-es">${ex.nombre || ""}</div>
+      <h2 style="font-size:1rem;font-weight:600;color:#00ff88;margin-bottom:4px;">
+        ${ex.nombre_en || ex.nombre}
+      </h2>
+    
+      <div style="font-size:0.86rem;color:#9ca3af;margin-bottom:14px;">
+        ${ex.nombre || ""}
+      </div>
 
     <p>${ex.descripcion || ""}</p>
 
-    <div class="detail-meta"><span class="meta-label">Tipo:</span> <span class="meta-value">${formatValue(ex.tipo)}</span></div>
-    <div class="detail-meta"><span class="meta-label">Equipo:</span> <span class="meta-value">${formatValue(ex.equipo)}</span></div>
-    <div class="detail-meta"><span class="meta-label">Músculo primario:</span> <span class="meta-value">${formatValue(ex.musculo_primario)}</span></div>
-    <div class="detail-meta"><span class="meta-label">Músculo secundario:</span> <span class="meta-value">${formatValue(ex.musculo_secundario)}</span></div>
-    <div class="detail-meta"><span class="meta-label">Parte del cuerpo:</span> <span class="meta-value">${formatValue(ex.parte_cuerpo)}</span></div>
-
+    <div style="font-size:0.83rem;margin-bottom:6px;"><span style="color:#6b7280;">Tipo:</span> <span style="color:#e5e7eb;">${formatValue(ex.tipo)}</span></div>
+<div style="font-size:0.83rem;margin-bottom:6px;"><span style="color:#6b7280;">Equipo:</span> <span style="color:#e5e7eb;">${formatValue(ex.equipo)}</span></div>
+<div style="font-size:0.83rem;margin-bottom:6px;"><span style="color:#6b7280;">Músculo primario:</span> <span style="color:#e5e7eb;">${formatValue(ex.musculo_primario)}</span></div>
+<div style="font-size:0.83rem;margin-bottom:6px;"><span style="color:#6b7280;">Músculo secundario:</span> <span style="color:#e5e7eb;">${formatValue(ex.musculo_secundario)}</span></div>
+<div style="font-size:0.83rem;margin-bottom:6px;"><span style="color:#6b7280;">Parte del cuerpo:</span> <span style="color:#e5e7eb;">${formatValue(ex.parte_cuerpo)}</span></div>
     ${
       ex.video_url
         ? `<a class="detail-video" href="${ex.video_url}" target="_blank">Ver video ↗</a>`
