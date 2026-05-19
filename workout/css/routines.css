@@ -331,3 +331,37 @@
 .detail-video:hover {
   opacity: 0.85;
 }
+
+.detail-name-en {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 2px;
+}
+
+.detail-name-es {
+  font-size: 0.83rem;
+  color: var(--text-dim);
+  margin-bottom: 14px;
+}
+
+.detail-meta {
+  font-size: 0.82rem;
+  margin-bottom: 6px;
+}
+
+.meta-label {
+  color: var(--text-dim);
+}
+
+.meta-value {
+  color: var(--text-main);
+}
+
+.detail-video {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 0.82rem;
+  color: var(--accent);
+  text-decoration: none;
+}
