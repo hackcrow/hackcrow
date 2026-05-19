@@ -222,6 +222,9 @@ function renderSelectorEjercicios(lista) {
       btn.textContent = "✓";
       btn.style.color = "#00ff88";
       btn.style.pointerEvents = "none";
+
+      await abrirDetalleRutina(rutinaActualId);
+      cerrarSelectorEjercicios();
     });
   });
 
@@ -235,12 +238,12 @@ function renderSelectorEjercicios(lista) {
   });
 
   // click en nombre
-  /*document.querySelectorAll(".picker-info").forEach(item => {
+  document.querySelectorAll(".picker-info").forEach(item => {
     item.addEventListener("click", () => {
       const exId = parseInt(item.dataset.id);
       abrirVistaEjercicio(exId);
     });
-  });*/
+  });
 }
 
 async function abrirVistaEjercicio(exId) {
