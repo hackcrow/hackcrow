@@ -156,7 +156,8 @@ function cerrarDetalleRutina() {
   overlay.dataset.returnToSelector = "false";
 
   if (volverSelector) {
-    document.getElementById("addExerciseOverlay").classList.add("open");
+    const selector = document.getElementById("addExerciseOverlay");
+    selector.style.visibility = "visible";
   }
 }
 
@@ -217,9 +218,9 @@ async function abrirVistaEjercicio(exId) {
     .getElementById("addExerciseOverlay")
     .classList.contains("open");
 
-  if (selectorAbierto) {
-    cerrarSelectorEjercicios();
-  }
+  //if (selectorAbierto) {
+    //cerrarSelectorEjercicios();
+  //}
 
   const { data, error } = await routineClient
     .from("exercises")
@@ -257,6 +258,7 @@ async function abrirVistaEjercicio(exId) {
   document.getElementById("viewRoutineOverlay").dataset.returnToSelector =
     selectorAbierto ? "true" : "false";
 
+  document.getElementById("addExerciseOverlay").style.visibility = "hidden";
   document.getElementById("viewRoutineOverlay").classList.add("open");
 }
 
