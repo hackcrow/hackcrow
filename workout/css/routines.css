@@ -120,3 +120,18 @@
   font-size: 0.9rem;
   margin-top: 20px;
 }
+
+.action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.delete-ex-btn {
+  background: transparent;
+  border: none;
+  color: #ff3b5c;
+  font-size: 1.55rem;
+  cursor: pointer;
+  line-height: 1;
+}
