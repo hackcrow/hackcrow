@@ -59,6 +59,31 @@ async function renderRutinas() {
   grid.innerHTML = cards.join("");
 }
 
+async function guardarRutina() {
+  const payload = {
+    nombre: document.getElementById("rtNombre").value.trim(),
+    descripcion: document.getElementById("rtDescripcion").value.trim(),
+    categoria: document.getElementById("rtCategoria").value
+  };
+
+  if (!payload.nombre) {
+    alert("Escribe un nombre");
+    return;
+  }
+
+  const { error } = await routineClient
+    .from("routines")
+    .insert([payload]);
+
+  if (error) {
+    console.error(error);
+    alert("No se pudo guardar");
+    return;
+  }
+
+  cerrarRoutineLightbox();
+  cargarRutinas();
+}
 
 function abrirRoutineLightbox() {
   document.getElementById("rtNombre").value = "";
