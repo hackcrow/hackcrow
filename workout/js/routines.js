@@ -64,6 +64,13 @@ async function renderRutinas() {
   );
 
   grid.innerHTML = cards.join("");
+
+  document.querySelectorAll(".routine-card").forEach(card => {
+    card.addEventListener("click", () => {
+      const id = parseInt(card.dataset.id);
+      abrirDetalleRutina(id);
+    });
+  });
 }
 
 function abrirRoutineLightbox() {
@@ -110,18 +117,6 @@ async function guardarRutina() {
   await cargarRutinas();
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  cargarRutinas();
-
-  const addBtn = document.getElementById("addRoutineBtn");
-  const cancelBtn = document.getElementById("rtCancel");
-  const saveBtn = document.getElementById("rtSave");
-
-  if (addBtn) addBtn.addEventListener("click", abrirRoutineLightbox);
-  if (cancelBtn) cancelBtn.addEventListener("click", cerrarRoutineLightbox);
-  if (saveBtn) saveBtn.addEventListener("click", guardarRutina);
-});
-
 function abrirDetalleRutina(id) {
   const rutina = rutinas.find(r => r.id === id);
   if (!rutina) return;
@@ -148,3 +143,18 @@ function abrirDetalleRutina(id) {
 function cerrarDetalleRutina() {
   document.getElementById("viewRoutineOverlay").classList.remove("open");
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  cargarRutinas();
+
+  const addBtn = document.getElementById("addRoutineBtn");
+  const cancelBtn = document.getElementById("rtCancel");
+  const saveBtn = document.getElementById("rtSave");
+
+  if (addBtn) addBtn.addEventListener("click", abrirRoutineLightbox);
+  if (cancelBtn) cancelBtn.addEventListener("click", cerrarRoutineLightbox);
+  if (saveBtn) saveBtn.addEventListener("click", guardarRutina);
+
+  const closeView = document.getElementById("viewRoutineClose");
+if (closeView) closeView.addEventListener("click", cerrarDetalleRutina);
+});
