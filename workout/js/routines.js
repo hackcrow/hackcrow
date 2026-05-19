@@ -10,7 +10,7 @@ let rutinas = [];
 let rutinaActualId = null;
 
 let ejerciciosDisponibles = [];
-let rutinaActualId = null;
+
 
 async function cargarRutinas() {
   const loading = document.getElementById("loadingRoutines");
