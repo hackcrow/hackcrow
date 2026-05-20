@@ -8,6 +8,195 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+const MUSCULOS = [
+  "esternocleidomastoideo",
+  "elevador_escapula",
+
+  "pectoral_mayor_esternal",
+  "pectoral_mayor_clavicular",
+
+  "deltoides_anterior",
+  "deltoides_lateral",
+  "deltoides_posterior",
+
+  "trapecio_superior",
+  "trapecio_medio",
+  "trapecio_inferior",
+
+  "infraespinoso",
+
+  "redondo_mayor",
+  "redondo_menor",
+
+  "dorsal_ancho",
+
+  "erector_columna",
+
+  "serrato_anterior",
+
+  "triceps_braquial",
+  "biceps_braquial",
+
+  "braquial_anterior",
+  "braquiorradial",
+
+  "extensores_muneca",
+  "flexores_muneca",
+
+  "recto_abdominal",
+  "transverso_abdomen",
+  "oblicuos",
+
+  "cuadriceps",
+  "sartorio",
+  "tensor_fascia_lata",
+
+  "aductor_largo",
+  "pectineo",
+  "iliopsoas",
+  "aductor_mayor",
+
+  "gluteo_mayor",
+  "gluteo_medio",
+  "gluteo_menor",
+
+  "isquiotibiales",
+
+  "gracil",
+
+  "gastrocnemio",
+  "soleo",
+  "tibial_anterior"
+];
+
+function formatMusculoNombre(value) {
+
+  const nombres = {
+
+    esternocleidomastoideo:
+      "Esternocleidomastoideo",
+
+    elevador_escapula:
+      "Elevador de la escápula",
+
+    pectoral_mayor_esternal:
+      "Pectoral mayor (porción esternal)",
+
+    pectoral_mayor_clavicular:
+      "Pectoral mayor (porción clavicular)",
+
+    deltoides_anterior:
+      "Deltoides anterior",
+
+    deltoides_lateral:
+      "Deltoides lateral",
+
+    deltoides_posterior:
+      "Deltoides posterior",
+
+    trapecio_superior:
+      "Trapecio (fibras superiores)",
+
+    trapecio_medio:
+      "Trapecio (fibras medias)",
+
+    trapecio_inferior:
+      "Trapecio (fibras inferiores)",
+
+    infraespinoso:
+      "Infraespinoso",
+
+    redondo_mayor:
+      "Redondo mayor",
+
+    redondo_menor:
+      "Redondo menor",
+
+    dorsal_ancho:
+      "Dorsal ancho (Latissimus dorsi)",
+
+    erector_columna:
+      "Erector de la columna",
+
+    serrato_anterior:
+      "Serrato anterior",
+
+    triceps_braquial:
+      "Tríceps braquial",
+
+    biceps_braquial:
+      "Bíceps braquial",
+
+    braquial_anterior:
+      "Braquial anterior",
+
+    braquiorradial:
+      "Braquiorradial",
+
+    extensores_muneca:
+      "Extensores de la muñeca",
+
+    flexores_muneca:
+      "Flexores de la muñeca",
+
+    recto_abdominal:
+      "Recto abdominal",
+
+    transverso_abdomen:
+      "Transverso del abdomen",
+
+    oblicuos:
+      "Oblicuos",
+
+    cuadriceps:
+      "Cuádriceps",
+
+    sartorio:
+      "Sartorio",
+
+    tensor_fascia_lata:
+      "Tensor de la fascia lata",
+
+    aductor_largo:
+      "Aductor largo",
+
+    pectineo:
+      "Pectíneo",
+
+    iliopsoas:
+      "Iliopsoas",
+
+    aductor_mayor:
+      "Aductor mayor",
+
+    gluteo_mayor:
+      "Glúteo mayor",
+
+    gluteo_medio:
+      "Glúteo medio",
+
+    gluteo_menor:
+      "Glúteo menor",
+
+    isquiotibiales:
+      "Isquiotibiales",
+
+    gracil:
+      "Grácil",
+
+    gastrocnemio:
+      "Gastrocnemio (Gemelos)",
+
+    soleo:
+      "Sóleo",
+
+    tibial_anterior:
+      "Tibial anterior"
+  };
+
+  return nombres[value] || value;
+}
+
 async function cargarEjercicios() {
   const loading = document.getElementById("loadingExercises");
   if (loading) loading.style.display = "block";
@@ -482,6 +671,24 @@ if (scrollBtn) {
   
     if (filterNameEs) {
       filterNameEs.addEventListener("input", aplicarFiltrosDelete);
+    }
+
+    const primario = document.getElementById("lbMusculoPrimario");
+    const secundario = document.getElementById("lbMusculoSecundario");
+    
+    if (primario && secundario) {
+    
+      const options = `
+        <option value="">— Seleccionar —</option>
+        ${MUSCULOS.map(m => `
+          <option value="${m}">
+            ${formatMusculoNombre(m)}
+          </option>
+        `).join("")}
+      `;
+    
+      primario.innerHTML = options;
+      secundario.innerHTML = options;
     }
 });
 
