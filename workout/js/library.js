@@ -351,21 +351,30 @@ document.addEventListener("DOMContentLoaded", () => {
     const tipoRegistro = document.getElementById("lbTipoRegistro");
     
     if (equipoSelect && tipoRegistro) {
+    
       equipoSelect.addEventListener("change", () => {
     
         const equipo = equipoSelect.value;
     
-        const ejerciciosPorTiempo = [
-          "peso_corporal"
+        const ejerciciosPorRepeticiones = [
+          "peso_corporal",
+          "mancuernas",
+          "barra",
+          "barra_z"
         ];
     
-        if (ejerciciosPorTiempo.includes(equipo)) {
-          tipoRegistro.value = "tiempo";
-        } else {
+        if (ejerciciosPorRepeticiones.includes(equipo)) {
+    
           tipoRegistro.value = "repeticiones";
+    
+        } else {
+    
+          tipoRegistro.value = "";
+    
         }
     
       });
+    
     }
   
     const lbCancel = document.getElementById("lbCancel");
