@@ -229,34 +229,36 @@
 
       <!-- MUSCULO PRIMARIO -->
       <div class="lb-field">
-        <label class="lb-label" for="lbMusculoPrimario">
+
+        <label class="lb-label">
           Músculo primario
         </label>
       
-        <div class="lb-select-wrap">
+        <button type="button"
+          class="lb-picker-btn"
+          id="lbMusculoPrimarioBtn">
       
-          <select class="lb-select" id="lbMusculoPrimario">
-          </select>
+          — Seleccionar —
       
-          <span class="lb-select-arrow">›</span>
+        </button>
       
-        </div>
       </div>
-
+      
       <!-- MUSCULO SECUNDARIO -->
       <div class="lb-field">
-        <label class="lb-label" for="lbMusculoSecundario">
+
+        <label class="lb-label">
           Músculo secundario
         </label>
       
-        <div class="lb-select-wrap">
+        <button type="button"
+          class="lb-picker-btn"
+          id="lbMusculoSecundarioBtn">
       
-          <select class="lb-select" id="lbMusculoSecundario">
-          </select>
+          — Seleccionar —
       
-          <span class="lb-select-arrow">›</span>
+        </button>
       
-        </div>
       </div>
 
       <!-- VIDEO -->
@@ -329,6 +331,37 @@
       <button id="confirmDeleteOk" class="lb-btn-save danger-btn">Eliminar</button>
     </div>
   </div>
+</div>
+
+<!-- MUSCLE PICKER OVERLAY -->
+
+<div id="musclePickerOverlay" class="lightbox-overlay">
+
+  <div class="lightbox-card">
+
+    <div class="lightbox-header">
+      <h2 id="musclePickerTitle">
+        Seleccionar músculo
+      </h2>
+    </div>
+
+    <div id="musclePickerList"
+      class="muscle-picker-list">
+    </div>
+
+    <div class="lightbox-actions">
+
+      <button id="musclePickerClose"
+        class="btn btn-ghost">
+
+        Cerrar
+
+      </button>
+
+    </div>
+
+  </div>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
