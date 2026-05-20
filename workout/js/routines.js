@@ -371,7 +371,8 @@ async function cargarEjerciciosDeRutina(rutinaId) {
       exercises (
         id,
         nombre,
-        nombre_en
+        nombre_en,
+        equipo
       )
     `)
     .eq("routine_id", rutinaId);
@@ -403,7 +404,7 @@ async function cargarEjerciciosDeRutina(rutinaId) {
             font-size:0.78rem;
             margin-top:2px;
           ">
-            ${item.exercises?.nombre || ""}
+            ${formatValue(item.exercises?.equipo) || "Sin equipo"}
           </div>
         </div>
       `).join("")
