@@ -235,8 +235,11 @@ function abrirMusclePicker(target) {
 
   musclePickerTarget = target;
 
-  const overlay = document.getElementById("musclePickerOverlay");
-  const list = document.getElementById("musclePickerList");
+  const overlay =
+    document.getElementById("musclePickerOverlay");
+
+  const list =
+    document.getElementById("musclePickerList");
 
   list.innerHTML = MUSCLE_DATA.map(m => `
     <div class="muscle-item"
@@ -257,7 +260,11 @@ function abrirMusclePicker(target) {
     </div>
   `).join("");
 
-  overlay.classList.add("open");
+  overlay.style.display = "flex";
+
+  requestAnimationFrame(() => {
+    overlay.classList.add("open");
+  });
 
   document.querySelectorAll(".muscle-item").forEach(item => {
 
@@ -294,8 +301,14 @@ function abrirMusclePicker(target) {
 
 function cerrarMusclePicker() {
 
-  document.getElementById("musclePickerOverlay")
-    .classList.remove("open");
+  const overlay =
+    document.getElementById("musclePickerOverlay");
+
+  overlay.classList.remove("open");
+
+  setTimeout(() => {
+    overlay.style.display = "none";
+  }, 200);
 
 }
 
