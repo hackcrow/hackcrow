@@ -628,209 +628,325 @@ function closeViewLightbox() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+
   cargarEjercicios();
 
+  // FILTROS SUPERIORES
+
   document.querySelectorAll(".pill").forEach(pill => {
-      pill.addEventListener("click", () => {
-        document.querySelectorAll(".pill").forEach(p => p.classList.remove("active"));
-        pill.classList.add("active");
-        renderEjercicios(pill.dataset.filter);
-      });
+
+    pill.addEventListener("click", () => {
+
+      document.querySelectorAll(".pill")
+        .forEach(p => p.classList.remove("active"));
+
+      pill.classList.add("active");
+
+      renderEjercicios(pill.dataset.filter);
+
     });
 
-    const equipoSelect = document.getElementById("lbEquipo");
-    const tipoRegistro = document.getElementById("lbTipoRegistro");
-    
-    if (equipoSelect && tipoRegistro) {
-    
-      equipoSelect.addEventListener("change", () => {
-    
-        const equipo = equipoSelect.value;
-    
-        const ejerciciosPorRepeticiones = [
-          "peso_corporal",
-          "mancuernas",
-          "barra",
-          "barra_z"
-        ];
-    
-        if (ejerciciosPorRepeticiones.includes(equipo)) {
-    
-          tipoRegistro.value = "repeticiones";
-    
-        } else {
-    
-          tipoRegistro.value = "";
-    
-        }
-    
-      });
-    
-    }
-  
-    const lbCancel = document.getElementById("lbCancel");
-    const lbSave = document.getElementById("lbSave");
-    if (lbCancel) lbCancel.addEventListener("click", closeLightbox);
-    if (lbSave) lbSave.addEventListener("click", saveLightbox);
-  
-    const viewClose = document.getElementById("viewClose");
-    const viewEditBtn = document.getElementById("viewEditBtn");
-    if (viewClose) viewClose.addEventListener("click", closeViewLightbox);
-    if (viewEditBtn) viewEditBtn.addEventListener("click", () => {
-      closeViewLightbox();
-      openLightbox(currentIdx);
+  });
+
+  // TIPO REGISTRO AUTOMÁTICO
+
+  const equipoSelect =
+    document.getElementById("lbEquipo");
+
+  const tipoRegistro =
+    document.getElementById("lbTipoRegistro");
+
+  if (equipoSelect && tipoRegistro) {
+
+    equipoSelect.addEventListener("change", () => {
+
+      const equipo = equipoSelect.value;
+
+      const ejerciciosPorRepeticiones = [
+        "peso_corporal",
+        "mancuernas",
+        "barra",
+        "barra_z"
+      ];
+
+      if (ejerciciosPorRepeticiones.includes(equipo)) {
+
+        tipoRegistro.value = "repeticiones";
+
+      } else {
+
+        tipoRegistro.value = "";
+
+      }
+
     });
-  
-    const imageArea = document.getElementById("lbImageArea");
-    const imageInput = document.getElementById("lbImageInput");
-  
-    if (imageArea && imageInput) {
-      imageArea.addEventListener("click", () => {
-        imageInput.click();
-      });
-  
-      imageInput.addEventListener("change", (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-  
-      selectedImageFile = file;
-  
-      const reader = new FileReader();
-      reader.onload = function(ev) {
-        document.getElementById("lbImageEl").src = ev.target.result;
-        document.getElementById("lbImageEl").style.display = "block";
-        document.getElementById("lbImagePlaceholder").style.display = "none";
-      };
-      reader.readAsDataURL(file);
-    });
+
   }
-  
-  const addBtn = document.getElementById("addExerciseBtn");
-  const scrollBtn = document.getElementById("scrollTopBtn");
-  
+
+  // BOTONES LIGHTBOX
+
+  const lbCancel =
+    document.getElementById("lbCancel");
+
+  const lbSave =
+    document.getElementById("lbSave");
+
+  if (lbCancel)
+    lbCancel.addEventListener("click", closeLightbox);
+
+  if (lbSave)
+    lbSave.addEventListener("click", saveLightbox);
+
+  // DETALLE EJERCICIO
+
+  const viewClose =
+    document.getElementById("viewClose");
+
+  const viewEditBtn =
+    document.getElementById("viewEditBtn");
+
+  if (viewClose)
+    viewClose.addEventListener("click", closeViewLightbox);
+
+  if (viewEditBtn) {
+
+    viewEditBtn.addEventListener("click", () => {
+
+      closeViewLightbox();
+
+      openLightbox(currentIdx);
+
+    });
+
+  }
+
+  // IMAGEN EJERCICIO
+
+  const imageArea =
+    document.getElementById("lbImageArea");
+
+  const imageInput =
+    document.getElementById("lbImageInput");
+
+  if (imageArea && imageInput) {
+
+    imageArea.addEventListener("click", () => {
+
+      imageInput.click();
+
+    });
+
+    imageInput.addEventListener("change", (e) => {
+
+      const file = e.target.files[0];
+
+      if (!file) return;
+
+      selectedImageFile = file;
+
+      const reader = new FileReader();
+
+      reader.onload = function(ev) {
+
+        document.getElementById("lbImageEl").src =
+          ev.target.result;
+
+        document.getElementById("lbImageEl").style.display =
+          "block";
+
+        document.getElementById("lbImagePlaceholder").style.display =
+          "none";
+
+      };
+
+      reader.readAsDataURL(file);
+
+    });
+
+  }
+
+  // BOTÓN AGREGAR EJERCICIO
+
+  const addBtn =
+    document.getElementById("addExerciseBtn");
+
+  const scrollBtn =
+    document.getElementById("scrollTopBtn");
+
   if (addBtn) {
-    document.getElementById("lbTitle").textContent = "Agregar ejercicio";
+
+    document.getElementById("lbTitle").textContent =
+      "Agregar ejercicio";
+
     addBtn.addEventListener("click", () => {
+
       currentIdx = null;
-  
+
       document.getElementById("lbNombreEn").value = "";
       document.getElementById("lbNombre").value = "";
       document.getElementById("lbDescripcion").value = "";
       document.getElementById("lbTipo").value = "";
       document.getElementById("lbEquipo").value = "";
-      document.getElementById("lbMusculoPrimarioBtn").textContent =
-      "— Seleccionar —";
-    
-      document.getElementById("lbMusculoPrimarioBtn").dataset.value =
-        "";
-      document.getElementById("lbMusculoSecundarioBtn").textContent =
-        "— Seleccionar —";
-      
-      document.getElementById("lbMusculoSecundarioBtn").dataset.value =
-        "";
+      document.getElementById("lbTipoRegistro").value = "";
       document.getElementById("lbParteCuerpo").value = "";
       document.getElementById("lbVideo").value = "";
-  
-      document.getElementById("lbImageEl").style.display = "none";
-      document.getElementById("lbImagePlaceholder").style.display = "flex";
-  
-      document.getElementById("lightboxOverlay").classList.add("open");
+
+      // MÚSCULOS
+
+      document.getElementById("lbMusculoPrimarioBtn")
+        .textContent = "— Seleccionar —";
+
+      document.getElementById("lbMusculoPrimarioBtn")
+        .dataset.value = "";
+
+      document.getElementById("lbMusculoSecundarioBtn")
+        .textContent = "— Seleccionar —";
+
+      document.getElementById("lbMusculoSecundarioBtn")
+        .dataset.value = "";
+
+      // IMAGEN
+
+      document.getElementById("lbImageEl").style.display =
+        "none";
+
+      document.getElementById("lbImagePlaceholder").style.display =
+        "flex";
+
+      document.getElementById("lightboxOverlay")
+        .classList.add("open");
+
     });
-}
+
+  }
+
+  // BOTÓN SCROLL TOP
 
   window.addEventListener("scroll", () => {
+
     if (window.scrollY > 300) {
+
       scrollBtn.style.display = "block";
+
     } else {
+
       scrollBtn.style.display = "none";
+
     }
+
   });
-  
+
   if (scrollBtn) {
+
     scrollBtn.addEventListener("click", () => {
+
       window.scrollTo({
         top: 0,
         behavior: "smooth"
       });
+
     });
+
   }
 
-    // abrir/cerrar popup eliminar
-    const deleteBtn = document.getElementById("deleteListBtn");
-    const deleteClose = document.getElementById("deleteClose");
-  
-    if (deleteBtn) {
-      deleteBtn.addEventListener("click", () => {
-        renderDeleteTable();
-        document.getElementById("deleteOverlay").classList.add("open");
-      });
-    }
-  
-    if (deleteClose) {
-      deleteClose.addEventListener("click", () => {
-        document.getElementById("deleteOverlay").classList.remove("open");
-      });
-    }
+  // POPUP ELIMINAR
 
-    const filterNameEn = document.getElementById("filterNameEn");
-    const filterNameEs = document.getElementById("filterNameEs");
-  
-    if (filterNameEn) {
-      filterNameEn.addEventListener("input", aplicarFiltrosDelete);
-    }
-  
-    if (filterNameEs) {
-      filterNameEs.addEventListener("input", aplicarFiltrosDelete);
-    }
+  const deleteBtn =
+    document.getElementById("deleteListBtn");
 
-    const primario = document.getElementById("lbMusculoPrimario");
-    const secundario = document.getElementById("lbMusculoSecundario");
-    
-    if (primario && secundario) {
-    
-      const options = `
-        <option value="">— Seleccionar —</option>
-        ${MUSCULOS.map(m => `
-          <option value="${m}">
-            ${formatMusculoNombre(m)}
-          </option>
-        `).join("")}
-      `;
-    
-      primario.innerHTML = options;
-      secundario.innerHTML = options;
-    }
+  const deleteClose =
+    document.getElementById("deleteClose");
 
-    const primarioBtn =
+  if (deleteBtn) {
+
+    deleteBtn.addEventListener("click", () => {
+
+      renderDeleteTable();
+
+      document.getElementById("deleteOverlay")
+        .classList.add("open");
+
+    });
+
+  }
+
+  if (deleteClose) {
+
+    deleteClose.addEventListener("click", () => {
+
+      document.getElementById("deleteOverlay")
+        .classList.remove("open");
+
+    });
+
+  }
+
+  // FILTROS ELIMINAR
+
+  const filterNameEn =
+    document.getElementById("filterNameEn");
+
+  const filterNameEs =
+    document.getElementById("filterNameEs");
+
+  if (filterNameEn) {
+
+    filterNameEn.addEventListener(
+      "input",
+      aplicarFiltrosDelete
+    );
+
+  }
+
+  if (filterNameEs) {
+
+    filterNameEs.addEventListener(
+      "input",
+      aplicarFiltrosDelete
+    );
+
+  }
+
+  // MUSCLE PICKER
+
+  const primarioBtn =
     document.getElementById("lbMusculoPrimarioBtn");
-  
+
   const secundarioBtn =
     document.getElementById("lbMusculoSecundarioBtn");
-  
+
   const muscleClose =
     document.getElementById("musclePickerClose");
-  
+
   if (primarioBtn) {
-  
+
     primarioBtn.addEventListener("click", () => {
+
       abrirMusclePicker("primario");
+
     });
-  
+
   }
-  
+
   if (secundarioBtn) {
-  
+
     secundarioBtn.addEventListener("click", () => {
+
       abrirMusclePicker("secundario");
+
     });
-  
+
   }
-  
+
   if (muscleClose) {
-  
-    muscleClose.addEventListener("click", cerrarMusclePicker);
-  
+
+    muscleClose.addEventListener(
+      "click",
+      cerrarMusclePicker
+    );
+
   }
+
 });
 
 
