@@ -14,31 +14,31 @@ const MUSCLE_DATA = [
   {
     value: "deltoides_anterior",
     label: "Deltoides anterior",
-    image: "../src/muscles/deltoides_anterior.png"
+    image: "../src/muscles/test.png"
   },
 
   {
     value: "deltoides_lateral",
     label: "Deltoides lateral",
-    image: "../src/muscles/deltoides_lateral.png"
+    image: "../src/muscles/test.png"
   },
 
   {
     value: "deltoides_posterior",
     label: "Deltoides posterior",
-    image: "../src/muscles/deltoides_posterior.png"
+    image: "../src/muscles/test.png"
   },
 
   {
     value: "pectoral_mayor_esternal",
     label: "Pectoral mayor (porción esternal)",
-    image: "../src/muscles/pectoral_mayor_esternal.png"
+    image: "../src/muscles/test.png"
   },
 
   {
     value: "trapecio_superior",
     label: "Trapecio (fibras superiores)",
-    image: "../src/muscles/trapecio_superior.png"
+    image: "../src/muscles/test.png"
   }
 ];
 
