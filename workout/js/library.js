@@ -8,6 +8,40 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+let musclePickerTarget = null;
+
+const MUSCLE_DATA = [
+  {
+    value: "deltoides_anterior",
+    label: "Deltoides anterior",
+    image: "../src/muscles/deltoides_anterior.png"
+  },
+
+  {
+    value: "deltoides_lateral",
+    label: "Deltoides lateral",
+    image: "../src/muscles/deltoides_lateral.png"
+  },
+
+  {
+    value: "deltoides_posterior",
+    label: "Deltoides posterior",
+    image: "../src/muscles/deltoides_posterior.png"
+  },
+
+  {
+    value: "pectoral_mayor_esternal",
+    label: "Pectoral mayor (porción esternal)",
+    image: "../src/muscles/pectoral_mayor_esternal.png"
+  },
+
+  {
+    value: "trapecio_superior",
+    label: "Trapecio (fibras superiores)",
+    image: "../src/muscles/trapecio_superior.png"
+  }
+];
+
 const MUSCULOS = [
   "esternocleidomastoideo",
   "elevador_escapula",
@@ -195,6 +229,74 @@ function formatMusculoNombre(value) {
   };
 
   return nombres[value] || value;
+}
+
+function abrirMusclePicker(target) {
+
+  musclePickerTarget = target;
+
+  const overlay = document.getElementById("musclePickerOverlay");
+  const list = document.getElementById("musclePickerList");
+
+  list.innerHTML = MUSCLE_DATA.map(m => `
+    <div class="muscle-item"
+      data-value="${m.value}"
+      data-label="${m.label}">
+
+      <img class="muscle-thumb"
+        src="${m.image}">
+
+      <div class="muscle-name">
+        ${m.label}
+      </div>
+
+      <div class="muscle-select-btn">
+        ＋
+      </div>
+
+    </div>
+  `).join("");
+
+  overlay.classList.add("open");
+
+  document.querySelectorAll(".muscle-item").forEach(item => {
+
+    item.addEventListener("click", () => {
+
+      const value = item.dataset.value;
+      const label = item.dataset.label;
+
+      if (musclePickerTarget === "primario") {
+
+        document.getElementById("lbMusculoPrimarioBtn")
+          .textContent = label;
+
+        document.getElementById("lbMusculoPrimarioBtn")
+          .dataset.value = value;
+      }
+
+      if (musclePickerTarget === "secundario") {
+
+        document.getElementById("lbMusculoSecundarioBtn")
+          .textContent = label;
+
+        document.getElementById("lbMusculoSecundarioBtn")
+          .dataset.value = value;
+      }
+
+      cerrarMusclePicker();
+
+    });
+
+  });
+
+}
+
+function cerrarMusclePicker() {
+
+  document.getElementById("musclePickerOverlay")
+    .classList.remove("open");
+
 }
 
 async function cargarEjercicios() {
@@ -628,22 +730,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 }
 
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 300) {
-    scrollBtn.style.display = "block";
-  } else {
-    scrollBtn.style.display = "none";
-  }
-});
-
-if (scrollBtn) {
-  scrollBtn.addEventListener("click", () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+      scrollBtn.style.display = "block";
+    } else {
+      scrollBtn.style.display = "none";
+    }
   });
-}
+  
+  if (scrollBtn) {
+    scrollBtn.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+  }
 
     // abrir/cerrar popup eliminar
     const deleteBtn = document.getElementById("deleteListBtn");
@@ -690,6 +792,37 @@ if (scrollBtn) {
       primario.innerHTML = options;
       secundario.innerHTML = options;
     }
+
+    const primarioBtn =
+    document.getElementById("lbMusculoPrimarioBtn");
+  
+  const secundarioBtn =
+    document.getElementById("lbMusculoSecundarioBtn");
+  
+  const muscleClose =
+    document.getElementById("musclePickerClose");
+  
+  if (primarioBtn) {
+  
+    primarioBtn.addEventListener("click", () => {
+      abrirMusclePicker("primario");
+    });
+  
+  }
+  
+  if (secundarioBtn) {
+  
+    secundarioBtn.addEventListener("click", () => {
+      abrirMusclePicker("secundario");
+    });
+  
+  }
+  
+  if (muscleClose) {
+  
+    muscleClose.addEventListener("click", cerrarMusclePicker);
+  
+  }
 });
 
 
