@@ -96,6 +96,7 @@ function openLightbox(idx) {
   document.getElementById("lbMusculoSecundario").value = ex.musculo_secundario || "";
   document.getElementById("lbParteCuerpo").value = ex.parte_cuerpo || "";
   document.getElementById("lbVideo").value = ex.video_url || "";
+  document.getElementById("lbTipoRegistro").value = ex.tipo_registro || "repeticiones";
 
   const imgEl = document.getElementById("lbImageEl");
   const placeholder = document.getElementById("lbImagePlaceholder");
@@ -131,6 +132,7 @@ async function saveLightbox() {
     musculo_primario: document.getElementById("lbMusculoPrimario").value,
     musculo_secundario: document.getElementById("lbMusculoSecundario").value,
     parte_cuerpo: document.getElementById("lbParteCuerpo").value,
+    tipo_registro: document.getElementById("lbTipoRegistro").value,
     video_url: document.getElementById("lbVideo").value.trim()
   };
 
@@ -344,6 +346,27 @@ document.addEventListener("DOMContentLoaded", () => {
         renderEjercicios(pill.dataset.filter);
       });
     });
+
+    const equipoSelect = document.getElementById("lbEquipo");
+    const tipoRegistro = document.getElementById("lbTipoRegistro");
+    
+    if (equipoSelect && tipoRegistro) {
+      equipoSelect.addEventListener("change", () => {
+    
+        const equipo = equipoSelect.value;
+    
+        const ejerciciosPorTiempo = [
+          "peso_corporal"
+        ];
+    
+        if (ejerciciosPorTiempo.includes(equipo)) {
+          tipoRegistro.value = "tiempo";
+        } else {
+          tipoRegistro.value = "repeticiones";
+        }
+    
+      });
+    }
   
     const lbCancel = document.getElementById("lbCancel");
     const lbSave = document.getElementById("lbSave");
@@ -359,14 +382,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   
     const imageArea = document.getElementById("lbImageArea");
-  const imageInput = document.getElementById("lbImageInput");
+    const imageInput = document.getElementById("lbImageInput");
   
-  if (imageArea && imageInput) {
-    imageArea.addEventListener("click", () => {
-      imageInput.click();
-    });
+    if (imageArea && imageInput) {
+      imageArea.addEventListener("click", () => {
+        imageInput.click();
+      });
   
-    imageInput.addEventListener("change", (e) => {
+      imageInput.addEventListener("change", (e) => {
       const file = e.target.files[0];
       if (!file) return;
   
