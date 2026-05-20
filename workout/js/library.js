@@ -918,15 +918,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const muscleClose =
     document.getElementById("musclePickerClose");
 
-  if (primarioBtn) {
-
-    primarioBtn.addEventListener("click", () => {
-
-      abrirMusclePicker("primario");
-
-    });
-
-  }
+   if (primarioBtn) {
+  
+      console.log("PRIMARIO BTN ENCONTRADO");
+    
+      primarioBtn.addEventListener("click", () => {
+    
+        console.log("CLICK PRIMARIO");
+    
+        abrirMusclePicker("primario");
+    
+      });
+    
+    }
 
   if (secundarioBtn) {
 
