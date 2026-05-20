@@ -890,3 +890,52 @@ html, body {
     -webkit-text-size-adjust: 100%;
   }
 }
+
+/* MUSCLE PICKER */
+
+.muscle-picker-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  max-height:420px;
+  overflow:auto;
+  padding-right:4px;
+}
+
+.muscle-item{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:12px;
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:14px;
+  background:#111;
+  cursor:pointer;
+  transition:.2s ease;
+}
+
+.muscle-item:hover{
+  border-color:#00ff88;
+  transform:translateY(-1px);
+}
+
+.muscle-thumb{
+  width:54px;
+  height:54px;
+  border-radius:12px;
+  background:#1a1a1a;
+  object-fit:cover;
+  flex-shrink:0;
+}
+
+.muscle-name{
+  font-size:.92rem;
+  color:#f5f5f5;
+  font-weight:500;
+}
+
+.muscle-select-btn{
+  margin-left:auto;
+  color:#00ff88;
+  font-size:1.2rem;
+}
