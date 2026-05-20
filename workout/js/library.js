@@ -718,8 +718,16 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("lbDescripcion").value = "";
       document.getElementById("lbTipo").value = "";
       document.getElementById("lbEquipo").value = "";
-      document.getElementById("lbMusculoPrimario").value = "";
-      document.getElementById("lbMusculoSecundario").value = "";
+      document.getElementById("lbMusculoPrimarioBtn").textContent =
+      "— Seleccionar —";
+    
+      document.getElementById("lbMusculoPrimarioBtn").dataset.value =
+        "";
+      document.getElementById("lbMusculoSecundarioBtn").textContent =
+        "— Seleccionar —";
+      
+      document.getElementById("lbMusculoSecundarioBtn").dataset.value =
+        "";
       document.getElementById("lbParteCuerpo").value = "";
       document.getElementById("lbVideo").value = "";
   
