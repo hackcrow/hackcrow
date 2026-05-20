@@ -121,9 +121,9 @@ async function guardarRutina() {
   await cargarRutinas();
 }
 
-function abrirDetalleRutina(id) {
+async function abrirDetalleRutina(id) {
   rutinaActualId = id;
-  
+
   const rutina = rutinas.find(r => r.id === id);
   if (!rutina) return;
 
@@ -138,17 +138,20 @@ function abrirDetalleRutina(id) {
       Categoría: ${rutina.categoria || "General"}
     </div>
 
-    <button id="addExerciseToRoutine" class="btn">+ Agregar ejercicio</button>
+    <button id="addExerciseToRoutine" class="btn">
+      + Agregar ejercicio
+    </button>
 
     <div id="routineExerciseList" style="margin-top:18px;"></div>
   `;
 
   document.getElementById("viewRoutineOverlay").classList.add("open");
 
-  document.getElementById("addExerciseToRoutine")
-  .addEventListener("click", abrirSelectorEjercicios);
+  document
+    .getElementById("addExerciseToRoutine")
+    .addEventListener("click", abrirSelectorEjercicios);
 
-  cargarEjerciciosDeRutina(id);
+  await cargarEjerciciosDeRutina(id);
 }
 
 function cerrarDetalleRutina() {
@@ -194,19 +197,31 @@ function renderSelectorEjercicios(lista) {
         <div class="picker-name-en">${e.nombre_en || ""}</div>
         <div class="picker-name-es">${e.nombre || ""}</div>
       </div>
-      <button class="picker-add-btn" data-id="${e.id}">＋</button>
+
+      <button class="picker-add-btn" data-id="${e.id}">
+        ＋
+      </button>
     </div>
   `).join("");
 
-  // BOTÓN AGREGAR
+  // VER DETALLE EJERCICIO
+  document.querySelectorAll(".picker-info").forEach(item => {
+    item.onclick = () => {
+      const exId = parseInt(item.dataset.id);
+      abrirVistaEjercicio(exId);
+    };
+  });
+
+  // AGREGAR EJERCICIO
   document.querySelectorAll(".picker-add-btn").forEach(btn => {
-    btn.addEventListener("click", async (ev) => {
+    btn.onclick = async (ev) => {
       ev.stopPropagation();
 
       const exerciseId = parseInt(btn.dataset.id);
+
       if (!rutinaActualId) return;
 
-      // evita doble click rápido
+      // evita doble click
       if (btn.dataset.loading === "true") return;
       btn.dataset.loading = "true";
 
@@ -221,23 +236,19 @@ function renderSelectorEjercicios(lista) {
 
       if (error) {
         console.error(error);
-        alert("No se pudo agregar");
         btn.dataset.loading = "false";
+        alert("No se pudo agregar");
         return;
       }
 
       btn.textContent = "✓";
       btn.style.color = "#00ff88";
       btn.style.pointerEvents = "none";
-    });
-  });
 
-  // CLICK EN INFO (ver ejercicio)
-  document.querySelectorAll(".picker-info").forEach(item => {
-    item.addEventListener("click", () => {
-      const exId = parseInt(item.dataset.id);
-      abrirVistaEjercicio(exId);
-    });
+      cerrarSelectorEjercicios();
+
+      await abrirDetalleRutina(rutinaActualId);
+    };
   });
 }
 
@@ -372,15 +383,39 @@ async function cargarEjerciciosDeRutina(rutinaId) {
 
   const box = document.getElementById("routineExerciseList");
 
-  box.innerHTML = (data || []).map(item => `
-    <div class="routine-ex-item">
-      <div>${item.exercises?.nombre_en || item.exercises?.nombre}</div>
-    </div>
-  `).join("");
-}
+  if (!box) return;
 
-async function refrescarEjerciciosRutina() {
-  await cargarEjerciciosDeRutina(rutinaActualId);
+  box.innerHTML = (data || []).length
+    ? data.map(item => `
+        <div class="routine-ex-item" style="
+          padding:10px 12px;
+          border:1px solid var(--border-soft);
+          border-radius:12px;
+          margin-bottom:8px;
+          background:rgba(255,255,255,0.02);
+        ">
+          <div style="color:#00ff88;font-size:0.84rem;">
+            ${item.exercises?.nombre_en || ""}
+          </div>
+
+          <div style="
+            color:var(--text-muted);
+            font-size:0.78rem;
+            margin-top:2px;
+          ">
+            ${item.exercises?.nombre || ""}
+          </div>
+        </div>
+      `).join("")
+    : `
+      <div style="
+        color:var(--text-dim);
+        font-size:0.82rem;
+        margin-top:8px;
+      ">
+        Sin ejercicios aún
+      </div>
+    `;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
