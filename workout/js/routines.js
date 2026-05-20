@@ -268,7 +268,7 @@ function renderSelectorEjercicios(lista, existentes = []) {
       btn.style.color = "#00ff88";
       btn.style.pointerEvents = "none";
 
-      cerrarSelectorEjercicios();
+      //cerrarSelectorEjercicios();
 
       await abrirDetalleRutina(rutinaActualId);
     };
