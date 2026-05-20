@@ -173,13 +173,26 @@ async function abrirSelectorEjercicios() {
     .select("id,nombre,nombre_en")
     .order("nombre");
 
+  const { data: existentes } = await routineClient
+    .from("routine_exercises")
+    .select("exercise_id")
+    .eq("routine_id", rutinaActualId);
+
+  const ejerciciosExistentes = (existentes || []).map(
+    e => e.exercise_id
+  );
+
   if (error) {
     console.error(error);
     return;
   }
 
   ejerciciosDisponibles = data || [];
-  renderSelectorEjercicios(ejerciciosDisponibles);
+
+  renderSelectorEjercicios(
+    ejerciciosDisponibles,
+    ejerciciosExistentes
+  );
 
   document.getElementById("addExerciseOverlay").classList.add("open");
 }
@@ -188,7 +201,7 @@ function cerrarSelectorEjercicios() {
   document.getElementById("addExerciseOverlay").classList.remove("open");
 }
 
-function renderSelectorEjercicios(lista) {
+function renderSelectorEjercicios(lista, existentes = []) {
   const box = document.getElementById("exercisePickerList");
 
   box.innerHTML = lista.map(e => `
@@ -198,8 +211,18 @@ function renderSelectorEjercicios(lista) {
         <div class="picker-name-es">${e.nombre || ""}</div>
       </div>
 
-      <button class="picker-add-btn" data-id="${e.id}">
-        ＋
+      <button
+        class="picker-add-btn"
+        data-id="${e.id}"
+        ${existentes.includes(e.id) ? "disabled" : ""}
+        style="
+          ${existentes.includes(e.id)
+            ? "opacity:0.45;pointer-events:none;color:#00ff88;"
+            : ""
+          }
+        "
+      >
+        ${existentes.includes(e.id) ? "✓" : "＋"}
       </button>
     </div>
   `).join("");
