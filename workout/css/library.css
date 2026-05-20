@@ -939,3 +939,20 @@ html, body {
   color:#00ff88;
   font-size:1.2rem;
 }
+
+.lb-picker-btn{
+  width:100%;
+  background:#111;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;
+  padding:14px;
+  color:#f5f5f5;
+  text-align:left;
+  font-size:.92rem;
+  cursor:pointer;
+  transition:.2s ease;
+}
+
+.lb-picker-btn:hover{
+  border-color:#00ff88;
+}
