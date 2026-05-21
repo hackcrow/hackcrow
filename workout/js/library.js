@@ -922,9 +922,6 @@ function openViewLightbox(idx) {
 
   }
 
-  document.getElementById("viewTitle").textContent =
-    ex.nombre_en || "Exercise";
-
   document.getElementById("viewContent").innerHTML = `
 
     <div class="view-image-wrap">
@@ -950,7 +947,19 @@ function openViewLightbox(idx) {
       <div class="detail-row">
 
         <div class="detail-label">
-          Nombre
+          Nombre en inglés
+        </div>
+
+        <div class="detail-value">
+          ${ex.nombre_en || "—"}
+        </div>
+
+      </div>
+
+      <div class="detail-row">
+
+        <div class="detail-label">
+          Nombre en español
         </div>
 
         <div class="detail-value">
