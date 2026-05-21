@@ -10,6 +10,8 @@ const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let musclePickerTarget = null;
 
+let secondaryMusclesSelected = [];
+
 const MUSCLE_DATA = [
 
   {
@@ -493,15 +495,46 @@ function abrirMusclePicker(target) {
 
       if (musclePickerTarget === "secundario") {
 
-        document.getElementById("lbMusculoSecundarioBtn")
-          .textContent = label;
-
-        document.getElementById("lbMusculoSecundarioBtn")
-          .dataset.value = value;
-
+        const alreadySelected =
+          secondaryMusclesSelected.includes(value);
+      
+        if (alreadySelected) {
+      
+          secondaryMusclesSelected =
+            secondaryMusclesSelected.filter(v => v !== value);
+      
+        } else {
+      
+          secondaryMusclesSelected.push(value);
+      
+        }
+      
+        const secondaryBtn =
+          document.getElementById("lbMusculoSecundarioBtn");
+      
+        if (secondaryMusclesSelected.length === 0) {
+      
+          secondaryBtn.textContent =
+            "— Seleccionar —";
+      
+          secondaryBtn.dataset.value = "";
+      
+        } else {
+      
+          secondaryBtn.textContent =
+            `${secondaryMusclesSelected.length} músculos seleccionados`;
+      
+          secondaryBtn.dataset.value =
+            secondaryMusclesSelected.join(",");
+      
+        }
+      
+        return;
       }
 
-      cerrarMusclePicker();
+      if (musclePickerTarget === "primario") {
+        cerrarMusclePicker();
+      }cerrarMusclePicker();
 
     });
 
@@ -645,51 +678,113 @@ function closeLightbox() {
 }
 
 async function saveLightbox() {
+
   const payload = {
-    nombre_en: document.getElementById("lbNombreEn").value.trim(),
-    nombre: document.getElementById("lbNombre").value.trim(),
-    descripcion: document.getElementById("lbDescripcion").value.trim(),
-    tipo: document.getElementById("lbTipo").value,
-    equipo: document.getElementById("lbEquipo").value,
-    musculo_primario: document.getElementById("lbMusculoPrimario").value,
-    musculo_secundario: document.getElementById("lbMusculoSecundario").value,
-    parte_cuerpo: document.getElementById("lbParteCuerpo").value,
-    tipo_registro: document.getElementById("lbTipoRegistro").value,
-    video_url: document.getElementById("lbVideo").value.trim()
+
+    nombre_en:
+      document.getElementById("lbNombreEn")
+        .value.trim(),
+
+    nombre:
+      document.getElementById("lbNombre")
+        .value.trim(),
+
+    descripcion:
+      document.getElementById("lbDescripcion")
+        .value.trim(),
+
+    tipo:
+      document.getElementById("lbTipo")
+        .value,
+
+    equipo:
+      document.getElementById("lbEquipo")
+        .value,
+
+    musculo_primario:
+      document.getElementById("lbMusculoPrimarioBtn")
+        .dataset.value || "",
+
+    musculo_secundario:
+      document.getElementById("lbMusculoSecundarioBtn")
+        .dataset.value || "",
+
+    parte_cuerpo:
+      document.getElementById("lbParteCuerpo")
+        .value,
+
+    tipo_registro:
+      document.getElementById("lbTipoRegistro")
+        .value,
+
+    video_url:
+      document.getElementById("lbVideo")
+        .value.trim()
+
   };
 
   // si se seleccionó imagen nueva
   if (selectedImageFile) {
+
     const imageBase64 = await new Promise((resolve) => {
+
       const reader = new FileReader();
-      reader.onload = (e) => resolve(e.target.result);
+
+      reader.onload = (e) =>
+        resolve(e.target.result);
+
       reader.readAsDataURL(selectedImageFile);
+
     });
 
     payload.imagen = imageBase64;
-  } else if (currentIdx !== null && ejercicios[currentIdx]?.imagen) {
+
+  } else if (
+    currentIdx !== null &&
+    ejercicios[currentIdx]?.imagen
+  ) {
+
     // conservar imagen existente al editar
-    payload.imagen = ejercicios[currentIdx].imagen;
+    payload.imagen =
+      ejercicios[currentIdx].imagen;
+
   }
 
   let result;
 
   if (currentIdx === null) {
-    result = await supabaseClient.from("exercises").insert([payload]);
+
+    result = await supabaseClient
+      .from("exercises")
+      .insert([payload]);
+
   } else {
+
     const id = ejercicios[currentIdx].id;
-    result = await supabaseClient.from("exercises").update(payload).eq("id", id);
+
+    result = await supabaseClient
+      .from("exercises")
+      .update(payload)
+      .eq("id", id);
+
   }
 
   if (result.error) {
+
     console.error(result.error);
+
     alert("Error al guardar");
+
     return;
+
   }
 
   selectedImageFile = null;
+
   closeLightbox();
+
   await cargarEjercicios();
+
 }
 
 function formatValue(value) {
@@ -1021,7 +1116,7 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("lbTipoRegistro").value = "";
       document.getElementById("lbParteCuerpo").value = "";
       document.getElementById("lbVideo").value = "";
-
+      secondaryMusclesSelected = [];
       // MÚSCULOS
 
       document.getElementById("lbMusculoPrimarioBtn")
