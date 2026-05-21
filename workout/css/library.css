@@ -1225,3 +1225,58 @@ html, body {
   margin:auto;
 
 }
+
+/* ERROR FIELD */
+
+.lb-input.error,
+.lb-select.error,
+.lb-picker-btn.error{
+
+  border-color:#ff4d4d !important;
+
+  box-shadow:
+    0 0 0 3px rgba(255,77,77,.12);
+
+  animation:shakeField .28s linear;
+
+}
+
+/* MENSAJE */
+
+.field-error-text{
+
+  margin-top:8px;
+
+  color:#ff7a7a;
+
+  font-size:.72rem;
+
+  letter-spacing:.3px;
+
+}
+
+/* SHAKE */
+
+@keyframes shakeField{
+
+  0%{
+    transform:translateX(0);
+  }
+
+  25%{
+    transform:translateX(-4px);
+  }
+
+  50%{
+    transform:translateX(4px);
+  }
+
+  75%{
+    transform:translateX(-3px);
+  }
+
+  100%{
+    transform:translateX(0);
+  }
+
+}
