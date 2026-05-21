@@ -322,6 +322,14 @@ function formatMusculoNombre(value) {
   if (!value) return "—";
 
   const map = {
+    pectorals: "Pectorales",
+    shoulders: "Hombros",
+    back: "Espalda",
+    arms: "Brazos",
+    legs: "Piernas",
+    core: "Core",
+    glutes: "Glúteos",
+    cardio: "Cardio"
 
     esternocleidomastoideo:
       "Esternocleidomastoideo",
