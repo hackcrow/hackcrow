@@ -773,7 +773,45 @@ function closeLightbox() {
   document.getElementById("lightboxOverlay").classList.remove("open");
 }
 
+function clearFieldErrors() {
+
+  document
+    .querySelectorAll(".error")
+    .forEach(el => {
+
+      el.classList.remove("error");
+
+    });
+
+  document
+    .querySelectorAll(".field-error-text")
+    .forEach(el => {
+
+      el.remove();
+
+    });
+
+}
+
+function showFieldError(element, message) {
+
+  element.classList.add("error");
+
+  const error =
+    document.createElement("div");
+
+  error.className =
+    "field-error-text";
+
+  error.textContent = message;
+
+  element.parentNode.appendChild(error);
+
+}
+
 async function saveLightbox() {
+
+  clearFieldErrors();
 
   /* =========================
      VALIDACIONES
@@ -829,7 +867,13 @@ async function saveLightbox() {
 
   if (!nombreEn) {
 
-    alert("Falta el nombre en inglés");
+    showFieldError(
+
+      document.getElementById("lbNombreEn"),
+
+      "Ingresa el nombre en inglés"
+
+    );
 
     return;
 
@@ -837,7 +881,13 @@ async function saveLightbox() {
 
   if (!nombre) {
 
-    alert("Falta el nombre en español");
+    showFieldError(
+
+      document.getElementById("lbNombre"),
+
+      "Ingresa el nombre en español"
+
+    );
 
     return;
 
@@ -845,7 +895,13 @@ async function saveLightbox() {
 
   if (!tipo) {
 
-    alert("Selecciona el tipo de ejercicio");
+    showFieldError(
+
+      document.getElementById("lbTipo"),
+
+      "Selecciona el tipo de ejercicio"
+
+    );
 
     return;
 
@@ -853,7 +909,13 @@ async function saveLightbox() {
 
   if (!equipo) {
 
-    alert("Selecciona el equipo");
+    showFieldError(
+
+      document.getElementById("lbEquipo"),
+
+      "Selecciona el equipo"
+
+    );
 
     return;
 
@@ -861,7 +923,13 @@ async function saveLightbox() {
 
   if (!parteCuerpo) {
 
-    alert("Selecciona la parte del cuerpo");
+    showFieldError(
+
+      document.getElementById("lbParteCuerpo"),
+
+      "Selecciona la parte del cuerpo"
+
+    );
 
     return;
 
@@ -869,7 +937,15 @@ async function saveLightbox() {
 
   if (!musculoPrimario) {
 
-    alert("Selecciona el músculo primario");
+    showFieldError(
+
+      document.getElementById(
+        "lbMusculoPrimarioBtn"
+      ),
+
+      "Selecciona el músculo primario"
+
+    );
 
     return;
 
@@ -877,7 +953,13 @@ async function saveLightbox() {
 
   if (!tipoRegistro) {
 
-    alert("Selecciona el tipo de registro");
+    showFieldError(
+
+      document.getElementById("lbTipoRegistro"),
+
+      "Selecciona el tipo de registro"
+
+    );
 
     return;
 
