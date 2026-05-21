@@ -1015,3 +1015,26 @@ html, body {
   background:rgba(255,59,59,.12);
   color:#ffb3b3;
 }
+
+.muscle-chip-wrap{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:6px;
+}
+
+.muscle-chip{
+  padding:6px 12px;
+  border-radius:999px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.08);
+  font-size:.78rem;
+  color:#d7d7d7;
+  line-height:1;
+}
+
+.muscle-chip.primary{
+  border-color:#ff3b3b;
+  background:rgba(255,59,59,.12);
+  color:#ffb3b3;
+}
