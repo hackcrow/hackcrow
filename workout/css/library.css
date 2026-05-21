@@ -993,48 +993,79 @@ html, body {
   color:#ff3b3b;
 }
 
-.muscle-chip-wrap{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:6px;
-}
-
-.muscle-chip{
-  padding:6px 12px;
-  border-radius:999px;
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.08);
-  font-size:.78rem;
-  color:#d7d7d7;
-  line-height:1;
-}
-
-.muscle-chip.primary{
-  border-color:#ff3b3b;
-  background:rgba(255,59,59,.12);
-  color:#ffb3b3;
-}
+/* MUSCLE CHIPS */
 
 .muscle-chip-wrap{
   display:flex;
   flex-wrap:wrap;
-  gap:8px;
-  margin-top:6px;
+  gap:10px;
+  margin-top:8px;
 }
+
+/* SECUNDARIOS */
 
 .muscle-chip{
+
+  display:flex;
+  align-items:center;
+  gap:6px;
+
   padding:6px 12px;
-  border-radius:999px;
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.08);
-  font-size:.78rem;
-  color:#d7d7d7;
-  line-height:1;
+
+  border-radius:12px;
+
+  background:rgba(255,255,255,.035);
+
+  border:1px solid rgba(255,255,255,.05);
+
+  color:#b8b8b8;
+
+  font-size:.74rem;
+
+  letter-spacing:.2px;
+
+  transition:.2s ease;
+
+  backdrop-filter:blur(4px);
+
 }
 
+/* hover suave */
+
+.muscle-chip:hover{
+
+  border-color:rgba(255,255,255,.12);
+
+  background:rgba(255,255,255,.05);
+
+  color:#d7d7d7;
+
+}
+
+/* PRIMARIO */
+
 .muscle-chip.primary{
-  border-color:#ff3b3b;
-  background:rgba(255,59,59,.12);
-  color:#ffb3b3;
+
+  padding:8px 15px;
+
+  border-radius:14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0,255,170,.12),
+      rgba(0,255,170,.04)
+    );
+
+  border:1px solid rgba(0,255,170,.22);
+
+  color:#8fffd6;
+
+  font-size:.82rem;
+
+  font-weight:500;
+
+  box-shadow:
+    0 0 14px rgba(0,255,170,.10);
+
 }
