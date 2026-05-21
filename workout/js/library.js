@@ -458,6 +458,7 @@ function abrirMusclePicker(target) {
   list.innerHTML = MUSCLE_DATA.map(m => {
 
     const isSelected =
+      musclePickerTarget === "secundario" &&
       secondaryMusclesSelected.includes(m.value);
 
     return `
