@@ -921,6 +921,27 @@ function renderMuscleChips(musclesString) {
 
 }
 
+function formatParteCuerpo(value) {
+
+  if (!value) return "—";
+
+  const map = {
+
+    chest: "Pecho",
+    back: "Espalda",
+    thighs: "Piernas",
+    glutes: "Glúteos",
+    shoulders: "Hombros",
+    abdominals: "Abdominales",
+    upper_arms: "Brazos",
+    core: "Core"
+
+  };
+
+  return map[value] || value;
+
+}
+
 function openViewLightbox(idx) {
 
   const ex = ejercicios[idx];
@@ -1018,7 +1039,7 @@ function openViewLightbox(idx) {
         </div>
 
         <div class="detail-value">
-          ${ex.parte_cuerpo || "—"}
+          ${formatParteCuerpo(ex.parte_cuerpo)}
         </div>
 
       </div>
