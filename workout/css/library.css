@@ -956,3 +956,30 @@ html, body {
 .lb-picker-btn:hover{
   border-color:#00ff88;
 }
+
+/* MUSCLE PICKER FIX */
+
+#musclePickerOverlay{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,.72);
+  backdrop-filter:blur(4px);
+  z-index:999999;
+}
+
+#musclePickerOverlay.open{
+  display:flex;
+}
+
+#musclePickerOverlay .lightbox-card{
+  width:min(92vw,520px);
+  max-height:85vh;
+  overflow:hidden;
+  border-radius:22px;
+  background:#0f0f0f;
+  border:1px solid rgba(255,255,255,.08);
+  padding:22px;
+}
