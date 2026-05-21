@@ -939,11 +939,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
    if (primarioBtn) {
   
-      console.log("PRIMARIO BTN ENCONTRADO");
+      //console.log("PRIMARIO BTN ENCONTRADO");
     
       primarioBtn.addEventListener("click", () => {
     
-        console.log("CLICK PRIMARIO");
+        //console.log("CLICK PRIMARIO");
     
         abrirMusclePicker("primario");
     
