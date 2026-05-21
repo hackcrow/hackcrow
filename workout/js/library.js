@@ -1075,6 +1075,32 @@ function openViewLightbox(idx) {
 
     </div>
 
+    <div class="detail-row">
+
+      <div class="detail-label">
+        Video de referencia
+      </div>
+    
+      <div class="detail-value">
+    
+        ${
+          ex.video_url
+            ? `
+              <a
+                href="${ex.video_url}"
+                target="_blank"
+                class="detail-link">
+    
+                Abrir video
+              </a>
+            `
+            : "—"
+        }
+    
+      </div>
+    
+    </div>
+
   `;
 
   document.getElementById("viewOverlay")
