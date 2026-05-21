@@ -1192,3 +1192,24 @@ html, body {
   font-size:.9rem;
 
 }
+
+.detail-link{
+
+  color:#8fffd6;
+
+  text-decoration:none;
+
+  font-weight:500;
+
+  transition:.2s ease;
+
+}
+
+.detail-link:hover{
+
+  color:#c8ffe9;
+
+  text-shadow:
+    0 0 12px rgba(0,255,170,.25);
+
+}
