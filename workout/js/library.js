@@ -886,39 +886,172 @@ function formatValue(value) {
   return map[value] || value.replaceAll("_", " ");
 }
 
+function renderMuscleChips(musclesString) {
+
+  if (!musclesString) return "—";
+
+  return musclesString
+    .split(",")
+    .map(m => `
+      <div class="muscle-chip">
+        ${formatMusculoNombre(m)}
+      </div>
+    `)
+    .join("");
+
+}
+
 function openViewLightbox(idx) {
-  currentIdx = idx;
+
   const ex = ejercicios[idx];
-  const nombreEs = ex.nombre || "";
-  const nombreEn = ex.nombre_en || "";
+
+  currentIdx = idx;
+
+  function renderMuscleChips(musclesString) {
+
+    if (!musclesString) return "—";
+
+    return musclesString
+      .split(",")
+      .map(m => `
+        <div class="muscle-chip">
+          ${formatMusculoNombre(m)}
+        </div>
+      `)
+      .join("");
+
+  }
+
+  document.getElementById("viewTitle").textContent =
+    ex.nombre_en || "Exercise";
 
   document.getElementById("viewContent").innerHTML = `
-    ${ex.imagen
-      ? `<img class="detail-img" src="${ex.imagen}" alt="${nombreEs}">`
-      : `<div class="card-thumb no-image-box">No image</div>`
-    }
 
-    <div class="detail-section">
-      <h2 class="detail-name-en">${nombreEn || nombreEs}</h2>
-      <div class="detail-name-es">${nombreEs}</div>
-
-      <p>${ex.descripcion || ""}</p>
-
-      <div class="detail-meta"><span class="meta-label">Tipo:</span> <span class="meta-value">${formatValue(ex.tipo)}</span></div>
-      <div class="detail-meta"><span class="meta-label">Equipo:</span> <span class="meta-value">${formatValue(ex.equipo)}</span></div>
-      <div class="detail-meta"><span class="meta-label">Músculo primario:</span> <span class="meta-value">${formatValue(ex.musculo_primario)}</span></div>
-      <div class="detail-meta"><span class="meta-label">Músculo secundario:</span> <span class="meta-value">${formatValue(ex.musculo_secundario)}</span></div>
-      <div class="detail-meta"><span class="meta-label">Parte del cuerpo:</span> <span class="meta-value">${formatValue(ex.parte_cuerpo)}</span></div>
+    <div class="view-image-wrap">
 
       ${
-        ex.video_url
-          ? `<a class="detail-video" href="${ex.video_url}" target="_blank">Ver video ↗</a>`
-          : ""
+        ex.imagen
+          ? `
+            <img
+              src="${ex.imagen}"
+              class="view-image">
+          `
+          : `
+            <div class="view-no-image">
+              No image
+            </div>
+          `
       }
+
     </div>
+
+    <div class="detail-grid">
+
+      <div class="detail-row">
+
+        <div class="detail-label">
+          Nombre
+        </div>
+
+        <div class="detail-value">
+          ${ex.nombre || "—"}
+        </div>
+
+      </div>
+
+      <div class="detail-row">
+
+        <div class="detail-label">
+          Tipo
+        </div>
+
+        <div class="detail-value">
+          ${ex.tipo || "—"}
+        </div>
+
+      </div>
+
+      <div class="detail-row">
+
+        <div class="detail-label">
+          Equipo
+        </div>
+
+        <div class="detail-value">
+          ${formatEquipo(ex.equipo)}
+        </div>
+
+      </div>
+
+      <div class="detail-row">
+
+        <div class="detail-label">
+          Parte del cuerpo
+        </div>
+
+        <div class="detail-value">
+          ${ex.parte_cuerpo || "—"}
+        </div>
+
+      </div>
+
+      <!-- MUSCULO PRIMARIO -->
+
+      <div class="detail-row">
+
+        <div class="detail-label">
+          Músculo primario
+        </div>
+
+        <div class="muscle-chip-wrap">
+
+          ${
+            ex.musculo_primario
+              ? `
+                <div class="muscle-chip primary">
+                  ${formatMusculoNombre(ex.musculo_primario)}
+                </div>
+              `
+              : "—"
+          }
+
+        </div>
+
+      </div>
+
+      <!-- MUSCULOS SECUNDARIOS -->
+
+      <div class="detail-row">
+
+        <div class="detail-label">
+          Músculos secundarios
+        </div>
+
+        <div class="muscle-chip-wrap">
+          ${renderMuscleChips(ex.musculo_secundario)}
+        </div>
+
+      </div>
+
+      <div class="detail-row">
+
+        <div class="detail-label">
+          Descripción
+        </div>
+
+        <div class="detail-value">
+          ${ex.descripcion || "—"}
+        </div>
+
+      </div>
+
+    </div>
+
   `;
 
-  document.getElementById("viewOverlay").classList.add("open");
+  document.getElementById("viewOverlay")
+    .classList.add("open");
+
 }
 
 function renderDeleteTable(lista = ejercicios) {
