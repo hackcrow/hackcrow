@@ -1213,3 +1213,15 @@ html, body {
     0 0 12px rgba(0,255,170,.25);
 
 }
+
+/* DETAIL LIGHTBOX */
+
+.detail-panel{
+
+  width:min(720px, calc(100vw - 40px));
+
+  max-height:90vh;
+
+  margin:auto;
+
+}
