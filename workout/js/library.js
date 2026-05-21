@@ -639,6 +639,26 @@ const lista = filtro === "todos"
   });
 }
 
+function formatEquipo(value) {
+
+  if (!value) return "—";
+
+  const map = {
+
+    peso_corporal: "Peso corporal",
+    mancuernas: "Mancuernas",
+    barra: "Barra",
+    barra_z: "Barra Z",
+    peso_extra: "Peso extra",
+    banda: "Banda",
+    rueda_abdominal: "Rueda abdominal"
+
+  };
+
+  return map[value] || value;
+
+}
+
 function openLightbox(idx) {
 
   currentIdx = idx;
