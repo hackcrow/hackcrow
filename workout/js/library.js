@@ -260,11 +260,7 @@ function abrirMusclePicker(target) {
     </div>
   `).join("");
 
-  overlay.style.display = "flex";
-
-  requestAnimationFrame(() => {
-    overlay.classList.add("open");
-  });
+  overlay.classList.add("open");
 
   document.querySelectorAll(".muscle-item").forEach(item => {
 
@@ -280,6 +276,7 @@ function abrirMusclePicker(target) {
 
         document.getElementById("lbMusculoPrimarioBtn")
           .dataset.value = value;
+
       }
 
       if (musclePickerTarget === "secundario") {
@@ -289,6 +286,7 @@ function abrirMusclePicker(target) {
 
         document.getElementById("lbMusculoSecundarioBtn")
           .dataset.value = value;
+
       }
 
       cerrarMusclePicker();
@@ -301,14 +299,8 @@ function abrirMusclePicker(target) {
 
 function cerrarMusclePicker() {
 
-  const overlay =
-    document.getElementById("musclePickerOverlay");
-
-  overlay.classList.remove("open");
-
-  setTimeout(() => {
-    overlay.style.display = "none";
-  }, 200);
+  document.getElementById("musclePickerOverlay")
+    .classList.remove("open");
 
 }
 
