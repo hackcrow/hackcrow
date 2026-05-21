@@ -455,90 +455,105 @@ function abrirMusclePicker(target) {
   const list =
     document.getElementById("musclePickerList");
 
-  list.innerHTML = MUSCLE_DATA.map(m => `
-    <div class="muscle-item"
-      data-value="${m.value}"
-      data-label="${m.label}">
+  list.innerHTML = MUSCLE_DATA.map(m => {
 
-      <img class="muscle-thumb"
-        src="${m.image}">
+    const isSelected =
+      secondaryMusclesSelected.includes(m.value);
 
-      <div class="muscle-name">
-        ${m.label}
+    return `
+      <div class="muscle-item
+        ${isSelected ? "selected" : ""}"
+
+        data-value="${m.value}"
+        data-label="${m.label}">
+
+        <img
+          class="muscle-thumb"
+          src="${m.image}">
+
+        <div class="muscle-name">
+          ${m.label}
+        </div>
+
+        <div class="muscle-select-btn">
+          ${isSelected ? "✓" : "＋"}
+        </div>
+
       </div>
+    `;
 
-      <div class="muscle-select-btn">
-        ＋
-      </div>
-
-    </div>
-  `).join("");
+  }).join("");
 
   overlay.classList.add("open");
 
-  document.querySelectorAll(".muscle-item").forEach(item => {
+  document.querySelectorAll(".muscle-item")
+    .forEach(item => {
 
-    item.addEventListener("click", () => {
+      item.addEventListener("click", () => {
 
-      const value = item.dataset.value;
-      const label = item.dataset.label;
+        const value = item.dataset.value;
+        const label = item.dataset.label;
 
-      if (musclePickerTarget === "primario") {
+        // PRIMARIO
+        if (musclePickerTarget === "primario") {
 
-        document.getElementById("lbMusculoPrimarioBtn")
-          .textContent = label;
+          document.getElementById("lbMusculoPrimarioBtn")
+            .textContent = label;
 
-        document.getElementById("lbMusculoPrimarioBtn")
-          .dataset.value = value;
+          document.getElementById("lbMusculoPrimarioBtn")
+            .dataset.value = value;
 
-      }
+          cerrarMusclePicker();
 
-      if (musclePickerTarget === "secundario") {
+          return;
 
-        const alreadySelected =
-          secondaryMusclesSelected.includes(value);
-      
-        if (alreadySelected) {
-      
-          secondaryMusclesSelected =
-            secondaryMusclesSelected.filter(v => v !== value);
-      
-        } else {
-      
-          secondaryMusclesSelected.push(value);
-      
         }
-      
-        const secondaryBtn =
-          document.getElementById("lbMusculoSecundarioBtn");
-      
-        if (secondaryMusclesSelected.length === 0) {
-      
-          secondaryBtn.textContent =
-            "— Seleccionar —";
-      
-          secondaryBtn.dataset.value = "";
-      
-        } else {
-      
-          secondaryBtn.textContent =
-            `${secondaryMusclesSelected.length} músculos seleccionados`;
-      
-          secondaryBtn.dataset.value =
-            secondaryMusclesSelected.join(",");
-      
-        }
-      
-        return;
-      }
 
-      if (musclePickerTarget === "primario") {
-        cerrarMusclePicker();
-      }cerrarMusclePicker();
+        // SECUNDARIO MULTI SELECT
+        if (musclePickerTarget === "secundario") {
+
+          const alreadySelected =
+            secondaryMusclesSelected.includes(value);
+
+          if (alreadySelected) {
+
+            secondaryMusclesSelected =
+              secondaryMusclesSelected.filter(v => v !== value);
+
+          } else {
+
+            secondaryMusclesSelected.push(value);
+
+          }
+
+          const secondaryBtn =
+            document.getElementById("lbMusculoSecundarioBtn");
+
+          if (secondaryMusclesSelected.length === 0) {
+
+            secondaryBtn.textContent =
+              "— Seleccionar —";
+
+            secondaryBtn.dataset.value = "";
+
+          } else {
+
+            secondaryBtn.textContent =
+              `${secondaryMusclesSelected.length} músculos seleccionados`;
+
+            secondaryBtn.dataset.value =
+              secondaryMusclesSelected.join(",");
+
+          }
+
+          // refrescar visual
+          abrirMusclePicker("secundario");
+
+        }
+
+      });
 
     });
-
-  });
 
 }
 
