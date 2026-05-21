@@ -329,7 +329,7 @@ function formatMusculoNombre(value) {
     legs: "Piernas",
     core: "Core",
     glutes: "Glúteos",
-    cardio: "Cardio"
+    cardio: "Cardio",
 
     esternocleidomastoideo:
       "Esternocleidomastoideo",
