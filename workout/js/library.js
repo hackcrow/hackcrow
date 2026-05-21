@@ -639,53 +639,100 @@ const lista = filtro === "todos"
 }
 
 function openLightbox(idx) {
-  document.getElementById("lbTitle").textContent = "Editar ejercicio";
+
   currentIdx = idx;
+
   const ex = ejercicios[idx];
 
-  document.getElementById("lbNombreEn").value = ex.nombre_en || "";
-  document.getElementById("lbNombre").value = ex.nombre || "";
-  document.getElementById("lbDescripcion").value = ex.descripcion || "";
-  document.getElementById("lbTipo").value = ex.tipo || "";
-  document.getElementById("lbEquipo").value = ex.equipo || "";
+  document.getElementById("lbTitle").textContent =
+    "Editar ejercicio";
+
+  document.getElementById("lbNombreEn").value =
+    ex.nombre_en || "";
+
+  document.getElementById("lbNombre").value =
+    ex.nombre || "";
+
+  document.getElementById("lbDescripcion").value =
+    ex.descripcion || "";
+
+  document.getElementById("lbTipo").value =
+    ex.tipo || "";
+
+  document.getElementById("lbEquipo").value =
+    ex.equipo || "";
+
+  document.getElementById("lbParteCuerpo").value =
+    ex.parte_cuerpo || "";
+
+  document.getElementById("lbTipoRegistro").value =
+    ex.tipo_registro || "";
+
+  document.getElementById("lbVideo").value =
+    ex.video_url || "";
+
+  // MUSCULO PRIMARIO
   document.getElementById("lbMusculoPrimarioBtn")
     .textContent =
-      formatMusculoNombre(ex.musculo_primario) ||
-      "— Seleccionar —";
-  
+      ex.musculo_primario
+        ? formatMusculoNombre(ex.musculo_primario)
+        : "— Seleccionar —";
+
   document.getElementById("lbMusculoPrimarioBtn")
     .dataset.value =
       ex.musculo_primario || "";
- document.getElementById("lbMusculoSecundarioBtn")
-    .textContent =
-      formatMusculoNombre(ex.musculo_secundario) ||
-      "— Seleccionar —";
-  
-  document.getElementById("lbMusculoSecundarioBtn")
-    .dataset.value =
-      ex.musculo_secundario || "";
-  document.getElementById("lbParteCuerpo").value = ex.parte_cuerpo || "";
-  document.getElementById("lbVideo").value = ex.video_url || "";
-  document.getElementById("lbTipoRegistro").value = ex.tipo_registro || "repeticiones";
 
-  const imgEl = document.getElementById("lbImageEl");
-  const placeholder = document.getElementById("lbImagePlaceholder");
-  
-  if (ex.imagen) {
-    imgEl.src = ex.imagen;
-    imgEl.style.display = "block";
-    placeholder.style.display = "none";
+  // MUSCULOS SECUNDARIOS
+  secondaryMusclesSelected =
+    ex.musculo_secundario
+      ? ex.musculo_secundario.split(",")
+      : [];
+
+  const secondaryBtn =
+    document.getElementById("lbMusculoSecundarioBtn");
+
+  if (secondaryMusclesSelected.length === 0) {
+
+    secondaryBtn.textContent =
+      "— Seleccionar —";
+
+    secondaryBtn.dataset.value = "";
+
   } else {
-    imgEl.src = "";
-    imgEl.style.display = "none";
-    placeholder.style.display = "flex";
-  
-    placeholder.innerHTML = `
-      <span class="lb-upload-text">NO IMAGE<br><small>click to upload</small></span>
-    `;
+
+    secondaryBtn.textContent =
+      `${secondaryMusclesSelected.length} músculos seleccionados`;
+
+    secondaryBtn.dataset.value =
+      secondaryMusclesSelected.join(",");
+
   }
 
-  document.getElementById("lightboxOverlay").classList.add("open");
+  // IMAGEN
+  if (ex.imagen) {
+
+    document.getElementById("lbImageEl").src =
+      ex.imagen;
+
+    document.getElementById("lbImageEl")
+      .style.display = "block";
+
+    document.getElementById("lbImagePlaceholder")
+      .style.display = "none";
+
+  } else {
+
+    document.getElementById("lbImageEl")
+      .style.display = "none";
+
+    document.getElementById("lbImagePlaceholder")
+      .style.display = "flex";
+
+  }
+
+  document.getElementById("lightboxOverlay")
+    .classList.add("open");
+
 }
 
 function closeLightbox() {
@@ -1121,43 +1168,55 @@ document.addEventListener("DOMContentLoaded", () => {
 
     addBtn.addEventListener("click", () => {
 
-      currentIdx = null;
-
-      document.getElementById("lbNombreEn").value = "";
-      document.getElementById("lbNombre").value = "";
-      document.getElementById("lbDescripcion").value = "";
-      document.getElementById("lbTipo").value = "";
-      document.getElementById("lbEquipo").value = "";
-      document.getElementById("lbTipoRegistro").value = "";
-      document.getElementById("lbParteCuerpo").value = "";
-      document.getElementById("lbVideo").value = "";
-      secondaryMusclesSelected = [];
-      // MÚSCULOS
-
-      document.getElementById("lbMusculoPrimarioBtn")
-        .textContent = "— Seleccionar —";
-
-      document.getElementById("lbMusculoPrimarioBtn")
-        .dataset.value = "";
-
-      document.getElementById("lbMusculoSecundarioBtn")
-        .textContent = "— Seleccionar —";
-
-      document.getElementById("lbMusculoSecundarioBtn")
-        .dataset.value = "";
-
-      // IMAGEN
-
-      document.getElementById("lbImageEl").style.display =
-        "none";
-
-      document.getElementById("lbImagePlaceholder").style.display =
-        "flex";
-
-      document.getElementById("lightboxOverlay")
-        .classList.add("open");
-
-    });
+        currentIdx = null;
+      
+        // RESET MULTISELECT
+        secondaryMusclesSelected = [];
+      
+        document.getElementById("lbTitle").textContent =
+          "Agregar ejercicio";
+      
+        document.getElementById("lbNombreEn").value = "";
+      
+        document.getElementById("lbNombre").value = "";
+      
+        document.getElementById("lbDescripcion").value = "";
+      
+        document.getElementById("lbTipo").value = "";
+      
+        document.getElementById("lbEquipo").value = "";
+      
+        document.getElementById("lbParteCuerpo").value = "";
+      
+        document.getElementById("lbTipoRegistro").value = "";
+      
+        document.getElementById("lbVideo").value = "";
+      
+        // PRIMARIO
+        document.getElementById("lbMusculoPrimarioBtn")
+          .textContent = "— Seleccionar —";
+      
+        document.getElementById("lbMusculoPrimarioBtn")
+          .dataset.value = "";
+      
+        // SECUNDARIO
+        document.getElementById("lbMusculoSecundarioBtn")
+          .textContent = "— Seleccionar —";
+      
+        document.getElementById("lbMusculoSecundarioBtn")
+          .dataset.value = "";
+      
+        // IMAGEN
+        document.getElementById("lbImageEl")
+          .style.display = "none";
+      
+        document.getElementById("lbImagePlaceholder")
+          .style.display = "flex";
+      
+        document.getElementById("lightboxOverlay")
+          .classList.add("open");
+      
+      });
 
   }
 
