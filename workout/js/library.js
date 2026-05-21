@@ -11,35 +11,247 @@ const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 let musclePickerTarget = null;
 
 const MUSCLE_DATA = [
+
   {
-    value: "deltoides_anterior",
-    label: "Deltoides anterior",
-    image: "../src/muscles/test.png"
+    value: "esternocleidomastoideo",
+    label: "Esternocleidomastoideo",
+    image: "../src/muscles/01_esternocleidomastoideo.png"
   },
 
   {
-    value: "deltoides_lateral",
-    label: "Deltoides lateral",
-    image: "../src/muscles/test.png"
-  },
-
-  {
-    value: "deltoides_posterior",
-    label: "Deltoides posterior",
-    image: "../src/muscles/test.png"
+    value: "elevador_escapula",
+    label: "Elevador de la escápula",
+    image: "../src/muscles/02_elevador_escapula.png"
   },
 
   {
     value: "pectoral_mayor_esternal",
     label: "Pectoral mayor (porción esternal)",
-    image: "../src/muscles/test.png"
+    image: "../src/muscles/03_pectoral_mayor_esternal.png"
+  },
+
+  {
+    value: "pectoral_mayor_clavicular",
+    label: "Pectoral mayor (porción clavicular)",
+    image: "../src/muscles/04_pectoral_mayor_clavicular.png"
+  },
+
+  {
+    value: "deltoides_anterior",
+    label: "Deltoides anterior",
+    image: "../src/muscles/05_deltoides_anterior.png"
+  },
+
+  {
+    value: "deltoides_lateral",
+    label: "Deltoides lateral",
+    image: "../src/muscles/06_deltoides_lateral.png"
+  },
+
+  {
+    value: "deltoides_posterior",
+    label: "Deltoides posterior",
+    image: "../src/muscles/07_deltoides_posterior.png"
   },
 
   {
     value: "trapecio_superior",
     label: "Trapecio (fibras superiores)",
-    image: "../src/muscles/test.png"
+    image: "../src/muscles/08_trapecio_superior.png"
+  },
+
+  {
+    value: "trapecio_medio",
+    label: "Trapecio (fibras medias)",
+    image: "../src/muscles/09_trapecio_medio.png"
+  },
+
+  {
+    value: "trapecio_inferior",
+    label: "Trapecio (fibras inferiores)",
+    image: "../src/muscles/10_trapecio_inferior.png"
+  },
+
+  {
+    value: "infraespinoso",
+    label: "Infraespinoso",
+    image: "../src/muscles/11_infraespinoso.png"
+  },
+
+  {
+    value: "redondo_mayor",
+    label: "Redondo mayor",
+    image: "../src/muscles/12_redondo_mayor.png"
+  },
+
+  {
+    value: "redondo_menor",
+    label: "Redondo menor",
+    image: "../src/muscles/13_redondo_menor.png"
+  },
+
+  {
+    value: "dorsal_ancho",
+    label: "Dorsal ancho",
+    image: "../src/muscles/14_dorsal_ancho.png"
+  },
+
+  {
+    value: "erector_columna",
+    label: "Erector de la columna",
+    image: "../src/muscles/15_erector_columna.png"
+  },
+
+  {
+    value: "serrato_anterior",
+    label: "Serrato anterior",
+    image: "../src/muscles/16_serrato_anterior.png"
+  },
+
+  {
+    value: "triceps_braquial",
+    label: "Tríceps braquial",
+    image: "../src/muscles/17_triceps_braquial.png"
+  },
+
+  {
+    value: "biceps_braquial",
+    label: "Bíceps braquial",
+    image: "../src/muscles/18_biceps_braquial.png"
+  },
+
+  {
+    value: "braquial_anterior",
+    label: "Braquial anterior",
+    image: "../src/muscles/19_braquial_anterior.png"
+  },
+
+  {
+    value: "braquiorradial",
+    label: "Braquiorradial",
+    image: "../src/muscles/20_braquiorradial.png"
+  },
+
+  {
+    value: "extensores_muneca",
+    label: "Extensores de la muñeca",
+    image: "../src/muscles/21_extensores_muneca.png"
+  },
+
+  {
+    value: "flexores_muneca",
+    label: "Flexores de la muñeca",
+    image: "../src/muscles/22_flexores_muneca.png"
+  },
+
+  {
+    value: "recto_abdominal",
+    label: "Recto abdominal",
+    image: "../src/muscles/23_recto_abdominal.png"
+  },
+
+  {
+    value: "transverso_abdomen",
+    label: "Transverso del abdomen",
+    image: "../src/muscles/24_transverso_abdomen.png"
+  },
+
+  {
+    value: "oblicuos",
+    label: "Oblicuos",
+    image: "../src/muscles/25_oblicuos.png"
+  },
+
+  {
+    value: "cuadriceps",
+    label: "Cuádriceps",
+    image: "../src/muscles/26_cuadriceps.png"
+  },
+
+  {
+    value: "sartorio",
+    label: "Sartorio",
+    image: "../src/muscles/27_sartorio.png"
+  },
+
+  {
+    value: "tensor_fascia_lata",
+    label: "Tensor de la fascia lata",
+    image: "../src/muscles/28_tensor_fascia_lata.png"
+  },
+
+  {
+    value: "aductor_largo",
+    label: "Aductor largo",
+    image: "../src/muscles/29_aductor_largo.png"
+  },
+
+  {
+    value: "pectineo",
+    label: "Pectíneo",
+    image: "../src/muscles/30_pectineo.png"
+  },
+
+  {
+    value: "iliopsoas",
+    label: "Iliopsoas",
+    image: "../src/muscles/31_iliopsoas.png"
+  },
+
+  {
+    value: "aductor_mayor",
+    label: "Aductor mayor",
+    image: "../src/muscles/32_aductor_mayor.png"
+  },
+
+  {
+    value: "gluteo_mayor",
+    label: "Glúteo mayor",
+    image: "../src/muscles/33_gluteo_mayor.png"
+  },
+
+  {
+    value: "gluteo_medio",
+    label: "Glúteo medio",
+    image: "../src/muscles/34_gluteo_medio.png"
+  },
+
+  {
+    value: "gluteo_menor",
+    label: "Glúteo menor",
+    image: "../src/muscles/35_gluteo_menor.png"
+  },
+
+  {
+    value: "isquiotibiales",
+    label: "Isquiotibiales",
+    image: "../src/muscles/36_isquiotibiales.png"
+  },
+
+  {
+    value: "gracil",
+    label: "Grácil",
+    image: "../src/muscles/37_gracil.png"
+  },
+
+  {
+    value: "gastrocnemio",
+    label: "Gastrocnemio",
+    image: "../src/muscles/38_gastrocnemio.png"
+  },
+
+  {
+    value: "soleo",
+    label: "Sóleo",
+    image: "../src/muscles/39_soleo.png"
+  },
+
+  {
+    value: "tibial_anterior",
+    label: "Tibial anterior",
+    image: "../src/muscles/40_tibial_anterior.png"
   }
+
 ];
 
 const MUSCULOS = [
