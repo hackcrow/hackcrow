@@ -775,76 +775,179 @@ function closeLightbox() {
 
 async function saveLightbox() {
 
+  /* =========================
+     VALIDACIONES
+  ========================= */
+
+  const nombreEn =
+    document.getElementById("lbNombreEn")
+      .value
+      .trim();
+
+  const nombre =
+    document.getElementById("lbNombre")
+      .value
+      .trim();
+
+  const descripcion =
+    document.getElementById("lbDescripcion")
+      .value
+      .trim();
+
+  const tipo =
+    document.getElementById("lbTipo")
+      .value;
+
+  const equipo =
+    document.getElementById("lbEquipo")
+      .value;
+
+  const parteCuerpo =
+    document.getElementById("lbParteCuerpo")
+      .value;
+
+  const tipoRegistro =
+    document.getElementById("lbTipoRegistro")
+      .value;
+
+  const musculoPrimario =
+    document.getElementById("lbMusculoPrimarioBtn")
+      .dataset.value || "";
+
+  const musculoSecundario =
+    document.getElementById("lbMusculoSecundarioBtn")
+      .dataset.value || "";
+
+  const videoUrl =
+    document.getElementById("lbVideo")
+      .value
+      .trim();
+
+  /* =========================
+     CAMPOS OBLIGATORIOS
+  ========================= */
+
+  if (!nombreEn) {
+
+    alert("Falta el nombre en inglés");
+
+    return;
+
+  }
+
+  if (!nombre) {
+
+    alert("Falta el nombre en español");
+
+    return;
+
+  }
+
+  if (!tipo) {
+
+    alert("Selecciona el tipo de ejercicio");
+
+    return;
+
+  }
+
+  if (!equipo) {
+
+    alert("Selecciona el equipo");
+
+    return;
+
+  }
+
+  if (!parteCuerpo) {
+
+    alert("Selecciona la parte del cuerpo");
+
+    return;
+
+  }
+
+  if (!musculoPrimario) {
+
+    alert("Selecciona el músculo primario");
+
+    return;
+
+  }
+
+  if (!tipoRegistro) {
+
+    alert("Selecciona el tipo de registro");
+
+    return;
+
+  }
+
+  /* =========================
+     PAYLOAD
+  ========================= */
+
   const payload = {
 
-    nombre_en:
-      document.getElementById("lbNombreEn")
-        .value.trim(),
+    nombre_en: nombreEn,
 
-    nombre:
-      document.getElementById("lbNombre")
-        .value.trim(),
+    nombre: nombre,
 
-    descripcion:
-      document.getElementById("lbDescripcion")
-        .value.trim(),
+    descripcion: descripcion,
 
-    tipo:
-      document.getElementById("lbTipo")
-        .value,
+    tipo: tipo,
 
-    equipo:
-      document.getElementById("lbEquipo")
-        .value,
+    equipo: equipo,
 
-    musculo_primario:
-      document.getElementById("lbMusculoPrimarioBtn")
-        .dataset.value || "",
+    musculo_primario: musculoPrimario,
 
-    musculo_secundario:
-      document.getElementById("lbMusculoSecundarioBtn")
-        .dataset.value || "",
+    musculo_secundario: musculoSecundario,
 
-    parte_cuerpo:
-      document.getElementById("lbParteCuerpo")
-        .value,
+    parte_cuerpo: parteCuerpo,
 
-    tipo_registro:
-      document.getElementById("lbTipoRegistro")
-        .value,
+    tipo_registro: tipoRegistro,
 
-    video_url:
-      document.getElementById("lbVideo")
-        .value.trim()
+    video_url: videoUrl
 
   };
 
-  // si se seleccionó imagen nueva
+  /* =========================
+     IMAGEN
+  ========================= */
+
   if (selectedImageFile) {
 
-    const imageBase64 = await new Promise((resolve) => {
+    const imageBase64 =
+      await new Promise((resolve) => {
 
-      const reader = new FileReader();
+        const reader = new FileReader();
 
-      reader.onload = (e) =>
-        resolve(e.target.result);
+        reader.onload = (e) =>
+          resolve(e.target.result);
 
-      reader.readAsDataURL(selectedImageFile);
+        reader.readAsDataURL(
+          selectedImageFile
+        );
 
-    });
+      });
 
     payload.imagen = imageBase64;
 
   } else if (
+
     currentIdx !== null &&
     ejercicios[currentIdx]?.imagen
+
   ) {
 
-    // conservar imagen existente al editar
     payload.imagen =
       ejercicios[currentIdx].imagen;
 
   }
+
+  /* =========================
+     INSERT / UPDATE
+  ========================= */
 
   let result;
 
@@ -856,7 +959,8 @@ async function saveLightbox() {
 
   } else {
 
-    const id = ejercicios[currentIdx].id;
+    const id =
+      ejercicios[currentIdx].id;
 
     result = await supabaseClient
       .from("exercises")
@@ -864,6 +968,10 @@ async function saveLightbox() {
       .eq("id", id);
 
   }
+
+  /* =========================
+     ERROR
+  ========================= */
 
   if (result.error) {
 
@@ -874,6 +982,10 @@ async function saveLightbox() {
     return;
 
   }
+
+  /* =========================
+     FINALIZAR
+  ========================= */
 
   selectedImageFile = null;
 
