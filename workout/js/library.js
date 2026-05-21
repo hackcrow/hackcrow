@@ -943,7 +943,7 @@ function openViewLightbox(idx) {
   }
 
   document.getElementById("viewContent").innerHTML = `
-
+console.log(ex);
     <div class="view-image-wrap">
 
       ${
