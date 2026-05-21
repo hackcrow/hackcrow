@@ -983,3 +983,12 @@ html, body {
   border:1px solid rgba(255,255,255,.08);
   padding:22px;
 }
+
+.muscle-item.selected{
+  border:1px solid #ff3b3b;
+  background:rgba(255,59,59,.08);
+}
+
+.muscle-item.selected .muscle-select-btn{
+  color:#ff3b3b;
+}
