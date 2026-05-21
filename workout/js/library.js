@@ -388,8 +388,22 @@ function openLightbox(idx) {
   document.getElementById("lbDescripcion").value = ex.descripcion || "";
   document.getElementById("lbTipo").value = ex.tipo || "";
   document.getElementById("lbEquipo").value = ex.equipo || "";
-  document.getElementById("lbMusculoPrimario").value = ex.musculo_primario || "";
-  document.getElementById("lbMusculoSecundario").value = ex.musculo_secundario || "";
+  document.getElementById("lbMusculoPrimarioBtn")
+    .textContent =
+      formatMusculoNombre(ex.musculo_primario) ||
+      "— Seleccionar —";
+  
+  document.getElementById("lbMusculoPrimarioBtn")
+    .dataset.value =
+      ex.musculo_primario || "";
+ document.getElementById("lbMusculoSecundarioBtn")
+    .textContent =
+      formatMusculoNombre(ex.musculo_secundario) ||
+      "— Seleccionar —";
+  
+  document.getElementById("lbMusculoSecundarioBtn")
+    .dataset.value =
+      ex.musculo_secundario || "";
   document.getElementById("lbParteCuerpo").value = ex.parte_cuerpo || "";
   document.getElementById("lbVideo").value = ex.video_url || "";
   document.getElementById("lbTipoRegistro").value = ex.tipo_registro || "repeticiones";
