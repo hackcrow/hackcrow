@@ -319,7 +319,9 @@ const MUSCULOS = [
 
 function formatMusculoNombre(value) {
 
-  const nombres = {
+  if (!value) return "—";
+
+  const map = {
 
     esternocleidomastoideo:
       "Esternocleidomastoideo",
@@ -328,10 +330,10 @@ function formatMusculoNombre(value) {
       "Elevador de la escápula",
 
     pectoral_mayor_esternal:
-      "Pectoral mayor (porción esternal)",
+      "Pectoral mayor (esternal)",
 
     pectoral_mayor_clavicular:
-      "Pectoral mayor (porción clavicular)",
+      "Pectoral mayor (clavicular)",
 
     deltoides_anterior:
       "Deltoides anterior",
@@ -343,13 +345,13 @@ function formatMusculoNombre(value) {
       "Deltoides posterior",
 
     trapecio_superior:
-      "Trapecio (fibras superiores)",
+      "Trapecio superior",
 
     trapecio_medio:
-      "Trapecio (fibras medias)",
+      "Trapecio medio",
 
     trapecio_inferior:
-      "Trapecio (fibras inferiores)",
+      "Trapecio inferior",
 
     infraespinoso:
       "Infraespinoso",
@@ -361,7 +363,7 @@ function formatMusculoNombre(value) {
       "Redondo menor",
 
     dorsal_ancho:
-      "Dorsal ancho (Latissimus dorsi)",
+      "Dorsal ancho",
 
     erector_columna:
       "Erector de la columna",
@@ -382,16 +384,16 @@ function formatMusculoNombre(value) {
       "Braquiorradial",
 
     extensores_muneca:
-      "Extensores de la muñeca",
+      "Extensores de muñeca",
 
     flexores_muneca:
-      "Flexores de la muñeca",
+      "Flexores de muñeca",
 
     recto_abdominal:
       "Recto abdominal",
 
     transverso_abdomen:
-      "Transverso del abdomen",
+      "Transverso abdominal",
 
     oblicuos:
       "Oblicuos",
@@ -403,7 +405,7 @@ function formatMusculoNombre(value) {
       "Sartorio",
 
     tensor_fascia_lata:
-      "Tensor de la fascia lata",
+      "Tensor fascia lata",
 
     aductor_largo:
       "Aductor largo",
@@ -433,16 +435,18 @@ function formatMusculoNombre(value) {
       "Grácil",
 
     gastrocnemio:
-      "Gastrocnemio (Gemelos)",
+      "Gastrocnemio",
 
     soleo:
       "Sóleo",
 
     tibial_anterior:
       "Tibial anterior"
+
   };
 
-  return nombres[value] || value;
+  return map[value] || value;
+
 }
 
 function abrirMusclePicker(target) {
