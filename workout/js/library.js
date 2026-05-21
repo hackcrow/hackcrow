@@ -941,7 +941,6 @@ function openViewLightbox(idx) {
       .join("");
 
   }
-console.log(ex);
 
   document.getElementById("viewContent").innerHTML = `
     <div class="view-image-wrap">
