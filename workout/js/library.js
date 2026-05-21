@@ -770,7 +770,13 @@ function openLightbox(idx) {
 }
 
 function closeLightbox() {
-  document.getElementById("lightboxOverlay").classList.remove("open");
+
+  clearFieldErrors();
+
+  document
+    .getElementById("lightboxOverlay")
+    .classList.remove("open");
+
 }
 
 function clearFieldErrors() {
