@@ -1147,7 +1147,7 @@ html, body {
 
   width:100%;
 
-  max-height:320px;
+  min-height:260px;
 
   border-radius:24px;
 
@@ -1165,15 +1165,19 @@ html, body {
 
   justify-content:center;
 
-  padding:18px;
+  padding:24px;
 
 }
 
 .view-image{
 
-  width:100%;
+  max-width:100%;
 
   max-height:280px;
+
+  width:auto;
+
+  height:auto;
 
   object-fit:contain;
 
