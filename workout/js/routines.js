@@ -377,13 +377,182 @@ function renderSelectorEjercicios(lista, existentes = []) {
 
                 orden: orden
               }
-            ]);
+function renderSelectorEjercicios(
+  lista,
+  existentes = []
+) {
 
-        if(error){
+  const box =
+    document.getElementById(
+      "exercisePickerList"
+    );
 
-          console.error(error);
+  box.innerHTML = lista.map(e => `
 
-          btn.dataset.loading = "false";
+    <div class="picker-row">
+
+      <div
+        class="picker-info"
+        data-id="${e.id}"
+      >
+
+        <div class="picker-name-en">
+          ${e.nombre_en || ""}
+        </div>
+
+        <div class="picker-name-es">
+          ${e.nombre || ""}
+        </div>
+
+      </div>
+
+      <button
+        class="picker-add-btn"
+        data-id="${e.id}"
+
+        ${existentes.includes(e.id)
+          ? "disabled"
+          : ""
+        }
+
+        style="
+          ${existentes.includes(e.id)
+
+            ? `
+              opacity:0.45;
+              pointer-events:none;
+              color:#00ff88;
+            `
+
+            : ""
+          }
+        "
+      >
+
+        ${
+          existentes.includes(e.id)
+
+            ? "✓"
+
+            : "＋"
+        }
+
+      </button>
+
+    </div>
+
+  `).join("");
+
+  /* =========================
+     VER DETALLE EJERCICIO
+  ========================= */
+
+  document
+    .querySelectorAll(".picker-info")
+    .forEach(item => {
+
+      item.onclick = () => {
+
+        const exId =
+          parseInt(item.dataset.id);
+
+        abrirVistaEjercicio(exId);
+
+      };
+
+    });
+
+  /* =========================
+     AGREGAR EJERCICIO
+  ========================= */
+
+  document
+    .querySelectorAll(
+      ".picker-add-btn"
+    )
+    .forEach(btn => {
+
+      btn.onclick = async (ev) => {
+
+        ev.stopPropagation();
+
+        const exerciseId =
+          parseInt(btn.dataset.id);
+
+        if(!rutinaActualId)
+          return;
+
+        /* evita doble click */
+
+        if(
+          btn.dataset.loading === "true"
+        ) return;
+
+        btn.dataset.loading = "true";
+
+        /* =========================
+           OBTENER ULTIMO ORDEN
+        ========================= */
+
+        const {
+          data:lastExercise
+        } = await routineClient
+
+          .from("routine_exercises")
+
+          .select("orden")
+
+          .eq(
+            "routine_id",
+            rutinaActualId
+          )
+
+          .order(
+            "orden",
+            { ascending:false }
+          )
+
+          .limit(1)
+
+          .maybeSingle();
+
+        const nuevoOrden =
+
+          lastExercise?.orden
+
+            ? lastExercise.orden + 1
+
+            : 1;
+
+        /* =========================
+           INSERT
+        ========================= */
+
+        const {
+          error:errorInsert
+        } = await routineClient
+
+          .from("routine_exercises")
+
+          .insert([
+            {
+              routine_id:
+                rutinaActualId,
+
+              exercise_id:
+                exerciseId,
+
+              orden:
+                nuevoOrden
+            }
+          ]);
+
+        if(errorInsert){
+
+          console.error(errorInsert);
+
+          btn.dataset.loading =
+            "false";
 
           alert(
             "No se pudo agregar"
