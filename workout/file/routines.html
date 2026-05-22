@@ -316,51 +316,55 @@
 
   <!-- REST TIMER LIGHTBOX -->
 
-<div id="restTimerOverlay"
-  class="lightbox-overlay">
-
-  <div class="lightbox-card"
-    style="max-width:360px;">
-
-    <div class="lightbox-header">
-      <h2>Temporizador</h2>
+  <div id="restTimerOverlay"
+    class="lightbox-overlay">
+  
+    <div class="lightbox-card"
+      style="max-width:360px;">
+  
+      <div class="lightbox-header">
+        <h2>Temporizador</h2>
+      </div>
+  
+      <div class="lightbox-body">
+  
+        <div class="rest-select-wrap">
+  
+          <select id="restTimerSelect">
+  
+            <option value="Apagado">
+              Apagado
+            </option>
+  
+          </select>
+  
+        </div>
+  
+      </div>
+  
+      <div class="lightbox-actions">
+  
+        <button
+          id="restTimerCancel"
+          class="btn btn-ghost">
+  
+          Cancelar
+  
+        </button>
+  
+        <button
+          id="restTimerOk"
+          class="btn">
+  
+          OK
+  
+        </button>
+  
+      </div>
+  
     </div>
-
-    <div class="lightbox-body">
-
-      <select id="restTimerSelect">
-
-        <option value="Apagado">
-          Apagado
-        </option>
-
-      </select>
-
-    </div>
-
-    <div class="lightbox-actions">
-
-      <button
-        id="restTimerCancel"
-        class="btn btn-ghost">
-
-        Cancelar
-
-      </button>
-
-      <button
-        id="restTimerOk"
-        class="btn">
-
-        OK
-
-      </button>
-
-    </div>
-
+  
   </div>
-
-</div>
 
   <!-- SCRIPTS -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
