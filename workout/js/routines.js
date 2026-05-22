@@ -357,7 +357,7 @@ function renderSelectorEjercicios(
         btn.dataset.loading = "true";
 
         /* =========================
-           OBTENER ULTIMO ORDEN
+           OBTENER ÚLTIMO ORDEN
         ========================= */
 
         const {
