@@ -9,6 +9,8 @@ const routineClient = window.supabase.createClient(
 let rutinas = [];
 let rutinaActualId = null;
 
+let currentRestExerciseId = null;
+
 let ejerciciosDisponibles = [];
 let currentRestButton = null;
 
@@ -433,6 +435,7 @@ async function cargarEjerciciosDeRutina(rutinaId) {
   const { data, error } = await routineClient
     .from("routine_exercises")
     .select(`
+      id,
       exercise_id,
       rest_time,
       exercises (
@@ -514,7 +517,7 @@ async function cargarEjerciciosDeRutina(rutinaId) {
 
               <button
                 class="rest-time-btn"
-                data-exercise="${item.exercise_id}"
+                data-routine-exercise="${item.id}"
               >
 
                 ${item.rest_time || "Apagado"}
@@ -770,23 +773,65 @@ function fillRestTimerOptions(){
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+
   cargarRutinas();
 
-  const addBtn = document.getElementById("addRoutineBtn");
-  const cancelBtn = document.getElementById("rtCancel");
-  const saveBtn = document.getElementById("rtSave");
+  const addBtn =
+    document.getElementById(
+      "addRoutineBtn"
+    );
 
-  if (addBtn) addBtn.addEventListener("click", abrirRoutineLightbox);
-  if (cancelBtn) cancelBtn.addEventListener("click", cerrarRoutineLightbox);
-  if (saveBtn) saveBtn.addEventListener("click", guardarRutina);
+  const cancelBtn =
+    document.getElementById(
+      "rtCancel"
+    );
 
-  const closeView = document.getElementById("viewRoutineClose");
-  if (closeView) closeView.addEventListener("click", cerrarDetalleRutina);
+  const saveBtn =
+    document.getElementById(
+      "rtSave"
+    );
 
-  const addExerciseClose = document.getElementById("addExerciseClose");
-  if (addExerciseClose) addExerciseClose.addEventListener("click", cerrarSelectorEjercicios);
+  if (addBtn)
+    addBtn.addEventListener(
+      "click",
+      abrirRoutineLightbox
+    );
 
-    /* =========================
+  if (cancelBtn)
+    cancelBtn.addEventListener(
+      "click",
+      cerrarRoutineLightbox
+    );
+
+  if (saveBtn)
+    saveBtn.addEventListener(
+      "click",
+      guardarRutina
+    );
+
+  const closeView =
+    document.getElementById(
+      "viewRoutineClose"
+    );
+
+  if (closeView)
+    closeView.addEventListener(
+      "click",
+      cerrarDetalleRutina
+    );
+
+  const addExerciseClose =
+    document.getElementById(
+      "addExerciseClose"
+    );
+
+  if (addExerciseClose)
+    addExerciseClose.addEventListener(
+      "click",
+      cerrarSelectorEjercicios
+    );
+
+  /* =========================
      REST TIMER
   ========================= */
 
@@ -807,14 +852,16 @@ document.addEventListener("DOMContentLoaded", () => {
       "restTimerOk"
     );
 
-  // ABRIR LIGHTBOX
+  /* OPEN */
 
   document.addEventListener(
     "click",
     (e) => {
 
       const btn =
-        e.target.closest(".rest-time-btn");
+        e.target.closest(
+          ".rest-time-btn"
+        );
 
       if(!btn) return;
 
@@ -832,62 +879,66 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   );
 
-  // CANCELAR
+  /* CANCEL */
 
   if(restCancel){
 
-    restCancel.addEventListener(
-      "click",
-      () => {
+    restCancel.onclick = () => {
 
-        restOverlay.classList.remove("open");
+      restOverlay.classList.remove("open");
 
-      }
-    );
+    };
 
   }
 
-  // GUARDAR
+  /* SAVE */
 
   if(restOk){
 
-    restOk.addEventListener(
-      "click",
-      async () => {
+    restOk.onclick = async () => {
 
-        if(!currentRestButton) return;
+      if(!currentRestButton)
+        return;
 
-        const value =
-          document.getElementById(
-            "restTimerSelect"
-          ).value;
+      const value =
+        document.getElementById(
+          "restTimerSelect"
+        ).value;
 
-        currentRestButton.textContent =
-          value;
+      const routineExerciseId =
+        currentRestButton.dataset
+          .routineExercise;
 
-        const exerciseId =
-          currentRestButton.dataset.exercise;
-
-        // guardar en supabase
-
+      const { error } =
         await routineClient
           .from("routine_exercises")
           .update({
             rest_time:value
           })
           .eq(
-            "routine_id",
-            rutinaActualId
-          )
-          .eq(
-            "exercise_id",
-            exerciseId
+            "id",
+            routineExerciseId
           );
 
-        restOverlay.classList.remove("open");
+      if(error){
+
+        console.error(error);
+
+        alert(
+          "No se pudo guardar"
+        );
+
+        return;
 
       }
-    );
+
+      currentRestButton.textContent =
+        value;
+
+      restOverlay.classList.remove("open");
+
+    };
 
   }
+
 });
