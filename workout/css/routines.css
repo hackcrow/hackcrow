@@ -664,3 +664,53 @@
   transform:translateY(-2px);
 
 }
+
+/* REST TIMER */
+
+.exercise-rest-timer{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+  margin-bottom:14px;
+
+}
+
+.rest-label{
+
+  font-size:.78rem;
+
+  color:var(--text-dim);
+
+}
+
+.rest-time-btn{
+
+  border:none;
+
+  background:rgba(0,255,136,.08);
+
+  color:#00ff88;
+
+  border:1px solid rgba(0,255,136,.18);
+
+  padding:7px 12px;
+
+  border-radius:999px;
+
+  cursor:pointer;
+
+  font-size:.78rem;
+
+  transition:.18s;
+
+}
+
+.rest-time-btn:hover{
+
+  background:rgba(0,255,136,.14);
+
+}
