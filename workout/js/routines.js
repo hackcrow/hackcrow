@@ -388,6 +388,7 @@ async function agregarEjercicioARutina(exerciseId) {
 }
 
 async function cargarEjerciciosDeRutina(rutinaId) {
+
   const { data, error } = await routineClient
     .from("routine_exercises")
     .select(`
@@ -402,45 +403,122 @@ async function cargarEjerciciosDeRutina(rutinaId) {
     .eq("routine_id", rutinaId);
 
   if (error) {
+
     console.error(error);
+
     return;
+
   }
 
-  const box = document.getElementById("routineExerciseList");
+  const box =
+    document.getElementById(
+      "routineExerciseList"
+    );
 
   if (!box) return;
 
   box.innerHTML = (data || []).length
+
     ? data.map(item => `
-        <div class="routine-ex-item" style="
-          padding:10px 12px;
-          border:1px solid var(--border-soft);
-          border-radius:12px;
-          margin-bottom:8px;
-          background:rgba(255,255,255,0.02);
-        ">
-          <div style="color:#00ff88;font-size:0.84rem;">
-            ${item.exercises?.nombre_en || ""}
+
+        <div class="routine-ex-item">
+
+          <!-- HEADER -->
+
+          <div class="routine-ex-header">
+
+            <div>
+
+              <div class="routine-ex-name">
+                ${item.exercises?.nombre_en || ""}
+              </div>
+
+              <div class="routine-ex-equipment">
+                ${formatValue(
+                  item.exercises?.equipo
+                ) || "Sin equipo"}
+              </div>
+
+            </div>
+
           </div>
 
-          <div style="
-            color:var(--text-muted);
-            font-size:0.78rem;
-            margin-top:2px;
-          ">
-            ${formatValue(item.exercises?.equipo) || "Sin equipo"}
+          <!-- TABLA -->
+
+          <div class="routine-sets-table-wrap">
+
+            <table class="routine-sets-table">
+
+              <thead>
+
+                <tr>
+
+                  <th>Set</th>
+
+                  <th>Anterior</th>
+
+                  <th>Lbs</th>
+
+                  <th>Reps</th>
+
+                </tr>
+
+              </thead>
+
+              <tbody>
+
+                <tr>
+
+                  <td class="set-number">
+                    1
+                  </td>
+
+                  <td class="set-prev">
+                    —
+                  </td>
+
+                  <td>
+
+                    <input
+                      type="number"
+                      class="set-input"
+                      placeholder="0"
+                    >
+
+                  </td>
+
+                  <td>
+
+                    <input
+                      type="number"
+                      class="set-input"
+                      placeholder="0"
+                    >
+
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
           </div>
+
         </div>
+
       `).join("")
+
     : `
-      <div style="
-        color:var(--text-dim);
-        font-size:0.82rem;
-        margin-top:8px;
-      ">
+
+      <div class="routine-empty">
+
         Sin ejercicios aún
+
       </div>
+
     `;
+
 }
 
 document.addEventListener("DOMContentLoaded", () => {
