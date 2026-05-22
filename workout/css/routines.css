@@ -365,3 +365,154 @@
   color: var(--accent);
   text-decoration: none;
 }
+
+/* EXERCISE CARD */
+
+.routine-ex-item{
+
+  padding:16px;
+
+  border:1px solid var(--border-soft);
+
+  border-radius:18px;
+
+  margin-bottom:14px;
+
+  background:rgba(255,255,255,.02);
+
+}
+
+/* HEADER */
+
+.routine-ex-header{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  margin-bottom:14px;
+
+}
+
+.routine-ex-name{
+
+  color:#00ff88;
+
+  font-size:.92rem;
+
+  font-weight:600;
+
+}
+
+.routine-ex-equipment{
+
+  margin-top:4px;
+
+  color:var(--text-muted);
+
+  font-size:.76rem;
+
+}
+
+/* TABLE */
+
+.routine-sets-table{
+
+  width:100%;
+
+  border-collapse:collapse;
+
+}
+
+.routine-sets-table th{
+
+  text-align:left;
+
+  font-size:.72rem;
+
+  color:var(--text-dim);
+
+  font-weight:500;
+
+  padding-bottom:10px;
+
+}
+
+.routine-sets-table td{
+
+  padding:8px 0;
+
+}
+
+/* SET NUMBER */
+
+.set-number{
+
+  color:#fff;
+
+  font-weight:600;
+
+  width:50px;
+
+}
+
+/* PREVIOUS */
+
+.set-prev{
+
+  color:var(--text-muted);
+
+  font-size:.8rem;
+
+  width:110px;
+
+}
+
+/* INPUT */
+
+.set-input{
+
+  width:72px;
+
+  height:38px;
+
+  border-radius:12px;
+
+  border:1px solid var(--border-soft);
+
+  background:rgba(255,255,255,.03);
+
+  color:#fff;
+
+  padding:0 10px;
+
+  font-size:.88rem;
+
+  outline:none;
+
+  transition:.18s;
+
+}
+
+.set-input:focus{
+
+  border-color:#00ff88;
+
+  box-shadow:
+    0 0 0 3px rgba(0,255,136,.12);
+
+}
+
+/* EMPTY */
+
+.routine-empty{
+
+  color:var(--text-dim);
+
+  font-size:.82rem;
+
+  margin-top:8px;
+
+}
