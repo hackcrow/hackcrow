@@ -178,6 +178,7 @@
 }
 
 .lightbox-card {
+  position:relative;
 
   width:100%;
 
