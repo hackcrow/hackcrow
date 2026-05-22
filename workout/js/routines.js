@@ -151,6 +151,47 @@ async function abrirDetalleRutina(id) {
     .getElementById("addExerciseToRoutine")
     .addEventListener("click", abrirSelectorEjercicios);
 
+  const scrollBtn =
+  document.getElementById(
+    "routineScrollTop"
+  );
+
+const content =
+  document.getElementById(
+    "viewRoutineContent"
+  );
+
+if (scrollBtn && content) {
+
+  content.addEventListener(
+    "scroll",
+    () => {
+
+      scrollBtn.style.display =
+
+        content.scrollTop > 250
+
+          ? "block"
+
+          : "none";
+
+    }
+  );
+
+  scrollBtn.onclick = () => {
+
+    content.scrollTo({
+
+      top:0,
+
+      behavior:"smooth"
+
+    });
+
+  };
+
+}
+
   await cargarEjerciciosDeRutina(id);
 }
 
