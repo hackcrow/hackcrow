@@ -384,6 +384,7 @@ async function agregarEjercicioARutina(exerciseId) {
   cerrarSelectorEjercicios();
   abrirDetalleRutina(rutinaActualId);
    await cargarEjerciciosDeRutina(rutinaActualId);
+   await cargarRutinas();
 }
 
 async function cargarEjerciciosDeRutina(rutinaId) {
