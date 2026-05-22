@@ -714,3 +714,98 @@
   background:rgba(0,255,136,.14);
 
 }
+
+/* =========================
+   REST TIMER SELECT
+========================= */
+
+#restTimerSelect{
+
+  width:100%;
+
+  height:46px;
+
+  padding:0 14px;
+
+  border-radius:14px;
+
+  border:1px solid rgba(255,255,255,.08);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.04),
+      rgba(255,255,255,.02)
+    );
+
+  color:#fff;
+
+  font-size:.92rem;
+
+  outline:none;
+
+  appearance:none;
+
+  -webkit-appearance:none;
+
+  transition:.18s;
+
+  cursor:pointer;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.03);
+
+}
+
+/* FOCUS */
+
+#restTimerSelect:focus{
+
+  border-color:#00ff88;
+
+  box-shadow:
+    0 0 0 4px rgba(0,255,136,.10);
+
+}
+
+/* OPTIONS */
+
+#restTimerSelect option{
+
+  background:#111;
+
+  color:#fff;
+
+}
+
+/* WRAP */
+
+.rest-select-wrap{
+
+  position:relative;
+
+  margin-top:16px;
+
+}
+
+/* CUSTOM ARROW */
+
+.rest-select-wrap::after{
+
+  content:"⌄";
+
+  position:absolute;
+
+  right:14px;
+
+  top:50%;
+
+  transform:translateY(-52%);
+
+  color:#00ff88;
+
+  pointer-events:none;
+
+  font-size:.9rem;
+
+}
