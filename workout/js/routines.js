@@ -419,13 +419,16 @@ async function cargarEjerciciosDeRutina(rutinaId) {
 
   box.innerHTML = (data || []).length
 
-    ? data.map(item => `
+    ? data.map((item, index) => `
 
         <div class="routine-ex-item">
 
           <!-- HEADER -->
 
-          <div class="routine-ex-header">
+          <div
+            class="routine-ex-header clickable"
+            data-accordion="${index}"
+          >
 
             <div>
 
@@ -441,67 +444,94 @@ async function cargarEjerciciosDeRutina(rutinaId) {
 
             </div>
 
+            <div class="accordion-arrow">
+              ▾
+            </div>
+
           </div>
 
-          <!-- TABLA -->
+          <!-- CONTENT -->
 
-          <div class="routine-sets-table-wrap">
+          <div
+            class="
+              routine-ex-content
+              ${index === 0 ? "open" : ""}
+            "
+            id="accordion-${index}"
+          >
 
-            <table class="routine-sets-table">
+            <div class="routine-sets-table-wrap">
 
-              <thead>
+              <table class="routine-sets-table">
 
-                <tr>
+                <thead>
 
-                  <th>Set</th>
+                  <tr>
 
-                  <th>Anterior</th>
+                    <th>Set</th>
 
-                  <th>Lbs</th>
+                    <th>Anterior</th>
 
-                  <th>Reps</th>
+                    <th>Lbs</th>
 
-                </tr>
+                    <th>Reps</th>
 
-              </thead>
+                  </tr>
 
-              <tbody>
+                </thead>
 
-                <tr>
+                <tbody
+                  id="sets-body-${index}"
+                >
 
-                  <td class="set-number">
-                    1
-                  </td>
+                  <tr>
 
-                  <td class="set-prev">
-                    —
-                  </td>
+                    <td class="set-number">
+                      1
+                    </td>
 
-                  <td>
+                    <td class="set-prev">
+                      —
+                    </td>
 
-                    <input
-                      type="number"
-                      class="set-input"
-                      placeholder="0"
-                    >
+                    <td>
 
-                  </td>
+                      <input
+                        type="number"
+                        class="set-input"
+                        placeholder="0"
+                      >
 
-                  <td>
+                    </td>
 
-                    <input
-                      type="number"
-                      class="set-input"
-                      placeholder="0"
-                    >
+                    <td>
 
-                  </td>
+                      <input
+                        type="number"
+                        class="set-input"
+                        placeholder="0"
+                      >
 
-                </tr>
+                    </td>
 
-              </tbody>
+                  </tr>
 
-            </table>
+                </tbody>
+
+              </table>
+
+            </div>
+
+            <!-- ADD SET -->
+
+            <button
+              class="add-set-btn"
+              data-set="${index}"
+            >
+
+              + Add Set
+
+            </button>
 
           </div>
 
@@ -518,6 +548,111 @@ async function cargarEjerciciosDeRutina(rutinaId) {
       </div>
 
     `;
+
+  /* =========================
+     ACCORDION
+  ========================= */
+
+  document
+    .querySelectorAll(".clickable")
+    .forEach(header => {
+
+      header.addEventListener(
+        "click",
+        () => {
+
+          const id =
+            header.dataset.accordion;
+
+          document
+            .querySelectorAll(
+              ".routine-ex-content"
+            )
+            .forEach(el => {
+
+              el.classList.remove("open");
+
+            });
+
+          document
+            .getElementById(
+              `accordion-${id}`
+            )
+            .classList.add("open");
+
+        }
+      );
+
+    });
+
+  /* =========================
+     ADD SET
+  ========================= */
+
+  document
+    .querySelectorAll(".add-set-btn")
+    .forEach(btn => {
+
+      btn.addEventListener(
+        "click",
+        () => {
+
+          const idx =
+            btn.dataset.set;
+
+          const tbody =
+            document.getElementById(
+              `sets-body-${idx}`
+            );
+
+          const setCount =
+            tbody.querySelectorAll("tr")
+              .length + 1;
+
+          tbody.insertAdjacentHTML(
+            "beforeend",
+
+            `
+
+            <tr>
+
+              <td class="set-number">
+                ${setCount}
+              </td>
+
+              <td class="set-prev">
+                —
+              </td>
+
+              <td>
+
+                <input
+                  type="number"
+                  class="set-input"
+                  placeholder="0"
+                >
+
+              </td>
+
+              <td>
+
+                <input
+                  type="number"
+                  class="set-input"
+                  placeholder="0"
+                >
+
+              </td>
+
+            </tr>
+
+            `
+          );
+
+        }
+      );
+
+    });
 
 }
 
