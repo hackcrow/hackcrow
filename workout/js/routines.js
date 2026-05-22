@@ -244,7 +244,10 @@ function cerrarSelectorEjercicios() {
   document.getElementById("addExerciseOverlay").classList.remove("open");
 }
 
-function renderSelectorEjercicios(lista, existentes = []) {
+function renderSelectorEjercicios(
+  lista,
+  existentes = []
+) {
 
   const box =
     document.getElementById(
@@ -297,143 +300,6 @@ function renderSelectorEjercicios(lista, existentes = []) {
         ${
           existentes.includes(e.id)
             ? "✓"
-            : "＋"
-        }
-
-      </button>
-
-    </div>
-
-  `).join("");
-
-  /* =========================
-     VER DETALLE EJERCICIO
-  ========================= */
-
-  document
-    .querySelectorAll(".picker-info")
-    .forEach(item => {
-
-      item.onclick = () => {
-
-        const exId =
-          parseInt(item.dataset.id);
-
-        abrirVistaEjercicio(exId);
-
-      };
-
-    });
-
-  /* =========================
-     AGREGAR EJERCICIO
-  ========================= */
-
-  document
-    .querySelectorAll(".picker-add-btn")
-    .forEach(btn => {
-
-      btn.onclick = async (ev) => {
-
-        ev.stopPropagation();
-
-        const exerciseId =
-          parseInt(btn.dataset.id);
-
-        if(!rutinaActualId)
-          return;
-
-        // evita doble click
-
-        if(
-          btn.dataset.loading === "true"
-        ) return;
-
-        btn.dataset.loading = "true";
-
-        /* =========================
-           ORDEN AUTOMÁTICO
-        ========================= */
-
-        const orden =
-          document.querySelectorAll(
-            ".routine-ex-item"
-          ).length + 1;
-
-        /* =========================
-           INSERT
-        ========================= */
-
-        const { error } =
-          await routineClient
-            .from("routine_exercises")
-            .insert([
-              {
-                routine_id:
-                  rutinaActualId,
-
-                exercise_id:
-                  exerciseId,
-
-                orden: orden
-              }
-function renderSelectorEjercicios(
-  lista,
-  existentes = []
-) {
-
-  const box =
-    document.getElementById(
-      "exercisePickerList"
-    );
-
-  box.innerHTML = lista.map(e => `
-
-    <div class="picker-row">
-
-      <div
-        class="picker-info"
-        data-id="${e.id}"
-      >
-
-        <div class="picker-name-en">
-          ${e.nombre_en || ""}
-        </div>
-
-        <div class="picker-name-es">
-          ${e.nombre || ""}
-        </div>
-
-      </div>
-
-      <button
-        class="picker-add-btn"
-        data-id="${e.id}"
-
-        ${existentes.includes(e.id)
-          ? "disabled"
-          : ""
-        }
-
-        style="
-          ${existentes.includes(e.id)
-
-            ? `
-              opacity:0.45;
-              pointer-events:none;
-              color:#00ff88;
-            `
-
-            : ""
-          }
-        "
-      >
-
-        ${
-          existentes.includes(e.id)
-
-            ? "✓"
-
             : "＋"
         }
 
