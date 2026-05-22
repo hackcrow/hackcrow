@@ -411,12 +411,18 @@ function formatValue(value) {
 
 async function agregarEjercicioARutina(exerciseId) {
   const { error } = await routineClient
+    const orden =
+    ejerciciosExistentes.length + 1;
+  
+  const { error } = await routineClient
     .from("routine_exercises")
-    .insert([{
-      routine_id: rutinaActualId,
-      exercise_id: exerciseId,
-      orden: 1
-    }]);
+    .insert([
+      {
+        routine_id: rutinaActualId,
+        exercise_id: exerciseId,
+        orden: orden
+      }
+    ]);
 
   if (error) {
     console.error(error);
@@ -445,7 +451,8 @@ async function cargarEjerciciosDeRutina(rutinaId) {
         equipo
       )
     `)
-    .eq("routine_id", rutinaId);
+    .eq("routine_id", rutinaId)
+    .order("orden", { ascending:true });
 
   if (error) {
 
