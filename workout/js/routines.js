@@ -10,7 +10,7 @@ let rutinas = [];
 let rutinaActualId = null;
 
 let ejerciciosDisponibles = [];
-
+let currentRestButton = null;
 
 async function cargarRutinas() {
   const loading = document.getElementById("loadingRoutines");
@@ -434,6 +434,7 @@ async function cargarEjerciciosDeRutina(rutinaId) {
     .from("routine_exercises")
     .select(`
       exercise_id,
+      rest_time,
       exercises (
         id,
         nombre,
@@ -500,6 +501,29 @@ async function cargarEjerciciosDeRutina(rutinaId) {
             "
             id="accordion-${index}"
           >
+
+            <!-- REST TIMER -->
+
+            <div class="exercise-rest-timer">
+
+              <span class="rest-label">
+
+                Temporizador de descanso:
+
+              </span>
+
+              <button
+                class="rest-time-btn"
+                data-exercise="${item.exercise_id}"
+              >
+
+                ${item.rest_time || "Apagado"}
+
+              </button>
+
+            </div>
+
+            <!-- TABLE -->
 
             <div class="routine-sets-table-wrap">
 
@@ -697,6 +721,54 @@ async function cargarEjerciciosDeRutina(rutinaId) {
 
 }
 
+function fillRestTimerOptions(){
+
+  const select =
+    document.getElementById(
+      "restTimerSelect"
+    );
+
+  if(!select) return;
+
+  select.innerHTML = `
+    <option value="Apagado">
+      Apagado
+    </option>
+  `;
+
+  for(let i = 5; i <= 150; i += 5){
+
+    const min =
+      Math.floor(i / 60);
+
+    const sec =
+      i % 60;
+
+    let label = "";
+
+    if(min > 0){
+
+      label += `${min}min`;
+
+    }
+
+    if(sec > 0){
+
+      label +=
+        `${min > 0 ? " " : ""}${sec}s`;
+
+    }
+
+    select.innerHTML += `
+      <option value="${label}">
+        ${label}
+      </option>
+    `;
+
+  }
+
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   cargarRutinas();
 
@@ -713,4 +785,109 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const addExerciseClose = document.getElementById("addExerciseClose");
   if (addExerciseClose) addExerciseClose.addEventListener("click", cerrarSelectorEjercicios);
+
+    /* =========================
+     REST TIMER
+  ========================= */
+
+  fillRestTimerOptions();
+
+  const restOverlay =
+    document.getElementById(
+      "restTimerOverlay"
+    );
+
+  const restCancel =
+    document.getElementById(
+      "restTimerCancel"
+    );
+
+  const restOk =
+    document.getElementById(
+      "restTimerOk"
+    );
+
+  // ABRIR LIGHTBOX
+
+  document.addEventListener(
+    "click",
+    (e) => {
+
+      const btn =
+        e.target.closest(".rest-time-btn");
+
+      if(!btn) return;
+
+      currentRestButton = btn;
+
+      const currentValue =
+        btn.textContent.trim();
+
+      document.getElementById(
+        "restTimerSelect"
+      ).value = currentValue;
+
+      restOverlay.classList.add("open");
+
+    }
+  );
+
+  // CANCELAR
+
+  if(restCancel){
+
+    restCancel.addEventListener(
+      "click",
+      () => {
+
+        restOverlay.classList.remove("open");
+
+      }
+    );
+
+  }
+
+  // GUARDAR
+
+  if(restOk){
+
+    restOk.addEventListener(
+      "click",
+      async () => {
+
+        if(!currentRestButton) return;
+
+        const value =
+          document.getElementById(
+            "restTimerSelect"
+          ).value;
+
+        currentRestButton.textContent =
+          value;
+
+        const exerciseId =
+          currentRestButton.dataset.exercise;
+
+        // guardar en supabase
+
+        await routineClient
+          .from("routine_exercises")
+          .update({
+            rest_time:value
+          })
+          .eq(
+            "routine_id",
+            rutinaActualId
+          )
+          .eq(
+            "exercise_id",
+            exerciseId
+          );
+
+        restOverlay.classList.remove("open");
+
+      }
+    );
+
+  }
 });
