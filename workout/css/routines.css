@@ -516,3 +516,61 @@
   margin-top:8px;
 
 }
+
+/* CLICKABLE HEADER */
+
+.clickable{
+
+  cursor:pointer;
+
+}
+
+/* CONTENT */
+
+.routine-ex-content{
+
+  display:none;
+
+}
+
+.routine-ex-content.open{
+
+  display:block;
+
+}
+
+/* ARROW */
+
+.accordion-arrow{
+
+  color:var(--text-muted);
+
+  font-size:1rem;
+
+}
+
+/* ADD SET */
+
+.add-set-btn{
+
+  margin-top:14px;
+
+  border:none;
+
+  background:transparent;
+
+  color:#00ff88;
+
+  font-size:.82rem;
+
+  cursor:pointer;
+
+  padding:0;
+
+}
+
+.add-set-btn:hover{
+
+  opacity:.7;
+
+}
