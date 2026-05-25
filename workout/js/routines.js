@@ -577,391 +577,394 @@ async function agregarEjercicioARutina(exerciseId) {
 
 async function cargarEjerciciosDeRutina(rutinaId) {
 
-   const { data, error } = await routineClient
+  const { data, error } = await routineClient
 
-      .from("routine_exercises")
-    
-      .select(`
+    .from("routine_exercises")
+
+    .select(`
+      id,
+      exercise_id,
+      rest_time,
+
+      exercises (
         id,
-        exercise_id,
-        rest_time,
-    
-        exercises (
-          id,
-          nombre,
-          nombre_en,
-          equipo
-        ),
-    
-        routine_sets (
-          id,
-          set_number,
-          weight,
-          reps
-        )
-      `)
-    
-      .eq(
-        "routine_id",
-        rutinaId
+        nombre,
+        nombre_en,
+        equipo
+      ),
+
+      routine_sets (
+        id,
+        set_number,
+        weight,
+        reps
       )
-    
-      .order(
-        "orden",
-        { ascending:true }
-      );
-  
-    if (error) {
-  
-      console.error(error);
-  
-      return;
-  
-    }
-  
-    const box =
-      document.getElementById(
-        "routineExerciseList"
-      );
-  
-    if (!box) return;
-  
-    box.innerHTML = (data || []).length
-  
-      ? data.map((item, index) => `
-  
-          <div class="routine-ex-item">
-  
-            <!-- HEADER -->
-  
-            <div
-              class="routine-ex-header clickable"
-              data-accordion="${index}"
-            >
-  
-              <div>
-  
-                <div class="routine-ex-name">
-                  ${item.exercises?.nombre_en || ""}
-                </div>
-  
-                <div class="routine-ex-equipment">
-                  ${formatValue(
-                    item.exercises?.equipo
-                  ) || "Sin equipo"}
-                </div>
-  
+    `)
+
+    .eq(
+      "routine_id",
+      rutinaId
+    )
+
+    .order(
+      "orden",
+      { ascending:true }
+    );
+
+  if (error) {
+
+    console.error(error);
+
+    return;
+
+  }
+
+  const box =
+    document.getElementById(
+      "routineExerciseList"
+    );
+
+  if (!box) return;
+
+  box.innerHTML = (data || []).length
+
+    ? data.map((item, index) => `
+
+        <div class="routine-ex-item">
+
+          <!-- HEADER -->
+
+          <div
+            class="routine-ex-header clickable"
+            data-accordion="${index}"
+          >
+
+            <div>
+
+              <div class="routine-ex-name">
+                ${item.exercises?.nombre_en || ""}
               </div>
-  
-              <div class="accordion-arrow">
-                ▾
+
+              <div class="routine-ex-equipment">
+                ${formatValue(
+                  item.exercises?.equipo
+                ) || "Sin equipo"}
               </div>
-  
+
             </div>
-  
-            <!-- CONTENT -->
-  
-            <div
-              class="
-                routine-ex-content
-                ${index === 0 ? "open" : ""}
-              "
-              id="accordion-${index}"
-            >
-  
-              <!-- REST TIMER -->
-  
-              <div class="exercise-rest-timer">
-  
-                <span class="rest-label">
-  
-                  Temporizador de descanso:
-  
-                </span>
-  
-                <button
-                  class="rest-time-btn"
-                  data-routine-exercise="${item.id}"
-                >
-  
-                  ${item.rest_time || "Apagado"}
-  
-                </button>
-  
-              </div>
-  
-              <!-- TABLE -->
-  
-              <div class="routine-sets-table-wrap">
-  
-                <table class="routine-sets-table">
-  
-                  <thead>
-  
-                    <tr>
-  
-                      <th>Set</th>
-  
-                      <th>Anterior</th>
-  
-                      <th>Lbs</th>
-  
-                      <th>Reps</th>
-  
-                    </tr>
-  
-                  </thead>
-  
-                  <tbody
-                    id="sets-body-${index}"
-                  >
-                  
-                    ${(item.routine_sets || [])
-                  
-                      .sort(
-                        (a,b) =>
-                          a.set_number - b.set_number
-                      )
-                  
-                      .map(set => `
-                  
-                        <tr>
-                  
-                          <td class="set-number">
-                            ${set.set_number}
-                          </td>
-                  
-                          <td class="set-prev">
-                            —
-                          </td>
-                  
-                          <td>
-                  
-                            <input
-                              type="number"
-                              class="set-input set-weight"
-                              data-set-id="${set.id}"
-                              value="${set.weight || 0}"
-                              placeholder="0"
-                            >
-                  
-                          </td>
-                  
-                          <td>
-                  
-                            <input
-                              type="number"
-                              class="set-input set-reps"
-                              data-set-id="${set.id}"
-                              value="${set.reps || 0}"
-                              placeholder="0"
-                            >
-                  
-                          </td>
-                  
-                        </tr>
-                  
-                      `).join("")}
-                  
-                  </tbody>
-  
-                </table>
-  
-              </div>
-  
-              <!-- ADD SET -->
-  
-              <button
-                class="add-set-btn"
-                data-set="${index}"
-              >
-  
-                + Add Set
-  
-              </button>
-  
+
+            <div class="accordion-arrow">
+              ▾
             </div>
-  
+
           </div>
-  
-        `).join("")
-  
-      : `
-  
-        <div class="routine-empty">
-  
-          Sin ejercicios aún
-  
+
+          <!-- CONTENT -->
+
+          <div
+            class="
+              routine-ex-content
+              ${index === 0 ? "open" : ""}
+            "
+            id="accordion-${index}"
+          >
+
+            <!-- REST TIMER -->
+
+            <div class="exercise-rest-timer">
+
+              <span class="rest-label">
+                Temporizador de descanso:
+              </span>
+
+              <button
+                class="rest-time-btn"
+                data-routine-exercise="${item.id}"
+              >
+
+                ${item.rest_time || "Apagado"}
+
+              </button>
+
+            </div>
+
+            <!-- TABLE -->
+
+            <div class="routine-sets-table-wrap">
+
+              <table class="routine-sets-table">
+
+                <thead>
+
+                  <tr>
+
+                    <th>Set</th>
+
+                    <th>Anterior</th>
+
+                    <th>Lbs</th>
+
+                    <th>Reps</th>
+
+                  </tr>
+
+                </thead>
+
+                <tbody
+                  id="sets-body-${index}"
+                >
+
+                  ${(item.routine_sets || [])
+
+                    .sort(
+                      (a,b) =>
+                        a.set_number - b.set_number
+                    )
+
+                    .map(set => `
+
+                      <tr>
+
+                        <td class="set-number">
+                          ${set.set_number}
+                        </td>
+
+                        <td class="set-prev">
+                          —
+                        </td>
+
+                        <td>
+
+                          <input
+                            type="number"
+                            class="
+                              set-input
+                              set-weight-input
+                            "
+                            data-set-id="${set.id}"
+                            value="${set.weight || 0}"
+                            placeholder="0"
+                          >
+
+                        </td>
+
+                        <td>
+
+                          <input
+                            type="number"
+                            class="
+                              set-input
+                              set-reps-input
+                            "
+                            data-set-id="${set.id}"
+                            value="${set.reps || 0}"
+                            placeholder="0"
+                          >
+
+                        </td>
+
+                      </tr>
+
+                    `).join("")}
+
+                </tbody>
+
+              </table>
+
+            </div>
+
+            <!-- ADD SET -->
+
+            <button
+              class="add-set-btn"
+              data-set="${index}"
+              data-routine-exercise="${item.id}"
+            >
+
+              + Add Set
+
+            </button>
+
+          </div>
+
         </div>
-  
-      `;
-  
-    /* =========================
-       ACCORDION
-    ========================= */
-  
-    document
-      .querySelectorAll(".clickable")
-      .forEach(header => {
-  
-        header.addEventListener(
-          "click",
-          () => {
-  
-            const id =
-              header.dataset.accordion;
-  
-            document
-              .querySelectorAll(
-                ".routine-ex-content"
-              )
-              .forEach(el => {
-  
-                el.classList.remove("open");
-  
-              });
-  
-            document
-              .getElementById(
-                `accordion-${id}`
-              )
-              .classList.add("open");
-  
-          }
-        );
-  
-      });
-  
-    /* =========================
-       ADD SET
-    ========================= */
-  
-    document
-      .querySelectorAll(".add-set-btn")
-      .forEach(btn => {
-  
-        btn.addEventListener(
-          "click",
-          () => {
-  
-            const idx =
-              btn.dataset.set;
-  
-            const tbody =
-              document.getElementById(
-                `sets-body-${idx}`
-              );
-  
-            const setCount =
-              tbody.querySelectorAll("tr")
-                .length + 1;
-  
-            tbody.insertAdjacentHTML(
-              "beforeend",
-  
-              `
-  
-              <tr>
-  
-                <td class="set-number">
-                  ${setCount}
-                </td>
-  
-                <td class="set-prev">
-                  —
-                </td>
-  
-                <td>
-  
-                  <input
-                    type="number"
-                    class="set-input set-weight-input"
-                    data-set-id="${set.id}"
-                    value="${set.weight || 0}"
-                    placeholder="0"
-                  >
-  
-                </td>
-  
-                <td>
-  
-                  <input
-                    type="number"
-                    class="set-input set-reps-input"
-                    data-set-id="${set.id}"
-                    value="${set.reps || 0}"
-                    placeholder="0"
-                  >
-  
-                </td>
-  
-              </tr>
-  
-              `
+
+      `).join("")
+
+    : `
+
+      <div class="routine-empty">
+
+        Sin ejercicios aún
+
+      </div>
+
+    `;
+
+  /* =========================
+     ACCORDION
+  ========================= */
+
+  document
+    .querySelectorAll(".clickable")
+    .forEach(header => {
+
+      header.addEventListener(
+        "click",
+        () => {
+
+          const id =
+            header.dataset.accordion;
+
+          document
+            .querySelectorAll(
+              ".routine-ex-content"
+            )
+            .forEach(el => {
+
+              el.classList.remove("open");
+
+            });
+
+          document
+            .getElementById(
+              `accordion-${id}`
+            )
+            .classList.add("open");
+
+        }
+      );
+
+    });
+
+  /* =========================
+     ADD SET
+  ========================= */
+
+  document
+    .querySelectorAll(".add-set-btn")
+    .forEach(btn => {
+
+      btn.addEventListener(
+        "click",
+        async () => {
+
+          const idx =
+            btn.dataset.set;
+
+          const routineExerciseId =
+            btn.dataset.routineExercise;
+
+          const tbody =
+            document.getElementById(
+              `sets-body-${idx}`
             );
-  
-          }
-        );
-  
-      });
 
-    /* =========================
-       AUTOSAVE SETS
-    ========================= */
-    
-    document
-      .querySelectorAll(
-        ".set-weight-input, .set-reps-input"
-      )
-      .forEach(input => {
-    
-        input.addEventListener(
-          "change",
-          async () => {
-    
-            const setId =
-              input.dataset.setId;
-    
-            const row =
-              input.closest("tr");
-    
-            const weight =
-              row.querySelector(
-                ".set-weight-input"
-              ).value || 0;
-    
-            const reps =
-              row.querySelector(
-                ".set-reps-input"
-              ).value || 0;
-    
-            const { error } =
-              await routineClient
-    
-                .from("routine_sets")
-    
-                .update({
-                  weight,
-                  reps
-                })
-    
-                .eq(
-                  "id",
-                  setId
-                );
-    
-            if(error){
-    
-              console.error(error);
-    
-            }
-    
-          }
-        );
-    
-      });
+          const setCount =
+            tbody.querySelectorAll("tr")
+              .length + 1;
 
-}//cargarEjerciciosDeRutina(rutinaId)
+          /* INSERT DB */
+
+          const {
+            data:newSet,
+            error:errorInsert
+          } = await routineClient
+
+            .from("routine_sets")
+
+            .insert([
+              {
+                routine_exercise_id:
+                  routineExerciseId,
+
+                set_number:
+                  setCount,
+
+                weight:0,
+
+                reps:0
+              }
+            ])
+
+            .select()
+
+            .single();
+
+          if(errorInsert){
+
+            console.error(errorInsert);
+
+            return;
+
+          }
+
+          /* UPDATE UI */
+
+          tbody.insertAdjacentHTML(
+            "beforeend",
+
+            `
+
+            <tr>
+
+              <td class="set-number">
+                ${setCount}
+              </td>
+
+              <td class="set-prev">
+                —
+              </td>
+
+              <td>
+
+                <input
+                  type="number"
+                  class="
+                    set-input
+                    set-weight-input
+                  "
+                  data-set-id="${newSet.id}"
+                  value="0"
+                  placeholder="0"
+                >
+
+              </td>
+
+              <td>
+
+                <input
+                  type="number"
+                  class="
+                    set-input
+                    set-reps-input
+                  "
+                  data-set-id="${newSet.id}"
+                  value="0"
+                  placeholder="0"
+                >
+
+              </td>
+
+            </tr>
+
+            `
+          );
+
+          attachSetAutosave();
+
+        }
+      );
+
+    });
+
+  /* =========================
+     AUTOSAVE
+  ========================= */
+
+  attachSetAutosave();
+
+}//cargarEjerciciosDeRutina(rutinaId) 
 
 function fillRestTimerOptions(){
 
