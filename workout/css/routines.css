@@ -809,3 +809,17 @@
   font-size:.9rem;
 
 }
+
+.lightbox-card.routine-detail-card{
+
+  max-width:560px;
+  width:92%;
+
+}
+
+.lightbox-card.exercise-picker-card{
+
+  max-width:520px;
+  width:92%;
+
+}
