@@ -736,39 +736,54 @@ async function cargarEjerciciosDeRutina(rutinaId) {
                   <tbody
                     id="sets-body-${index}"
                   >
-  
-                    <tr>
-  
-                      <td class="set-number">
-                        1
-                      </td>
-  
-                      <td class="set-prev">
-                        —
-                      </td>
-  
-                      <td>
-  
-                        <input
-                          type="number"
-                          class="set-input"
-                          placeholder="0"
-                        >
-  
-                      </td>
-  
-                      <td>
-  
-                        <input
-                          type="number"
-                          class="set-input"
-                          placeholder="0"
-                        >
-  
-                      </td>
-  
-                    </tr>
-  
+                  
+                    ${(item.routine_sets || [])
+                  
+                      .sort(
+                        (a,b) =>
+                          a.set_number - b.set_number
+                      )
+                  
+                      .map(set => `
+                  
+                        <tr>
+                  
+                          <td class="set-number">
+                            ${set.set_number}
+                          </td>
+                  
+                          <td class="set-prev">
+                            —
+                          </td>
+                  
+                          <td>
+                  
+                            <input
+                              type="number"
+                              class="set-input set-weight"
+                              data-set-id="${set.id}"
+                              value="${set.weight || 0}"
+                              placeholder="0"
+                            >
+                  
+                          </td>
+                  
+                          <td>
+                  
+                            <input
+                              type="number"
+                              class="set-input set-reps"
+                              data-set-id="${set.id}"
+                              value="${set.reps || 0}"
+                              placeholder="0"
+                            >
+                  
+                          </td>
+                  
+                        </tr>
+                  
+                      `).join("")}
+                  
                   </tbody>
   
                 </table>
