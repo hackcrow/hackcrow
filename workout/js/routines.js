@@ -1157,7 +1157,7 @@ draggableItems.forEach(item => {
         const container =
           item.parentNode;
 
-        const items =
+                const items =
           [
             ...container.querySelectorAll(
               ".routine-ex-item"
@@ -1190,14 +1190,15 @@ draggableItems.forEach(item => {
 
       }
 
-    }
-  );
+    });
+
+  });
 
 });
 
-  attachSetAutosave();
+attachSetAutosave();
 
-}//cargarEjerciciosDeRutina(rutinaId) 
+}//cargarEjerciciosDeRutina(rutinaId)
 
 function fillRestTimerOptions(){
 
