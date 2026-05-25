@@ -442,7 +442,7 @@ function renderSelectorEjercicios(
         await abrirDetalleRutina(
           rutinaActualId
         );
-
+        await cargarRutinas();
       };
 
     });
