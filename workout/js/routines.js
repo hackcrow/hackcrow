@@ -714,68 +714,85 @@ async function cargarEjerciciosDeRutina(rutinaId) {
 
                     <th>Reps</th>
 
+                    <th></th>
+
                   </tr>
 
                 </thead>
 
                 <tbody
-                  id="sets-body-${index}"
-                >
-
-                  ${(item.routine_sets || [])
-
-                    .sort(
-                      (a,b) =>
-                        a.set_number - b.set_number
-                    )
-
-                    .map(set => `
-
-                      <tr>
-
-                        <td class="set-number">
-                          ${set.set_number}
-                        </td>
-
-                        <td class="set-prev">
-                          —
-                        </td>
-
-                        <td>
-
-                          <input
-                            type="number"
-                            class="
-                              set-input
-                              set-weight-input
-                            "
-                            data-set-id="${set.id}"
-                            value="${set.weight || 0}"
-                            placeholder="0"
-                          >
-
-                        </td>
-
-                        <td>
-
-                          <input
-                            type="number"
-                            class="
-                              set-input
-                              set-reps-input
-                            "
-                            data-set-id="${set.id}"
-                            value="${set.reps || 0}"
-                            placeholder="0"
-                          >
-
-                        </td>
-
-                      </tr>
-
-                    `).join("")}
-
-                </tbody>
+                    id="sets-body-${index}"
+                  >
+                  
+                    ${(item.routine_sets || [])
+                  
+                      .sort(
+                        (a,b) =>
+                          a.set_number - b.set_number
+                      )
+                  
+                      .map(set => `
+                  
+                        <tr>
+                  
+                          <td class="set-number">
+                            ${set.set_number}
+                          </td>
+                  
+                          <td class="set-prev">
+                            —
+                          </td>
+                  
+                          <td>
+                  
+                            <input
+                              type="number"
+                              class="
+                                set-input
+                                set-weight-input
+                              "
+                              data-set-id="${set.id}"
+                              value="${set.weight || 0}"
+                              placeholder="0"
+                            >
+                  
+                          </td>
+                  
+                          <td>
+                  
+                            <input
+                              type="number"
+                              class="
+                                set-input
+                                set-reps-input
+                              "
+                              data-set-id="${set.id}"
+                              value="${set.reps || 0}"
+                              placeholder="0"
+                            >
+                  
+                          </td>
+                  
+                          <!-- DELETE BUTTON -->
+                  
+                          <td>
+                  
+                            <button
+                              class="delete-set-btn"
+                              data-set-id="${set.id}"
+                            >
+                  
+                              ✕
+                  
+                            </button>
+                  
+                          </td>
+                  
+                        </tr>
+                  
+                      `).join("")}
+                  
+                  </tbody>
 
               </table>
 
