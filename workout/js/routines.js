@@ -1014,6 +1014,62 @@ function fillRestTimerOptions(){
 
 }//fillRestTimerOptions()
 
+function attachSetAutosave(){
+
+  document
+    .querySelectorAll(
+      ".set-weight-input, .set-reps-input"
+    )
+    .forEach(input => {
+
+      input.addEventListener(
+        "change",
+        async () => {
+
+          const setId =
+            input.dataset.setId;
+
+          const row =
+            input.closest("tr");
+
+          const weight =
+            row.querySelector(
+              ".set-weight-input"
+            ).value || 0;
+
+          const reps =
+            row.querySelector(
+              ".set-reps-input"
+            ).value || 0;
+
+          const { error } =
+            await routineClient
+
+              .from("routine_sets")
+
+              .update({
+                weight,
+                reps
+              })
+
+              .eq(
+                "id",
+                setId
+              );
+
+          if(error){
+
+            console.error(error);
+
+          }
+
+        }
+      );
+
+    });
+
+}//attachSetAutosave(){
+
 document.addEventListener("DOMContentLoaded", () => {
 
     cargarRutinas();
