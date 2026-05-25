@@ -856,3 +856,85 @@
   appearance: textfield;
 
 }
+
+/* =========================
+   DRAG & DROP
+========================= */
+
+.routine-ex-item{
+
+  position:relative;
+
+  transition:
+    transform .18s ease,
+    opacity .18s ease,
+    box-shadow .18s ease,
+    border-color .18s ease;
+
+}
+
+.routine-ex-item.dragging{
+
+  opacity:.45;
+
+  transform:scale(.98);
+
+  box-shadow:
+    0 0 0 1px #00ff88,
+    0 0 18px rgba(0,255,136,.22);
+
+}
+
+.routine-ex-item.drag-over{
+
+  border:1px dashed #00ff88;
+
+  box-shadow:
+    0 0 0 1px #00ff88,
+    0 0 22px rgba(0,255,136,.18);
+
+}
+
+.drag-handle{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  width:32px;
+
+  height:32px;
+
+  border-radius:8px;
+
+  cursor:grab;
+
+  color:#00ff88;
+
+  font-size:1.1rem;
+
+  flex-shrink:0;
+
+  transition:
+    background .18s ease,
+    opacity .18s ease;
+
+  opacity:.65;
+
+}
+
+.drag-handle:hover{
+
+  background:rgba(0,255,136,.08);
+
+  opacity:1;
+
+}
+
+.drag-handle:active{
+
+  cursor:grabbing;
+
+}
