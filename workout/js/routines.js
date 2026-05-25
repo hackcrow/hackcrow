@@ -630,7 +630,11 @@ async function cargarEjerciciosDeRutina(rutinaId) {
 
     ? data.map((item, index) => `
 
-        <div class="routine-ex-item">
+        <div
+          class="routine-ex-item"
+          draggable="true"
+          data-routine-exercise-id="${item.id}"
+        >
 
           <!-- HEADER -->
 
@@ -638,25 +642,29 @@ async function cargarEjerciciosDeRutina(rutinaId) {
             class="routine-ex-header clickable"
             data-accordion="${index}"
           >
-
+          
+            <div class="drag-handle">
+              ≡
+            </div>
+          
             <div>
-
+          
               <div class="routine-ex-name">
                 ${item.exercises?.nombre_en || ""}
               </div>
-
+          
               <div class="routine-ex-equipment">
                 ${formatValue(
                   item.exercises?.equipo
                 ) || "Sin equipo"}
               </div>
-
+          
             </div>
-
+          
             <div class="accordion-arrow">
               ▾
             </div>
-
+          
           </div>
 
           <!-- CONTENT -->
@@ -961,6 +969,174 @@ async function cargarEjerciciosDeRutina(rutinaId) {
   /* =========================
      AUTOSAVE
   ========================= */
+
+  /* =========================
+   DRAG & DROP
+========================= */
+
+const draggableItems =
+  document.querySelectorAll(
+    ".routine-ex-item"
+  );
+
+let draggedItem = null;
+
+draggableItems.forEach(item => {
+
+  item.addEventListener(
+    "dragstart",
+    () => {
+
+      draggedItem = item;
+
+      item.classList.add(
+        "dragging"
+      );
+
+    }
+  );
+
+  item.addEventListener(
+    "dragend",
+    async () => {
+
+      item.classList.remove(
+        "dragging"
+      );
+
+      document
+        .querySelectorAll(
+          ".routine-ex-item"
+        )
+        .forEach(el => {
+
+          el.classList.remove(
+            "drag-over"
+          );
+
+        });
+
+      /* =========================
+         SAVE ORDER
+      ========================= */
+
+      const updatedItems =
+        document.querySelectorAll(
+          ".routine-ex-item"
+        );
+
+      for(
+        let i = 0;
+        i < updatedItems.length;
+        i++
+      ){
+
+        const id =
+          updatedItems[i].dataset
+            .routineExerciseId;
+
+        await routineClient
+
+          .from("routine_exercises")
+
+          .update({
+            orden:i + 1
+          })
+
+          .eq(
+            "id",
+            id
+          );
+
+      }
+
+    }
+  );
+
+  item.addEventListener(
+    "dragover",
+    (e) => {
+
+      e.preventDefault();
+
+      if(
+        item !== draggedItem
+      ){
+
+        item.classList.add(
+          "drag-over"
+        );
+
+      }
+
+    }
+  );
+
+  item.addEventListener(
+    "dragleave",
+    () => {
+
+      item.classList.remove(
+        "drag-over"
+      );
+
+    }
+  );
+
+  item.addEventListener(
+    "drop",
+    (e) => {
+
+      e.preventDefault();
+
+      item.classList.remove(
+        "drag-over"
+      );
+
+      if(
+        item !== draggedItem
+      ){
+
+        const container =
+          item.parentNode;
+
+        const items =
+          [
+            ...container.querySelectorAll(
+              ".routine-ex-item"
+            )
+          ];
+
+        const draggedIndex =
+          items.indexOf(
+            draggedItem
+          );
+
+        const targetIndex =
+          items.indexOf(item);
+
+        if(
+          draggedIndex < targetIndex
+        ){
+
+          item.after(
+            draggedItem
+          );
+
+        } else {
+
+          item.before(
+            draggedItem
+          );
+
+        }
+
+      }
+
+    }
+  );
+
+});
 
   attachSetAutosave();
 
