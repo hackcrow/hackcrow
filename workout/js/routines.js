@@ -244,257 +244,236 @@ function cerrarSelectorEjercicios() {
   document.getElementById("addExerciseOverlay").classList.remove("open");
 }//cerrarSelectorEjercicios()
 
-function renderSelectorEjercicios(lista,existentes = []) {
+function renderSelectorEjercicios(
+  lista,
+  existentes = []
+) {
 
-    const box =
-      document.getElementById(
-        "exercisePickerList"
-      );
-  
-    box.innerHTML = lista.map(e => `
-  
-      <div class="picker-row">
-  
-        <div
-          class="picker-info"
-          data-id="${e.id}"
-        >
-  
-          <div class="picker-name-en">
-            ${e.nombre_en || ""}
-          </div>
-  
-          <div class="picker-name-es">
-            ${e.nombre || ""}
-          </div>
-  
+  const box =
+    document.getElementById(
+      "exercisePickerList"
+    );
+
+  box.innerHTML = lista.map(e => `
+
+    <div class="picker-row">
+
+      <div
+        class="picker-info"
+        data-id="${e.id}"
+      >
+
+        <div class="picker-name-en">
+          ${e.nombre_en || ""}
         </div>
-  
-        <button
-          class="picker-add-btn"
-          data-id="${e.id}"
-  
-          ${existentes.includes(e.id)
-            ? "disabled"
-            : ""
-          }
-  
-          style="
-            ${
-              existentes.includes(e.id)
-  
-              ? `
-                opacity:0.45;
-                pointer-events:none;
-                color:#00ff88;
-              `
-  
-              : ""
-            }
-          "
-        >
-  
+
+        <div class="picker-name-es">
+          ${e.nombre || ""}
+        </div>
+
+      </div>
+
+      <button
+        class="picker-add-btn"
+        data-id="${e.id}"
+
+        ${existentes.includes(e.id)
+          ? "disabled"
+          : ""
+        }
+
+        style="
           ${
             existentes.includes(e.id)
-              ? "✓"
-              : "＋"
+
+            ? `
+              opacity:0.45;
+              pointer-events:none;
+              color:#00ff88;
+            `
+
+            : ""
           }
-  
-        </button>
-  
-      </div>
-  
-    `).join("");
-  
-    /* =========================
-       VER DETALLE EJERCICIO
-    ========================= */
-  
-    document
-      .querySelectorAll(".picker-info")
-      .forEach(item => {
-  
-        item.onclick = () => {
-  
-          const exId =
-            parseInt(item.dataset.id);
-  
-          abrirVistaEjercicio(exId);
-  
-        };
-  
-      });
-  
-    /* =========================
-       AGREGAR EJERCICIO
-    ========================= */
-  
-    document
-      .querySelectorAll(
-        ".picker-add-btn"
-      )
-      .forEach(btn => {
-  
-        btn.onclick = async (ev) => {
-  
-          ev.stopPropagation();
-  
-          const exerciseId =
-            parseInt(btn.dataset.id);
-  
-          if(!rutinaActualId)
-            return;
-  
-          /* evita doble click */
-  
-          if(
-            btn.dataset.loading === "true"
-          ) return;
-  
-          btn.dataset.loading = "true";
-  
-          /* =========================
-             OBTENER ÚLTIMO ORDEN
-          ========================= */
-  
-          const {
-            data:lastExercise
-          } = await routineClient
-  
-            .from("routine_exercises")
-  
-            .select("orden")
-  
-            .eq(
-              "routine_id",
-              rutinaActualId
-            )
-  
-            .order(
-              "orden",
-              { ascending:false }
-            )
-  
-            .limit(1)
-  
-            .maybeSingle();
-  
-          const nuevoOrden =
-  
-            lastExercise?.orden
-  
-              ? lastExercise.orden + 1
-  
-              : 1;
-  
-          /* =========================
-             INSERT
-          ========================= */
-  
-          const {
-            error:errorInsert
-          } = await routineClient
-  
-            .from("routine_exercises")
-  
-            .insert([
-              {
-                routine_id:
-                  rutinaActualId,
-  
-                exercise_id:
-                  exerciseId,
-  
-                orden:
-                  nuevoOrden
-              }
-            ]);
-  
-          if(errorInsert){
-  
-            console.error(errorInsert);
-  
-            btn.dataset.loading =
-              "false";
-  
-            alert(
-              "No se pudo agregar"
-            );
-  
-            return;
-  
-          }
-  
-          /* =========================
-             CREAR PRIMER SET
-          ========================= */
-          
-          const {
-            data:insertedExercise
-          } = await routineClient
-          
-            .from("routine_exercises")
-          
-            .select("id")
-          
-            .eq(
-              "routine_id",
-              rutinaActualId
-            )
-          
-            .eq(
-              "exercise_id",
-              exerciseId
-            )
-          
-            .order(
-              "id",
-              { ascending:false }
-            )
-          
-            .limit(1)
-          
-            .single();
-          
-          if(insertedExercise){
-          
-            await routineClient
-          
-              .from("routine_sets")
-          
-              .insert([
-                {
-                  routine_exercise_id:
-                    insertedExercise.id,
-          
-                  set_number:1,
-          
-                  weight:0,
-          
-                  reps:0
-                }
-              ]);
-          
-          }
-  
-          /* =========================
-             UPDATE UI
-          ========================= */
-  
-          btn.textContent = "✓";
-  
-          btn.style.color = "#00ff88";
-  
-          btn.style.pointerEvents =
-            "none";
-  
-          await abrirDetalleRutina(
+        "
+      >
+
+        ${
+          existentes.includes(e.id)
+            ? "✓"
+            : "＋"
+        }
+
+      </button>
+
+    </div>
+
+  `).join("");
+
+  /* =========================
+     VER DETALLE EJERCICIO
+  ========================= */
+
+  document
+    .querySelectorAll(".picker-info")
+    .forEach(item => {
+
+      item.onclick = () => {
+
+        const exId =
+          parseInt(item.dataset.id);
+
+        abrirVistaEjercicio(exId);
+
+      };
+
+    });
+
+  /* =========================
+     AGREGAR EJERCICIO
+  ========================= */
+
+  document
+    .querySelectorAll(
+      ".picker-add-btn"
+    )
+    .forEach(btn => {
+
+      btn.onclick = async (ev) => {
+
+        ev.stopPropagation();
+
+        const exerciseId =
+          parseInt(btn.dataset.id);
+
+        if(!rutinaActualId)
+          return;
+
+        /* evita doble click */
+
+        if(
+          btn.dataset.loading === "true"
+        ) return;
+
+        btn.dataset.loading = "true";
+
+        /* =========================
+           OBTENER ÚLTIMO ORDEN
+        ========================= */
+
+        const {
+          data:lastExercise
+        } = await routineClient
+
+          .from("routine_exercises")
+
+          .select("orden")
+
+          .eq(
+            "routine_id",
             rutinaActualId
+          )
+
+          .order(
+            "orden",
+            { ascending:false }
+          )
+
+          .limit(1)
+
+          .maybeSingle();
+
+        const nuevoOrden =
+
+          lastExercise?.orden
+
+            ? lastExercise.orden + 1
+
+            : 1;
+
+        /* =========================
+           INSERT EXERCISE
+        ========================= */
+
+        const {
+          data:insertedExercise,
+          error:errorInsert
+        } = await routineClient
+
+          .from("routine_exercises")
+
+          .insert([
+            {
+              routine_id:
+                rutinaActualId,
+
+              exercise_id:
+                exerciseId,
+
+              orden:
+                nuevoOrden
+            }
+          ])
+
+          .select()
+
+          .single();
+
+        if(errorInsert){
+
+          console.error(errorInsert);
+
+          btn.dataset.loading =
+            "false";
+
+          alert(
+            "No se pudo agregar"
           );
-          await cargarRutinas();
-        };
-  
-      });
+
+          return;
+
+        }
+
+        /* =========================
+           CREAR PRIMER SET
+        ========================= */
+
+        await routineClient
+
+          .from("routine_sets")
+
+          .insert([
+            {
+              routine_exercise_id:
+                insertedExercise.id,
+
+              set_number:1,
+
+              weight:0,
+
+              reps:0
+            }
+          ]);
+
+        /* =========================
+           UPDATE UI
+        ========================= */
+
+        btn.textContent = "✓";
+
+        btn.style.color = "#00ff88";
+
+        btn.style.pointerEvents =
+          "none";
+
+        await abrirDetalleRutina(
+          rutinaActualId
+        );
+
+        await cargarRutinas();
+
+      };
+
+    });
 
 }//renderSelectorEjercicios
 
