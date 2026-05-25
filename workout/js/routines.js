@@ -875,7 +875,9 @@ async function cargarEjerciciosDeRutina(rutinaId) {
   
                   <input
                     type="number"
-                    class="set-input"
+                    class="set-input set-weight-input"
+                    data-set-id="${set.id}"
+                    value="${set.weight || 0}"
                     placeholder="0"
                   >
   
@@ -885,7 +887,9 @@ async function cargarEjerciciosDeRutina(rutinaId) {
   
                   <input
                     type="number"
-                    class="set-input"
+                    class="set-input set-reps-input"
+                    data-set-id="${set.id}"
+                    value="${set.reps || 0}"
                     placeholder="0"
                   >
   
@@ -899,6 +903,62 @@ async function cargarEjerciciosDeRutina(rutinaId) {
           }
         );
   
+      });
+
+    /* =========================
+       AUTOSAVE SETS
+    ========================= */
+    
+    document
+      .querySelectorAll(
+        ".set-weight-input, .set-reps-input"
+      )
+      .forEach(input => {
+    
+        input.addEventListener(
+          "change",
+          async () => {
+    
+            const setId =
+              input.dataset.setId;
+    
+            const row =
+              input.closest("tr");
+    
+            const weight =
+              row.querySelector(
+                ".set-weight-input"
+              ).value || 0;
+    
+            const reps =
+              row.querySelector(
+                ".set-reps-input"
+              ).value || 0;
+    
+            const { error } =
+              await routineClient
+    
+                .from("routine_sets")
+    
+                .update({
+                  weight,
+                  reps
+                })
+    
+                .eq(
+                  "id",
+                  setId
+                );
+    
+            if(error){
+    
+              console.error(error);
+    
+            }
+    
+          }
+        );
+    
       });
 
 }//cargarEjerciciosDeRutina(rutinaId)
