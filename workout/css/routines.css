@@ -837,3 +837,22 @@
   width:94%;
 
 }
+
+/* REMOVE NUMBER INPUT SPINNERS */
+
+.set-input::-webkit-outer-spin-button,
+.set-input::-webkit-inner-spin-button {
+
+  -webkit-appearance: none;
+
+  margin: 0;
+
+}
+
+.set-input[type=number] {
+
+  -moz-appearance: textfield;
+
+  appearance: textfield;
+
+}
