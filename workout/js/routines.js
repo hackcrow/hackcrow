@@ -33,51 +33,51 @@ async function cargarRutinas() {
   if (loading) loading.style.display = "none";
 
   renderRutinas();
-}
+}//cargarRutinas()
 
 async function renderRutinas() {
-  const grid = document.getElementById("routineGrid");
-  if (!grid) return;
-
-  if (!rutinas.length) {
-    grid.innerHTML = `
-      <div class="routine-card">
-        <div class="routine-name">Sin rutinas</div>
-        <div class="routine-desc">Presiona + para crear tu primera rutina.</div>
-      </div>
-    `;
-    return;
-  }
-
-  const cards = await Promise.all(
-    rutinas.map(async (r) => {
-      const { count } = await routineClient
-        .from("routine_exercises")
-        .select("*", { count: "exact", head: true })
-        .eq("routine_id", r.id);
-
-      return `
-        <div class="routine-card" data-id="${r.id}">
-          <div class="routine-name">${r.nombre}</div>
-          <div class="routine-desc">${r.descripcion || "Sin descripción"}</div>
-          <div class="routine-meta">
-            <span>${r.categoria || "General"}</span>
-            <span class="routine-count">${count || 0} ejercicios</span>
-          </div>
+    const grid = document.getElementById("routineGrid");
+    if (!grid) return;
+  
+    if (!rutinas.length) {
+      grid.innerHTML = `
+        <div class="routine-card">
+          <div class="routine-name">Sin rutinas</div>
+          <div class="routine-desc">Presiona + para crear tu primera rutina.</div>
         </div>
       `;
-    })
-  );
-
-  grid.innerHTML = cards.join("");
-
-  document.querySelectorAll(".routine-card").forEach(card => {
-    card.addEventListener("click", () => {
-      const id = parseInt(card.dataset.id);
-      abrirDetalleRutina(id);
+      return;
+    }//renderRutinas()
+  
+    const cards = await Promise.all(
+      rutinas.map(async (r) => {
+        const { count } = await routineClient
+          .from("routine_exercises")
+          .select("*", { count: "exact", head: true })
+          .eq("routine_id", r.id);
+  
+        return `
+          <div class="routine-card" data-id="${r.id}">
+            <div class="routine-name">${r.nombre}</div>
+            <div class="routine-desc">${r.descripcion || "Sin descripción"}</div>
+            <div class="routine-meta">
+              <span>${r.categoria || "General"}</span>
+              <span class="routine-count">${count || 0} ejercicios</span>
+            </div>
+          </div>
+        `;
+      })
+    );
+  
+    grid.innerHTML = cards.join("");
+  
+    document.querySelectorAll(".routine-card").forEach(card => {
+      card.addEventListener("click", () => {
+        const id = parseInt(card.dataset.id);
+        abrirDetalleRutina(id);
+      });
     });
-  });
-}
+}//renderRutinas()
 
 function abrirRoutineLightbox() {
   const overlay = document.getElementById("routineLightbox");
@@ -91,974 +91,1039 @@ function abrirRoutineLightbox() {
   document.getElementById("rtCategoria").value = "";
 
   overlay.classList.add("open");
-}
+}//abrirRoutineLightbox()
 
 function cerrarRoutineLightbox() {
   document.getElementById("routineLightbox").classList.remove("open");
-}
+}//cerrarRoutineLightbox()
 
 async function guardarRutina() {
-  const payload = {
-    nombre: document.getElementById("rtNombre").value.trim(),
-    descripcion: document.getElementById("rtDescripcion").value.trim(),
-    categoria: document.getElementById("rtCategoria").value
-  };
-
-  if (!payload.nombre) {
-    alert("Escribe un nombre");
-    return;
-  }
-
-  const { error } = await routineClient
-    .from("routines")
-    .insert([payload]);
-
-  if (error) {
-    console.error(error);
-    alert("No se pudo guardar");
-    return;
-  }
-
-  cerrarRoutineLightbox();
-  await cargarRutinas();
-}
+    const payload = {
+      nombre: document.getElementById("rtNombre").value.trim(),
+      descripcion: document.getElementById("rtDescripcion").value.trim(),
+      categoria: document.getElementById("rtCategoria").value
+    };
+  
+    if (!payload.nombre) {
+      alert("Escribe un nombre");
+      return;
+    }
+  
+    const { error } = await routineClient
+      .from("routines")
+      .insert([payload]);
+  
+    if (error) {
+      console.error(error);
+      alert("No se pudo guardar");
+      return;
+    }
+  
+    cerrarRoutineLightbox();
+    await cargarRutinas();
+}//guardarRutina()
 
 async function abrirDetalleRutina(id) {
-  rutinaActualId = id;
-
-  const rutina = rutinas.find(r => r.id === id);
-  if (!rutina) return;
-
-  document.getElementById("viewRoutineTitle").textContent = rutina.nombre;
-
-  document.getElementById("viewRoutineContent").innerHTML = `
-    <p style="margin-bottom:14px;color:var(--text-muted);">
-      ${rutina.descripcion || "Sin descripción"}
-    </p>
-
-    <div style="font-size:0.85rem;color:var(--text-muted);margin-bottom:18px;">
-      Categoría: ${rutina.categoria || "General"}
-    </div>
-
-    <button id="addExerciseToRoutine" class="btn">
-      + Agregar ejercicio
-    </button>
-
-    <div id="routineExerciseList" style="margin-top:18px;"></div>
-  `;
-
-  document.getElementById("viewRoutineOverlay").classList.add("open");
-
-  document
-    .getElementById("addExerciseToRoutine")
-    .addEventListener("click", abrirSelectorEjercicios);
-
-  const scrollBtn =
-  document.getElementById(
-    "routineScrollTop"
-  );
-
-const content =
-  document.getElementById(
-    "viewRoutineContent"
-  );
-
-if (scrollBtn && content) {
-
-  content.addEventListener(
-    "scroll",
-    () => {
-
-      scrollBtn.style.display =
-
-        content.scrollTop > 250
-
-          ? "block"
-
-          : "none";
-
-    }
-  );
-
-  scrollBtn.onclick = () => {
-
-    content.scrollTo({
-
-      top:0,
-
-      behavior:"smooth"
-
-    });
-
-  };
-
-}
-
-  await cargarEjerciciosDeRutina(id);
-}
+    rutinaActualId = id;
+  
+    const rutina = rutinas.find(r => r.id === id);
+    if (!rutina) return;
+  
+    document.getElementById("viewRoutineTitle").textContent = rutina.nombre;
+  
+    document.getElementById("viewRoutineContent").innerHTML = `
+      <p style="margin-bottom:14px;color:var(--text-muted);">
+        ${rutina.descripcion || "Sin descripción"}
+      </p>
+  
+      <div style="font-size:0.85rem;color:var(--text-muted);margin-bottom:18px;">
+        Categoría: ${rutina.categoria || "General"}
+      </div>
+  
+      <button id="addExerciseToRoutine" class="btn">
+        + Agregar ejercicio
+      </button>
+  
+      <div id="routineExerciseList" style="margin-top:18px;"></div>
+    `;
+  
+    document.getElementById("viewRoutineOverlay").classList.add("open");
+  
+    document
+      .getElementById("addExerciseToRoutine")
+      .addEventListener("click", abrirSelectorEjercicios);
+  
+    const scrollBtn =
+    document.getElementById(
+      "routineScrollTop"
+    );
+  
+  const content =
+    document.getElementById(
+      "viewRoutineContent"
+    );
+  
+  if (scrollBtn && content) {
+  
+    content.addEventListener(
+      "scroll",
+      () => {
+  
+        scrollBtn.style.display =
+  
+          content.scrollTop > 250
+  
+            ? "block"
+  
+            : "none";
+  
+      }
+    );
+  
+    scrollBtn.onclick = () => {
+  
+      content.scrollTo({
+  
+        top:0,
+  
+        behavior:"smooth"
+  
+      });
+  
+    };
+  
+  }
+  
+    await cargarEjerciciosDeRutina(id);
+}//abrirDetalleRutina(id)
 
 function cerrarDetalleRutina() {
-  const overlay = document.getElementById("viewRoutineOverlay");
-  const volverSelector = overlay.dataset.returnToSelector === "true";
-
-  overlay.classList.remove("open");
-  overlay.dataset.returnToSelector = "false";
-
-  if (volverSelector) {
-    const selector = document.getElementById("addExerciseOverlay");
-    selector.style.visibility = "visible";
-  }
-}
+    const overlay = document.getElementById("viewRoutineOverlay");
+    const volverSelector = overlay.dataset.returnToSelector === "true";
+  
+    overlay.classList.remove("open");
+    overlay.dataset.returnToSelector = "false";
+  
+    if (volverSelector) {
+      const selector = document.getElementById("addExerciseOverlay");
+      selector.style.visibility = "visible";
+    }
+}//cerrarDetalleRutina()
 
 async function abrirSelectorEjercicios() {
-  const { data, error } = await routineClient
-    .from("exercises")
-    .select("id,nombre,nombre_en")
-    .order("nombre");
-
-  const { data: existentes } = await routineClient
-    .from("routine_exercises")
-    .select("exercise_id")
-    .eq("routine_id", rutinaActualId);
-
-  const ejerciciosExistentes = (existentes || []).map(
-    e => e.exercise_id
-  );
-
-  if (error) {
-    console.error(error);
-    return;
-  }
-
-  ejerciciosDisponibles = data || [];
-
-  renderSelectorEjercicios(
-    ejerciciosDisponibles,
-    ejerciciosExistentes
-  );
-
-  document.getElementById("addExerciseOverlay").classList.add("open");
-}
+    const { data, error } = await routineClient
+      .from("exercises")
+      .select("id,nombre,nombre_en")
+      .order("nombre");
+  
+    const { data: existentes } = await routineClient
+      .from("routine_exercises")
+      .select("exercise_id")
+      .eq("routine_id", rutinaActualId);
+  
+    const ejerciciosExistentes = (existentes || []).map(
+      e => e.exercise_id
+    );
+  
+    if (error) {
+      console.error(error);
+      return;
+    }
+  
+    ejerciciosDisponibles = data || [];
+  
+    renderSelectorEjercicios(
+      ejerciciosDisponibles,
+      ejerciciosExistentes
+    );
+  
+    document.getElementById("addExerciseOverlay").classList.add("open");
+}//abrirSelectorEjercicios()
 
 function cerrarSelectorEjercicios() {
   document.getElementById("addExerciseOverlay").classList.remove("open");
-}
+}//cerrarSelectorEjercicios()
 
-function renderSelectorEjercicios(
-  lista,
-  existentes = []
-) {
+function renderSelectorEjercicios(lista,existentes = []) {
 
-  const box =
-    document.getElementById(
-      "exercisePickerList"
-    );
-
-  box.innerHTML = lista.map(e => `
-
-    <div class="picker-row">
-
-      <div
-        class="picker-info"
-        data-id="${e.id}"
-      >
-
-        <div class="picker-name-en">
-          ${e.nombre_en || ""}
+    const box =
+      document.getElementById(
+        "exercisePickerList"
+      );
+  
+    box.innerHTML = lista.map(e => `
+  
+      <div class="picker-row">
+  
+        <div
+          class="picker-info"
+          data-id="${e.id}"
+        >
+  
+          <div class="picker-name-en">
+            ${e.nombre_en || ""}
+          </div>
+  
+          <div class="picker-name-es">
+            ${e.nombre || ""}
+          </div>
+  
         </div>
-
-        <div class="picker-name-es">
-          ${e.nombre || ""}
-        </div>
-
-      </div>
-
-      <button
-        class="picker-add-btn"
-        data-id="${e.id}"
-
-        ${existentes.includes(e.id)
-          ? "disabled"
-          : ""
-        }
-
-        style="
-          ${
-            existentes.includes(e.id)
-
-            ? `
-              opacity:0.45;
-              pointer-events:none;
-              color:#00ff88;
-            `
-
+  
+        <button
+          class="picker-add-btn"
+          data-id="${e.id}"
+  
+          ${existentes.includes(e.id)
+            ? "disabled"
             : ""
           }
-        "
-      >
-
-        ${
-          existentes.includes(e.id)
-            ? "✓"
-            : "＋"
-        }
-
-      </button>
-
-    </div>
-
-  `).join("");
-
-  /* =========================
-     VER DETALLE EJERCICIO
-  ========================= */
-
-  document
-    .querySelectorAll(".picker-info")
-    .forEach(item => {
-
-      item.onclick = () => {
-
-        const exId =
-          parseInt(item.dataset.id);
-
-        abrirVistaEjercicio(exId);
-
-      };
-
-    });
-
-  /* =========================
-     AGREGAR EJERCICIO
-  ========================= */
-
-  document
-    .querySelectorAll(
-      ".picker-add-btn"
-    )
-    .forEach(btn => {
-
-      btn.onclick = async (ev) => {
-
-        ev.stopPropagation();
-
-        const exerciseId =
-          parseInt(btn.dataset.id);
-
-        if(!rutinaActualId)
-          return;
-
-        /* evita doble click */
-
-        if(
-          btn.dataset.loading === "true"
-        ) return;
-
-        btn.dataset.loading = "true";
-
-        /* =========================
-           OBTENER ÚLTIMO ORDEN
-        ========================= */
-
-        const {
-          data:lastExercise
-        } = await routineClient
-
-          .from("routine_exercises")
-
-          .select("orden")
-
-          .eq(
-            "routine_id",
-            rutinaActualId
-          )
-
-          .order(
-            "orden",
-            { ascending:false }
-          )
-
-          .limit(1)
-
-          .maybeSingle();
-
-        const nuevoOrden =
-
-          lastExercise?.orden
-
-            ? lastExercise.orden + 1
-
-            : 1;
-
-        /* =========================
-           INSERT
-        ========================= */
-
-        const {
-          error:errorInsert
-        } = await routineClient
-
-          .from("routine_exercises")
-
-          .insert([
-            {
-              routine_id:
-                rutinaActualId,
-
-              exercise_id:
-                exerciseId,
-
-              orden:
-                nuevoOrden
+  
+          style="
+            ${
+              existentes.includes(e.id)
+  
+              ? `
+                opacity:0.45;
+                pointer-events:none;
+                color:#00ff88;
+              `
+  
+              : ""
             }
-          ]);
-
-        if(errorInsert){
-
-          console.error(errorInsert);
-
-          btn.dataset.loading =
-            "false";
-
-          alert(
-            "No se pudo agregar"
+          "
+        >
+  
+          ${
+            existentes.includes(e.id)
+              ? "✓"
+              : "＋"
+          }
+  
+        </button>
+  
+      </div>
+  
+    `).join("");
+  
+    /* =========================
+       VER DETALLE EJERCICIO
+    ========================= */
+  
+    document
+      .querySelectorAll(".picker-info")
+      .forEach(item => {
+  
+        item.onclick = () => {
+  
+          const exId =
+            parseInt(item.dataset.id);
+  
+          abrirVistaEjercicio(exId);
+  
+        };
+  
+      });
+  
+    /* =========================
+       AGREGAR EJERCICIO
+    ========================= */
+  
+    document
+      .querySelectorAll(
+        ".picker-add-btn"
+      )
+      .forEach(btn => {
+  
+        btn.onclick = async (ev) => {
+  
+          ev.stopPropagation();
+  
+          const exerciseId =
+            parseInt(btn.dataset.id);
+  
+          if(!rutinaActualId)
+            return;
+  
+          /* evita doble click */
+  
+          if(
+            btn.dataset.loading === "true"
+          ) return;
+  
+          btn.dataset.loading = "true";
+  
+          /* =========================
+             OBTENER ÚLTIMO ORDEN
+          ========================= */
+  
+          const {
+            data:lastExercise
+          } = await routineClient
+  
+            .from("routine_exercises")
+  
+            .select("orden")
+  
+            .eq(
+              "routine_id",
+              rutinaActualId
+            )
+  
+            .order(
+              "orden",
+              { ascending:false }
+            )
+  
+            .limit(1)
+  
+            .maybeSingle();
+  
+          const nuevoOrden =
+  
+            lastExercise?.orden
+  
+              ? lastExercise.orden + 1
+  
+              : 1;
+  
+          /* =========================
+             INSERT
+          ========================= */
+  
+          const {
+            error:errorInsert
+          } = await routineClient
+  
+            .from("routine_exercises")
+  
+            .insert([
+              {
+                routine_id:
+                  rutinaActualId,
+  
+                exercise_id:
+                  exerciseId,
+  
+                orden:
+                  nuevoOrden
+              }
+            ]);
+  
+          if(errorInsert){
+  
+            console.error(errorInsert);
+  
+            btn.dataset.loading =
+              "false";
+  
+            alert(
+              "No se pudo agregar"
+            );
+  
+            return;
+  
+          }
+  
+          /* =========================
+             CREAR PRIMER SET
+          ========================= */
+          
+          const {
+            data:insertedExercise
+          } = await routineClient
+          
+            .from("routine_exercises")
+          
+            .select("id")
+          
+            .eq(
+              "routine_id",
+              rutinaActualId
+            )
+          
+            .eq(
+              "exercise_id",
+              exerciseId
+            )
+          
+            .order(
+              "id",
+              { ascending:false }
+            )
+          
+            .limit(1)
+          
+            .single();
+          
+          if(insertedExercise){
+          
+            await routineClient
+          
+              .from("routine_sets")
+          
+              .insert([
+                {
+                  routine_exercise_id:
+                    insertedExercise.id,
+          
+                  set_number:1,
+          
+                  weight:0,
+          
+                  reps:0
+                }
+              ]);
+          
+          }
+  
+          /* =========================
+             UPDATE UI
+          ========================= */
+  
+          btn.textContent = "✓";
+  
+          btn.style.color = "#00ff88";
+  
+          btn.style.pointerEvents =
+            "none";
+  
+          await abrirDetalleRutina(
+            rutinaActualId
           );
+          await cargarRutinas();
+        };
+  
+      });
 
-          return;
-
-        }
-
-        /* =========================
-           UPDATE UI
-        ========================= */
-
-        btn.textContent = "✓";
-
-        btn.style.color = "#00ff88";
-
-        btn.style.pointerEvents =
-          "none";
-
-        await abrirDetalleRutina(
-          rutinaActualId
-        );
-        await cargarRutinas();
-      };
-
-    });
-
-}
+}//renderSelectorEjercicios
 
 async function abrirVistaEjercicio(exId) {
-  const selectorAbierto = document
-    .getElementById("addExerciseOverlay")
-    .classList.contains("open");
-
-  //if (selectorAbierto) {
-    //cerrarSelectorEjercicios();
-  //}
-
-  const { data, error } = await routineClient
-    .from("exercises")
-    .select("*")
-    .eq("id", exId)
-    .single();
-
-  if (error || !data) {
-    console.error(error);
-    return;
-  }
-
-  const ex = data;
-
-  document.getElementById("viewRoutineContent").innerHTML = `
-    ${ex.imagen
-      ? `<img class="detail-img" src="${ex.imagen}" style="width:100%;max-height:220px;object-fit:contain;border-radius:12px;margin-bottom:16px;background:#0a0a0a;">`
-      : `<div class="card-thumb no-image-box">No image</div>`
-    }
-  
-    <div class="detail-section">
-      <h2 class="detail-name-en">${ex.nombre_en || ex.nombre || ""}</h2>
-      <div class="detail-name-es">${ex.nombre || ""}</div>
-  
-      <p>${ex.descripcion || ""}</p>
-  
-      <div class="detail-meta"><span style="color:#e5e7eb;font-weight:600;">Tipo:</span> <span style="color:#00ff88;">${formatValue(ex.tipo)}</span></div>
-<div class="detail-meta"><span style="color:#e5e7eb;font-weight:600;">Equipo:</span> <span style="color:#00ff88;">${formatValue(ex.equipo)}</span></div>
-<div class="detail-meta"><span style="color:#e5e7eb;font-weight:600;">Músculo primario:</span> <span style="color:#00ff88;">${formatValue(ex.musculo_primario)}</span></div>
-<div class="detail-meta"><span style="color:#e5e7eb;font-weight:600;">Músculo secundario:</span> <span style="color:#00ff88;">${formatValue(ex.musculo_secundario)}</span></div>
-<div class="detail-meta"><span style="color:#e5e7eb;font-weight:600;">Parte del cuerpo:</span> <span style="color:#00ff88;">${formatValue(ex.parte_cuerpo)}</span></div>
-  
-      ${
-        ex.video_url
-          ? `<a class="detail-video" href="${ex.video_url}" target="_blank">Ver video ↗</a>`
-          : ""
+      const selectorAbierto = document
+        .getElementById("addExerciseOverlay")
+        .classList.contains("open");
+    
+      //if (selectorAbierto) {
+        //cerrarSelectorEjercicios();
+      //}
+    
+      const { data, error } = await routineClient
+        .from("exercises")
+        .select("*")
+        .eq("id", exId)
+        .single();
+    
+      if (error || !data) {
+        console.error(error);
+        return;
       }
-    </div>
-  `;
-
-  document.getElementById("viewRoutineOverlay").dataset.returnToSelector =
-    selectorAbierto ? "true" : "false";
-
-  document.getElementById("addExerciseOverlay").style.visibility = "hidden";
-  document.getElementById("viewRoutineOverlay").classList.add("open");
-}
+    
+      const ex = data;
+    
+      document.getElementById("viewRoutineContent").innerHTML = `
+        ${ex.imagen
+          ? `<img class="detail-img" src="${ex.imagen}" style="width:100%;max-height:220px;object-fit:contain;border-radius:12px;margin-bottom:16px;background:#0a0a0a;">`
+          : `<div class="card-thumb no-image-box">No image</div>`
+        }
+      
+        <div class="detail-section">
+          <h2 class="detail-name-en">${ex.nombre_en || ex.nombre || ""}</h2>
+          <div class="detail-name-es">${ex.nombre || ""}</div>
+      
+          <p>${ex.descripcion || ""}</p>
+      
+          <div class="detail-meta"><span style="color:#e5e7eb;font-weight:600;">Tipo:</span> <span style="color:#00ff88;">${formatValue(ex.tipo)}</span></div>
+    <div class="detail-meta"><span style="color:#e5e7eb;font-weight:600;">Equipo:</span> <span style="color:#00ff88;">${formatValue(ex.equipo)}</span></div>
+    <div class="detail-meta"><span style="color:#e5e7eb;font-weight:600;">Músculo primario:</span> <span style="color:#00ff88;">${formatValue(ex.musculo_primario)}</span></div>
+    <div class="detail-meta"><span style="color:#e5e7eb;font-weight:600;">Músculo secundario:</span> <span style="color:#00ff88;">${formatValue(ex.musculo_secundario)}</span></div>
+    <div class="detail-meta"><span style="color:#e5e7eb;font-weight:600;">Parte del cuerpo:</span> <span style="color:#00ff88;">${formatValue(ex.parte_cuerpo)}</span></div>
+      
+          ${
+            ex.video_url
+              ? `<a class="detail-video" href="${ex.video_url}" target="_blank">Ver video ↗</a>`
+              : ""
+          }
+        </div>
+      `;
+    
+      document.getElementById("viewRoutineOverlay").dataset.returnToSelector =
+        selectorAbierto ? "true" : "false";
+    
+      document.getElementById("addExerciseOverlay").style.visibility = "hidden";
+      document.getElementById("viewRoutineOverlay").classList.add("open");
+}//abrirVistaEjercicio(exId)
 
 function formatValue(value) {
-  if (!value) return "-";
-
-  const map = {
-    peso_corporal: "Peso corporal",
-    peso_extra: "Peso extra",
-    rueda_abdominal: "Rueda abdominal",
-    upper_arms: "Brazos",
-    full_body: "Cuerpo completo",
-    chest: "Pecho",
-    back: "Espalda",
-    thighs: "Piernas",
-    glutes: "Glúteos",
-    shoulders: "Hombros",
-    abdominals: "Abdominales",
-    core: "Core",
-    pectorals: "Pectorales",
-    quadriceps: "Cuádriceps",
-    biceps: "Bíceps",
-    triceps: "Tríceps",
-    hamstrings: "Isquiotibiales",
-    obliques: "Oblicuos",
-    fuerza: "Fuerza",
-    cardio: "Cardio",
-    flexibilidad: "Flexibilidad",
-    movilidad: "Movilidad",
-    isometrico: "Isométrico",
-    pliometrico: "Pliométrico",
-    resistencia: "Resistencia",
-    mancuernas: "Mancuernas",
-    banda: "Banda"
-  };
-
-  return map[value] || value.replaceAll("_", " ");
-}
+    if (!value) return "-";
+  
+    const map = {
+      peso_corporal: "Peso corporal",
+      peso_extra: "Peso extra",
+      rueda_abdominal: "Rueda abdominal",
+      upper_arms: "Brazos",
+      full_body: "Cuerpo completo",
+      chest: "Pecho",
+      back: "Espalda",
+      thighs: "Piernas",
+      glutes: "Glúteos",
+      shoulders: "Hombros",
+      abdominals: "Abdominales",
+      core: "Core",
+      pectorals: "Pectorales",
+      quadriceps: "Cuádriceps",
+      biceps: "Bíceps",
+      triceps: "Tríceps",
+      hamstrings: "Isquiotibiales",
+      obliques: "Oblicuos",
+      fuerza: "Fuerza",
+      cardio: "Cardio",
+      flexibilidad: "Flexibilidad",
+      movilidad: "Movilidad",
+      isometrico: "Isométrico",
+      pliometrico: "Pliométrico",
+      resistencia: "Resistencia",
+      mancuernas: "Mancuernas",
+      banda: "Banda"
+    };
+  
+    return map[value] || value.replaceAll("_", " ");
+}//formatValue(value)
 
 async function agregarEjercicioARutina(exerciseId) {
- 
-
   cerrarSelectorEjercicios();
   abrirDetalleRutina(rutinaActualId);
    await cargarEjerciciosDeRutina(rutinaActualId);
    await cargarRutinas();
-}
+}//agregarEjercicioARutina(exerciseId)
 
 async function cargarEjerciciosDeRutina(rutinaId) {
 
-  const { data, error } = await routineClient
-    .from("routine_exercises")
-    .select(`
-      id,
-      exercise_id,
-      rest_time,
-      exercises (
+   const { data, error } = await routineClient
+
+      .from("routine_exercises")
+    
+      .select(`
         id,
-        nombre,
-        nombre_en,
-        equipo
+        exercise_id,
+        rest_time,
+    
+        exercises (
+          id,
+          nombre,
+          nombre_en,
+          equipo
+        ),
+    
+        routine_sets (
+          id,
+          set_number,
+          weight,
+          reps
+        )
+      `)
+    
+      .eq(
+        "routine_id",
+        rutinaId
       )
-    `)
-    .eq("routine_id", rutinaId)
-    .order("orden", { ascending:true });
-
-  if (error) {
-
-    console.error(error);
-
-    return;
-
-  }
-
-  const box =
-    document.getElementById(
-      "routineExerciseList"
-    );
-
-  if (!box) return;
-
-  box.innerHTML = (data || []).length
-
-    ? data.map((item, index) => `
-
-        <div class="routine-ex-item">
-
-          <!-- HEADER -->
-
-          <div
-            class="routine-ex-header clickable"
-            data-accordion="${index}"
-          >
-
-            <div>
-
-              <div class="routine-ex-name">
-                ${item.exercises?.nombre_en || ""}
-              </div>
-
-              <div class="routine-ex-equipment">
-                ${formatValue(
-                  item.exercises?.equipo
-                ) || "Sin equipo"}
-              </div>
-
-            </div>
-
-            <div class="accordion-arrow">
-              ▾
-            </div>
-
-          </div>
-
-          <!-- CONTENT -->
-
-          <div
-            class="
-              routine-ex-content
-              ${index === 0 ? "open" : ""}
-            "
-            id="accordion-${index}"
-          >
-
-            <!-- REST TIMER -->
-
-            <div class="exercise-rest-timer">
-
-              <span class="rest-label">
-
-                Temporizador de descanso:
-
-              </span>
-
-              <button
-                class="rest-time-btn"
-                data-routine-exercise="${item.id}"
-              >
-
-                ${item.rest_time || "Apagado"}
-
-              </button>
-
-            </div>
-
-            <!-- TABLE -->
-
-            <div class="routine-sets-table-wrap">
-
-              <table class="routine-sets-table">
-
-                <thead>
-
-                  <tr>
-
-                    <th>Set</th>
-
-                    <th>Anterior</th>
-
-                    <th>Lbs</th>
-
-                    <th>Reps</th>
-
-                  </tr>
-
-                </thead>
-
-                <tbody
-                  id="sets-body-${index}"
-                >
-
-                  <tr>
-
-                    <td class="set-number">
-                      1
-                    </td>
-
-                    <td class="set-prev">
-                      —
-                    </td>
-
-                    <td>
-
-                      <input
-                        type="number"
-                        class="set-input"
-                        placeholder="0"
-                      >
-
-                    </td>
-
-                    <td>
-
-                      <input
-                        type="number"
-                        class="set-input"
-                        placeholder="0"
-                      >
-
-                    </td>
-
-                  </tr>
-
-                </tbody>
-
-              </table>
-
-            </div>
-
-            <!-- ADD SET -->
-
-            <button
-              class="add-set-btn"
-              data-set="${index}"
+    
+      .order(
+        "orden",
+        { ascending:true }
+      );
+  
+    if (error) {
+  
+      console.error(error);
+  
+      return;
+  
+    }
+  
+    const box =
+      document.getElementById(
+        "routineExerciseList"
+      );
+  
+    if (!box) return;
+  
+    box.innerHTML = (data || []).length
+  
+      ? data.map((item, index) => `
+  
+          <div class="routine-ex-item">
+  
+            <!-- HEADER -->
+  
+            <div
+              class="routine-ex-header clickable"
+              data-accordion="${index}"
             >
-
-              + Add Set
-
-            </button>
-
+  
+              <div>
+  
+                <div class="routine-ex-name">
+                  ${item.exercises?.nombre_en || ""}
+                </div>
+  
+                <div class="routine-ex-equipment">
+                  ${formatValue(
+                    item.exercises?.equipo
+                  ) || "Sin equipo"}
+                </div>
+  
+              </div>
+  
+              <div class="accordion-arrow">
+                ▾
+              </div>
+  
+            </div>
+  
+            <!-- CONTENT -->
+  
+            <div
+              class="
+                routine-ex-content
+                ${index === 0 ? "open" : ""}
+              "
+              id="accordion-${index}"
+            >
+  
+              <!-- REST TIMER -->
+  
+              <div class="exercise-rest-timer">
+  
+                <span class="rest-label">
+  
+                  Temporizador de descanso:
+  
+                </span>
+  
+                <button
+                  class="rest-time-btn"
+                  data-routine-exercise="${item.id}"
+                >
+  
+                  ${item.rest_time || "Apagado"}
+  
+                </button>
+  
+              </div>
+  
+              <!-- TABLE -->
+  
+              <div class="routine-sets-table-wrap">
+  
+                <table class="routine-sets-table">
+  
+                  <thead>
+  
+                    <tr>
+  
+                      <th>Set</th>
+  
+                      <th>Anterior</th>
+  
+                      <th>Lbs</th>
+  
+                      <th>Reps</th>
+  
+                    </tr>
+  
+                  </thead>
+  
+                  <tbody
+                    id="sets-body-${index}"
+                  >
+  
+                    <tr>
+  
+                      <td class="set-number">
+                        1
+                      </td>
+  
+                      <td class="set-prev">
+                        —
+                      </td>
+  
+                      <td>
+  
+                        <input
+                          type="number"
+                          class="set-input"
+                          placeholder="0"
+                        >
+  
+                      </td>
+  
+                      <td>
+  
+                        <input
+                          type="number"
+                          class="set-input"
+                          placeholder="0"
+                        >
+  
+                      </td>
+  
+                    </tr>
+  
+                  </tbody>
+  
+                </table>
+  
+              </div>
+  
+              <!-- ADD SET -->
+  
+              <button
+                class="add-set-btn"
+                data-set="${index}"
+              >
+  
+                + Add Set
+  
+              </button>
+  
+            </div>
+  
           </div>
-
+  
+        `).join("")
+  
+      : `
+  
+        <div class="routine-empty">
+  
+          Sin ejercicios aún
+  
         </div>
-
-      `).join("")
-
-    : `
-
-      <div class="routine-empty">
-
-        Sin ejercicios aún
-
-      </div>
-
-    `;
-
-  /* =========================
-     ACCORDION
-  ========================= */
-
-  document
-    .querySelectorAll(".clickable")
-    .forEach(header => {
-
-      header.addEventListener(
-        "click",
-        () => {
-
-          const id =
-            header.dataset.accordion;
-
-          document
-            .querySelectorAll(
-              ".routine-ex-content"
-            )
-            .forEach(el => {
-
-              el.classList.remove("open");
-
-            });
-
-          document
-            .getElementById(
-              `accordion-${id}`
-            )
-            .classList.add("open");
-
-        }
-      );
-
-    });
-
-  /* =========================
-     ADD SET
-  ========================= */
-
-  document
-    .querySelectorAll(".add-set-btn")
-    .forEach(btn => {
-
-      btn.addEventListener(
-        "click",
-        () => {
-
-          const idx =
-            btn.dataset.set;
-
-          const tbody =
-            document.getElementById(
-              `sets-body-${idx}`
+  
+      `;
+  
+    /* =========================
+       ACCORDION
+    ========================= */
+  
+    document
+      .querySelectorAll(".clickable")
+      .forEach(header => {
+  
+        header.addEventListener(
+          "click",
+          () => {
+  
+            const id =
+              header.dataset.accordion;
+  
+            document
+              .querySelectorAll(
+                ".routine-ex-content"
+              )
+              .forEach(el => {
+  
+                el.classList.remove("open");
+  
+              });
+  
+            document
+              .getElementById(
+                `accordion-${id}`
+              )
+              .classList.add("open");
+  
+          }
+        );
+  
+      });
+  
+    /* =========================
+       ADD SET
+    ========================= */
+  
+    document
+      .querySelectorAll(".add-set-btn")
+      .forEach(btn => {
+  
+        btn.addEventListener(
+          "click",
+          () => {
+  
+            const idx =
+              btn.dataset.set;
+  
+            const tbody =
+              document.getElementById(
+                `sets-body-${idx}`
+              );
+  
+            const setCount =
+              tbody.querySelectorAll("tr")
+                .length + 1;
+  
+            tbody.insertAdjacentHTML(
+              "beforeend",
+  
+              `
+  
+              <tr>
+  
+                <td class="set-number">
+                  ${setCount}
+                </td>
+  
+                <td class="set-prev">
+                  —
+                </td>
+  
+                <td>
+  
+                  <input
+                    type="number"
+                    class="set-input"
+                    placeholder="0"
+                  >
+  
+                </td>
+  
+                <td>
+  
+                  <input
+                    type="number"
+                    class="set-input"
+                    placeholder="0"
+                  >
+  
+                </td>
+  
+              </tr>
+  
+              `
             );
+  
+          }
+        );
+  
+      });
 
-          const setCount =
-            tbody.querySelectorAll("tr")
-              .length + 1;
-
-          tbody.insertAdjacentHTML(
-            "beforeend",
-
-            `
-
-            <tr>
-
-              <td class="set-number">
-                ${setCount}
-              </td>
-
-              <td class="set-prev">
-                —
-              </td>
-
-              <td>
-
-                <input
-                  type="number"
-                  class="set-input"
-                  placeholder="0"
-                >
-
-              </td>
-
-              <td>
-
-                <input
-                  type="number"
-                  class="set-input"
-                  placeholder="0"
-                >
-
-              </td>
-
-            </tr>
-
-            `
-          );
-
-        }
-      );
-
-    });
-
-}
+}//cargarEjerciciosDeRutina(rutinaId)
 
 function fillRestTimerOptions(){
 
-  const select =
-    document.getElementById(
-      "restTimerSelect"
-    );
-
-  if(!select) return;
-
-  select.innerHTML = `
-    <option value="Apagado">
-      Apagado
-    </option>
-  `;
-
-  for(let i = 5; i <= 150; i += 5){
-
-    const min =
-      Math.floor(i / 60);
-
-    const sec =
-      i % 60;
-
-    let label = "";
-
-    if(min > 0){
-
-      label += `${min}min`;
-
-    }
-
-    if(sec > 0){
-
-      label +=
-        `${min > 0 ? " " : ""}${sec}s`;
-
-    }
-
-    select.innerHTML += `
-      <option value="${label}">
-        ${label}
+    const select =
+      document.getElementById(
+        "restTimerSelect"
+      );
+  
+    if(!select) return;
+  
+    select.innerHTML = `
+      <option value="Apagado">
+        Apagado
       </option>
     `;
+  
+    for(let i = 5; i <= 150; i += 5){
+  
+      const min =
+        Math.floor(i / 60);
+  
+      const sec =
+        i % 60;
+  
+      let label = "";
+  
+      if(min > 0){
+  
+        label += `${min}min`;
+  
+      }
+  
+      if(sec > 0){
+  
+        label +=
+          `${min > 0 ? " " : ""}${sec}s`;
+  
+      }
+  
+      select.innerHTML += `
+        <option value="${label}">
+          ${label}
+        </option>
+      `;
+  
+    }
 
-  }
-
-}
+}//fillRestTimerOptions()
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  cargarRutinas();
-
-  const addBtn =
-    document.getElementById(
-      "addRoutineBtn"
-    );
-
-  const cancelBtn =
-    document.getElementById(
-      "rtCancel"
-    );
-
-  const saveBtn =
-    document.getElementById(
-      "rtSave"
-    );
-
-  if (addBtn)
-    addBtn.addEventListener(
-      "click",
-      abrirRoutineLightbox
-    );
-
-  if (cancelBtn)
-    cancelBtn.addEventListener(
-      "click",
-      cerrarRoutineLightbox
-    );
-
-  if (saveBtn)
-    saveBtn.addEventListener(
-      "click",
-      guardarRutina
-    );
-
-  const closeView =
-    document.getElementById(
-      "viewRoutineClose"
-    );
-
-  if (closeView)
-    closeView.addEventListener(
-      "click",
-      cerrarDetalleRutina
-    );
-
-  const addExerciseClose =
-    document.getElementById(
-      "addExerciseClose"
-    );
-
-  if (addExerciseClose)
-    addExerciseClose.addEventListener(
-      "click",
-      cerrarSelectorEjercicios
-    );
-
-  /* =========================
-     REST TIMER
-  ========================= */
-
-  fillRestTimerOptions();
-
-  const restOverlay =
-    document.getElementById(
-      "restTimerOverlay"
-    );
-
-  const restCancel =
-    document.getElementById(
-      "restTimerCancel"
-    );
-
-  const restOk =
-    document.getElementById(
-      "restTimerOk"
-    );
-
-  /* OPEN */
-
-  document.addEventListener(
-    "click",
-    (e) => {
-
-      const btn =
-        e.target.closest(
-          ".rest-time-btn"
-        );
-
-      if(!btn) return;
-
-      currentRestButton = btn;
-
-      const currentValue =
-        btn.textContent.trim();
-
+    cargarRutinas();
+  
+    const addBtn =
       document.getElementById(
-        "restTimerSelect"
-      ).value = currentValue;
-
-      restOverlay.classList.add("open");
-
-    }
-  );
-
-  /* CANCEL */
-
-  if(restCancel){
-
-    restCancel.onclick = () => {
-
-      restOverlay.classList.remove("open");
-
-    };
-
-  }
-
-  /* SAVE */
-
-  if(restOk){
-
-    restOk.onclick = async () => {
-
-      if(!currentRestButton)
-        return;
-
-      const value =
+        "addRoutineBtn"
+      );
+  
+    const cancelBtn =
+      document.getElementById(
+        "rtCancel"
+      );
+  
+    const saveBtn =
+      document.getElementById(
+        "rtSave"
+      );
+  
+    if (addBtn)
+      addBtn.addEventListener(
+        "click",
+        abrirRoutineLightbox
+      );
+  
+    if (cancelBtn)
+      cancelBtn.addEventListener(
+        "click",
+        cerrarRoutineLightbox
+      );
+  
+    if (saveBtn)
+      saveBtn.addEventListener(
+        "click",
+        guardarRutina
+      );
+  
+    const closeView =
+      document.getElementById(
+        "viewRoutineClose"
+      );
+  
+    if (closeView)
+      closeView.addEventListener(
+        "click",
+        cerrarDetalleRutina
+      );
+  
+    const addExerciseClose =
+      document.getElementById(
+        "addExerciseClose"
+      );
+  
+    if (addExerciseClose)
+      addExerciseClose.addEventListener(
+        "click",
+        cerrarSelectorEjercicios
+      );
+  
+    /* =========================
+       REST TIMER
+    ========================= */
+  
+    fillRestTimerOptions();
+  
+    const restOverlay =
+      document.getElementById(
+        "restTimerOverlay"
+      );
+  
+    const restCancel =
+      document.getElementById(
+        "restTimerCancel"
+      );
+  
+    const restOk =
+      document.getElementById(
+        "restTimerOk"
+      );
+  
+    /* OPEN */
+  
+    document.addEventListener(
+      "click",
+      (e) => {
+  
+        const btn =
+          e.target.closest(
+            ".rest-time-btn"
+          );
+  
+        if(!btn) return;
+  
+        currentRestButton = btn;
+  
+        const currentValue =
+          btn.textContent.trim();
+  
         document.getElementById(
           "restTimerSelect"
-        ).value;
-
-      const routineExerciseId =
-        currentRestButton.dataset
-          .routineExercise;
-
-      const { error } =
-        await routineClient
-          .from("routine_exercises")
-          .update({
-            rest_time:value
-          })
-          .eq(
-            "id",
-            routineExerciseId
-          );
-
-      if(error){
-
-        console.error(error);
-
-        alert(
-          "No se pudo guardar"
-        );
-
-        return;
-
+        ).value = currentValue;
+  
+        restOverlay.classList.add("open");
+  
       }
+    );
+  
+    /* CANCEL */
+  
+    if(restCancel){
+  
+      restCancel.onclick = () => {
+  
+        restOverlay.classList.remove("open");
+  
+      };
+  
+    }
+  
+    /* SAVE */
+  
+    if(restOk){
+  
+      restOk.onclick = async () => {
+  
+        if(!currentRestButton)
+          return;
+  
+        const value =
+          document.getElementById(
+            "restTimerSelect"
+          ).value;
+  
+        const routineExerciseId =
+          currentRestButton.dataset
+            .routineExercise;
+  
+        const { error } =
+          await routineClient
+            .from("routine_exercises")
+            .update({
+              rest_time:value
+            })
+            .eq(
+              "id",
+              routineExerciseId
+            );
+  
+        if(error){
+  
+          console.error(error);
+  
+          alert(
+            "No se pudo guardar"
+          );
+  
+          return;
+  
+        }
+  
+        currentRestButton.textContent =
+          value;
+  
+        restOverlay.classList.remove("open");
+  
+      };
+  
+    }
 
-      currentRestButton.textContent =
-        value;
-
-      restOverlay.classList.remove("open");
-
-    };
-
-  }
-
-});
+});//DOMContentLoaded
