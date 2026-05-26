@@ -776,10 +776,7 @@ async function cargarEjerciciosDeRutina(rutinaId) {
                         <td>
 
                           <button
-                            class="
-                              delete-ex-btn
-                              delete-set-btn
-                            "
+                            class="delete-ex-btn"
                             data-set-id="${set.id}"
                           >
 
@@ -990,10 +987,7 @@ async function cargarEjerciciosDeRutina(rutinaId) {
               <td>
 
                 <button
-                  class="
-                    delete-ex-btn
-                    delete-set-btn
-                  "
+                  class="delete-ex-btn"
                   data-set-id="${newSet.id}"
                 >
 
@@ -1302,7 +1296,54 @@ function attachSetAutosave(){
 
     });
 
-}//attachSetAutosave(){
+}//attachSetAutosave()
+
+function attachDeleteSetEvents(){
+
+  document
+    .querySelectorAll(
+      ".delete-ex-btn[data-set-id]"
+    )
+    .forEach(btn => {
+
+      btn.onclick = async () => {
+
+        const setId =
+          btn.dataset.setId;
+
+        const row =
+          btn.closest("tr");
+
+        if(!setId || !row)
+          return;
+
+        const { error } =
+          await routineClient
+
+            .from("routine_sets")
+
+            .delete()
+
+            .eq(
+              "id",
+              setId
+            );
+
+        if(error){
+
+          console.error(error);
+
+          return;
+
+        }
+
+        row.remove();
+
+      };
+
+    });
+
+}//attachDeleteSetEvents
 
 document.addEventListener("DOMContentLoaded", () => {
 
