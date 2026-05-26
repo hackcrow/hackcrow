@@ -1572,10 +1572,18 @@ async function abrirDeleteRoutineOverlay(){
           <div
             class="delete-routine-name"
           >
-
-            nombre de rutina -
-            ${routine.nombre || "Sin nombre"}
-
+          
+            ${
+              routine.nombre
+          
+                ? routine.nombre.charAt(0)
+                    .toUpperCase()
+          
+                  + routine.nombre.slice(1)
+          
+                : "Sin nombre"
+            }
+          
           </div>
 
           <div
