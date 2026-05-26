@@ -1522,6 +1522,188 @@ function attachDeleteRoutineExerciseEvents(){
 
 }//attachDeleteRoutineExerciseEvents
 
+async function abrirDeleteRoutineOverlay(){
+
+  const overlay =
+    document.getElementById(
+      "deleteRoutineOverlay"
+    );
+
+  const list =
+    document.getElementById(
+      "deleteRoutineList"
+    );
+
+  const { data, error } =
+    await routineClient
+
+      .from("routines")
+
+      .select(`
+        id,
+        nombre,
+        categoria
+      `)
+
+      .order(
+        "created_at",
+        { ascending:false }
+      );
+
+  if(error){
+
+    console.error(error);
+
+    return;
+
+  }
+
+  list.innerHTML =
+    (data || []).map(routine => `
+
+      <div
+        class="delete-routine-row"
+      >
+
+        <div
+          class="delete-routine-info"
+        >
+
+          <div
+            class="delete-routine-name"
+          >
+
+            nombre de rutina -
+            ${routine.nombre || "Sin nombre"}
+
+          </div>
+
+          <div
+            class="delete-routine-meta"
+          >
+
+            ${routine.categoria || "Sin categoría"}
+
+          </div>
+
+        </div>
+
+        <button
+          class="
+            delete-ex-btn
+            delete-routine-final-btn
+          "
+          data-routine-id="${routine.id}"
+        >
+
+          <svg
+            viewBox="0 0 24 24"
+            width="20"
+            height="20"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+
+            <path d="M3 6h18" />
+            <path d="M8 6V4h8v2" />
+            <path d="M19 6l-1 14H6L5 6" />
+            <path d="M10 11v6" />
+            <path d="M14 11v6" />
+
+          </svg>
+
+        </button>
+
+      </div>
+
+    `).join("");
+
+  overlay.classList.add(
+    "open"
+  );
+
+  attachDeleteRoutineFinalEvents();
+
+}//abrirDeleteRoutineOverlay
+
+function attachDeleteRoutineFinalEvents(){
+
+  document
+    .querySelectorAll(
+      ".delete-routine-final-btn"
+    )
+    .forEach(btn => {
+
+      btn.onclick = async () => {
+
+        const routineId =
+          btn.dataset.routineId;
+
+        const confirmed =
+          await openConfirmModal({
+
+            title:
+              "Eliminar rutina",
+
+            message:
+              "Esta acción eliminará todos los ejercicios y sets de la rutina.",
+
+            confirmText:
+              "Eliminar"
+
+          });
+
+        if(!confirmed) return;
+
+        const { error } =
+          await routineClient
+
+            .from("routines")
+
+            .delete()
+
+            .eq(
+              "id",
+              routineId
+            );
+
+        if(error){
+
+          console.error(error);
+
+          return;
+
+        }
+
+        await cargarRutinas();
+
+        await abrirDeleteRoutineOverlay();
+
+      };
+
+    });
+
+}//attachDeleteRoutineFinalEvents
+
+document
+  .getElementById(
+    "closeDeleteRoutineOverlay"
+  )
+  .onclick = () => {
+
+    document
+      .getElementById(
+        "deleteRoutineOverlay"
+      )
+      .classList.remove(
+        "open"
+      );
+
+  };//document
+
 document.addEventListener("DOMContentLoaded", () => {
 
     cargarRutinas();
