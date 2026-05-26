@@ -1580,6 +1580,83 @@ document.addEventListener("DOMContentLoaded", () => {
         "click",
         cerrarSelectorEjercicios
       );
+
+    //DELETE ROUTINE
+    const deleteRoutineBtn =
+    document.getElementById(
+      "deleteRoutineBtn"
+    );
+  
+  if(deleteRoutineBtn){
+  
+    deleteRoutineBtn.onclick =
+      async () => {
+  
+        if(!rutinaActualId){
+  
+          alert(
+            "Abre una rutina primero"
+          );
+  
+          return;
+  
+        }
+  
+        const confirmed =
+          await openConfirmModal({
+  
+            title:
+              "Eliminar rutina",
+  
+            message:
+              "Esta acción eliminará la rutina completa y todos sus ejercicios.",
+  
+            confirmText:
+              "Eliminar"
+  
+          });
+  
+        if(!confirmed) return;
+  
+        const { error } =
+          await routineClient
+  
+            .from("routines")
+  
+            .delete()
+  
+            .eq(
+              "id",
+              rutinaActualId
+            );
+  
+        if(error){
+  
+          console.error(error);
+  
+          return;
+  
+        }
+  
+        /* CERRAR DETALLE */
+  
+        document
+          .getElementById(
+            "viewRoutineOverlay"
+          )
+          .classList.remove(
+            "open"
+          );
+  
+        rutinaActualId = null;
+  
+        /* REFRESH */
+  
+        await cargarRutinas();
+  
+      };
+  
+  }
   
     /* =========================
        REST TIMER
