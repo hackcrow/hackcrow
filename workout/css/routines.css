@@ -938,3 +938,21 @@
   cursor:grabbing;
 
 }
+
+.routine-ex-main{
+
+  flex:1;
+
+  min-width:0;
+
+}
+
+.delete-routine-ex-btn{
+
+  margin-left:auto;
+
+  margin-right:10px;
+
+  flex-shrink:0;
+
+}
