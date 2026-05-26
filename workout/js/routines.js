@@ -58,7 +58,20 @@ async function renderRutinas() {
   
         return `
           <div class="routine-card" data-id="${r.id}">
-            <div class="routine-name">${r.nombre}</div>
+            <div class="routine-name">
+
+                ${
+                  r.nombre
+              
+                    ? r.nombre.charAt(0)
+                        .toUpperCase()
+              
+                      + r.nombre.slice(1)
+              
+                    : "Sin nombre"
+                }
+              
+              </div>
             <div class="routine-desc">${r.descripcion || "Sin descripción"}</div>
             <div class="routine-meta">
               <span>${r.categoria || "General"}</span>
@@ -129,7 +142,18 @@ async function abrirDetalleRutina(id) {
     const rutina = rutinas.find(r => r.id === id);
     if (!rutina) return;
   
-    document.getElementById("viewRoutineTitle").textContent = rutina.nombre;
+    document.getElementById(
+      "viewRoutineTitle"
+    ).textContent =
+    
+      rutina.nombre
+    
+        ? rutina.nombre.charAt(0)
+            .toUpperCase()
+    
+          + rutina.nombre.slice(1)
+    
+        : "Sin nombre";
   
     document.getElementById("viewRoutineContent").innerHTML = `
       <p style="margin-bottom:14px;color:var(--text-muted);">
