@@ -1773,16 +1773,10 @@ document.addEventListener("DOMContentLoaded", () => {
   
     deleteRoutineBtn.onclick =
       async () => {
-  
-        if(!rutinaActualId){
-  
-          alert(
-            "Abre una rutina primero"
-          );
-  
-          return;
-  
-        }
+    
+        abrirDeleteRoutineOverlay();
+    
+      };
   
         const confirmed =
           await openConfirmModal({
