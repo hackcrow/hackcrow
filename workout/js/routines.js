@@ -1706,242 +1706,81 @@ document
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    cargarRutinas();
-  
-    const addBtn =
-      document.getElementById(
-        "addRoutineBtn"
-      );
-  
-    const cancelBtn =
-      document.getElementById(
-        "rtCancel"
-      );
-  
-    const saveBtn =
-      document.getElementById(
-        "rtSave"
-      );
-  
-    if (addBtn)
-      addBtn.addEventListener(
-        "click",
-        abrirRoutineLightbox
-      );
-  
-    if (cancelBtn)
-      cancelBtn.addEventListener(
-        "click",
-        cerrarRoutineLightbox
-      );
-  
-    if (saveBtn)
-      saveBtn.addEventListener(
-        "click",
-        guardarRutina
-      );
-  
-    const closeView =
-      document.getElementById(
-        "viewRoutineClose"
-      );
-  
-    if (closeView)
-      closeView.addEventListener(
-        "click",
-        cerrarDetalleRutina
-      );
-  
-    const addExerciseClose =
-      document.getElementById(
-        "addExerciseClose"
-      );
-  
-    if (addExerciseClose)
-      addExerciseClose.addEventListener(
-        "click",
-        cerrarSelectorEjercicios
-      );
+  cargarRutinas();
 
-    //DELETE ROUTINE
-    const deleteRoutineBtn =
+  const addBtn =
+    document.getElementById(
+      "addRoutineBtn"
+    );
+
+  const cancelBtn =
+    document.getElementById(
+      "rtCancel"
+    );
+
+  const saveBtn =
+    document.getElementById(
+      "rtSave"
+    );
+
+  if (addBtn)
+    addBtn.addEventListener(
+      "click",
+      abrirRoutineLightbox
+    );
+
+  if (cancelBtn)
+    cancelBtn.addEventListener(
+      "click",
+      cerrarRoutineLightbox
+    );
+
+  if (saveBtn)
+    saveBtn.addEventListener(
+      "click",
+      guardarRutina
+    );
+
+  const closeView =
+    document.getElementById(
+      "viewRoutineClose"
+    );
+
+  if (closeView)
+    closeView.addEventListener(
+      "click",
+      cerrarDetalleRutina
+    );
+
+  const addExerciseClose =
+    document.getElementById(
+      "addExerciseClose"
+    );
+
+  if (addExerciseClose)
+    addExerciseClose.addEventListener(
+      "click",
+      cerrarSelectorEjercicios
+    );
+
+  /* =========================
+     DELETE ROUTINE
+  ========================= */
+
+  const deleteRoutineBtn =
     document.getElementById(
       "deleteRoutineBtn"
     );
-  
+
   if(deleteRoutineBtn){
-  
+
     deleteRoutineBtn.onclick =
       async () => {
-    
+
         abrirDeleteRoutineOverlay();
-    
+
       };
-  
-        const confirmed =
-          await openConfirmModal({
-  
-            title:
-              "Eliminar rutina",
-  
-            message:
-              "Esta acción eliminará la rutina completa y todos sus ejercicios.",
-  
-            confirmText:
-              "Eliminar"
-  
-          });
-  
-        if(!confirmed) return;
-  
-        const { error } =
-          await routineClient
-  
-            .from("routines")
-  
-            .delete()
-  
-            .eq(
-              "id",
-              rutinaActualId
-            );
-  
-        if(error){
-  
-          console.error(error);
-  
-          return;
-  
-        }
-  
-        /* CERRAR DETALLE */
-  
-        document
-          .getElementById(
-            "viewRoutineOverlay"
-          )
-          .classList.remove(
-            "open"
-          );
-  
-        rutinaActualId = null;
-  
-        /* REFRESH */
-  
-        await cargarRutinas();
-  
-      };
-  
+
   }
-  
-    /* =========================
-       REST TIMER
-    ========================= */
-  
-    fillRestTimerOptions();
-  
-    const restOverlay =
-      document.getElementById(
-        "restTimerOverlay"
-      );
-  
-    const restCancel =
-      document.getElementById(
-        "restTimerCancel"
-      );
-  
-    const restOk =
-      document.getElementById(
-        "restTimerOk"
-      );
-  
-    /* OPEN */
-  
-    document.addEventListener(
-      "click",
-      (e) => {
-  
-        const btn =
-          e.target.closest(
-            ".rest-time-btn"
-          );
-  
-        if(!btn) return;
-  
-        currentRestButton = btn;
-  
-        const currentValue =
-          btn.textContent.trim();
-  
-        document.getElementById(
-          "restTimerSelect"
-        ).value = currentValue;
-  
-        restOverlay.classList.add("open");
-  
-      }
-    );
-  
-    /* CANCEL */
-  
-    if(restCancel){
-  
-      restCancel.onclick = () => {
-  
-        restOverlay.classList.remove("open");
-  
-      };
-  
-    }
-  
-    /* SAVE */
-  
-    if(restOk){
-  
-      restOk.onclick = async () => {
-  
-        if(!currentRestButton)
-          return;
-  
-        const value =
-          document.getElementById(
-            "restTimerSelect"
-          ).value;
-  
-        const routineExerciseId =
-          currentRestButton.dataset
-            .routineExercise;
-  
-        const { error } =
-          await routineClient
-            .from("routine_exercises")
-            .update({
-              rest_time:value
-            })
-            .eq(
-              "id",
-              routineExerciseId
-            );
-  
-        if(error){
-  
-          console.error(error);
-  
-          alert(
-            "No se pudo guardar"
-          );
-  
-          return;
-  
-        }
-  
-        currentRestButton.textContent =
-          value;
-  
-        restOverlay.classList.remove("open");
-  
-      };
-  
-    }
 
 });//DOMContentLoaded
