@@ -787,6 +787,8 @@ async function cargarEjerciciosDeRutina(rutinaId) {
                               stroke-width="1.8"
                               stroke-linecap="round"
                               stroke-linejoin="round"
+                              width="20"
+                              height="20"
                             >
 
                               <path d="M3 6h18" />
@@ -998,6 +1000,8 @@ async function cargarEjerciciosDeRutina(rutinaId) {
                     stroke-width="1.8"
                     stroke-linecap="round"
                     stroke-linejoin="round"
+                    width="20"
+                    height="20"
                   >
 
                     <path d="M3 6h18" />
