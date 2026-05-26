@@ -1022,7 +1022,10 @@ async function cargarEjerciciosDeRutina(rutinaId) {
           
           attachSetAutosave();
           attachDeleteSetEvents();
+          }
+      );
 
+    });
   /* =========================
      AUTOSAVE
   ========================= */
