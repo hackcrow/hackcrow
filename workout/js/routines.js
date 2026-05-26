@@ -642,29 +642,29 @@ async function cargarEjerciciosDeRutina(rutinaId) {
             class="routine-ex-header clickable"
             data-accordion="${index}"
           >
-          
+
             <div class="drag-handle">
               ≡
             </div>
-          
+
             <div>
-          
+
               <div class="routine-ex-name">
                 ${item.exercises?.nombre_en || ""}
               </div>
-          
+
               <div class="routine-ex-equipment">
                 ${formatValue(
                   item.exercises?.equipo
                 ) || "Sin equipo"}
               </div>
-          
+
             </div>
-          
+
             <div class="accordion-arrow">
               ▾
             </div>
-          
+
           </div>
 
           <!-- CONTENT -->
@@ -721,93 +721,94 @@ async function cargarEjerciciosDeRutina(rutinaId) {
                 </thead>
 
                 <tbody
-                    id="sets-body-${index}"
-                  >
-                  
-                    ${(item.routine_sets || [])
-                  
-                      .sort(
-                        (a,b) =>
-                          a.set_number - b.set_number
-                      )
-                  
-                      .map(set => `
-                  
-                        <tr>
-                  
-                          <td class="set-number">
-                            ${set.set_number}
-                          </td>
-                  
-                          <td class="set-prev">
-                            —
-                          </td>
-                  
-                          <td>
-                  
-                            <input
-                              type="number"
-                              class="
-                                set-input
-                                set-weight-input
-                              "
-                              data-set-id="${set.id}"
-                              value="${set.weight || 0}"
-                              placeholder="0"
+                  id="sets-body-${index}"
+                >
+
+                  ${(item.routine_sets || [])
+
+                    .sort(
+                      (a,b) =>
+                        a.set_number - b.set_number
+                    )
+
+                    .map(set => `
+
+                      <tr>
+
+                        <td class="set-number">
+                          ${set.set_number}
+                        </td>
+
+                        <td class="set-prev">
+                          —
+                        </td>
+
+                        <td>
+
+                          <input
+                            type="number"
+                            class="
+                              set-input
+                              set-weight-input
+                            "
+                            data-set-id="${set.id}"
+                            value="${set.weight || 0}"
+                            placeholder="0"
+                          >
+
+                        </td>
+
+                        <td>
+
+                          <input
+                            type="number"
+                            class="
+                              set-input
+                              set-reps-input
+                            "
+                            data-set-id="${set.id}"
+                            value="${set.reps || 0}"
+                            placeholder="0"
+                          >
+
+                        </td>
+
+                        <td>
+
+                          <button
+                            class="
+                              delete-ex-btn
+                              delete-set-btn
+                            "
+                            data-set-id="${set.id}"
+                          >
+
+                            <svg
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="1.8"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
                             >
-                  
-                          </td>
-                  
-                          <td>
-                  
-                            <input
-                              type="number"
-                              class="
-                                set-input
-                                set-reps-input
-                              "
-                              data-set-id="${set.id}"
-                              value="${set.reps || 0}"
-                              placeholder="0"
-                            >
-                  
-                          </td>
-                  
-                          <!-- DELETE BUTTON -->
-                  
-                          <td>
-                  
-                            <button
-                                class="delete-ex-btn delete-set-btn"
-                                data-set-id="${set.id}"
-                              >
-                              
-                                <svg
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  stroke-width="1.8"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                >
-                              
-                                  <path d="M3 6h18" />
-                                  <path d="M8 6V4h8v2" />
-                                  <path d="M19 6l-1 14H6L5 6" />
-                                  <path d="M10 11v6" />
-                                  <path d="M14 11v6" />
-                              
-                                </svg>
-                              
-                              </button>
-                  
-                          </td>
-                  
-                        </tr>
-                  
-                      `).join("")}
-                  
-                  </tbody>
+
+                              <path d="M3 6h18" />
+                              <path d="M8 6V4h8v2" />
+                              <path d="M19 6l-1 14H6L5 6" />
+                              <path d="M10 11v6" />
+                              <path d="M14 11v6" />
+
+                            </svg>
+
+                          </button>
+
+                        </td>
+
+                      </tr>
+
+                    `).join("")}
+
+                </tbody>
 
               </table>
 
@@ -943,21 +944,21 @@ async function cargarEjerciciosDeRutina(rutinaId) {
 
           tbody.insertAdjacentHTML(
             "beforeend",
-          
+
             `
-          
+
             <tr>
-          
+
               <td class="set-number">
                 ${setCount}
               </td>
-          
+
               <td class="set-prev">
                 —
               </td>
-          
+
               <td>
-          
+
                 <input
                   type="number"
                   class="
@@ -968,11 +969,11 @@ async function cargarEjerciciosDeRutina(rutinaId) {
                   value="0"
                   placeholder="0"
                 >
-          
+
               </td>
-          
+
               <td>
-          
+
                 <input
                   type="number"
                   class="
@@ -983,223 +984,219 @@ async function cargarEjerciciosDeRutina(rutinaId) {
                   value="0"
                   placeholder="0"
                 >
-          
+
               </td>
-          
-              <!-- DELETE BUTTON -->
-          
+
               <td>
-          
+
                 <button
-                  class="delete-set-btn"
+                  class="
+                    delete-ex-btn
+                    delete-set-btn
+                  "
                   data-set-id="${newSet.id}"
                 >
-          
+
                   <svg
                     viewBox="0 0 24 24"
                     fill="none"
+                    stroke="currentColor"
                     stroke-width="1.8"
                     stroke-linecap="round"
                     stroke-linejoin="round"
                   >
-          
+
                     <path d="M3 6h18" />
                     <path d="M8 6V4h8v2" />
                     <path d="M19 6l-1 14H6L5 6" />
                     <path d="M10 11v6" />
                     <path d="M14 11v6" />
-          
+
                   </svg>
-          
+
                 </button>
-          
+
               </td>
-          
+
             </tr>
-          
+
             `
           );
-          
+
           attachSetAutosave();
           attachDeleteSetEvents();
-          }
+
+        }
       );
 
     });
+
   /* =========================
-     AUTOSAVE
+     DRAG & DROP
   ========================= */
 
-  /* =========================
-   DRAG & DROP
-========================= */
+  const draggableItems =
+    document.querySelectorAll(
+      ".routine-ex-item"
+    );
 
-const draggableItems =
-  document.querySelectorAll(
-    ".routine-ex-item"
-  );
+  let draggedItem = null;
 
-let draggedItem = null;
+  draggableItems.forEach(item => {
 
-draggableItems.forEach(item => {
+    item.addEventListener(
+      "dragstart",
+      () => {
 
-  item.addEventListener(
-    "dragstart",
-    () => {
-
-      draggedItem = item;
-
-      item.classList.add(
-        "dragging"
-      );
-
-    }
-  );
-
-  item.addEventListener(
-    "dragend",
-    async () => {
-
-      item.classList.remove(
-        "dragging"
-      );
-
-      document
-        .querySelectorAll(
-          ".routine-ex-item"
-        )
-        .forEach(el => {
-
-          el.classList.remove(
-            "drag-over"
-          );
-
-        });
-
-      /* =========================
-         SAVE ORDER
-      ========================= */
-
-      const updatedItems =
-        document.querySelectorAll(
-          ".routine-ex-item"
-        );
-
-      for(
-        let i = 0;
-        i < updatedItems.length;
-        i++
-      ){
-
-        const id =
-          updatedItems[i].dataset
-            .routineExerciseId;
-
-        await routineClient
-
-          .from("routine_exercises")
-
-          .update({
-            orden:i + 1
-          })
-
-          .eq(
-            "id",
-            id
-          );
-
-      }
-
-    }
-  );
-
-  item.addEventListener(
-    "dragover",
-    (e) => {
-
-      e.preventDefault();
-
-      if(
-        item !== draggedItem
-      ){
+        draggedItem = item;
 
         item.classList.add(
-          "drag-over"
+          "dragging"
         );
 
       }
+    );
 
-    }
-  );
+    item.addEventListener(
+      "dragend",
+      async () => {
 
-  item.addEventListener(
-    "dragleave",
-    () => {
+        item.classList.remove(
+          "dragging"
+        );
 
-      item.classList.remove(
-        "drag-over"
-      );
+        document
+          .querySelectorAll(
+            ".routine-ex-item"
+          )
+          .forEach(el => {
 
-    }
-  );
+            el.classList.remove(
+              "drag-over"
+            );
 
-  item.addEventListener(
-    "drop",
-    (e) => {
+          });
 
-      e.preventDefault();
-
-      item.classList.remove(
-        "drag-over"
-      );
-
-      if(
-        item !== draggedItem
-      ){
-
-        const container =
-          item.parentNode;
-
-                const items =
-          [
-            ...container.querySelectorAll(
-              ".routine-ex-item"
-            )
-          ];
-
-        const draggedIndex =
-          items.indexOf(
-            draggedItem
+        const updatedItems =
+          document.querySelectorAll(
+            ".routine-ex-item"
           );
 
-        const targetIndex =
-          items.indexOf(item);
-
-        if(
-          draggedIndex < targetIndex
+        for(
+          let i = 0;
+          i < updatedItems.length;
+          i++
         ){
 
-          item.after(
-            draggedItem
-          );
+          const id =
+            updatedItems[i].dataset
+              .routineExerciseId;
 
-        } else {
+          await routineClient
 
-          item.before(
-            draggedItem
+            .from("routine_exercises")
+
+            .update({
+              orden:i + 1
+            })
+
+            .eq(
+              "id",
+              id
+            );
+
+        }
+
+      }
+    );
+
+    item.addEventListener(
+      "dragover",
+      (e) => {
+
+        e.preventDefault();
+
+        if(
+          item !== draggedItem
+        ){
+
+          item.classList.add(
+            "drag-over"
           );
 
         }
 
       }
+    );
 
-    });
+    item.addEventListener(
+      "dragleave",
+      () => {
+
+        item.classList.remove(
+          "drag-over"
+        );
+
+      }
+    );
+
+    item.addEventListener(
+      "drop",
+      (e) => {
+
+        e.preventDefault();
+
+        item.classList.remove(
+          "drag-over"
+        );
+
+        if(
+          item !== draggedItem
+        ){
+
+          const container =
+            item.parentNode;
+
+          const items =
+            [
+              ...container.querySelectorAll(
+                ".routine-ex-item"
+              )
+            ];
+
+          const draggedIndex =
+            items.indexOf(
+              draggedItem
+            );
+
+          const targetIndex =
+            items.indexOf(item);
+
+          if(
+            draggedIndex < targetIndex
+          ){
+
+            item.after(
+              draggedItem
+            );
+
+          } else {
+
+            item.before(
+              draggedItem
+            );
+
+          }
+
+        }
+
+      }
+    );
 
   });
 
-});
-
-attachSetAutosave();
+  attachSetAutosave();
+  attachDeleteSetEvents();
 
 }//cargarEjerciciosDeRutina(rutinaId)
 
