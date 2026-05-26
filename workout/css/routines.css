@@ -956,3 +956,31 @@
   flex-shrink:0;
 
 }
+
+.confirm-card{
+
+  max-width:420px;
+
+}
+
+#confirmMessage{
+
+  color:var(--text-secondary);
+
+  line-height:1.6;
+
+}
+
+.danger-btn{
+
+  background:#ff4d4d;
+
+  color:#fff;
+
+}
+
+.danger-btn:hover{
+
+  background:#ff2f2f;
+
+}
