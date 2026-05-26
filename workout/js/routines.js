@@ -1375,6 +1375,62 @@ function attachDeleteSetEvents(){
 
 }//attachDeleteSetEvents
 
+function attachDeleteRoutineExerciseEvents(){
+
+  document
+    .querySelectorAll(
+      ".delete-routine-ex-btn"
+    )
+    .forEach(btn => {
+
+      btn.onclick = async (e) => {
+
+        e.stopPropagation();
+
+        const confirmed =
+          confirm(
+            "¿Eliminar ejercicio de la rutina?"
+          );
+
+        if(!confirmed) return;
+
+        const routineExerciseId =
+          btn.dataset.routineExerciseId;
+
+        const { error } =
+          await routineClient
+
+            .from("routine_exercises")
+
+            .delete()
+
+            .eq(
+              "id",
+              routineExerciseId
+            );
+
+        if(error){
+
+          console.error(error);
+
+          alert(
+            "No se pudo eliminar"
+          );
+
+          return;
+
+        }
+
+        await abrirDetalleRutina(
+          rutinaActualId
+        );
+
+      };
+
+    });
+
+}//attachDeleteRoutineExerciseEvents
+
 document.addEventListener("DOMContentLoaded", () => {
 
     cargarRutinas();
