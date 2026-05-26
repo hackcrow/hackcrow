@@ -1514,6 +1514,8 @@ function attachDeleteRoutineExerciseEvents(){
           rutinaActualId
         );
 
+        await cargarRutinas();
+
       };
 
     });
