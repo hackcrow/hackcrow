@@ -638,33 +638,59 @@ async function cargarEjerciciosDeRutina(rutinaId) {
 
           <!-- HEADER -->
 
-          <div
+         <div
             class="routine-ex-header clickable"
             data-accordion="${index}"
           >
-
+          
             <div class="drag-handle">
               ≡
             </div>
-
-            <div>
-
+          
+            <div class="routine-ex-main">
+          
               <div class="routine-ex-name">
                 ${item.exercises?.nombre_en || ""}
               </div>
-
+          
               <div class="routine-ex-equipment">
                 ${formatValue(
                   item.exercises?.equipo
                 ) || "Sin equipo"}
               </div>
-
+          
             </div>
-
+          
+            <button
+              class="delete-ex-btn delete-routine-ex-btn"
+              data-routine-exercise-id="${item.id}"
+            >
+          
+              <svg
+                viewBox="0 0 24 24"
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+          
+                <path d="M3 6h18" />
+                <path d="M8 6V4h8v2" />
+                <path d="M19 6l-1 14H6L5 6" />
+                <path d="M10 11v6" />
+                <path d="M14 11v6" />
+          
+              </svg>
+          
+            </button>
+          
             <div class="accordion-arrow">
               ▾
             </div>
-
+          
           </div>
 
           <!-- CONTENT -->
