@@ -1221,7 +1221,7 @@ async function cargarEjerciciosDeRutina(rutinaId) {
 
   attachSetAutosave();
   attachDeleteSetEvents();
-
+  attachDeleteRoutineExerciseEvents();
 }//cargarEjerciciosDeRutina(rutinaId)
 
 function fillRestTimerOptions(){
