@@ -984,3 +984,65 @@
   background:#ff2f2f;
 
 }
+
+.delete-routines-card{
+
+  max-width:520px;
+
+}
+
+.delete-routine-list{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:12px;
+
+  max-height:420px;
+
+  overflow:auto;
+
+}
+
+.delete-routine-row{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  padding:14px 16px;
+
+  border:1px solid var(--border);
+
+  border-radius:16px;
+
+  background:var(--card-bg);
+
+}
+
+.delete-routine-info{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:4px;
+
+}
+
+.delete-routine-name{
+
+  font-weight:600;
+
+}
+
+.delete-routine-meta{
+
+  font-size:.82rem;
+
+  color:var(--text-secondary);
+
+}
