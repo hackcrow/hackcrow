@@ -575,6 +575,86 @@ async function agregarEjercicioARutina(exerciseId) {
    await cargarRutinas();
 }//agregarEjercicioARutina(exerciseId)
 
+function openConfirmModal({
+
+  title = "Confirmar",
+  message = "¿Seguro?",
+  confirmText = "Eliminar"
+
+}){
+
+  return new Promise(resolve => {
+
+    const overlay =
+      document.getElementById(
+        "confirmOverlay"
+      );
+
+    const titleEl =
+      document.getElementById(
+        "confirmTitle"
+      );
+
+    const msgEl =
+      document.getElementById(
+        "confirmMessage"
+      );
+
+    const okBtn =
+      document.getElementById(
+        "confirmOk"
+      );
+
+    const cancelBtn =
+      document.getElementById(
+        "confirmCancel"
+      );
+
+    titleEl.textContent =
+      title;
+
+    msgEl.textContent =
+      message;
+
+    okBtn.textContent =
+      confirmText;
+
+    overlay.classList.add(
+      "open"
+    );
+
+    const close = value => {
+
+      overlay.classList.remove(
+        "open"
+      );
+
+      resolve(value);
+
+    };
+
+    okBtn.onclick =
+      () => close(true);
+
+    cancelBtn.onclick =
+      () => close(false);
+
+    overlay.onclick = e => {
+
+      if(
+        e.target === overlay
+      ){
+
+        close(false);
+
+      }
+
+    };
+
+  });
+
+}////openConfirmModal
+
 async function cargarEjerciciosDeRutina(rutinaId) {
 
   const { data, error } = await routineClient
@@ -1388,10 +1468,19 @@ function attachDeleteRoutineExerciseEvents(){
         e.stopPropagation();
 
         const confirmed =
-          confirm(
-            "¿Eliminar ejercicio de la rutina?"
-          );
-
+          await openConfirmModal({
+        
+            title:
+              "Eliminar ejercicio",
+        
+            message:
+              "Esta acción eliminará el ejercicio y todos sus sets.",
+        
+            confirmText:
+              "Eliminar"
+        
+          });
+        
         if(!confirmed) return;
 
         const routineExerciseId =
