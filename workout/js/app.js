@@ -88,16 +88,131 @@ if (themeToggle) {
 }
 
 /* =============================================
+   HAMBURGUER MENU 
+============================================= */
+
+async function loadHamburgerMenu(){
+
+  const response =
+    await fetch(
+      "components/hamburger-menu.html"
+    );
+
+  const html =
+    await response.text();
+
+  document
+    .getElementById(
+      "menuContainer"
+    )
+    .innerHTML = html;
+
+}
+
+/* =============================================
    INIT
 ============================================= */
 
-document.addEventListener("DOMContentLoaded", () => {
-  renderStreak();
-  renderWeekChart();
-   cargarContadorEjercicios();
-   cargarContadorRutinas();
-   cargarContadorRutinas();
-});
+document.addEventListener(
+  "DOMContentLoaded",
+  async () => {
+
+    await loadHamburgerMenu();
+   /* =============================================
+      MENU
+   ============================================= */
+   
+   const menuBtn =
+     document.getElementById(
+       "menuBtn"
+     );
+   
+   const dropMenu =
+     document.getElementById(
+       "dropMenu"
+     );
+   
+   const overlay =
+     document.getElementById(
+       "overlay"
+     );
+   
+   function openMenu(){
+   
+     if(menuBtn)
+       menuBtn.classList.add(
+         "open"
+       );
+   
+     if(dropMenu)
+       dropMenu.classList.add(
+         "open"
+       );
+   
+     if(overlay)
+       overlay.classList.add(
+         "active"
+       );
+   
+   }
+   
+   function closeMenu(){
+   
+     if(menuBtn)
+       menuBtn.classList.remove(
+         "open"
+       );
+   
+     if(dropMenu)
+       dropMenu.classList.remove(
+         "open"
+       );
+   
+     if(overlay)
+       overlay.classList.remove(
+         "active"
+       );
+   
+   }
+   
+   if(menuBtn){
+   
+     menuBtn.addEventListener(
+       "click",
+       () => {
+   
+         dropMenu.classList.contains(
+           "open"
+         )
+   
+           ? closeMenu()
+   
+           : openMenu();
+   
+       });
+   
+   }
+   
+   if(overlay){
+   
+     overlay.addEventListener(
+       "click",
+       closeMenu
+     );
+   
+   }
+
+    renderStreak();
+
+    renderWeekChart();
+
+    cargarContadorEjercicios();
+
+    cargarContadorRutinas();
+
+    cargarContadorRutinas();
+
+});//document.addEventListener
 
 async function cargarContadorEjercicios() {
   const { count, error } = await supabaseClient
