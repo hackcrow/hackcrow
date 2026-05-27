@@ -134,8 +134,21 @@ async function loadHamburgerMenu(){
 document.addEventListener(
   "DOMContentLoaded",
   async () => {
+
     await loadTopbar();
+
     await loadHamburgerMenu();
+
+    renderStreak();
+
+    renderWeekChart();
+
+    cargarContadorEjercicios();
+
+    cargarContadorRutinas();
+
+  }
+);
 
 /* =============================================
    TOPBAR
