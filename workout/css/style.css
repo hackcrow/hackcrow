@@ -1468,6 +1468,91 @@ body {
 
 .empty-state p { font-size: 0.85rem; }
 
+.logo{
+
+  display:flex;
+
+  align-items:center;
+
+  text-decoration:none;
+
+}
+
+.logo-img{
+
+  height:38px;
+
+  width:auto;
+
+  display:block;
+
+  object-fit:contain;
+
+  filter:
+    drop-shadow(0 0 8px rgba(0,255,136,.18));
+
+  transition:
+    transform .22s ease,
+    filter .22s ease,
+    opacity .22s ease;
+
+  animation:
+    logoFloat 3.5s ease-in-out infinite;
+
+}
+
+/* HOVER */
+
+.logo:hover .logo-img{
+
+  transform:
+    scale(1.05);
+
+  filter:
+    drop-shadow(0 0 14px rgba(0,255,136,.45))
+    drop-shadow(0 0 30px rgba(0,255,136,.18));
+
+}
+
+/* FLOAT */
+
+@keyframes logoFloat{
+
+  0%{
+
+    transform:
+      translateY(0px);
+
+  }
+
+  50%{
+
+    transform:
+      translateY(-2px);
+
+  }
+
+  100%{
+
+    transform:
+      translateY(0px);
+
+  }
+
+}
+
+/* MOBILE */
+
+@media (max-width:640px){
+
+  .logo-img{
+
+    height:30px;
+
+  }
+
+}
+
 /* =============================================
    SCROLLBAR
 ============================================= */
