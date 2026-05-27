@@ -91,7 +91,7 @@ if (themeToggle) {
    HAMBURGUER MENU 
 ============================================= */
 
-aasync function loadHamburgerMenu(){
+async function loadHamburgerMenu(){
 
   const isInsideFolder =
     window.location.pathname.includes(
