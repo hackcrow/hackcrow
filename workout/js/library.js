@@ -6,7 +6,7 @@ let selectedImageFile = null;
 const LIBRARY_SUPABASE_URL = "https://xqcqzvcvqpwbjdsdxcan.supabase.co";
 const LIBRARY_SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhxY3F6dmN2cXB3Ympkc2R4Y2FuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg4NjI3OTQsImV4cCI6MjA5NDQzODc5NH0.vAwo9NS7MoiVCFikfk39YM9nBr2usyB4jMW2uYXhH98";
 
-const supabaseClient = window.supabase.createClient(LIBRARY_SUPABASE_URL, LIBRARY_SUPABASE_KEY);
+const supabaseClientLibrary = window.supabase.createClient(LIBRARY_SUPABASE_URL, LIBRARY_SUPABASE_KEY);
 
 let musclePickerTarget = null;
 
@@ -582,7 +582,7 @@ async function cargarEjercicios() {
   const loading = document.getElementById("loadingExercises");
   if (loading) loading.style.display = "block";
 
-  const { data, error } = await supabaseClient.from("exercises").select("*").order("id");
+  const { data, error } = await supabaseClientLibrary.from("exercises").select("*").order("id");
   if (error) {
     console.error(error);
     return;
@@ -1041,7 +1041,7 @@ async function saveLightbox() {
 
   if (currentIdx === null) {
 
-    result = await supabaseClient
+    result = await supabaseClientLibrary
       .from("exercises")
       .insert([payload]);
 
@@ -1050,7 +1050,7 @@ async function saveLightbox() {
     const id =
       ejercicios[currentIdx].id;
 
-    result = await supabaseClient
+    result = await supabaseClientLibrary
       .from("exercises")
       .update(payload)
       .eq("id", id);
@@ -1383,7 +1383,7 @@ function renderDeleteTable(lista = ejercicios) {
       confirmOk.onclick = async () => {
         confirmOverlay.classList.remove("open");
       
-        const { error } = await supabaseClient
+        const { error } = await supabaseClientLibrary
           .from("exercises")
           .delete()
           .eq("id", id);
@@ -1400,7 +1400,7 @@ function renderDeleteTable(lista = ejercicios) {
       };
       return;
 
-      const { error } = await supabaseClient
+      const { error } = await supabaseClientLibrary
         .from("exercises")
         .delete()
         .eq("id", id);
