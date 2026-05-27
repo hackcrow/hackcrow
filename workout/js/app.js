@@ -134,11 +134,44 @@ async function loadHamburgerMenu(){
 document.addEventListener(
   "DOMContentLoaded",
   async () => {
-
+    await loadTopbar();
     await loadHamburgerMenu();
-   /* =============================================
-      MENU
-   ============================================= */
+
+/* =============================================
+   TOPBAR
+============================================= */
+
+async function loadTopbar(){
+
+  const isInsideFolder =
+    window.location.pathname.includes(
+      "/file/"
+    );
+
+  const path =
+    isInsideFolder
+
+      ? "../components/topbar.html"
+
+      : "components/topbar.html";
+
+  const response =
+    await fetch(path);
+
+  const html =
+    await response.text();
+
+  document
+    .getElementById(
+      "topbarContainer"
+    )
+    .innerHTML = html;
+
+}
+     
+/* =============================================
+   MENU
+============================================= */
    
    const menuBtn =
      document.getElementById(
