@@ -91,12 +91,22 @@ if (themeToggle) {
    HAMBURGUER MENU 
 ============================================= */
 
-async function loadHamburgerMenu(){
+aasync function loadHamburgerMenu(){
+
+  const isInsideFolder =
+    window.location.pathname.includes(
+      "/file/"
+    );
+
+  const path =
+    isInsideFolder
+
+      ? "../components/hamburger-menu.html"
+
+      : "components/hamburger-menu.html";
 
   const response =
-    await fetch(
-      "components/hamburger-menu.html"
-    );
+    await fetch(path);
 
   const html =
     await response.text();
@@ -107,7 +117,7 @@ async function loadHamburgerMenu(){
     )
     .innerHTML = html;
 
-}
+}//loadHamburgerMenu
 
 /* =============================================
    INIT
