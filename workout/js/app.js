@@ -63,14 +63,22 @@ function closeMenu() {
   if (overlay)  overlay.classList.remove("active");
 }
 
-if (menuBtn) {
-  menuBtn.addEventListener("click", () => {
-    dropMenu.classList.contains("open") ? closeMenu() : openMenu();
-  });
-}
+if(menuBtn && dropMenu){
 
-if (overlay) {
-  overlay.addEventListener("click", closeMenu);
+  menuBtn.addEventListener(
+    "click",
+    () => {
+
+      dropMenu.classList.contains(
+        "open"
+      )
+
+        ? closeMenu()
+
+        : openMenu();
+
+    });
+
 }
 
 /* =============================================
