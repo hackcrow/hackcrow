@@ -1,1 +1,125 @@
+#page-workouts{
 
+  padding:24px;
+
+}
+
+.workout-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fill,
+      minmax(280px,1fr)
+    );
+
+  gap:18px;
+
+  margin-top:24px;
+
+}
+
+.workout-card{
+
+  background:var(--card);
+
+  border:1px solid var(--border);
+
+  border-radius:20px;
+
+  padding:22px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:16px;
+
+  transition:.2s ease;
+
+}
+
+.workout-card:hover{
+
+  transform:translateY(-2px);
+
+  border-color:#00ff88;
+
+}
+
+.workout-name{
+
+  font-size:1.05rem;
+
+  font-weight:700;
+
+}
+
+.workout-description{
+
+  color:var(--text-muted);
+
+  font-size:.9rem;
+
+  line-height:1.5;
+
+}
+
+.workout-footer{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  margin-top:auto;
+
+}
+
+.active-workout{
+
+  background:
+    rgba(0,255,136,.08);
+
+  border:
+    1px solid rgba(0,255,136,.3);
+
+  border-radius:20px;
+
+  padding:20px;
+
+  margin-top:24px;
+
+  margin-bottom:30px;
+
+}
+
+.active-label{
+
+  font-size:.7rem;
+
+  letter-spacing:.14em;
+
+  color:#00ff88;
+
+  margin-bottom:8px;
+
+}
+
+.active-name{
+
+  font-size:1.2rem;
+
+  font-weight:700;
+
+  margin-bottom:16px;
+
+}
+
+.hidden{
+
+  display:none;
+
+}
