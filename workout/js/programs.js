@@ -1,10 +1,10 @@
-const ROUTINE_SUPABASE_URL  = "https://xqcqzvcvqpwbjdsdxcan.supabase.co";
+/*const ROUTINE_SUPABASE_URL  = "https://xqcqzvcvqpwbjdsdxcan.supabase.co";
 const ROUTINE_SUPABASE_KEY  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhxY3F6dmN2cXB3Ympkc2R4Y2FuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg4NjI3OTQsImV4cCI6MjA5NDQzODc5NH0.vAwo9NS7MoiVCFikfk39YM9nBr2usyB4jMW2uYXhH98";
 
 const routineClient = window.supabase.createClient(
   ROUTINE_SUPABASE_URL,
   ROUTINE_SUPABASE_KEY
-);
+);*/
 
 let programas  = [];
 let rutinaActualId = null;
@@ -1783,7 +1783,7 @@ function attachDeleteRoutineFinalEvents(){
 
 document
   .getElementById(
-    "closedeleteProgramOverlay"
+    "closeDeleteProgramOverlay"
   )
   .onclick = () => {
 
