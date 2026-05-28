@@ -6,7 +6,7 @@ const routineClient = window.supabase.createClient(
   ROUTINE_SUPABASE_KEY
 );
 
-let rutinas = [];
+let programas  = [];
 let rutinaActualId = null;
 
 let currentRestExerciseId = null;
@@ -28,7 +28,7 @@ async function cargarProgramas() {
     return;
   }
 
-  rutinas = data || [];
+  programas = data || [];
 
   if (loading) loading.style.display = "none";
 
