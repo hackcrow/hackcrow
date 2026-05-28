@@ -14,26 +14,33 @@ let currentRestExerciseId = null;
 let ejerciciosDisponibles = [];
 let currentRestButton = null;
 
-async function cargarProgramas() {
-  const loading = document.getElementById("loadingPrograms");
-  if (loading) loading.style.display = "block";
+async function cargarProgramas(){
 
-  const { data, error } = await routineClient
-    .from("routines")
+  const {
+    data,
+    error
+  } = await supabaseClient
+
+    .from("programs")
+
     .select("*")
+
     .order("id");
 
-  if (error) {
+  if(error){
+
     console.error(error);
+
     return;
+
   }
 
-  programas = data || [];
-
-  if (loading) loading.style.display = "none";
+  programas =
+    data || [];
 
   renderProgramas();
-}//cargarProgramas()
+
+}//cargarProgramas
 
 async function renderProgramas() {
     const grid = document.getElementById("programGrid");
