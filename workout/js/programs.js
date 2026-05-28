@@ -126,10 +126,10 @@ async function renderProgramas() {
       });
 }//renderProgramas()
 
-function abrirRoutineLightbox() {
-  const overlay = document.getElementById("routineLightbox");
+function abrirprogramLightbox() {
+  const overlay = document.getElementById("programLightbox");
   if (!overlay) {
-    console.error("No existe #routineLightbox en HTML");
+    console.error("No existe #programLightbox en HTML");
     return;
   }
 
@@ -138,11 +138,11 @@ function abrirRoutineLightbox() {
   //document.getElementById("rtCategoria").value = "";
 
   overlay.classList.add("open");
-}//abrirRoutineLightbox()
+}//abrirprogramLightbox()
 
-function cerrarRoutineLightbox() {
-  document.getElementById("routineLightbox").classList.remove("open");
-}//cerrarRoutineLightbox()
+function cerrarprogramLightbox() {
+  document.getElementById("programLightbox").classList.remove("open");
+}//cerrarprogramLightbox()
 
 async function guardarPrograma(){
 
@@ -191,7 +191,7 @@ async function guardarPrograma(){
 
   }
 
-  cerrarRoutineLightbox();
+  cerrarprogramLightbox();
 
   await cargarProgramas();
 
@@ -204,7 +204,7 @@ async function abrirDetalleRutina(id) {
     if (!rutina) return;
   
     document.getElementById(
-      "viewRoutineTitle"
+      "viewProgramTitle"
     ).textContent =
     
       rutina.nombre
@@ -216,7 +216,7 @@ async function abrirDetalleRutina(id) {
     
         : "Sin nombre";
   
-    document.getElementById("viewRoutineContent").innerHTML = `
+    document.getElementById("programRoutineList").innerHTML = `
       <p style="margin-bottom:14px;color:var(--text-muted);">
         ${rutina.descripcion || "Sin descripción"}
       </p>
@@ -232,7 +232,7 @@ async function abrirDetalleRutina(id) {
       <div id="routineExerciseList" style="margin-top:18px;"></div>
     `;
   
-    document.getElementById("viewRoutineOverlay").classList.add("open");
+    document.getElementById("viewProgramOverlay").classList.add("open");
   
     document
       .getElementById("addExerciseToRoutine")
@@ -245,7 +245,7 @@ async function abrirDetalleRutina(id) {
   
   const content =
     document.getElementById(
-      "viewRoutineContent"
+      "programRoutineList"
     );
   
   if (scrollBtn && content) {
@@ -283,7 +283,7 @@ async function abrirDetalleRutina(id) {
 }//abrirDetalleRutina(id)
 
 function cerrarDetalleRutina() {
-    const overlay = document.getElementById("viewRoutineOverlay");
+    const overlay = document.getElementById("viewProgramOverlay");
     const volverSelector = overlay.dataset.returnToSelector === "true";
   
     overlay.classList.remove("open");
@@ -584,7 +584,7 @@ async function abrirVistaEjercicio(exId) {
     
       const ex = data;
     
-      document.getElementById("viewRoutineContent").innerHTML = `
+      document.getElementById("programRoutineList").innerHTML = `
         ${ex.imagen
           ? `<img class="detail-img" src="${ex.imagen}" style="width:100%;max-height:220px;object-fit:contain;border-radius:12px;margin-bottom:16px;background:#0a0a0a;">`
           : `<div class="card-thumb no-image-box">No image</div>`
@@ -610,11 +610,11 @@ async function abrirVistaEjercicio(exId) {
         </div>
       `;
     
-      document.getElementById("viewRoutineOverlay").dataset.returnToSelector =
+      document.getElementById("viewProgramOverlay").dataset.returnToSelector =
         selectorAbierto ? "true" : "false";
     
       document.getElementById("addExerciseOverlay").style.visibility = "hidden";
-      document.getElementById("viewRoutineOverlay").classList.add("open");
+      document.getElementById("viewProgramOverlay").classList.add("open");
 }//abrirVistaEjercicio(exId)
 
 function formatValue(value) {
@@ -1607,16 +1607,16 @@ function attachDeleteRoutineExerciseEvents(){
 
 }//attachDeleteRoutineExerciseEvents
 
-async function abrirDeleteRoutineOverlay(){
+async function abrirdeleteProgramOverlay(){
 
   const overlay =
     document.getElementById(
-      "deleteRoutineOverlay"
+      "deleteProgramOverlay"
     );
 
   const list =
     document.getElementById(
-      "deleteRoutineList"
+      "deleteProgramList"
     );
 
   const { data, error } =
@@ -1720,7 +1720,7 @@ async function abrirDeleteRoutineOverlay(){
 
   attachDeleteRoutineFinalEvents();
 
-}//abrirDeleteRoutineOverlay
+}//abrirdeleteProgramOverlay
 
 function attachDeleteRoutineFinalEvents(){
 
@@ -1773,7 +1773,7 @@ function attachDeleteRoutineFinalEvents(){
 
         await cargarProgramas();
 
-        await abrirDeleteRoutineOverlay();
+        await abrirdeleteProgramOverlay();
 
       };
 
@@ -1783,13 +1783,13 @@ function attachDeleteRoutineFinalEvents(){
 
 document
   .getElementById(
-    "closeDeleteRoutineOverlay"
+    "closedeleteProgramOverlay"
   )
   .onclick = () => {
 
     document
       .getElementById(
-        "deleteRoutineOverlay"
+        "deleteProgramOverlay"
       )
       .classList.remove(
         "open"
@@ -2014,13 +2014,13 @@ document.addEventListener("DOMContentLoaded", () => {
   if (addBtn)
     addBtn.addEventListener(
       "click",
-      abrirRoutineLightbox
+      abrirprogramLightbox
     );
 
   if (cancelBtn)
     cancelBtn.addEventListener(
       "click",
-      cerrarRoutineLightbox
+      cerrarprogramLightbox
     );
 
   if (saveBtn)
@@ -2031,7 +2031,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const closeView =
     document.getElementById(
-      "viewRoutineClose"
+      "viewProgramClose"
     );
 
   if (closeView)
@@ -2055,17 +2055,17 @@ document.addEventListener("DOMContentLoaded", () => {
      DELETE ROUTINE
   ========================= */
 
-  const deleteRoutineBtn =
+  const deleteProgramBtn =
     document.getElementById(
-      "deleteRoutineBtn"
+      "deleteProgramBtn"
     );
 
-  if(deleteRoutineBtn){
+  if(deleteProgramBtn){
 
-    deleteRoutineBtn.onclick =
+    deleteProgramBtn.onclick =
       async () => {
 
-        abrirDeleteRoutineOverlay();
+        abrirdeleteProgramOverlay();
 
       };
 
