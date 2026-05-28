@@ -42,88 +42,121 @@ async function cargarProgramas(){
 
 }//cargarProgramas
 
-async function renderProgramas() {
-    const grid = document.getElementById("programGrid");
-    if (!grid) return;
-  
-    if (!programas.length) {
-      grid.innerHTML = `
-        <div class="program-card">
-          <div class="program-name">Sin rutinas</div>
-          <div class="program-desc">Presiona + para crear tu primera rutina.</div>
-        </div>
-      `;
-      return;
-    }
-  
-    const cards =
-  programas.map(p => {
+async function renderProgramas(){
 
-    console.log(
-      "Programa:",
-      p
+  const grid =
+    document.getElementById(
+      "programGrid"
     );
 
-    return `
-      <div
-        class="program-card"
-        data-id="${p.id}"
-      >
+  if(!grid) return;
+
+  const loading =
+    document.getElementById(
+      "loadingPrograms"
+    );
+
+  if(loading){
+
+    loading.style.display =
+      "none";
+
+  }
+
+  if(!programas.length){
+
+    grid.innerHTML = `
+
+      <div class="program-card">
 
         <div class="program-name">
-
-          ${
-            p.nombre
-
-              ? p.nombre.charAt(0)
-                  .toUpperCase()
-
-                + p.nombre.slice(1)
-
-              : "Sin nombre"
-          }
-
+          Sin programas
         </div>
 
         <div class="program-desc">
-
-          ${
-            p.descripcion ||
-            "Sin descripción"
-          }
-
+          Presiona + para crear tu primer programa.
         </div>
 
       </div>
+
     `;
 
-  });
-  
-    grid.innerHTML = cards.join("");
-  
-    document
-      .querySelectorAll(
-        ".routine-card"
-      )
-      .forEach(card => {
-    
-        card.addEventListener(
-          "click",
-          () => {
-    
-            const id =
-              parseInt(
-                card.dataset.id
-              );
-    
-            abrirDetallePrograma(
-              id
+    return;
+
+  }
+
+  const cards =
+    programas.map(p => {
+
+      console.log(
+        "Programa:",
+        p
+      );
+
+      return `
+
+        <div
+          class="program-card"
+          data-id="${p.id}"
+        >
+
+          <div class="program-name">
+
+            ${
+              p.nombre
+
+                ? p.nombre.charAt(0)
+                    .toUpperCase()
+
+                  + p.nombre.slice(1)
+
+                : "Sin nombre"
+            }
+
+          </div>
+
+          <div class="program-desc">
+
+            ${
+              p.descripcion ||
+              "Sin descripción"
+            }
+
+          </div>
+
+        </div>
+
+      `;
+
+    });
+
+  grid.innerHTML =
+    cards.join("");
+
+  document
+    .querySelectorAll(
+      ".program-card"
+    )
+    .forEach(card => {
+
+      card.addEventListener(
+        "click",
+        () => {
+
+          const id =
+            parseInt(
+              card.dataset.id
             );
-    
-          }
-        );
-    
-      });
+
+          abrirDetallePrograma(
+            id
+          );
+
+        }
+      );
+
+    });
+
 }//renderProgramas()
 
 function abrirprogramLightbox() {
@@ -2040,8 +2073,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "rtSave"
     );
 
-  if (addBtn)
-    addBtn.addEventListener(
+  if (addProgramBtn)
+    addProgramBtn.addEventListener(
       "click",
       abrirprogramLightbox
     );
