@@ -2072,6 +2072,27 @@ function cerrarProgramLightbox(){
 
 }//cerrarProgramLightbox
 
+/* =============================================
+   CLOSE PROGRAM DETAIL
+============================================= */
+
+function cerrarDetallePrograma(){
+
+  const overlay =
+    document.getElementById(
+      "viewProgramOverlay"
+    );
+
+  if(overlay){
+
+    overlay.classList.remove(
+      "active"
+    );
+
+  }
+
+}//cerrarDetallePrograma
+
 document.addEventListener(
   "DOMContentLoaded",
   () => {
