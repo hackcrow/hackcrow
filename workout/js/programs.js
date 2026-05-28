@@ -1777,12 +1777,25 @@ async function abrirDetallePrograma(
       "programRoutineList"
     );
 
+  if(
+    !overlay ||
+    !title ||
+    !list
+  ){
+    return;
+  }
+
   overlay.classList.add(
     "active"
   );
 
+  /* =============================================
+     OBTENER PROGRAMA
+  ============================================= */
+
   const {
-    data:programa
+    data,
+    error:programError
   } = await supabaseClient
 
     .from("programs")
@@ -1792,12 +1805,41 @@ async function abrirDetallePrograma(
     .eq(
       "id",
       programId
-    )
+    );
 
-    .single();
+  if(programError){
+
+    console.error(
+      programError
+    );
+
+    return;
+
+  }
+
+  if(
+    !data ||
+    !data.length
+  ){
+
+    console.error(
+      "Programa no encontrado"
+    );
+
+    return;
+
+  }
+
+  const programa =
+    data[0];
 
   title.textContent =
-    programa.nombre;
+    programa.nombre ||
+    "Programa";
+
+  /* =============================================
+     OBTENER RUTINAS
+  ============================================= */
 
   const {
     data:routines,
@@ -1823,7 +1865,14 @@ async function abrirDetallePrograma(
 
   }
 
-  if(!routines.length){
+  /* =============================================
+     SIN RUTINAS
+  ============================================= */
+
+  if(
+    !routines ||
+    !routines.length
+  ){
 
     list.innerHTML = `
       <div class="routine-card">
@@ -1843,26 +1892,40 @@ async function abrirDetallePrograma(
 
   }
 
+  /* =============================================
+     RENDER RUTINAS
+  ============================================= */
+
   list.innerHTML =
     routines.map(r => `
 
-      <div class="routine-card">
+      <div
+        class="routine-card"
+        data-id="${r.id}"
+      >
 
         <div class="routine-name">
+
           ${
             r.nombre
+
               ? r.nombre.charAt(0)
                   .toUpperCase()
+
                 + r.nombre.slice(1)
+
               : "Sin nombre"
           }
+
         </div>
 
         <div class="routine-desc">
+
           ${
             r.descripcion ||
             "Sin descripción"
           }
+
         </div>
 
       </div>
