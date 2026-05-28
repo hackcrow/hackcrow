@@ -2,101 +2,177 @@
 const SUPABASE_URL = "https://xqcqzvcvqpwbjdsdxcan.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhxY3F6dmN2cXB3Ympkc2R4Y2FuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg4NjI3OTQsImV4cCI6MjA5NDQzODc5NH0.vAwo9NS7MoiVCFikfk39YM9nBr2usyB4jMW2uYXhH98";
 
-const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
 /* =============================================
    STREAK DOTS
 ============================================= */
 
-function renderStreak() {
-  const dots = document.getElementById("streakDots");
-  if (!dots) return;
+function renderStreak(){
+
+  const dots =
+    document.getElementById(
+      "streakDots"
+    );
+
+  if(!dots) return;
 
   const days = 7;
-  const todayIndex = new Date().getDay();
 
-  dots.innerHTML = Array.from({ length: days }, (_, i) => {
-    const cls = i < todayIndex ? "done" : i === todayIndex ? "today" : "";
-    return `<div class="streak-dot ${cls}"></div>`;
-  }).join("");
-}
+  const todayIndex =
+    new Date().getDay();
+
+  dots.innerHTML =
+    Array.from(
+      { length:days },
+      (_,i) => {
+
+        const cls =
+          i < todayIndex
+
+            ? "done"
+
+            : i === todayIndex
+
+              ? "today"
+
+              : "";
+
+        return `
+          <div
+            class="
+              streak-dot
+              ${cls}
+            "
+          ></div>
+        `;
+
+      }
+    ).join("");
+
+}//renderStreak
 
 /* =============================================
    WEEK CHART
 ============================================= */
 
-function renderWeekChart() {
-  const chart = document.getElementById("weekChart");
-  if (!chart) return;
+function renderWeekChart(){
 
-  const labels = ["L","M","X","J","V","S","D"];
-  const today  = new Date().getDay();
-  const todayIdx = today === 0 ? 6 : today - 1;
+  const chart =
+    document.getElementById(
+      "weekChart"
+    );
 
-  chart.innerHTML = labels.map((d, i) => {
-    const cls = i < todayIdx ? "done" : i === todayIdx ? "today" : "";
-    const h   = i < todayIdx ? Math.floor(Math.random() * 30 + 20) : i === todayIdx ? 15 : 4;
-    return `
-      <div class="week-bar-wrap">
-        <div class="week-bar ${cls}" style="height:${h}px"></div>
-        <div class="week-day">${d}</div>
-      </div>`;
-  }).join("");
-}
+  if(!chart) return;
 
-/* =============================================
-   MENU
-============================================= */
+  const labels =
+    ["L","M","X","J","V","S","D"];
 
-const menuBtn  = document.getElementById("menuBtn");
-const dropMenu = document.getElementById("dropMenu");
-const overlay  = document.getElementById("overlay");
+  const today =
+    new Date().getDay();
 
-function openMenu() {
-  if (menuBtn)  menuBtn.classList.add("open");
-  if (dropMenu) dropMenu.classList.add("open");
-  if (overlay)  overlay.classList.add("active");
-}
+  const todayIdx =
+    today === 0
 
-function closeMenu() {
-  if (menuBtn)  menuBtn.classList.remove("open");
-  if (dropMenu) dropMenu.classList.remove("open");
-  if (overlay)  overlay.classList.remove("active");
-}
+      ? 6
 
-if(menuBtn && dropMenu){
+      : today - 1;
 
-  menuBtn.addEventListener(
-    "click",
-    () => {
+  chart.innerHTML =
+    labels.map((d,i) => {
 
-      dropMenu.classList.contains(
-        "open"
-      )
+      const cls =
+        i < todayIdx
 
-        ? closeMenu()
+          ? "done"
 
-        : openMenu();
+          : i === todayIdx
 
-    });
+            ? "today"
 
-}
+            : "";
+
+      const h =
+        i < todayIdx
+
+          ? Math.floor(
+              Math.random() * 30 + 20
+            )
+
+          : i === todayIdx
+
+            ? 15
+
+            : 4;
+
+      return `
+        <div class="week-bar-wrap">
+
+          <div
+            class="
+              week-bar
+              ${cls}
+            "
+            style="
+              height:${h}px
+            "
+          ></div>
+
+          <div class="week-day">
+            ${d}
+          </div>
+
+        </div>
+      `;
+
+    }).join("");
+
+}//renderWeekChart
 
 /* =============================================
    THEME TOGGLE
 ============================================= */
 
-const themeToggle = document.getElementById("themeToggle");
+const themeToggle =
+  document.getElementById(
+    "themeToggle"
+  );
 
-if (themeToggle) {
-  themeToggle.addEventListener("click", () => {
-    const html    = document.documentElement;
-    const current = html.getAttribute("data-theme");
-    html.setAttribute("data-theme", current === "dark" ? "light" : "dark");
-  });
+if(themeToggle){
+
+  themeToggle.addEventListener(
+    "click",
+    () => {
+
+      const html =
+        document.documentElement;
+
+      const current =
+        html.getAttribute(
+          "data-theme"
+        );
+
+      html.setAttribute(
+        "data-theme",
+
+        current === "dark"
+
+          ? "light"
+
+          : "dark"
+      );
+
+    }
+  );
+
 }
 
 /* =============================================
-   HAMBURGUER MENU 
+   HAMBURGER MENU
 ============================================= */
 
 async function loadHamburgerMenu(){
@@ -119,36 +195,19 @@ async function loadHamburgerMenu(){
   const html =
     await response.text();
 
-  document
-    .getElementById(
+  const container =
+    document.getElementById(
       "menuContainer"
-    )
-    .innerHTML = html;
+    );
 
-}//loadHamburgerMenu
+  if(container){
 
-/* =============================================
-   INIT
-============================================= */
-
-document.addEventListener(
-  "DOMContentLoaded",
-  async () => {
-
-    await loadTopbar();
-
-    await loadHamburgerMenu();
-
-    renderStreak();
-
-    renderWeekChart();
-
-    cargarContadorEjercicios();
-
-    cargarContadorRutinas();
+    container.innerHTML =
+      html;
 
   }
-);
+
+}//loadHamburgerMenu
 
 /* =============================================
    TOPBAR
@@ -174,44 +233,73 @@ async function loadTopbar(){
   const html =
     await response.text();
 
-  document
-    .getElementById(
+  const container =
+    document.getElementById(
       "topbarContainer"
-    )
-    .innerHTML = html;
+    );
 
-}
-     
-    renderStreak();
+  if(container){
 
-    renderWeekChart();
+    container.innerHTML =
+      html;
 
-    cargarContadorEjercicios();
-
-    cargarContadorRutinas();
-
-});//document.addEventListener
-
-async function cargarContadorEjercicios() {
-  const { count, error } = await supabaseClient
-    .from("exercises")
-    .select("*", { count: "exact", head: true });
-
-  if (error) {
-    console.error(error);
-    return;
   }
 
-  const el = document.getElementById("exerciseCount");
-  if (el) el.textContent = count || 0;
+}//loadTopbar
+
+/* =============================================
+   CONTADOR EJERCICIOS
+============================================= */
+
+async function cargarContadorEjercicios(){
+
+  const {
+    count,
+    error
+  } = await supabaseClient
+
+    .from("exercises")
+
+    .select(
+      "*",
+      {
+        count:"exact",
+        head:true
+      }
+    );
+
+  if(error){
+
+    console.error(error);
+
+    return;
+
+  }
+
+  const el =
+    document.getElementById(
+      "exerciseCount"
+    );
+
+  if(el){
+
+    el.textContent =
+      count || 0;
+
+  }
+
 }//cargarContadorEjercicios
+
+/* =============================================
+   CONTADOR RUTINAS
+============================================= */
 
 async function cargarContadorRutinas(){
 
   const {
     count,
     error
-  } = await routineClient
+  } = await supabaseClient
 
     .from("routines")
 
@@ -244,3 +332,26 @@ async function cargarContadorRutinas(){
   }
 
 }//cargarContadorRutinas
+
+/* =============================================
+   INIT
+============================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  async () => {
+
+    await loadTopbar();
+
+    await loadHamburgerMenu();
+
+    renderStreak();
+
+    renderWeekChart();
+
+    cargarContadorEjercicios();
+
+    cargarContadorRutinas();
+
+  }
+);
