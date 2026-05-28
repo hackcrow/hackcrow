@@ -1996,10 +1996,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   cargarProgramas();
 
-  const addBtn =
-    document.getElementById(
-      "addRoutineBtn"
-    );
+ document
+  .getElementById(
+    "addProgramBtn"
+  )
+  .onclick = abrirProgramLightbox;
 
   const cancelBtn =
     document.getElementById(
