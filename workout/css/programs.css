@@ -1078,16 +1078,12 @@
   grid-template-columns:
     repeat(
       auto-fill,
-      minmax(340px,1fr)
+      minmax(320px,1fr)
     );
 
   gap:24px;
 
-  width:100%;
-
   margin-top:24px;
-
-  align-items:start;
 
 }
 
@@ -1097,27 +1093,20 @@
 
 .program-card{
 
-  background:
-    linear-gradient(
-      180deg,
-      rgba(18,18,18,.96),
-      rgba(10,10,10,.98)
-    );
+  background:#111;
 
   border:1px solid
     rgba(255,255,255,.06);
 
-  border-radius:28px;
+  border-radius:24px;
 
-  padding:26px;
+  padding:24px;
 
   min-height:180px;
 
-  transition:.25s ease;
-
   cursor:pointer;
 
-  overflow:hidden;
+  transition:.25s ease;
 
 }
 
@@ -1129,15 +1118,11 @@
   border-color:
     rgba(77,255,136,.25);
 
-  box-shadow:
-    0 0 24px
-    rgba(77,255,136,.08);
-
 }
 
 .program-name{
 
-  font-size:2rem;
+  font-size:1.5rem;
 
   font-weight:700;
 
@@ -1150,10 +1135,8 @@
 .program-desc{
 
   color:
-    rgba(255,255,255,.65);
+    rgba(255,255,255,.6);
 
   line-height:1.5;
-
-  font-size:1rem;
 
 }
