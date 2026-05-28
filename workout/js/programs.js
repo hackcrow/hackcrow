@@ -159,19 +159,40 @@ async function renderProgramas(){
 
 }//renderProgramas()
 
-function abrirprogramLightbox() {
-  const overlay = document.getElementById("programLightbox");
-  if (!overlay) {
-    console.error("No existe #programLightbox en HTML");
+function abrirProgramLightbox(){
+
+  const overlay =
+    document.getElementById(
+      "programLightbox"
+    );
+
+  if(!overlay){
+
+    console.error(
+      "No existe #programLightbox"
+    );
+
     return;
+
   }
 
-  document.getElementById("rtNombre").value = "";
-  document.getElementById("rtDescripcion").value = "";
-  //document.getElementById("rtCategoria").value = "";
+  document
+    .getElementById(
+      "pgNombre"
+    )
+    .value = "";
 
-  overlay.classList.add("open");
-}//abrirprogramLightbox()
+  document
+    .getElementById(
+      "pgDescripcion"
+    )
+    .value = "";
+
+  overlay.classList.add(
+    "active"
+  );
+
+}//abrirProgramLightbox
 
 function cerrarprogramLightbox() {
   document.getElementById("programLightbox").classList.remove("open");
@@ -2074,7 +2095,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (addProgramBtn)
     addProgramBtn.addEventListener(
       "click",
-      abrirprogramLightbox
+      abrirProgramLightbox
     );
 
   if (cancelBtn)
