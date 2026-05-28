@@ -1,1818 +1,1060 @@
-const ROUTINE_SUPABASE_URL  = "https://xqcqzvcvqpwbjdsdxcan.supabase.co";
-const ROUTINE_SUPABASE_KEY  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhxY3F6dmN2cXB3Ympkc2R4Y2FuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg4NjI3OTQsImV4cCI6MjA5NDQzODc5NH0.vAwo9NS7MoiVCFikfk39YM9nBr2usyB4jMW2uYXhH98";
+/* routines.css */
 
-const routineClient = window.supabase.createClient(
-  ROUTINE_SUPABASE_URL,
-  ROUTINE_SUPABASE_KEY
-);
+#page-routines {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
 
-let programas = [];
-let ProgramaActualId = null;
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
 
-let currentRestExerciseId = null;
+.page-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
 
-let ejerciciosDisponibles = [];
-let currentRestButton = null;
+.page-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-top: 4px;
+}
 
-async function cargarProgramas() {
-  const loading = document.getElementById("loadingRoutines");
-  if (loading) loading.style.display = "block";
+.back-btn {
+  text-decoration: none;
+  color: var(--accent);
+  font-size: 0.9rem;
+}
 
-  const { data, error } = await routineClient
-    .from("programs")
-    .select("*")
-    .order("id");
+.filter-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
 
-  if (error) {
-    console.error(error);
-    return;
+.filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pill {
+  background: transparent;
+  border: 1px solid var(--border-soft);
+  color: var(--text-main);
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.78rem;
+}
+
+.pill.active {
+  border-color: #00ff88;
+  color: #00ff88;
+}
+
+.add-ex-btn {
+  background: transparent;
+  border: none;
+  color: #00ff88;
+  font-size: 2rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+#routineGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+}
+
+.routine-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-soft);
+  border-radius: 16px;
+  padding: 18px;
+  transition: 0.2s ease;
+}
+
+.routine-card:hover {
+  transform: translateY(-2px);
+  border-color: #00ff88;
+  cursor: pointer;
+}
+
+.routine-name {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #00ff88;
+}
+
+.routine-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
+.routine-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.76rem;
+  color: var(--text-dim);
+}
+
+.routine-count {
+  color: #00ff88;
+  font-weight: 600;
+}
+
+.terminal-loading {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  margin-top: 20px;
+}
+
+.action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.delete-ex-btn {
+  background: transparent;
+  border: none;
+  color: #ff3b5c;
+  font-size: 1.55rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.delete-ex-btn svg {
+  display: block;
+}
+
+#routineLightbox input,
+#routineLightbox textarea,
+#routineLightbox select {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-soft);
+  color: var(--text-main);
+  font-size: 0.9rem;
+}
+
+#routineLightbox textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+/* lightbox rutinas */
+
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.72);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.lightbox-overlay.open {
+  display: flex;
+}
+
+.lightbox-card {
+  position:relative;
+
+  width:100%;
+
+  max-width:860px;
+
+  max-height:90vh;
+
+  overflow:hidden;
+
+  display:flex;
+
+  flex-direction:column;
+
+  background:#111;
+
+  border:1px solid rgba(255,255,255,0.08);
+
+  border-radius:18px;
+
+  padding:22px;
+
+  box-shadow:0 20px 60px rgba(0,0,0,0.45);
+
+}
+
+.lightbox-header h2 {
+  margin: 0 0 16px;
+  font-size: 1.1rem;
+  color: var(--text-main);
+}
+
+.lightbox-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+@media (max-width: 768px) {
+  .lightbox-card {
+    max-width: 100%;
+    border-radius: 16px;
+    padding: 18px;
   }
+}
+
+#rtCategoria {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  background: #111;
+  border: 1px solid var(--border-soft);
+  color: var(--text-main);
+  font-size: 0.9rem;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+}
+
+#rtCategoria option {
+  background: #111;
+  color: #eaeaea;
+}
+
+#viewRoutineTitle {
+  color: #00ff88;
+}
+
+.picker-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.picker-add-btn {
+  background: transparent;
+  border: none;
+  color: #00ff88;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+#searchExerciseInput {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  background: #111;
+  border: 1px solid var(--border-soft);
+  color: var(--text-main);
+  font-size: 0.9rem;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#searchExerciseInput::placeholder {
+  color: var(--text-dim);
+}
+
+.picker-info {
+  flex: 1;
+  cursor: pointer;
+}
+
+.picker-name-en {
+  font-size: 0.85rem;
+  color: #00ff88;
+}
+
+.picker-name-es {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.picker-info:hover {
+  opacity: 0.8;
+}
+
+.detail-section {
+  margin-top: 8px;
+}
+
+.detail-name-en {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #00ff88;
+  margin-bottom: 4px;
+}
+
+.detail-name-es {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.detail-section p {
+  font-size: 0.85rem;
+  color: var(--text-main);
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+.detail-meta {
+  font-size: 0.83rem;
+  margin-bottom: 6px;
+}
 
-  programas = data || [];
-
-  if (loading) loading.style.display = "none";
-
-  renderProgramas();
-}//cargarProgramas()
-
-async function renderProgramas() {
-    const grid = document.getElementById("routineGrid");
-    if (!grid) return;
-  
-    if (!programas.length) {
-      grid.innerHTML = `
-        <div class="routine-card">
-          <div class="routine-name">Sin programas</div>
-          <div class="routine-desc">Presiona + para crear tu primer programa.</div>
-        </div>
-      `;
-      return;
-    }//renderProgramas()
-  
-    const cards = await Promise.all(
-      programas.map(async (r) => {
-        const { count } = await routineClient
-          .from("routine_exercises")
-          .select("*", { count: "exact", head: true })
-          .eq("routine_id", r.id);
-  
-        return `
-          <div class="routine-card" data-id="${r.id}">
-            <div class="routine-name">
-
-                ${
-                  r.nombre
-              
-                    ? r.nombre.charAt(0)
-                        .toUpperCase()
-              
-                      + r.nombre.slice(1)
-              
-                    : "Sin nombre"
-                }
-              
-              </div>
-            <div class="routine-desc">${r.descripcion || "Sin descripción"}</div>
-            <div class="routine-meta">
-              <span>${r.categoria || "General"}</span>
-              <span class="routine-count">${count || 0} ejercicios</span>
-            </div>
-          </div>
-        `;
-      })
-    );
-  
-    grid.innerHTML = cards.join("");
-  
-    document.querySelectorAll(".routine-card").forEach(card => {
-      card.addEventListener("click", () => {
-        const id = parseInt(card.dataset.id);
-        abrirDetallePrograma(id);
-      });
-    });
-}//renderProgramas()
-
-function abrirRoutineLightbox() {
-  const overlay = document.getElementById("routineLightbox");
-  if (!overlay) {
-    console.error("No existe #routineLightbox en HTML");
-    return;
-  }
-
-  document.getElementById("rtNombre").value = "";
-  document.getElementById("rtDescripcion").value = "";
-  document.getElementById("rtCategoria").value = "";
-
-  overlay.classList.add("open");
-}//abrirRoutineLightbox()
-
-function cerrarRoutineLightbox() {
-  document.getElementById("routineLightbox").classList.remove("open");
-}//cerrarRoutineLightbox()
-
-async function guardarPrograma() {
-    const payload = {
-      nombre: document.getElementById("rtNombre").value.trim(),
-      descripcion: document.getElementById("rtDescripcion").value.trim(),
-      categoria: document.getElementById("rtCategoria").value
-    };
-  
-    if (!payload.nombre) {
-      alert("Escribe un nombre");
-      return;
-    }
-  
-    const { error } = await routineClient
-      .from("programs")
-      .insert([payload]);
-  
-    if (error) {
-      console.error(error);
-      alert("No se pudo guardar");
-      return;
-    }
-  
-    cerrarRoutineLightbox();
-    await cargarProgramas();
-}//guardarPrograma()
-
-async function abrirDetallePrograma(id) {
-    ProgramaActualId = id;
-  
-    const Programa = programas.find(r => r.id === id);
-    if (!Programa) return;
-  
-    document.getElementById(
-      "viewRoutineTitle"
-    ).textContent =
-    
-      Programa.nombre
-    
-        ? Programa.nombre.charAt(0)
-            .toUpperCase()
-    
-          + Programa.nombre.slice(1)
-    
-        : "Sin nombre";
-  
-    document.getElementById("viewRoutineContent").innerHTML = `
-      <p style="margin-bottom:14px;color:var(--text-muted);">
-        ${Programa.descripcion || "Sin descripción"}
-      </p>
-  
-      <div style="font-size:0.85rem;color:var(--text-muted);margin-bottom:18px;">
-        Categoría: ${Programa.categoria || "General"}
-      </div>
-  
-      <button id="addExerciseToRoutine" class="btn">
-        + Agregar ejercicio
-      </button>
-  
-      <div id="routineExerciseList" style="margin-top:18px;"></div>
-    `;
-  
-    document.getElementById("viewRoutineOverlay").classList.add("open");
-  
-    document
-      .getElementById("addExerciseToRoutine")
-      .addEventListener("click", abrirSelectorEjercicios);
-  
-    const scrollBtn =
-    document.getElementById(
-      "routineScrollTop"
-    );
-  
-  const content =
-    document.getElementById(
-      "viewRoutineContent"
-    );
-  
-  if (scrollBtn && content) {
-  
-    content.addEventListener(
-      "scroll",
-      () => {
-  
-        scrollBtn.style.display =
-  
-          content.scrollTop > 250
-  
-            ? "block"
-  
-            : "none";
-  
-      }
-    );
-  
-    scrollBtn.onclick = () => {
-  
-      content.scrollTo({
-  
-        top:0,
-  
-        behavior:"smooth"
-  
-      });
-  
-    };
-  
-  }
-  
-    await cargarEjerciciosDePrograma(id);
-}//abrirDetallePrograma(id)
-
-function cerrarDetallePrograma() {
-    const overlay = document.getElementById("viewRoutineOverlay");
-    const volverSelector = overlay.dataset.returnToSelector === "true";
-  
-    overlay.classList.remove("open");
-    overlay.dataset.returnToSelector = "false";
-  
-    if (volverSelector) {
-      const selector = document.getElementById("addExerciseOverlay");
-      selector.style.visibility = "visible";
-    }
-}//cerrarDetallePrograma()
-
-async function abrirSelectorEjercicios() {
-    const { data, error } = await routineClient
-      .from("exercises")
-      .select("id,nombre,nombre_en")
-      .order("nombre");
-  
-    const { data: existentes } = await routineClient
-      .from("routine_exercises")
-      .select("exercise_id")
-      .eq("routine_id", ProgramaActualId);
-  
-    const ejerciciosExistentes = (existentes || []).map(
-      e => e.exercise_id
-    );
-  
-    if (error) {
-      console.error(error);
-      return;
-    }
-  
-    ejerciciosDisponibles = data || [];
-  
-    renderSelectorEjercicios(
-      ejerciciosDisponibles,
-      ejerciciosExistentes
-    );
-  
-    document.getElementById("addExerciseOverlay").classList.add("open");
-}//abrirSelectorEjercicios()
-
-function cerrarSelectorEjercicios() {
-  document.getElementById("addExerciseOverlay").classList.remove("open");
-}//cerrarSelectorEjercicios()
-
-function renderSelectorEjercicios(
-  lista,
-  existentes = []
-) {
-
-  const box =
-    document.getElementById(
-      "exercisePickerList"
-    );
-
-  box.innerHTML = lista.map(e => `
-
-    <div class="picker-row">
-
-      <div
-        class="picker-info"
-        data-id="${e.id}"
-      >
-
-        <div class="picker-name-en">
-          ${e.nombre_en || ""}
-        </div>
-
-        <div class="picker-name-es">
-          ${e.nombre || ""}
-        </div>
-
-      </div>
-
-      <button
-        class="picker-add-btn"
-        data-id="${e.id}"
-
-        ${existentes.includes(e.id)
-          ? "disabled"
-          : ""
-        }
-
-        style="
-          ${
-            existentes.includes(e.id)
-
-            ? `
-              opacity:0.45;
-              pointer-events:none;
-              color:#00ff88;
-            `
-
-            : ""
-          }
-        "
-      >
-
-        ${
-          existentes.includes(e.id)
-            ? "✓"
-            : "＋"
-        }
-
-      </button>
-
-    </div>
-
-  `).join("");
-
-  /* =========================
-     VER DETALLE EJERCICIO
-  ========================= */
-
-  document
-    .querySelectorAll(".picker-info")
-    .forEach(item => {
-
-      item.onclick = () => {
-
-        const exId =
-          parseInt(item.dataset.id);
-
-        abrirVistaEjercicio(exId);
-
-      };
-
-    });
-
-  /* =========================
-     AGREGAR EJERCICIO
-  ========================= */
-
-  document
-    .querySelectorAll(
-      ".picker-add-btn"
-    )
-    .forEach(btn => {
-
-      btn.onclick = async (ev) => {
-
-        ev.stopPropagation();
-
-        const exerciseId =
-          parseInt(btn.dataset.id);
-
-        if(!ProgramaActualId)
-          return;
-
-        /* evita doble click */
-
-        if(
-          btn.dataset.loading === "true"
-        ) return;
-
-        btn.dataset.loading = "true";
-
-        /* =========================
-           OBTENER ÚLTIMO ORDEN
-        ========================= */
-
-        const {
-          data:lastExercise
-        } = await routineClient
-
-          .from("routine_exercises")
-
-          .select("orden")
-
-          .eq(
-            "routine_id",
-            ProgramaActualId
-          )
-
-          .order(
-            "orden",
-            { ascending:false }
-          )
-
-          .limit(1)
-
-          .maybeSingle();
-
-        const nuevoOrden =
-
-          lastExercise?.orden
-
-            ? lastExercise.orden + 1
-
-            : 1;
-
-        /* =========================
-           INSERT EXERCISE
-        ========================= */
-
-        const {
-          data:insertedExercise,
-          error:errorInsert
-        } = await routineClient
-
-          .from("routine_exercises")
-
-          .insert([
-            {
-              routine_id:
-                ProgramaActualId,
-
-              exercise_id:
-                exerciseId,
-
-              orden:
-                nuevoOrden
-            }
-          ])
-
-          .select()
-
-          .single();
-
-        if(errorInsert){
-
-          console.error(errorInsert);
-
-          btn.dataset.loading =
-            "false";
-
-          alert(
-            "No se pudo agregar"
-          );
-
-          return;
-
-        }
-
-        /* =========================
-           CREAR PRIMER SET
-        ========================= */
-
-        await routineClient
-
-          .from("routine_sets")
-
-          .insert([
-            {
-              routine_exercise_id:
-                insertedExercise.id,
-
-              set_number:1,
-
-              weight:0,
-
-              reps:0
-            }
-          ]);
-
-        /* =========================
-           UPDATE UI
-        ========================= */
-
-        btn.textContent = "✓";
-
-        btn.style.color = "#00ff88";
-
-        btn.style.pointerEvents =
-          "none";
-
-        await abrirDetallePrograma(
-          ProgramaActualId
-        );
-
-        await cargarProgramas();
-
-      };
-
-    });
-
-}//renderSelectorEjercicios
-
-async function abrirVistaEjercicio(exId) {
-      const selectorAbierto = document
-        .getElementById("addExerciseOverlay")
-        .classList.contains("open");
-    
-      //if (selectorAbierto) {
-        //cerrarSelectorEjercicios();
-      //}
-    
-      const { data, error } = await routineClient
-        .from("exercises")
-        .select("*")
-        .eq("id", exId)
-        .single();
-    
-      if (error || !data) {
-        console.error(error);
-        return;
-      }
-    
-      const ex = data;
-    
-      document.getElementById("viewRoutineContent").innerHTML = `
-        ${ex.imagen
-          ? `<img class="detail-img" src="${ex.imagen}" style="width:100%;max-height:220px;object-fit:contain;border-radius:12px;margin-bottom:16px;background:#0a0a0a;">`
-          : `<div class="card-thumb no-image-box">No image</div>`
-        }
-      
-        <div class="detail-section">
-          <h2 class="detail-name-en">${ex.nombre_en || ex.nombre || ""}</h2>
-          <div class="detail-name-es">${ex.nombre || ""}</div>
-      
-          <p>${ex.descripcion || ""}</p>
-      
-          <div class="detail-meta"><span style="color:#e5e7eb;font-weight:600;">Tipo:</span> <span style="color:#00ff88;">${formatValue(ex.tipo)}</span></div>
-    <div class="detail-meta"><span style="color:#e5e7eb;font-weight:600;">Equipo:</span> <span style="color:#00ff88;">${formatValue(ex.equipo)}</span></div>
-    <div class="detail-meta"><span style="color:#e5e7eb;font-weight:600;">Músculo primario:</span> <span style="color:#00ff88;">${formatValue(ex.musculo_primario)}</span></div>
-    <div class="detail-meta"><span style="color:#e5e7eb;font-weight:600;">Músculo secundario:</span> <span style="color:#00ff88;">${formatValue(ex.musculo_secundario)}</span></div>
-    <div class="detail-meta"><span style="color:#e5e7eb;font-weight:600;">Parte del cuerpo:</span> <span style="color:#00ff88;">${formatValue(ex.parte_cuerpo)}</span></div>
-      
-          ${
-            ex.video_url
-              ? `<a class="detail-video" href="${ex.video_url}" target="_blank">Ver video ↗</a>`
-              : ""
-          }
-        </div>
-      `;
-    
-      document.getElementById("viewRoutineOverlay").dataset.returnToSelector =
-        selectorAbierto ? "true" : "false";
-    
-      document.getElementById("addExerciseOverlay").style.visibility = "hidden";
-      document.getElementById("viewRoutineOverlay").classList.add("open");
-}//abrirVistaEjercicio(exId)
-
-function formatValue(value) {
-    if (!value) return "-";
-  
-    const map = {
-      peso_corporal: "Peso corporal",
-      peso_extra: "Peso extra",
-      rueda_abdominal: "Rueda abdominal",
-      upper_arms: "Brazos",
-      full_body: "Cuerpo completo",
-      chest: "Pecho",
-      back: "Espalda",
-      thighs: "Piernas",
-      glutes: "Glúteos",
-      shoulders: "Hombros",
-      abdominals: "Abdominales",
-      core: "Core",
-      pectorals: "Pectorales",
-      quadriceps: "Cuádriceps",
-      biceps: "Bíceps",
-      triceps: "Tríceps",
-      hamstrings: "Isquiotibiales",
-      obliques: "Oblicuos",
-      fuerza: "Fuerza",
-      cardio: "Cardio",
-      flexibilidad: "Flexibilidad",
-      movilidad: "Movilidad",
-      isometrico: "Isométrico",
-      pliometrico: "Pliométrico",
-      resistencia: "Resistencia",
-      mancuernas: "Mancuernas",
-      banda: "Banda"
-    };
-  
-    return map[value] || value.replaceAll("_", " ");
-}//formatValue(value)
-
-async function agregarEjercicioAPrograma(exerciseId) {
-  cerrarSelectorEjercicios();
-  abrirDetallePrograma(ProgramaActualId);
-   await cargarEjerciciosDePrograma(ProgramaActualId);
-   await cargarProgramas();
-}//agregarEjercicioAPrograma(exerciseId)
-
-function openConfirmModal({
-
-  title = "Confirmar",
-  message = "¿Seguro?",
-  confirmText = "Eliminar"
-
-}){
-
-  return new Promise(resolve => {
-
-    const overlay =
-      document.getElementById(
-        "confirmOverlay"
-      );
-
-    const titleEl =
-      document.getElementById(
-        "confirmTitle"
-      );
-
-    const msgEl =
-      document.getElementById(
-        "confirmMessage"
-      );
-
-    const okBtn =
-      document.getElementById(
-        "confirmOk"
-      );
-
-    const cancelBtn =
-      document.getElementById(
-        "confirmCancel"
-      );
-
-    titleEl.textContent =
-      title;
-
-    msgEl.textContent =
-      message;
-
-    okBtn.textContent =
-      confirmText;
-
-    overlay.classList.add(
-      "open"
+.meta-label {
+  color: var(--text-dim);
+}
+
+.meta-value {
+  color: var(--text-main);
+}
+
+.detail-video {
+  display: inline-block;
+  margin-top: 14px;
+  color: #00ff88;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.detail-video:hover {
+  opacity: 0.85;
+}
+
+.detail-name-en {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 2px;
+}
+
+.detail-name-es {
+  font-size: 0.83rem;
+  color: var(--text-dim);
+  margin-bottom: 14px;
+}
+
+.detail-meta {
+  font-size: 0.82rem;
+  margin-bottom: 6px;
+}
+
+.meta-label {
+  color: var(--text-dim);
+}
+
+.meta-value {
+  color: var(--text-main);
+}
+
+.detail-video {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 0.82rem;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* EXERCISE CARD */
+
+.routine-ex-item{
+
+  padding:16px;
+
+  border:1px solid var(--border-soft);
+
+  border-radius:18px;
+
+  margin-bottom:14px;
+
+  background:rgba(255,255,255,.02);
+
+}
+
+/* HEADER */
+
+.routine-ex-header{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  margin-bottom:14px;
+
+}
+
+.routine-ex-name{
+
+  color:#00ff88;
+
+  font-size:.92rem;
+
+  font-weight:600;
+
+}
+
+.routine-ex-equipment{
+
+  margin-top:4px;
+
+  color:var(--text-muted);
+
+  font-size:.76rem;
+
+}
+
+/* TABLE */
+
+.routine-sets-table{
+
+  width:100%;
+
+  border-collapse:collapse;
+
+}
+
+.routine-sets-table th{
+
+  text-align:left;
+
+  font-size:.72rem;
+
+  color:var(--text-dim);
+
+  font-weight:500;
+
+  padding-bottom:10px;
+
+}
+
+.routine-sets-table td{
+
+  padding:8px 0;
+
+}
+
+/* SET NUMBER */
+
+.set-number{
+
+  color:#fff;
+
+  font-weight:600;
+
+  width:50px;
+
+}
+
+/* PREVIOUS */
+
+.set-prev{
+
+  color:var(--text-muted);
+
+  font-size:.8rem;
+
+  width:110px;
+
+}
+
+/* INPUT */
+
+.set-input{
+
+  width:72px;
+
+  height:38px;
+
+  border-radius:12px;
+
+  border:1px solid var(--border-soft);
+
+  background:rgba(255,255,255,.03);
+
+  color:#fff;
+
+  padding:0 10px;
+
+  font-size:.88rem;
+
+  outline:none;
+
+  transition:.18s;
+
+}
+
+.set-input:focus{
+
+  border-color:#00ff88;
+
+  box-shadow:
+    0 0 0 3px rgba(0,255,136,.12);
+
+}
+
+/* EMPTY */
+
+.routine-empty{
+
+  color:var(--text-dim);
+
+  font-size:.82rem;
+
+  margin-top:8px;
+
+}
+
+/* CLICKABLE HEADER */
+
+.clickable{
+
+  cursor:pointer;
+
+}
+
+/* CONTENT */
+
+.routine-ex-content{
+
+  display:none;
+
+}
+
+.routine-ex-content.open{
+
+  display:block;
+
+}
+
+/* ARROW */
+
+.accordion-arrow{
+
+  color:var(--text-muted);
+
+  font-size:1rem;
+
+}
+
+/* ADD SET */
+
+.add-set-btn{
+
+  margin-top:14px;
+
+  border:none;
+
+  background:transparent;
+
+  color:#00ff88;
+
+  font-size:.82rem;
+
+  cursor:pointer;
+
+  padding:0;
+
+}
+
+.add-set-btn:hover{
+
+  opacity:.7;
+
+}
+
+/* SCROLL CONTENT */
+
+#viewRoutineContent{
+
+  overflow-y:auto;
+
+  padding-right:4px;
+
+  padding-bottom:90px;
+
+  scroll-behavior:smooth;
+
+}
+
+/* SCROLLBAR */
+
+#viewRoutineContent::-webkit-scrollbar{
+
+  width:8px;
+
+}
+
+#viewRoutineContent::-webkit-scrollbar-thumb{
+
+  background:rgba(255,255,255,.12);
+
+  border-radius:999px;
+
+}
+
+/* TOP BUTTON */
+
+.routine-scroll-top{
+
+  position:absolute;
+
+  right:26px;
+
+  bottom:86px;
+
+  width:42px;
+
+  height:42px;
+
+  border:none;
+
+  border-radius:50%;
+
+  background:#00ff88;
+
+  color:#000;
+
+  font-size:1rem;
+
+  font-weight:700;
+
+  cursor:pointer;
+
+  z-index:50;
+
+  display:none;
+
+  box-shadow:
+    0 12px 30px rgba(0,255,136,.22);
+
+}
+
+.routine-scroll-top:hover{
+
+  transform:translateY(-2px);
+
+}
+
+/* REST TIMER */
+
+.exercise-rest-timer{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+  margin-bottom:14px;
+
+}
+
+.rest-label{
+
+  font-size:.78rem;
+
+  color:var(--text-dim);
+
+}
+
+.rest-time-btn{
+
+  border:none;
+
+  background:rgba(0,255,136,.08);
+
+  color:#00ff88;
+
+  border:1px solid rgba(0,255,136,.18);
+
+  padding:7px 12px;
+
+  border-radius:999px;
+
+  cursor:pointer;
+
+  font-size:.78rem;
+
+  transition:.18s;
+
+}
+
+.rest-time-btn:hover{
+
+  background:rgba(0,255,136,.14);
+
+}
+
+/* =========================
+   REST TIMER SELECT
+========================= */
+
+#restTimerSelect{
+
+  width:100%;
+
+  height:46px;
+
+  padding:0 14px;
+
+  border-radius:14px;
+
+  border:1px solid rgba(255,255,255,.08);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.04),
+      rgba(255,255,255,.02)
     );
 
-    const close = value => {
+  color:#fff;
 
-      overlay.classList.remove(
-        "open"
-      );
+  font-size:.92rem;
 
-      resolve(value);
+  outline:none;
 
-    };
+  appearance:none;
 
-    okBtn.onclick =
-      () => close(true);
+  -webkit-appearance:none;
 
-    cancelBtn.onclick =
-      () => close(false);
+  transition:.18s;
 
-    overlay.onclick = e => {
+  cursor:pointer;
 
-      if(
-        e.target === overlay
-      ){
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.03);
 
-        close(false);
+}
 
-      }
-
-    };
-
-  });
-
-}////openConfirmModal
-
-async function cargarEjerciciosDePrograma(ProgramaId) {
-
-  const { data, error } = await routineClient
-
-    .from("routine_exercises")
-
-    .select(`
-      id,
-      exercise_id,
-      rest_time,
-
-      exercises (
-        id,
-        nombre,
-        nombre_en,
-        equipo
-      ),
-
-      routine_sets (
-        id,
-        set_number,
-        weight,
-        reps
-      )
-    `)
-
-    .eq(
-      "routine_id",
-      ProgramaId
-    )
-
-    .order(
-      "orden",
-      { ascending:true }
-    );
-
-  if (error) {
-
-    console.error(error);
-
-    return;
-
-  }
-
-  const box =
-    document.getElementById(
-      "routineExerciseList"
-    );
-
-  if (!box) return;
-
-  box.innerHTML = (data || []).length
-
-    ? data.map((item, index) => `
-
-        <div
-          class="routine-ex-item"
-          draggable="true"
-          data-routine-exercise-id="${item.id}"
-        >
-
-          <!-- HEADER -->
-
-         <div
-            class="routine-ex-header clickable"
-            data-accordion="${index}"
-          >
-          
-            <div class="drag-handle">
-              ≡
-            </div>
-          
-            <div class="routine-ex-main">
-          
-              <div class="routine-ex-name">
-                ${item.exercises?.nombre_en || ""}
-              </div>
-          
-              <div class="routine-ex-equipment">
-                ${formatValue(
-                  item.exercises?.equipo
-                ) || "Sin equipo"}
-              </div>
-          
-            </div>
-          
-            <button
-              class="delete-ex-btn delete-routine-ex-btn"
-              data-routine-exercise-id="${item.id}"
-            >
-          
-              <svg
-                viewBox="0 0 24 24"
-                width="20"
-                height="20"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-          
-                <path d="M3 6h18" />
-                <path d="M8 6V4h8v2" />
-                <path d="M19 6l-1 14H6L5 6" />
-                <path d="M10 11v6" />
-                <path d="M14 11v6" />
-          
-              </svg>
-          
-            </button>
-          
-            <div class="accordion-arrow">
-              ▾
-            </div>
-          
-          </div>
-
-          <!-- CONTENT -->
-
-          <div
-            class="
-              routine-ex-content
-              ${index === 0 ? "open" : ""}
-            "
-            id="accordion-${index}"
-          >
-
-            <!-- REST TIMER -->
-
-            <div class="exercise-rest-timer">
-
-              <span class="rest-label">
-                Temporizador de descanso:
-              </span>
-
-              <button
-                class="rest-time-btn"
-                data-routine-exercise="${item.id}"
-              >
-
-                ${item.rest_time || "Apagado"}
-
-              </button>
-
-            </div>
-
-            <!-- TABLE -->
-
-            <div class="routine-sets-table-wrap">
-
-              <table class="routine-sets-table">
-
-                <thead>
-
-                  <tr>
-
-                    <th>Set</th>
-
-                    <th>Anterior</th>
-
-                    <th>Lbs</th>
-
-                    <th>Reps</th>
-
-                    <th></th>
-
-                  </tr>
-
-                </thead>
-
-                <tbody
-                  id="sets-body-${index}"
-                >
-
-                  ${(item.routine_sets || [])
-
-                    .sort(
-                      (a,b) =>
-                        a.set_number - b.set_number
-                    )
-
-                    .map(set => `
+/* FOCUS */
 
-                      <tr>
+#restTimerSelect:focus{
 
-                        <td class="set-number">
-                          ${set.set_number}
-                        </td>
+  border-color:#00ff88;
 
-                        <td class="set-prev">
-                          —
-                        </td>
+  box-shadow:
+    0 0 0 4px rgba(0,255,136,.10);
 
-                        <td>
+}
 
-                          <input
-                            type="number"
-                            class="
-                              set-input
-                              set-weight-input
-                            "
-                            data-set-id="${set.id}"
-                            value="${set.weight || 0}"
-                            placeholder="0"
-                          >
+/* OPTIONS */
 
-                        </td>
+#restTimerSelect option{
 
-                        <td>
+  background:#111;
 
-                          <input
-                            type="number"
-                            class="
-                              set-input
-                              set-reps-input
-                            "
-                            data-set-id="${set.id}"
-                            value="${set.reps || 0}"
-                            placeholder="0"
-                          >
+  color:#fff;
 
-                        </td>
+}
 
-                        <td>
+/* WRAP */
 
-                          <button
-                            class="delete-ex-btn"
-                            data-set-id="${set.id}"
-                          >
+.rest-select-wrap{
 
-                            <svg
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="1.8"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              width="20"
-                              height="20"
-                            >
+  position:relative;
 
-                              <path d="M3 6h18" />
-                              <path d="M8 6V4h8v2" />
-                              <path d="M19 6l-1 14H6L5 6" />
-                              <path d="M10 11v6" />
-                              <path d="M14 11v6" />
+  margin-top:16px;
 
-                            </svg>
+}
 
-                          </button>
+/* CUSTOM ARROW */
 
-                        </td>
+.rest-select-wrap::after{
 
-                      </tr>
+  content:"⌄";
 
-                    `).join("")}
+  position:absolute;
 
-                </tbody>
+  right:14px;
 
-              </table>
+  top:50%;
 
-            </div>
+  transform:translateY(-52%);
 
-            <!-- ADD SET -->
+  color:#00ff88;
 
-            <button
-              class="add-set-btn"
-              data-set="${index}"
-              data-routine-exercise="${item.id}"
-            >
+  pointer-events:none;
 
-              + Add Set
+  font-size:.9rem;
 
-            </button>
+}
 
-          </div>
+.lightbox-card.routine-detail-card{
 
-        </div>
+  max-width:560px;
+  width:92%;
 
-      `).join("")
+}
 
-    : `
+.lightbox-card.exercise-picker-card{
 
-      <div class="routine-empty">
+  max-width:520px;
+  width:92%;
 
-        Sin ejercicios aún
+}
 
-      </div>
+.routine-detail-card{
 
-    `;
+  max-width:460px;
+  width:92%;
 
-  /* =========================
-     ACCORDION
-  ========================= */
+}
 
-  document
-    .querySelectorAll(".clickable")
-    .forEach(header => {
+.exercise-picker-card{
 
-      header.addEventListener(
-        "click",
-        () => {
+  max-width:540px;
+  width:94%;
 
-          const id =
-            header.dataset.accordion;
+}
 
-          document
-            .querySelectorAll(
-              ".routine-ex-content"
-            )
-            .forEach(el => {
+/* REMOVE NUMBER INPUT SPINNERS */
 
-              el.classList.remove("open");
+.set-input::-webkit-outer-spin-button,
+.set-input::-webkit-inner-spin-button {
 
-            });
+  -webkit-appearance: none;
 
-          document
-            .getElementById(
-              `accordion-${id}`
-            )
-            .classList.add("open");
+  margin: 0;
 
-        }
-      );
+}
 
-    });
+.set-input[type=number] {
 
-  /* =========================
-     ADD SET
-  ========================= */
+  -moz-appearance: textfield;
 
-  document
-    .querySelectorAll(".add-set-btn")
-    .forEach(btn => {
+  appearance: textfield;
 
-      btn.addEventListener(
-        "click",
-        async () => {
+}
 
-          const idx =
-            btn.dataset.set;
+/* =========================
+   DRAG & DROP
+========================= */
 
-          const routineExerciseId =
-            btn.dataset.routineExercise;
+.routine-ex-item{
 
-          const tbody =
-            document.getElementById(
-              `sets-body-${idx}`
-            );
+  position:relative;
 
-          const setCount =
-            tbody.querySelectorAll("tr")
-              .length + 1;
+  transition:
+    transform .18s ease,
+    opacity .18s ease,
+    box-shadow .18s ease,
+    border-color .18s ease;
 
-          /* INSERT DB */
+}
 
-          const {
-            data:newSet,
-            error:errorInsert
-          } = await routineClient
+.routine-ex-item.dragging{
 
-            .from("routine_sets")
+  opacity:.45;
 
-            .insert([
-              {
-                routine_exercise_id:
-                  routineExerciseId,
+  transform:scale(.98);
 
-                set_number:
-                  setCount,
+  box-shadow:
+    0 0 0 1px #00ff88,
+    0 0 18px rgba(0,255,136,.22);
 
-                weight:0,
+}
 
-                reps:0
-              }
-            ])
+.routine-ex-item.drag-over{
 
-            .select()
+  border:1px dashed #00ff88;
 
-            .single();
+  box-shadow:
+    0 0 0 1px #00ff88,
+    0 0 22px rgba(0,255,136,.18);
 
-          if(errorInsert){
+}
 
-            console.error(errorInsert);
+.drag-handle{
 
-            return;
+  display:flex;
 
-          }
+  align-items:center;
 
-          /* UPDATE UI */
+  justify-content:center;
 
-          tbody.insertAdjacentHTML(
-            "beforeend",
+  width:32px;
 
-            `
+  height:32px;
 
-            <tr>
+  border-radius:8px;
 
-              <td class="set-number">
-                ${setCount}
-              </td>
+  cursor:grab;
 
-              <td class="set-prev">
-                —
-              </td>
+  color:#00ff88;
 
-              <td>
+  font-size:1.1rem;
 
-                <input
-                  type="number"
-                  class="
-                    set-input
-                    set-weight-input
-                  "
-                  data-set-id="${newSet.id}"
-                  value="0"
-                  placeholder="0"
-                >
+  flex-shrink:0;
 
-              </td>
+  transition:
+    background .18s ease,
+    opacity .18s ease;
 
-              <td>
+  opacity:.65;
 
-                <input
-                  type="number"
-                  class="
-                    set-input
-                    set-reps-input
-                  "
-                  data-set-id="${newSet.id}"
-                  value="0"
-                  placeholder="0"
-                >
+}
 
-              </td>
+.drag-handle:hover{
 
-              <td>
+  background:rgba(0,255,136,.08);
 
-                <button
-                  class="delete-ex-btn"
-                  data-set-id="${newSet.id}"
-                >
+  opacity:1;
 
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.8"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    width="20"
-                    height="20"
-                  >
+}
 
-                    <path d="M3 6h18" />
-                    <path d="M8 6V4h8v2" />
-                    <path d="M19 6l-1 14H6L5 6" />
-                    <path d="M10 11v6" />
-                    <path d="M14 11v6" />
+.drag-handle:active{
 
-                  </svg>
+  cursor:grabbing;
 
-                </button>
+}
 
-              </td>
+.routine-ex-main{
 
-            </tr>
+  flex:1;
 
-            `
-          );
+  min-width:0;
 
-          attachSetAutosave();
-          attachDeleteSetEvents();
+}
 
-        }
-      );
+.delete-routine-ex-btn{
 
-    });
+  margin-left:auto;
 
-  /* =========================
-     DRAG & DROP
-  ========================= */
+  margin-right:10px;
 
-  const draggableItems =
-    document.querySelectorAll(
-      ".routine-ex-item"
-    );
+  flex-shrink:0;
 
-  let draggedItem = null;
+}
 
-  draggableItems.forEach(item => {
+.confirm-card{
 
-    item.addEventListener(
-      "dragstart",
-      () => {
+  max-width:420px;
 
-        draggedItem = item;
+}
 
-        item.classList.add(
-          "dragging"
-        );
+#confirmMessage{
 
-      }
-    );
+  color:var(--text-secondary);
 
-    item.addEventListener(
-      "dragend",
-      async () => {
+  line-height:1.6;
 
-        item.classList.remove(
-          "dragging"
-        );
+}
 
-        document
-          .querySelectorAll(
-            ".routine-ex-item"
-          )
-          .forEach(el => {
+.danger-btn{
 
-            el.classList.remove(
-              "drag-over"
-            );
+  background:#ff4d4d;
 
-          });
+  color:#fff;
 
-        const updatedItems =
-          document.querySelectorAll(
-            ".routine-ex-item"
-          );
+}
 
-        for(
-          let i = 0;
-          i < updatedItems.length;
-          i++
-        ){
+.danger-btn:hover{
 
-          const id =
-            updatedItems[i].dataset
-              .routineExerciseId;
+  background:#ff2f2f;
 
-          await routineClient
+}
 
-            .from("routine_exercises")
+.delete-routines-card{
 
-            .update({
-              orden:i + 1
-            })
+  max-width:520px;
 
-            .eq(
-              "id",
-              id
-            );
+}
 
-        }
+.delete-routine-list{
 
-      }
-    );
+  display:flex;
 
-    item.addEventListener(
-      "dragover",
-      (e) => {
+  flex-direction:column;
 
-        e.preventDefault();
+  gap:12px;
 
-        if(
-          item !== draggedItem
-        ){
+  max-height:420px;
 
-          item.classList.add(
-            "drag-over"
-          );
+  overflow:auto;
 
-        }
+}
 
-      }
-    );
+.delete-routine-row{
 
-    item.addEventListener(
-      "dragleave",
-      () => {
+  display:flex;
 
-        item.classList.remove(
-          "drag-over"
-        );
+  align-items:center;
 
-      }
-    );
+  justify-content:space-between;
 
-    item.addEventListener(
-      "drop",
-      (e) => {
+  padding:14px 16px;
 
-        e.preventDefault();
+  border:1px solid var(--border);
 
-        item.classList.remove(
-          "drag-over"
-        );
+  border-radius:16px;
 
-        if(
-          item !== draggedItem
-        ){
+  background:var(--card-bg);
 
-          const container =
-            item.parentNode;
+}
 
-          const items =
-            [
-              ...container.querySelectorAll(
-                ".routine-ex-item"
-              )
-            ];
+.delete-routine-info{
 
-          const draggedIndex =
-            items.indexOf(
-              draggedItem
-            );
+  display:flex;
 
-          const targetIndex =
-            items.indexOf(item);
+  flex-direction:column;
 
-          if(
-            draggedIndex < targetIndex
-          ){
+  gap:4px;
 
-            item.after(
-              draggedItem
-            );
+}
 
-          } else {
+.delete-routine-name{.program-detail-card{
 
-            item.before(
-              draggedItem
-            );
+  width: 92%;
 
-          }
+  max-width: 520px;
 
-        }
+  max-height: 85vh;
 
-      }
-    );
+  overflow-y: auto;
 
-  });
+}
 
-  attachSetAutosave();
-  attachDeleteSetEvents();
-  attachDeleteRoutineExerciseEvents();
-}//cargarEjerciciosDePrograma(ProgramaId)
+  font-weight:600;
 
-function fillRestTimerOptions(){
+  color:#00ff88;
 
-    const select =
-      document.getElementById(
-        "restTimerSelect"
-      );
-  
-    if(!select) return;
-  
-    select.innerHTML = `
-      <option value="Apagado">
-        Apagado
-      </option>
-    `;
-  
-    for(let i = 5; i <= 150; i += 5){
-  
-      const min =
-        Math.floor(i / 60);
-  
-      const sec =
-        i % 60;
-  
-      let label = "";
-  
-      if(min > 0){
-  
-        label += `${min}min`;
-  
-      }
-  
-      if(sec > 0){
-  
-        label +=
-          `${min > 0 ? " " : ""}${sec}s`;
-  
-      }
-  
-      select.innerHTML += `
-        <option value="${label}">
-          ${label}
-        </option>
-      `;
-  
-    }
+}
 
-}//fillRestTimerOptions()
+.delete-routine-meta{
 
-function attachSetAutosave(){
+  font-size:.82rem;
 
-  document
-    .querySelectorAll(
-      ".set-weight-input, .set-reps-input"
-    )
-    .forEach(input => {
+  color:var(--text-secondary);
 
-      input.addEventListener(
-        "change",
-        async () => {
-
-          const setId =
-            input.dataset.setId;
-
-          const row =
-            input.closest("tr");
-
-          const weight =
-            row.querySelector(
-              ".set-weight-input"
-            ).value || 0;
-
-          const reps =
-            row.querySelector(
-              ".set-reps-input"
-            ).value || 0;
-
-          const { error } =
-            await routineClient
-
-              .from("routine_sets")
-
-              .update({
-                weight,
-                reps
-              })
-
-              .eq(
-                "id",
-                setId
-              );
-
-          if(error){
-
-            console.error(error);
-
-          }
-
-        }
-      );
-
-    });
-
-}//attachSetAutosave()
-
-function attachDeleteSetEvents(){
-
-  document
-    .querySelectorAll(
-      ".delete-ex-btn[data-set-id]"
-    )
-    .forEach(btn => {
-
-      btn.onclick = async () => {
-
-        const setId =
-          btn.dataset.setId;
-
-        const row =
-          btn.closest("tr");
-
-        if(!setId || !row)
-          return;
-
-        const { error } =
-          await routineClient
-
-            .from("routine_sets")
-
-            .delete()
-
-            .eq(
-              "id",
-              setId
-            );
-
-        if(error){
-
-          console.error(error);
-
-          return;
-
-        }
-
-        row.remove();
-
-      };
-
-    });
-
-}//attachDeleteSetEvents
-
-function attachDeleteRoutineExerciseEvents(){
-
-  document
-    .querySelectorAll(
-      ".delete-routine-ex-btn"
-    )
-    .forEach(btn => {
-
-      btn.onclick = async (e) => {
-
-        e.stopPropagation();
-
-        const confirmed =
-          await openConfirmModal({
-        
-            title:
-              "Eliminar ejercicio",
-        
-            message:
-              "Esta acción eliminará el ejercicio y todos sus sets.",
-        
-            confirmText:
-              "Eliminar"
-        
-          });
-        
-        if(!confirmed) return;
-
-        const routineExerciseId =
-          btn.dataset.routineExerciseId;
-
-        const { error } =
-          await routineClient
-
-            .from("routine_exercises")
-
-            .delete()
-
-            .eq(
-              "id",
-              routineExerciseId
-            );
-
-        if(error){
-
-          console.error(error);
-
-          alert(
-            "No se pudo eliminar"
-          );
-
-          return;
-
-        }
-
-        await abrirDetallePrograma(
-          ProgramaActualId
-        );
-
-        await cargarProgramas();
-
-      };
-
-    });
-
-}//attachDeleteRoutineExerciseEvents
-
-async function abrirDeleteRoutineOverlay(){
-
-  const overlay =
-    document.getElementById(
-      "deleteRoutineOverlay"
-    );
-
-  const list =
-    document.getElementById(
-      "deleteRoutineList"
-    );
-
-  const { data, error } =
-    await routineClient
-
-      .from("programs")
-
-      .select(`
-        id,
-        nombre,
-        categoria
-      `)
-
-      .order(
-        "created_at",
-        { ascending:false }
-      );
-
-  if(error){
-
-    console.error(error);
-
-    return;
-
-  }
-
-  list.innerHTML =
-    (data || []).map(routine => `
-
-      <div
-        class="delete-routine-row"
-      >
-
-        <div
-          class="delete-routine-info"
-        >
-
-          <div
-            class="delete-routine-name"
-          >
-          
-            ${
-              routine.nombre
-          
-                ? routine.nombre.charAt(0)
-                    .toUpperCase()
-          
-                  + routine.nombre.slice(1)
-          
-                : "Sin nombre"
-            }
-          
-          </div>
-
-          <div
-            class="delete-routine-meta"
-          >
-
-            ${routine.categoria || "Sin categoría"}
-
-          </div>
-
-        </div>
-
-        <button
-          class="
-            delete-ex-btn
-            delete-routine-final-btn
-          "
-          data-routine-id="${routine.id}"
-        >
-
-          <svg
-            viewBox="0 0 24 24"
-            width="20"
-            height="20"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-
-            <path d="M3 6h18" />
-            <path d="M8 6V4h8v2" />
-            <path d="M19 6l-1 14H6L5 6" />
-            <path d="M10 11v6" />
-            <path d="M14 11v6" />
-
-          </svg>
-
-        </button>
-
-      </div>
-
-    `).join("");
-
-  overlay.classList.add(
-    "open"
-  );
-
-  attachDeleteRoutineFinalEvents();
-
-}//abrirDeleteRoutineOverlay
-
-function attachDeleteRoutineFinalEvents(){
-
-  document
-    .querySelectorAll(
-      ".delete-routine-final-btn"
-    )
-    .forEach(btn => {
-
-      btn.onclick = async () => {
-
-        const routineId =
-          btn.dataset.routineId;
-
-        const confirmed =
-          await openConfirmModal({
-
-            title:
-              "Eliminar Programa",
-
-            message:
-              "Esta acción eliminará todos los ejercicios y sets de la Programa.",
-
-            confirmText:
-              "Eliminar"
-
-          });
-
-        if(!confirmed) return;
-
-        const { error } =
-          await routineClient
-
-            .from("programs")
-
-            .delete()
-
-            .eq(
-              "id",
-              routineId
-            );
-
-        if(error){
-
-          console.error(error);
-
-          return;
-
-        }
-
-        await cargarProgramas();
-
-        await abrirDeleteRoutineOverlay();
-
-      };
-
-    });
-
-}//attachDeleteRoutineFinalEvents
-
-document
-  .getElementById(
-    "closeDeleteRoutineOverlay"
-  )
-  .onclick = () => {
-
-    document
-      .getElementById(
-        "deleteRoutineOverlay"
-      )
-      .classList.remove(
-        "open"
-      );
-
-  };//document
-
-document.addEventListener("DOMContentLoaded", () => {
-
-  cargarProgramas();
-
-  const addBtn =
-    document.getElementById(
-      "addRoutineBtn"
-    );
-
-  const cancelBtn =
-    document.getElementById(
-      "rtCancel"
-    );
-
-  const saveBtn =
-    document.getElementById(
-      "rtSave"
-    );
-
-  if (addBtn)
-    addBtn.addEventListener(
-      "click",
-      abrirRoutineLightbox
-    );
-
-  if (cancelBtn)
-    cancelBtn.addEventListener(
-      "click",
-      cerrarRoutineLightbox
-    );
-
-  if (saveBtn)
-    saveBtn.addEventListener(
-      "click",
-      guardarPrograma
-    );
-
-  const closeView =
-    document.getElementById(
-      "viewRoutineClose"
-    );
-
-  if (closeView)
-    closeView.addEventListener(
-      "click",
-      cerrarDetallePrograma
-    );
-
-  const addExerciseClose =
-    document.getElementById(
-      "addExerciseClose"
-    );
-
-  if (addExerciseClose)
-    addExerciseClose.addEventListener(
-      "click",
-      cerrarSelectorEjercicios
-    );
-
-  /* =========================
-     DELETE ROUTINE
-  ========================= */
-
-  const deleteRoutineBtn =
-    document.getElementById(
-      "deleteRoutineBtn"
-    );
-
-  if(deleteRoutineBtn){
-
-    deleteRoutineBtn.onclick =
-      async () => {
-
-        abrirDeleteRoutineOverlay();
-
-      };
-
-  }
-
-});//DOMContentLoaded
+}
