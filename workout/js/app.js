@@ -210,10 +210,6 @@ async function loadHamburgerMenu(){
 
 }//loadHamburgerMenu
 
-/* =============================================
-   INIT MENU
-============================================= */
-
 function initHamburgerMenu(){
 
   const menuBtn =
@@ -269,20 +265,27 @@ function initHamburgerMenu(){
 
   }
 
-  menuBtn.onclick = () => {
+  menuBtn.addEventListener(
+    "click",
+    e => {
 
-    dropMenu.classList.contains(
-      "open"
-    )
+      e.stopPropagation();
 
-      ? closeMenu()
+      dropMenu.classList.contains(
+        "open"
+      )
 
-      : openMenu();
+        ? closeMenu()
 
-  };
+        : openMenu();
 
-  overlay.onclick =
-    closeMenu;
+    }
+  );
+
+  overlay.addEventListener(
+    "click",
+    closeMenu
+  );
 
 }//initHamburgerMenu
 
