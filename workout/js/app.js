@@ -274,8 +274,6 @@ async function loadTopbar(){
 
     cargarContadorRutinas();
 
-    cargarContadorRutinas();
-
 });//document.addEventListener
 
 async function cargarContadorEjercicios() {
@@ -290,16 +288,43 @@ async function cargarContadorEjercicios() {
 
   const el = document.getElementById("exerciseCount");
   if (el) el.textContent = count || 0;
-}
+}//cargarContadorEjercicios
 
-async function cargarContadorRutinas() {
-  const el = document.getElementById("routineCount");
-  if (el) {
-    el.textContent = 0;
+async function cargarContadorRutinas(){
+
+  const {
+    count,
+    error
+  } = await routineClient
+
+    .from("routines")
+
+    .select(
+      "*",
+      {
+        count:"exact",
+        head:true
+      }
+    );
+
+  if(error){
+
+    console.error(error);
+
+    return;
+
   }
-}
 
-function cargarContadorRutinas() {
-  const el = document.getElementById("routineCount");
-  if (el) el.textContent = 0;
-}
+  const el =
+    document.getElementById(
+      "routineCount"
+    );
+
+  if(el){
+
+    el.textContent =
+      count || 0;
+
+  }
+
+}//cargarContadorRutinas
