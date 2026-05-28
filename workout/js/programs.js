@@ -135,7 +135,7 @@ function abrirRoutineLightbox() {
 
   document.getElementById("rtNombre").value = "";
   document.getElementById("rtDescripcion").value = "";
-  document.getElementById("rtCategoria").value = "";
+  //document.getElementById("rtCategoria").value = "";
 
   overlay.classList.add("open");
 }//abrirRoutineLightbox()
