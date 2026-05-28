@@ -195,7 +195,7 @@ function abrirProgramLightbox(){
 }//abrirProgramLightbox
 
 function cerrarprogramLightbox() {
-  document.getElementById("programLightbox").classList.remove("open");
+  document.getElementById("programLightbox").classList.remove("active");
 }//cerrarprogramLightbox()
 
 async function guardarPrograma(){
@@ -284,7 +284,7 @@ async function abrirDetalleRutina(id) {
       <div id="routineExerciseList" style="margin-top:18px;"></div>
     `;
   
-    document.getElementById("viewProgramOverlay").classList.add("open");
+    document.getElementById("viewProgramOverlay").classList.add("active");
   
     document
       .getElementById("addExerciseToRoutine")
@@ -338,7 +338,7 @@ function cerrarDetalleRutina() {
     const overlay = document.getElementById("viewProgramOverlay");
     const volverSelector = overlay.dataset.returnToSelector === "true";
   
-    overlay.classList.remove("open");
+    overlay.classList.remove("active");
     overlay.dataset.returnToSelector = "false";
   
     if (volverSelector) {
@@ -374,11 +374,11 @@ async function abrirSelectorEjercicios() {
       ejerciciosExistentes
     );
   
-    document.getElementById("addExerciseOverlay").classList.add("open");
+    document.getElementById("addExerciseOverlay").classList.add("active");
 }//abrirSelectorEjercicios()
 
 function cerrarSelectorEjercicios() {
-  document.getElementById("addExerciseOverlay").classList.remove("open");
+  document.getElementById("addExerciseOverlay").classList.remove("active");
 }//cerrarSelectorEjercicios()
 
 function renderSelectorEjercicios(
@@ -617,7 +617,7 @@ function renderSelectorEjercicios(
 async function abrirVistaEjercicio(exId) {
       const selectorAbierto = document
         .getElementById("addExerciseOverlay")
-        .classList.contains("open");
+        .classList.contains("active");
     
       //if (selectorAbierto) {
         //cerrarSelectorEjercicios();
@@ -666,7 +666,7 @@ async function abrirVistaEjercicio(exId) {
         selectorAbierto ? "true" : "false";
     
       document.getElementById("addExerciseOverlay").style.visibility = "hidden";
-      document.getElementById("viewProgramOverlay").classList.add("open");
+      document.getElementById("viewProgramOverlay").classList.add("active");
 }//abrirVistaEjercicio(exId)
 
 function formatValue(value) {
@@ -757,13 +757,13 @@ function openConfirmModal({
       confirmText;
 
     overlay.classList.add(
-      "open"
+      "active"
     );
 
     const close = value => {
 
       overlay.classList.remove(
-        "open"
+        "active"
       );
 
       resolve(value);
@@ -915,7 +915,7 @@ async function cargarEjerciciosDeRutina(rutinaId) {
           <div
             class="
               routine-ex-content
-              ${index === 0 ? "open" : ""}
+              ${index === 0 ? "active" : ""}
             "
             id="accordion-${index}"
           >
@@ -1105,7 +1105,7 @@ async function cargarEjerciciosDeRutina(rutinaId) {
             )
             .forEach(el => {
 
-              el.classList.remove("open");
+              el.classList.remove("active");
 
             });
 
@@ -1113,7 +1113,7 @@ async function cargarEjerciciosDeRutina(rutinaId) {
             .getElementById(
               `accordion-${id}`
             )
-            .classList.add("open");
+            .classList.add("active");
 
         }
       );
@@ -1767,7 +1767,7 @@ async function abrirdeleteProgramOverlay(){
     `).join("");
 
   overlay.classList.add(
-    "open"
+    "active"
   );
 
   attachDeleteRoutineFinalEvents();
@@ -2223,6 +2223,20 @@ document.addEventListener(
       deleteProgramBtn.addEventListener(
         "click",
         abrirDeleteProgramOverlay
+      );
+
+    }
+
+    const closeDeleteBtn =
+      document.getElementById(
+        "closeDeleteProgramOverlay"
+      );
+
+    if(closeDeleteBtn){
+
+      closeDeleteBtn.addEventListener(
+        "click",
+        cerrarDeleteProgramOverlay
       );
 
     }
