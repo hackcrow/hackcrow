@@ -2,93 +2,131 @@
 <html lang="es" data-theme="dark">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-  <title>Programas — Workouts</title>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="
+      width=device-width,
+      initial-scale=1.0,
+      maximum-scale=1.0,
+      user-scalable=no
+    "
+  >
+
+  <title>Programas — Workout</title>
 
   <!-- FONTS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
-    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap"
-    rel="stylesheet">
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
 
-  <!-- GLOBAL STYLES -->
-  <link rel="stylesheet" href="../css/style.css">
+  <link
+    href="
+      https://fonts.googleapis.com/css2?
+      family=DM+Mono:wght@300;400;500&
+      family=DM+Sans:wght@300;400;500;600&
+      display=swap
+    "
+    rel="stylesheet"
+  >
 
-  <!-- ROUTINES STYLES -->
-  <link rel="stylesheet" href="../css/routines.css">
+  <!-- GLOBAL CSS -->
+  <link
+    rel="stylesheet"
+    href="../css/style.css"
+  >
+
+  <!-- PROGRAMS CSS -->
+  <link
+    rel="stylesheet"
+    href="../css/programs.css"
+  >
 
   <!-- FAVICON -->
-  <link rel="icon" type="image/x-icon" href="../src/images/favicon.ico">
+  <link
+    rel="icon"
+    type="image/x-icon"
+    href="../src/images/favicon.ico"
+  >
+
 </head>
 
 <body>
 
-   <!-- GLOBAL OVERLAY -->
- <div id="overlay"></div>
+  <!-- OVERLAY -->
+  <div id="overlay"></div>
 
   <!-- TOPBAR -->
   <div id="topbarContainer"></div>
 
-  </header>
-
   <!-- MENU -->
   <div id="menuContainer"></div>
 
-  <!-- MAIN APP -->
+  <!-- APP -->
   <main id="app">
 
-    <!-- ROUTINES PAGE -->
     <div id="page-programs">
 
       <!-- PAGE HEADER -->
       <div class="page-header">
 
         <div>
-          <div class="page-title">Programas</div>
+
+          <div class="page-title">
+            Programas
+          </div>
+
           <div class="page-subtitle">
             // Organiza tus entrenamientos
           </div>
+
         </div>
 
-        <a class="back-btn" href="../index.html">
+        <a
+          class="back-btn"
+          href="../index.html"
+        >
           ← Volver
         </a>
 
       </div>
 
-      <!-- FILTERS + ACTIONS -->
+      <!-- ACTIONS -->
       <div class="filter-bar">
 
         <div class="filter-pills">
 
-          <button class="pill active">Todas</button>
-          <button class="pill">Push</button>
-          <button class="pill">Pull</button>
-          <button class="pill">Pierna</button>
-          <button class="pill">Full Body</button>
+          <button class="pill active">
+            Todos
+          </button>
 
         </div>
 
         <div class="action-buttons">
 
-          <!-- DELETE ROUTINE -->
-          <button id="deleteRoutineBtn"
+          <!-- DELETE PROGRAM -->
+          <button
+            id="deleteProgramBtn"
             class="delete-ex-btn"
-            title="Eliminar Programa">
+            title="Eliminar programa"
+          >
 
-            <svg viewBox="0 0 24 24"
+            <svg
+              viewBox="0 0 24 24"
               width="20"
               height="20"
               fill="none"
               stroke="currentColor"
               stroke-width="1.8"
               stroke-linecap="round"
-              stroke-linejoin="round">
+              stroke-linejoin="round"
+            >
 
               <path d="M3 6h18" />
               <path d="M8 6V4h8v2" />
@@ -100,10 +138,12 @@
 
           </button>
 
-          <!-- ADD ROUTINE -->
-          <button id="addRoutineBtn"
+          <!-- ADD PROGRAM -->
+          <button
+            id="addProgramBtn"
             class="add-ex-btn"
-            title="Agregar Programa">
+            title="Agregar programa"
+          >
 
             ＋
 
@@ -113,331 +153,230 @@
 
       </div>
 
-      <!-- PROGRAMS GRID -->
-      <div id="loadingPrograms"
-        class="terminal-loading">
+      <!-- LOADING -->
+      <div
+        id="loadingPrograms"
+        class="terminal-loading"
+      >
 
         Loading programs...
 
       </div>
 
-      <!-- GRID CONTAINER -->
-      <div id="programGrid"
-        class="exercise-grid">
-      </div>
+      <!-- GRID -->
+      <div
+        id="programGrid"
+        class="exercise-grid"
+      ></div>
 
     </div>
 
   </main>
 
-  <!-- CREATE ROUTINE LIGHTBOX -->
-  <div id="routineLightbox"
-    class="lightbox-overlay">
+  <!-- CREATE PROGRAM -->
+  <div
+    id="programLightbox"
+    class="lightbox-overlay"
+  >
 
-    <div class="lightbox-card">
+    <div
+      class="
+        lightbox-card
+        create-program-card
+      "
+    >
 
       <div class="lightbox-header">
-        <h2 id="routineLbTitle">Nuevo Programa</h2>
+
+        <h2 id="programLbTitle">
+          Nuevo Programa
+        </h2>
+
       </div>
 
       <div class="lightbox-body">
 
-        <input id="rtNombre"
+        <input
+          id="pgNombre"
           type="text"
-          placeholder="Nombre del Programa">
+          placeholder="Nombre del programa"
+        >
 
-        <textarea id="rtDescripcion"
-          placeholder="Descripción"></textarea>
+        <textarea
+          id="pgDescripcion"
+          placeholder="Descripción"
+        ></textarea>
 
       </div>
 
       <div class="lightbox-actions">
 
-        <button id="rtCancel"
-          class="btn btn-ghost">
+        <button
+          id="pgCancel"
+          class="btn btn-ghost"
+        >
 
           Cancelar
 
         </button>
 
-        <button id="rtSave"
-          class="btn">
+        <button
+          id="pgSave"
+          class="btn"
+        >
 
           Guardar
 
         </button>
 
       </div>
-      
-    </div>
-
-  </div>
-
- <!-- VIEW ROUTINE DETAIL -->
-<div id="viewRoutineOverlay"
-  class="lightbox-overlay">
-
-  <div class="lightbox-card routine-detail-card">
-
-    <div class="lightbox-header">
-      <h2 id="viewRoutineTitle">Programa</h2>
-    </div>
-
-    <div id="viewRoutineContent"></div>
-
-    <div class="lightbox-actions">
-
-      <button id="viewRoutineClose"
-        class="btn btn-ghost">
-
-        Cerrar
-
-      </button>
-
-    </div>
-
-    <!-- SCROLL TOP -->
-
-    <button
-      id="routineScrollTop"
-      class="routine-scroll-top">
-
-      ↑
-
-    </button>
-
-  </div>
-
-</div>
-
-  <!-- ADD EXERCISE SELECTOR -->
-  <div id="addExerciseOverlay"
-    class="lightbox-overlay">
-
-    <div class="lightbox-card routine-detail-card">
-
-      <div class="lightbox-header">
-        <h2>Agregar ejercicio</h2>
-      </div>
-
-      <!-- SEARCH INPUT -->
-      <div style="margin-bottom:14px;">
-
-        <input id="searchExerciseInput"
-          type="text"
-          placeholder="Buscar ejercicio..." />
-
-      </div>
-
-      <!-- EXERCISE LIST -->
-      <div id="exercisePickerList"
-        style="max-height:320px;overflow:auto;">
-      </div>
-
-      <!-- SELECTOR ACTIONS -->
-      <div class="lightbox-actions">
-
-        <button id="addExerciseClose"
-          class="btn btn-ghost">
-
-          Cerrar
-
-        </button>
-
-      </div>
 
     </div>
 
   </div>
 
-  <!-- REST TIMER LIGHTBOX -->
-
-  <div id="restTimerOverlay"
-    class="lightbox-overlay">
-  
-    <div class="lightbox-card"
-      style="max-width:360px;">
-  
-      <div class="lightbox-header">
-        <h2>Temporizador</h2>
-      </div>
-  
-      <div class="lightbox-body">
-  
-        <div class="rest-select-wrap">
-  
-          <select id="restTimerSelect">
-  
-            <option value="Apagado">
-              Apagado
-            </option>
-  
-          </select>
-  
-        </div>
-  
-      </div>
-  
-      <div class="lightbox-actions">
-  
-        <button
-          id="restTimerCancel"
-          class="btn btn-ghost">
-  
-          Cancelar
-  
-        </button>
-  
-        <button
-          id="restTimerOk"
-          class="btn">
-  
-          OK
-  
-        </button>
-  
-      </div>
-  
-    </div>
-  
-  </div>
-
-  <!-- DELETE ROUTINES MODAL -->
-
-  <div
-    id="deleteRoutineOverlay"
-    class="lightbox-overlay"
-  >
-  
-    <div
-      class="lightbox-card delete-routines-card"
-    >
-  
-      <div class="lightbox-header">
-  
-        <h2>
-          Administrar Programas
-        </h2>
-  
-      </div>
-  
-      <div
-        id="deleteRoutineList"
-        class="delete-routine-list"
-      >
-      </div>
-  
-      <div class="lightbox-actions">
-  
-        <button
-          id="closeDeleteRoutineOverlay"
-          class="btn btn-ghost"
-        >
-  
-          Cerrar
-  
-        </button>
-  
-      </div>
-  
-    </div>
-  
-  </div>
-
-  <!-- CONFIRM MODAL -->
-
-  <div
-    id="confirmOverlay"
-    class="lightbox-overlay"
-  >
-  
-    <div
-      class="lightbox-card confirm-card"
-    >
-  
-      <div class="lightbox-header">
-  
-        <h2 id="confirmTitle">
-          Confirmar
-        </h2>
-  
-      </div>
-  
-      <div class="lightbox-body">
-  
-        <p id="confirmMessage">
-          ¿Seguro?
-        </p>
-  
-      </div>
-  
-      <div class="lightbox-actions">
-  
-        <button
-          id="confirmCancel"
-          class="btn btn-ghost"
-        >
-  
-          Cancelar
-  
-        </button>
-  
-        <button
-          id="confirmOk"
-          class="btn danger-btn"
-        >
-  
-          Eliminar
-  
-        </button>
-  
-      </div>
-  
-    </div>
-  
-  </div>
-
-  <!-- VIEW PROGRAM DETAIL -->
-
+  <!-- VIEW PROGRAM -->
   <div
     id="viewProgramOverlay"
     class="lightbox-overlay"
   >
-  
+
     <div
       class="
         lightbox-card
-        routine-detail-card
+        program-detail-card
       "
     >
-  
+
       <div class="lightbox-header">
-  
+
         <h2 id="viewProgramTitle">
           Programa
         </h2>
-  
+
       </div>
-  
+
       <div
         id="programRoutineList"
+        class="program-routine-list"
       ></div>
-  
+
       <div class="lightbox-actions">
-  
+
         <button
           id="viewProgramClose"
           class="btn btn-ghost"
         >
-  
+
           Cerrar
-  
+
         </button>
-  
+
       </div>
-  
+
     </div>
-  
+
+  </div>
+
+  <!-- DELETE PROGRAMS -->
+  <div
+    id="deleteProgramOverlay"
+    class="lightbox-overlay"
+  >
+
+    <div
+      class="
+        lightbox-card
+        delete-routines-card
+      "
+    >
+
+      <div class="lightbox-header">
+
+        <h2>
+          Administrar Programas
+        </h2>
+
+      </div>
+
+      <div
+        id="deleteProgramList"
+        class="delete-routine-list"
+      ></div>
+
+      <div class="lightbox-actions">
+
+        <button
+          id="closeDeleteProgramOverlay"
+          class="btn btn-ghost"
+        >
+
+          Cerrar
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- CONFIRM -->
+  <div
+    id="confirmOverlay"
+    class="lightbox-overlay"
+  >
+
+    <div
+      class="
+        lightbox-card
+        confirm-card
+      "
+    >
+
+      <div class="lightbox-header">
+
+        <h2 id="confirmTitle">
+          Confirmar
+        </h2>
+
+      </div>
+
+      <div class="lightbox-body">
+
+        <p id="confirmMessage">
+          ¿Seguro?
+        </p>
+
+      </div>
+
+      <div class="lightbox-actions">
+
+        <button
+          id="confirmCancel"
+          class="btn btn-ghost"
+        >
+
+          Cancelar
+
+        </button>
+
+        <button
+          id="confirmOk"
+          class="
+            btn
+            danger-btn
+          "
+        >
+
+          Eliminar
+
+        </button>
+
+      </div>
+
+    </div>
+
   </div>
 
   <!-- SCRIPTS -->
