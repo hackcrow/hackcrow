@@ -14,8 +14,8 @@ let currentRestExerciseId = null;
 let ejerciciosDisponibles = [];
 let currentRestButton = null;
 
-async function cargarRutinas() {
-  const loading = document.getElementById("loadingRoutines");
+async function cargarProgramas() {
+  const loading = document.getElementById("loadingPrograms");
   if (loading) loading.style.display = "block";
 
   const { data, error } = await routineClient
@@ -32,11 +32,11 @@ async function cargarRutinas() {
 
   if (loading) loading.style.display = "none";
 
-  renderRutinas();
-}//cargarRutinas()
+  renderProgramas();
+}//cargarProgramas()
 
-async function renderRutinas() {
-    const grid = document.getElementById("routineGrid");
+async function renderProgramas() {
+    const grid = document.getElementById("programGrid");
     if (!grid) return;
   
     if (!rutinas.length) {
@@ -47,7 +47,7 @@ async function renderRutinas() {
         </div>
       `;
       return;
-    }//renderRutinas()
+    }//renderProgramas()
   
     const cards = await Promise.all(
       rutinas.map(async (r) => {
@@ -90,7 +90,7 @@ async function renderRutinas() {
         abrirDetalleRutina(id);
       });
     });
-}//renderRutinas()
+}//renderProgramas()
 
 function abrirRoutineLightbox() {
   const overlay = document.getElementById("routineLightbox");
@@ -133,7 +133,7 @@ async function guardarRutina() {
     }
   
     cerrarRoutineLightbox();
-    await cargarRutinas();
+    await cargarProgramas();
 }//guardarRutina()
 
 async function abrirDetalleRutina(id) {
@@ -493,7 +493,7 @@ function renderSelectorEjercicios(
           rutinaActualId
         );
 
-        await cargarRutinas();
+        await cargarProgramas();
 
       };
 
@@ -596,7 +596,7 @@ async function agregarEjercicioARutina(exerciseId) {
   cerrarSelectorEjercicios();
   abrirDetalleRutina(rutinaActualId);
    await cargarEjerciciosDeRutina(rutinaActualId);
-   await cargarRutinas();
+   await cargarProgramas();
 }//agregarEjercicioARutina(exerciseId)
 
 function openConfirmModal({
@@ -1538,7 +1538,7 @@ function attachDeleteRoutineExerciseEvents(){
           rutinaActualId
         );
 
-        await cargarRutinas();
+        await cargarProgramas();
 
       };
 
@@ -1710,7 +1710,7 @@ function attachDeleteRoutineFinalEvents(){
 
         }
 
-        await cargarRutinas();
+        await cargarProgramas();
 
         await abrirDeleteRoutineOverlay();
 
@@ -1738,7 +1738,7 @@ document
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  cargarRutinas();
+  cargarProgramas();
 
   const addBtn =
     document.getElementById(
