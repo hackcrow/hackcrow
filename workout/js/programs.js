@@ -254,9 +254,7 @@ async function abrirDetalleRutina(id) {
         ${rutina.descripcion || "Sin descripción"}
       </p>
   
-      <div style="font-size:0.85rem;color:var(--text-muted);margin-bottom:18px;">
-        Categoría: ${rutina.categoria || "General"}
-      </div>
+     
   
       <button id="addExerciseToRoutine" class="btn">
         + Agregar ejercicio
