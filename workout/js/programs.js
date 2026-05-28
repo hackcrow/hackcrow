@@ -2026,7 +2026,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (saveBtn)
     saveBtn.addEventListener(
       "click",
-      guardarRutina
+      guardarPrograma
     );
 
   const closeView =
