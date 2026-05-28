@@ -2072,98 +2072,97 @@ function cerrarProgramLightbox(){
 
 }//cerrarProgramLightbox
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
 
-  cargarProgramas();
+    cargarProgramas();
 
- document
-  .getElementById(
-    "addProgramBtn"
-  )
-  .onclick = abrirProgramLightbox;
+    /* =========================
+       ADD PROGRAM
+    ========================= */
 
-  const cancelBtn =
-    document.getElementById(
-      "rtCancel"
-    );
+    const addProgramBtn =
+      document.getElementById(
+        "addProgramBtn"
+      );
 
-  const saveBtn =
-    document.getElementById(
-      "rtSave"
-    );
+    if(addProgramBtn){
 
-  if (addProgramBtn)
-    addProgramBtn.addEventListener(
-      "click",
-      abrirProgramLightbox
-    );
+      addProgramBtn.addEventListener(
+        "click",
+        abrirProgramLightbox
+      );
 
-  if (cancelBtn)
-    cancelBtn.addEventListener(
-      "click",
-      cerrarprogramLightbox
-    );
+    }
 
-  if (saveBtn)
-    saveBtn.addEventListener(
-      "click",
-      guardarPrograma
-    );
+    /* =========================
+       PROGRAM LIGHTBOX
+    ========================= */
 
-  const closeView =
-    document.getElementById(
-      "viewProgramClose"
-    );
+    const cancelBtn =
+      document.getElementById(
+        "pgCancel"
+      );
 
-  if (closeView)
-    closeView.addEventListener(
-      "click",
-      cerrarDetalleRutina
-    );
+    const saveBtn =
+      document.getElementById(
+        "pgSave"
+      );
 
-  const addExerciseClose =
-    document.getElementById(
-      "addExerciseClose"
-    );
+    if(cancelBtn){
 
-  if (addExerciseClose)
-    addExerciseClose.addEventListener(
-      "click",
-      cerrarSelectorEjercicios
-    );
+      cancelBtn.addEventListener(
+        "click",
+        cerrarProgramLightbox
+      );
 
-  /* =========================
-     DELETE ROUTINE
-  ========================= */
+    }
 
-  const deleteProgramBtn =
-    document.getElementById(
-      "deleteProgramBtn"
-    );
+    if(saveBtn){
 
-  if(deleteProgramBtn){
+      saveBtn.addEventListener(
+        "click",
+        guardarPrograma
+      );
 
-    deleteProgramBtn.onclick =
-      async () => {
+    }
 
-        abrirdeleteProgramOverlay();
+    /* =========================
+       VIEW PROGRAM
+    ========================= */
 
-      };
+    const closeView =
+      document.getElementById(
+        "viewProgramClose"
+      );
+
+    if(closeView){
+
+      closeView.addEventListener(
+        "click",
+        cerrarDetallePrograma
+      );
+
+    }
+
+    /* =========================
+       DELETE PROGRAM
+    ========================= */
+
+    const deleteProgramBtn =
+      document.getElementById(
+        "deleteProgramBtn"
+      );
+
+    if(deleteProgramBtn){
+
+      deleteProgramBtn.addEventListener(
+        "click",
+        abrirDeleteProgramOverlay
+      );
+
+    }
 
   }
-
-  document
-  .getElementById(
-    "addProgramBtn"
-  )
-  .onclick =
-    abrirProgramLightbox;
-
-document
-  .getElementById(
-    "pgCancel"
-  )
-  .onclick =
-    cerrarProgramLightbox;
-
-});//DOMContentLoaded
+);//DOMContentLoaded
