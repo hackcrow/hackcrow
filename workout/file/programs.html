@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>Programas — Workouts</title>
+
+  <!-- FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+
+  <!-- GLOBAL STYLES -->
+  <link rel="stylesheet" href="../css/style.css">
+
+  <!-- ROUTINES STYLES -->
+  <link rel="stylesheet" href="../css/routines.css">
+
+  <!-- FAVICON -->
+  <link rel="icon" type="image/x-icon" href="../src/images/favicon.ico">
+</head>
+
+<body>
+
+   <!-- GLOBAL OVERLAY -->
+ <div id="overlay"></div>
+
+  <!-- TOPBAR -->
+  <div id="topbarContainer"></div>
+
+  </header>
+
+  <!-- MENU -->
+  <div id="menuContainer"></div>
+
+  <!-- MAIN APP -->
+  <main id="app">
+
+    <!-- ROUTINES PAGE -->
+    <div id="page-routines">
+
+      <!-- PAGE HEADER -->
+      <div class="page-header">
+
+        <div>
+          <div class="page-title">Programas</div>
+          <div class="page-subtitle">
+            // Organiza tus entrenamientos
+          </div>
+        </div>
+
+        <a class="back-btn" href="../index.html">
+          ← Volver
+        </a>
+
+      </div>
+
+      <!-- FILTERS + ACTIONS -->
+      <div class="filter-bar">
+
+        <div class="filter-pills">
+
+          <button class="pill active">Todas</button>
+          <button class="pill">Push</button>
+          <button class="pill">Pull</button>
+          <button class="pill">Pierna</button>
+          <button class="pill">Full Body</button>
+
+        </div>
+
+        <div class="action-buttons">
+
+          <!-- DELETE ROUTINE -->
+          <button id="deleteRoutineBtn"
+            class="delete-ex-btn"
+            title="Eliminar Programa">
+
+            <svg viewBox="0 0 24 24"
+              width="20"
+              height="20"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+
+              <path d="M3 6h18" />
+              <path d="M8 6V4h8v2" />
+              <path d="M19 6l-1 14H6L5 6" />
+              <path d="M10 11v6" />
+              <path d="M14 11v6" />
+
+            </svg>
+
+          </button>
+
+          <!-- ADD ROUTINE -->
+          <button id="addRoutineBtn"
+            class="add-ex-btn"
+            title="Agregar Programa">
+
+            ＋
+
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- ROUTINES GRID -->
+      <div id="loadingRoutines"
+        class="terminal-loading">
+
+        Loading routines...
+
+      </div>
+
+      <!-- GRID CONTAINER -->
+      <div id="routineGrid"
+        class="exercise-grid">
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- CREATE ROUTINE LIGHTBOX -->
+  <div id="routineLightbox"
+    class="lightbox-overlay">
+
+    <div class="lightbox-card">
+
+      <div class="lightbox-header">
+        <h2 id="routineLbTitle">Nuevo Programa</h2>
+      </div>
+
+      <div class="lightbox-body">
+
+        <input id="rtNombre"
+          type="text"
+          placeholder="Nombre del Programa">
+
+        <textarea id="rtDescripcion"
+          placeholder="Descripción"></textarea>
+
+        <select id="rtCategoria">
+
+          <option value="">Categoría</option>
+          <option value="push">Push</option>
+          <option value="pull">Pull</option>
+          <option value="pierna">Pierna</option>
+          <option value="full body">Full Body</option>
+
+        </select>
+
+      </div>
+
+      <div class="lightbox-actions">
+
+        <button id="rtCancel"
+          class="btn btn-ghost">
+
+          Cancelar
+
+        </button>
+
+        <button id="rtSave"
+          class="btn">
+
+          Guardar
+
+        </button>
+
+      </div>
+      
+    </div>
+
+  </div>
+
+ <!-- VIEW ROUTINE DETAIL -->
+<div id="viewRoutineOverlay"
+  class="lightbox-overlay">
+
+  <div class="lightbox-card routine-detail-card">
+
+    <div class="lightbox-header">
+      <h2 id="viewRoutineTitle">Programa</h2>
+    </div>
+
+    <div id="viewRoutineContent"></div>
+
+    <div class="lightbox-actions">
+
+      <button id="viewRoutineClose"
+        class="btn btn-ghost">
+
+        Cerrar
+
+      </button>
+
+    </div>
+
+    <!-- SCROLL TOP -->
+
+    <button
+      id="routineScrollTop"
+      class="routine-scroll-top">
+
+      ↑
+
+    </button>
+
+  </div>
+
+</div>
+
+  <!-- ADD EXERCISE SELECTOR -->
+  <div id="addExerciseOverlay"
+    class="lightbox-overlay">
+
+    <div class="lightbox-card routine-detail-card">
+
+      <div class="lightbox-header">
+        <h2>Agregar ejercicio</h2>
+      </div>
+
+      <!-- SEARCH INPUT -->
+      <div style="margin-bottom:14px;">
+
+        <input id="searchExerciseInput"
+          type="text"
+          placeholder="Buscar ejercicio..." />
+
+      </div>
+
+      <!-- EXERCISE LIST -->
+      <div id="exercisePickerList"
+        style="max-height:320px;overflow:auto;">
+      </div>
+
+      <!-- SELECTOR ACTIONS -->
+      <div class="lightbox-actions">
+
+        <button id="addExerciseClose"
+          class="btn btn-ghost">
+
+          Cerrar
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- REST TIMER LIGHTBOX -->
+
+  <div id="restTimerOverlay"
+    class="lightbox-overlay">
+  
+    <div class="lightbox-card"
+      style="max-width:360px;">
+  
+      <div class="lightbox-header">
+        <h2>Temporizador</h2>
+      </div>
+  
+      <div class="lightbox-body">
+  
+        <div class="rest-select-wrap">
+  
+          <select id="restTimerSelect">
+  
+            <option value="Apagado">
+              Apagado
+            </option>
+  
+          </select>
+  
+        </div>
+  
+      </div>
+  
+      <div class="lightbox-actions">
+  
+        <button
+          id="restTimerCancel"
+          class="btn btn-ghost">
+  
+          Cancelar
+  
+        </button>
+  
+        <button
+          id="restTimerOk"
+          class="btn">
+  
+          OK
+  
+        </button>
+  
+      </div>
+  
+    </div>
+  
+  </div>
+
+  <!-- DELETE ROUTINES MODAL -->
+
+  <div
+    id="deleteRoutineOverlay"
+    class="lightbox-overlay"
+  >
+  
+    <div
+      class="lightbox-card delete-routines-card"
+    >
+  
+      <div class="lightbox-header">
+  
+        <h2>
+          Administrar Programas
+        </h2>
+  
+      </div>
+  
+      <div
+        id="deleteRoutineList"
+        class="delete-routine-list"
+      >
+      </div>
+  
+      <div class="lightbox-actions">
+  
+        <button
+          id="closeDeleteRoutineOverlay"
+          class="btn btn-ghost"
+        >
+  
+          Cerrar
+  
+        </button>
+  
+      </div>
+  
+    </div>
+  
+  </div>
+
+  <!-- CONFIRM MODAL -->
+
+  <div
+    id="confirmOverlay"
+    class="lightbox-overlay"
+  >
+  
+    <div
+      class="lightbox-card confirm-card"
+    >
+  
+      <div class="lightbox-header">
+  
+        <h2 id="confirmTitle">
+          Confirmar
+        </h2>
+  
+      </div>
+  
+      <div class="lightbox-body">
+  
+        <p id="confirmMessage">
+          ¿Seguro?
+        </p>
+  
+      </div>
+  
+      <div class="lightbox-actions">
+  
+        <button
+          id="confirmCancel"
+          class="btn btn-ghost"
+        >
+  
+          Cancelar
+  
+        </button>
+  
+        <button
+          id="confirmOk"
+          class="btn danger-btn"
+        >
+  
+          Eliminar
+  
+        </button>
+  
+      </div>
+  
+    </div>
+  
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="../js/app.js"></script>
+
+  <script src="../js/routines.js"></script>
+
+</body>
+
+</html>
