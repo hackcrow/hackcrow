@@ -1992,6 +1992,34 @@ document
     }
   );
 
+/* =============================================
+   PROGRAM LIGHTBOX
+============================================= */
+
+function abrirProgramLightbox(){
+
+  document
+    .getElementById(
+      "programLightbox"
+    )
+    .classList.add(
+      "active"
+    );
+
+}//abrirProgramLightbox
+
+function cerrarProgramLightbox(){
+
+  document
+    .getElementById(
+      "programLightbox"
+    )
+    .classList.remove(
+      "active"
+    );
+
+}//cerrarProgramLightbox
+
 document.addEventListener("DOMContentLoaded", () => {
 
   cargarProgramas();
@@ -2071,5 +2099,19 @@ document.addEventListener("DOMContentLoaded", () => {
       };
 
   }
+
+  document
+  .getElementById(
+    "addProgramBtn"
+  )
+  .onclick =
+    abrirProgramLightbox;
+
+document
+  .getElementById(
+    "pgCancel"
+  )
+  .onclick =
+    cerrarProgramLightbox;
 
 });//DOMContentLoaded
