@@ -48,9 +48,9 @@ async function renderProgramas() {
   
     if (!programas.length) {
       grid.innerHTML = `
-        <div class="routine-card">
-          <div class="routine-name">Sin rutinas</div>
-          <div class="routine-desc">Presiona + para crear tu primera rutina.</div>
+        <div class="program-card">
+          <div class="program-name">Sin rutinas</div>
+          <div class="program-desc">Presiona + para crear tu primera rutina.</div>
         </div>
       `;
       return;
@@ -66,11 +66,11 @@ async function renderProgramas() {
 
     return `
       <div
-        class="routine-card"
+        class="program-card"
         data-id="${p.id}"
       >
 
-        <div class="routine-name">
+        <div class="program-name">
 
           ${
             p.nombre
@@ -85,7 +85,7 @@ async function renderProgramas() {
 
         </div>
 
-        <div class="routine-desc">
+        <div class="program-desc">
 
           ${
             p.descripcion ||
@@ -1914,13 +1914,13 @@ async function abrirDetallePrograma(
   ){
 
     list.innerHTML = `
-      <div class="routine-card">
+      <div class="program-card">
 
-        <div class="routine-name">
+        <div class="program-name">
           Sin rutinas
         </div>
 
-        <div class="routine-desc">
+        <div class="program-desc">
           Agrega tu primera rutina.
         </div>
 
@@ -1939,11 +1939,11 @@ async function abrirDetallePrograma(
     routines.map(r => `
 
       <div
-        class="routine-card"
+        class="program-card"
         data-id="${r.id}"
       >
 
-        <div class="routine-name">
+        <div class="program-name">
 
           ${
             r.nombre
@@ -1958,7 +1958,7 @@ async function abrirDetallePrograma(
 
         </div>
 
-        <div class="routine-desc">
+        <div class="program-desc">
 
           ${
             r.descripcion ||
