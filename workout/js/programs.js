@@ -1844,7 +1844,7 @@ document
         "deleteProgramOverlay"
       )
       .classList.remove(
-        "open"
+        "active"
       );
 
   };//document
@@ -2092,6 +2092,48 @@ function cerrarDetallePrograma(){
   }
 
 }//cerrarDetallePrograma
+
+/* =============================================
+   OPEN DELETE PROGRAM OVERLAY
+============================================= */
+
+function abrirDeleteProgramOverlay(){
+
+  const overlay =
+    document.getElementById(
+      "deleteProgramOverlay"
+    );
+
+  if(overlay){
+
+    overlay.classList.add(
+      "active"
+    );
+
+  }
+
+}//abrirDeleteProgramOverlay
+
+/* =============================================
+   CLOSE DELETE PROGRAM OVERLAY
+============================================= */
+
+function cerrarDeleteProgramOverlay(){
+
+  const overlay =
+    document.getElementById(
+      "deleteProgramOverlay"
+    );
+
+  if(overlay){
+
+    overlay.classList.remove(
+      "active"
+    );
+
+  }
+
+}//cerrarDeleteProgramOverlay
 
 document.addEventListener(
   "DOMContentLoaded",
