@@ -39,7 +39,7 @@ async function renderProgramas() {
     const grid = document.getElementById("programGrid");
     if (!grid) return;
   
-    if (!rutinas.length) {
+    if (!programas.length) {
       grid.innerHTML = `
         <div class="routine-card">
           <div class="routine-name">Sin rutinas</div>
@@ -47,49 +47,71 @@ async function renderProgramas() {
         </div>
       `;
       return;
-    }//renderProgramas()
+    }
   
-    const cards = await Promise.all(
-      rutinas.map(async (r) => {
-        const { count } = await routineClient
-          .from("routine_exercises")
-          .select("*", { count: "exact", head: true })
-          .eq("routine_id", r.id);
-  
-        return `
-          <div class="routine-card" data-id="${r.id}">
-            <div class="routine-name">
+    const cards =
+  programas.map(p => {
 
-                ${
-                  r.nombre
-              
-                    ? r.nombre.charAt(0)
-                        .toUpperCase()
-              
-                      + r.nombre.slice(1)
-              
-                    : "Sin nombre"
-                }
-              
-              </div>
-            <div class="routine-desc">${r.descripcion || "Sin descripción"}</div>
-            <div class="routine-meta">
-              <span>${r.categoria || "General"}</span>
-              <span class="routine-count">${count || 0} ejercicios</span>
-            </div>
-          </div>
-        `;
-      })
-    );
+    return `
+      <div
+        class="routine-card"
+        data-id="${p.id}"
+      >
+
+        <div class="routine-name">
+
+          ${
+            p.nombre
+
+              ? p.nombre.charAt(0)
+                  .toUpperCase()
+
+                + p.nombre.slice(1)
+
+              : "Sin nombre"
+          }
+
+        </div>
+
+        <div class="routine-desc">
+
+          ${
+            p.descripcion ||
+            "Sin descripción"
+          }
+
+        </div>
+
+      </div>
+    `;
+
+  });
   
     grid.innerHTML = cards.join("");
   
-    document.querySelectorAll(".routine-card").forEach(card => {
-      card.addEventListener("click", () => {
-        const id = parseInt(card.dataset.id);
-        abrirDetalleRutina(id);
+    document
+      .querySelectorAll(
+        ".routine-card"
+      )
+      .forEach(card => {
+    
+        card.addEventListener(
+          "click",
+          () => {
+    
+            const id =
+              parseInt(
+                card.dataset.id
+              );
+    
+            abrirDetallePrograma(
+              id
+            );
+    
+          }
+        );
+    
       });
-    });
 }//renderProgramas()
 
 function abrirRoutineLightbox() {
@@ -1735,6 +1757,138 @@ document
       );
 
   };//document
+
+async function abrirDetallePrograma(
+  programId
+){
+
+  const overlay =
+    document.getElementById(
+      "viewProgramOverlay"
+    );
+
+  const title =
+    document.getElementById(
+      "viewProgramTitle"
+    );
+
+  const list =
+    document.getElementById(
+      "programRoutineList"
+    );
+
+  overlay.classList.add(
+    "active"
+  );
+
+  const {
+    data:programa
+  } = await supabaseClient
+
+    .from("programs")
+
+    .select("*")
+
+    .eq(
+      "id",
+      programId
+    )
+
+    .single();
+
+  title.textContent =
+    programa.nombre;
+
+  const {
+    data:routines,
+    error
+  } = await supabaseClient
+
+    .from("routines")
+
+    .select("*")
+
+    .eq(
+      "program_id",
+      programId
+    )
+
+    .order("id");
+
+  if(error){
+
+    console.error(error);
+
+    return;
+
+  }
+
+  if(!routines.length){
+
+    list.innerHTML = `
+      <div class="routine-card">
+
+        <div class="routine-name">
+          Sin rutinas
+        </div>
+
+        <div class="routine-desc">
+          Agrega tu primera rutina.
+        </div>
+
+      </div>
+    `;
+
+    return;
+
+  }
+
+  list.innerHTML =
+    routines.map(r => `
+
+      <div class="routine-card">
+
+        <div class="routine-name">
+          ${
+            r.nombre
+              ? r.nombre.charAt(0)
+                  .toUpperCase()
+                + r.nombre.slice(1)
+              : "Sin nombre"
+          }
+        </div>
+
+        <div class="routine-desc">
+          ${
+            r.descripcion ||
+            "Sin descripción"
+          }
+        </div>
+
+      </div>
+
+    `).join("");
+
+}//abrirDetallePrograma
+
+document
+  .getElementById(
+    "viewProgramClose"
+  )
+  ?.addEventListener(
+    "click",
+    () => {
+
+      document
+        .getElementById(
+          "viewProgramOverlay"
+        )
+        .classList.remove(
+          "active"
+        );
+
+    }
+  );
 
 document.addEventListener("DOMContentLoaded", () => {
 
