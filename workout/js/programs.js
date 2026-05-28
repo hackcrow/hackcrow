@@ -144,31 +144,58 @@ function cerrarRoutineLightbox() {
   document.getElementById("routineLightbox").classList.remove("open");
 }//cerrarRoutineLightbox()
 
-async function guardarRutina() {
-    const payload = {
-      nombre: document.getElementById("rtNombre").value.trim(),
-      descripcion: document.getElementById("rtDescripcion").value.trim(),
-      categoria: document.getElementById("rtCategoria").value
-    };
-  
-    if (!payload.nombre) {
-      alert("Escribe un nombre");
-      return;
-    }
-  
-    const { error } = await routineClient
-      .from("routines")
+async function guardarPrograma(){
+
+  const payload = {
+
+    nombre:
+      document
+        .getElementById("rtNombre")
+        .value
+        .trim(),
+
+    descripcion:
+      document
+        .getElementById("rtDescripcion")
+        .value
+        .trim()
+
+  };
+
+  if(!payload.nombre){
+
+    alert(
+      "Escribe un nombre"
+    );
+
+    return;
+
+  }
+
+  const { error } =
+    await supabaseClient
+
+      .from("programs")
+
       .insert([payload]);
-  
-    if (error) {
-      console.error(error);
-      alert("No se pudo guardar");
-      return;
-    }
-  
-    cerrarRoutineLightbox();
-    await cargarProgramas();
-}//guardarRutina()
+
+  if(error){
+
+    console.error(error);
+
+    alert(
+      "No se pudo guardar"
+    );
+
+    return;
+
+  }
+
+  cerrarRoutineLightbox();
+
+  await cargarProgramas();
+
+}//guardarPrograma
 
 async function abrirDetalleRutina(id) {
     rutinaActualId = id;
