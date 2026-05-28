@@ -137,16 +137,15 @@ function renderWeekChart(){
    THEME TOGGLE
 ============================================= */
 
-const themeToggle =
-  document.getElementById(
-    "themeToggle"
-  );
+document.addEventListener(
+  "click",
+  e => {
 
-if(themeToggle){
-
-  themeToggle.addEventListener(
-    "click",
-    () => {
+    if(
+      e.target.closest(
+        "#themeToggle"
+      )
+    ){
 
       const html =
         document.documentElement;
@@ -167,9 +166,9 @@ if(themeToggle){
       );
 
     }
-  );
 
-}
+  }
+);
 
 /* =============================================
    HAMBURGER MENU
@@ -205,9 +204,87 @@ async function loadHamburgerMenu(){
     container.innerHTML =
       html;
 
+    initHamburgerMenu();
+
   }
 
 }//loadHamburgerMenu
+
+/* =============================================
+   INIT MENU
+============================================= */
+
+function initHamburgerMenu(){
+
+  const menuBtn =
+    document.getElementById(
+      "menuBtn"
+    );
+
+  const dropMenu =
+    document.getElementById(
+      "dropMenu"
+    );
+
+  const overlay =
+    document.getElementById(
+      "overlay"
+    );
+
+  if(
+    !menuBtn ||
+    !dropMenu ||
+    !overlay
+  ) return;
+
+  function openMenu(){
+
+    menuBtn.classList.add(
+      "open"
+    );
+
+    dropMenu.classList.add(
+      "open"
+    );
+
+    overlay.classList.add(
+      "active"
+    );
+
+  }
+
+  function closeMenu(){
+
+    menuBtn.classList.remove(
+      "open"
+    );
+
+    dropMenu.classList.remove(
+      "open"
+    );
+
+    overlay.classList.remove(
+      "active"
+    );
+
+  }
+
+  menuBtn.onclick = () => {
+
+    dropMenu.classList.contains(
+      "open"
+    )
+
+      ? closeMenu()
+
+      : openMenu();
+
+  };
+
+  overlay.onclick =
+    closeMenu;
+
+}//initHamburgerMenu
 
 /* =============================================
    TOPBAR
@@ -268,6 +345,16 @@ async function cargarContadorEjercicios(){
       }
     );
 
+  console.log(
+    "exercise count:",
+    count
+  );
+
+  console.log(
+    "exercise error:",
+    error
+  );
+
   if(error){
 
     console.error(error);
@@ -311,6 +398,16 @@ async function cargarContadorRutinas(){
       }
     );
 
+  console.log(
+    "routine count:",
+    count
+  );
+
+  console.log(
+    "routine error:",
+    error
+  );
+
   if(error){
 
     console.error(error);
@@ -349,9 +446,9 @@ document.addEventListener(
 
     renderWeekChart();
 
-    cargarContadorEjercicios();
+    await cargarContadorEjercicios();
 
-    cargarContadorRutinas();
+    await cargarContadorRutinas();
 
   }
 );
