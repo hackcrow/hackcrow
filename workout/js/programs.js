@@ -52,6 +52,11 @@ async function renderProgramas() {
     const cards =
   programas.map(p => {
 
+    console.log(
+      "Programa:",
+      p
+    );
+
     return `
       <div
         class="routine-card"
