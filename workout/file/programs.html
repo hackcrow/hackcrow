@@ -1,1 +1,230 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
 
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="
+      width=device-width,
+      initial-scale=1.0,
+      maximum-scale=1.0,
+      user-scalable=no
+    "
+  >
+
+  <title>
+    Programas — Workout
+  </title>
+
+  <!-- FONTS -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="
+      https://fonts.googleapis.com/css2?
+      family=DM+Sans:wght@300;400;500;700&
+      family=DM+Mono:wght@300;400;500&
+      display=swap
+    "
+    rel="stylesheet"
+  >
+
+  <!-- GLOBAL -->
+
+  <link
+    rel="stylesheet"
+    href="../css/style.css"
+  >
+
+  <!-- PROGRAMS -->
+
+  <link
+    rel="stylesheet"
+    href="../css/programs.css"
+  >
+
+</head>
+
+<body>
+
+  <!-- TOPBAR -->
+
+  <div id="topbarContainer"></div>
+
+  <!-- MENU -->
+
+  <div id="menuContainer"></div>
+
+  <!-- APP -->
+
+  <main id="app">
+
+    <section class="programs-page">
+
+      <!-- HEADER -->
+
+      <div class="programs-header">
+
+        <div>
+
+          <div class="programs-title">
+            Programas
+          </div>
+
+          <div class="programs-subtitle">
+            // Organiza tus entrenamientos
+          </div>
+
+        </div>
+
+        <button
+          id="addProgramBtn"
+          class="add-program-btn"
+        >
+
+          +
+
+        </button>
+
+      </div>
+
+      <!-- GRID -->
+
+      <div
+        id="programGrid"
+        class="program-grid"
+      >
+
+        <!-- cards -->
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- CREATE PROGRAM MODAL -->
+
+  <div
+    id="programModal"
+    class="modal-overlay"
+  >
+
+    <div class="modal-card">
+
+      <div class="modal-header">
+
+        <h2>
+          Nuevo Programa
+        </h2>
+
+      </div>
+
+      <div class="modal-body">
+
+        <input
+          id="programName"
+          type="text"
+          placeholder="Nombre del programa"
+        >
+
+        <textarea
+          id="programDescription"
+          placeholder="Descripción"
+        ></textarea>
+
+      </div>
+
+      <div class="modal-actions">
+
+        <button
+          id="cancelProgramBtn"
+          class="btn btn-ghost"
+        >
+
+          Cancelar
+
+        </button>
+
+        <button
+          id="saveProgramBtn"
+          class="btn"
+        >
+
+          Guardar
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- VIEW PROGRAM -->
+
+  <div
+    id="viewProgramModal"
+    class="modal-overlay"
+  >
+
+    <div class="modal-card view-program-card">
+
+      <div class="modal-header">
+
+        <h2 id="viewProgramTitle">
+          Programa
+        </h2>
+
+      </div>
+
+      <div
+        id="viewProgramContent"
+        class="view-program-content"
+      >
+
+      </div>
+
+      <div class="modal-actions">
+
+        <button
+          id="closeViewProgramBtn"
+          class="btn btn-ghost"
+        >
+
+          Cerrar
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- SCRIPTS -->
+
+  <script src="
+    https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2
+  "></script>
+
+  <script src="../js/app.js"></script>
+
+  <script src="../js/programs.js"></script>
+
+</body>
+
+</html>
