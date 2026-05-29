@@ -12,8 +12,13 @@
   <title>
     Programas — Workout
   </title>
-  <link rel="icon" href="../src/images/favicon.ico">
-  
+
+  <!-- FAVICON -->
+
+  <link
+    rel="icon"
+    href="../src/images/favicon.ico">
+
   <!-- FONTS -->
 
   <link
@@ -45,7 +50,7 @@
 
 <body>
 
-  <!-- OVERLAY -->
+  <!-- GLOBAL OVERLAY -->
 
   <div id="overlay"></div>
 
@@ -57,78 +62,77 @@
 
   <div id="menuContainer"></div>
 
-  <!-- PAGE -->
+  <!-- MAIN -->
 
   <main id="app">
 
     <div id="page-programs">
 
-      <!-- HEADER -->
-
-    
       <!-- PAGE HEADER -->
-      
+
       <div class="page-header">
-      
+
         <div>
-      
+
           <div class="page-title">
             Programas
           </div>
-      
+
           <div class="page-subtitle">
             // Organiza tus entrenamientos
           </div>
-      
+
         </div>
-      
+
         <a
           class="back-btn"
           href="../index.html">
-      
+
           ← Volver
-      
+
         </a>
-      
+
       </div>
-      
-      <!-- FILTERS + ACTIONS -->
-      
+
+      <!-- FILTER BAR -->
+
       <div class="filter-bar">
-      
+
         <div class="filter-pills">
-      
+
           <button class="pill active">
             Todas
           </button>
-      
+
           <button class="pill">
             Push
           </button>
-      
+
           <button class="pill">
             Pull
           </button>
-      
+
           <button class="pill">
             Pierna
           </button>
-      
+
           <button class="pill">
             Full Body
           </button>
-      
+
         </div>
-      
+
+        <!-- ACTION BUTTONS -->
+
         <div class="action-buttons">
-      
+
           <!-- DELETE -->
-      
+
           <button
             id="deleteProgramBtn"
             class="delete-ex-btn"
             title="Eliminar Programa">
-      
+
             <svg
               viewBox="0 0 24 24"
               width="20"
@@ -138,56 +142,26 @@
               stroke-width="1.8"
               stroke-linecap="round"
               stroke-linejoin="round">
-      
+
               <path d="M3 6h18"/>
               <path d="M8 6V4h8v2"/>
               <path d="M19 6l-1 14H6L5 6"/>
               <path d="M10 11v6"/>
               <path d="M14 11v6"/>
-      
+
             </svg>
-      
+
           </button>
-      
+
           <!-- ADD -->
-      
+
           <button
             id="addProgramBtn"
             class="add-ex-btn"
             title="Nuevo Programa">
-      
+
             ＋
-      
-          </button>
-      
-        </div>
-      
-      </div>
 
-      <!-- FILTERS -->
-
-      <div class="filter-bar">
-
-        <div class="filter-pills">
-
-          <button class="pill active">
-            Todas
-          </button>
-
-          <button class="pill">
-            Push
-          </button>
-
-          <button class="pill">
-            Pull
-          </button>
-
-          <button class="pill">
-            Pierna
-          </button>
-
-          <button class="pill">
-            Full Body
           </button>
 
         </div>
@@ -216,7 +190,7 @@
 
   </main>
 
-  <!-- CREATE PROGRAM -->
+  <!-- CREATE PROGRAM LIGHTBOX -->
 
   <div
     id="programLightbox"
@@ -315,4 +289,3 @@
 </body>
 
 </html>
-```
