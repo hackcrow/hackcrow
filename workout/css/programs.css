@@ -335,3 +335,73 @@
   min-height:180px;
 
 }
+
+/* TOP ACTIONS */
+
+.top-actions{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  margin-bottom:22px;
+
+}
+
+.back-link{
+
+  color:var(--text-muted);
+
+  text-decoration:none;
+
+  font-size:.9rem;
+
+  transition:.2s ease;
+
+}
+
+.back-link:hover{
+
+  color:var(--text);
+
+}
+
+/* SAME BUTTON AS LIBRARY */
+
+.pill-add-btn {
+
+  margin-left: auto;
+
+  background: none;
+
+  border: none;
+
+  padding: 0;
+
+  color: #00ff88;
+
+  font-size: 42px;
+
+  font-weight: 300;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  font-family: "DM Sans", sans-serif;
+
+  transition:
+    transform .15s ease,
+    opacity .15s ease;
+
+}
+
+.pill-add-btn:hover {
+
+  transform: scale(1.12);
+
+  opacity: .8;
+
+}
