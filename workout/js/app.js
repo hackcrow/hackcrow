@@ -348,15 +348,7 @@ async function cargarContadorEjercicios(){
       }
     );
 
-  console.log(
-    "exercise count:",
-    count
-  );
-
-  console.log(
-    "exercise error:",
-    error
-  );
+ 
 
   if(error){
 
@@ -401,23 +393,7 @@ async function cargarContadorRutinas(){
       }
     );
 
-  console.log(
-    "routine count:",
-    count
-  );
-
-  console.log(
-    "routine error:",
-    error
-  );
-
-  if(error){
-
-    console.error(error);
-
-    return;
-
-  }
+ 
 
   const el =
     document.getElementById(
