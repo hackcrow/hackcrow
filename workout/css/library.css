@@ -337,10 +337,19 @@
   object-fit: contain;
 }
 .exercise-grid {
+
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 18px;
+
+  grid-template-columns:
+    repeat(
+      auto-fill,
+      minmax(280px,1fr)
+    );
+
+  gap: 20px;
+
   margin-top: 22px;
+
 }
 
 .exercise-card {
@@ -844,9 +853,15 @@ html, body {
 }
 
 #page-biblioteca {
+
   width: 100%;
-  max-width: 100%;
+
+  max-width: 980px;
+
+  margin: auto;
+
   overflow-x: hidden;
+
 }
 
 .exercise-grid,
