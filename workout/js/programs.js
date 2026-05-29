@@ -1,20 +1,26 @@
-/*const ROUTINE_SUPABASE_URL  = "https://xqcqzvcvqpwbjdsdxcan.supabase.co";
-const ROUTINE_SUPABASE_KEY  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhxY3F6dmN2cXB3Ympkc2R4Y2FuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg4NjI3OTQsImV4cCI6MjA5NDQzODc5NH0.vAwo9NS7MoiVCFikfk39YM9nBr2usyB4jMW2uYXhH98";
+/* =============================================
+   PROGRAMS
+============================================= */
 
-const routineClient = window.supabase.createClient(
-  ROUTINE_SUPABASE_URL,
-  ROUTINE_SUPABASE_KEY
-);*/
+let programas = [];
 
-let programas  = [];
-let rutinaActualId = null;
-
-let currentRestExerciseId = null;
-
-let ejerciciosDisponibles = [];
-let currentRestButton = null;
+/* =============================================
+   LOAD PROGRAMS
+============================================= */
 
 async function cargarProgramas(){
+
+  const loading =
+    document.getElementById(
+      "loadingPrograms"
+    );
+
+  if(loading){
+
+    loading.style.display =
+      "block";
+
+  }
 
   const {
     data,
@@ -25,7 +31,12 @@ async function cargarProgramas(){
 
     .select("*")
 
-    .order("id");
+    .order(
+      "id",
+      {
+        ascending:false
+      }
+    );
 
   if(error){
 
@@ -35,12 +46,22 @@ async function cargarProgramas(){
 
   }
 
-  programas =
-    data || [];
+  programas = data || [];
 
   renderProgramas();
 
+  if(loading){
+
+    loading.style.display =
+      "none";
+
+  }
+
 }//cargarProgramas
+
+/* =============================================
+   RENDER PROGRAMS
+============================================= */
 
 async function renderProgramas(){
 
@@ -50,18 +71,6 @@ async function renderProgramas(){
     );
 
   if(!grid) return;
-
-  const loading =
-    document.getElementById(
-      "loadingPrograms"
-    );
-
-  if(loading){
-
-    loading.style.display =
-      "none";
-
-  }
 
   if(!programas.length){
 
@@ -87,11 +96,6 @@ async function renderProgramas(){
 
   const cards =
     programas.map(p => {
-
-      console.log(
-        "Programa:",
-        p
-      );
 
       return `
 
@@ -157,7 +161,11 @@ async function renderProgramas(){
 
     });
 
-}//renderProgramas()
+}//renderProgramas
+
+/* =============================================
+   OPEN PROGRAM LIGHTBOX
+============================================= */
 
 function abrirProgramLightbox(){
 
@@ -166,15 +174,7 @@ function abrirProgramLightbox(){
       "programLightbox"
     );
 
-  if(!overlay){
-
-    console.error(
-      "No existe #programLightbox"
-    );
-
-    return;
-
-  }
+  if(!overlay) return;
 
   document
     .getElementById(
@@ -194,9 +194,25 @@ function abrirProgramLightbox(){
 
 }//abrirProgramLightbox
 
-function cerrarprogramLightbox() {
-  document.getElementById("programLightbox").classList.remove("active");
-}//cerrarprogramLightbox()
+/* =============================================
+   CLOSE PROGRAM LIGHTBOX
+============================================= */
+
+function cerrarProgramLightbox(){
+
+  document
+    .getElementById(
+      "programLightbox"
+    )
+    .classList.remove(
+      "active"
+    );
+
+}//cerrarProgramLightbox
+
+/* =============================================
+   SAVE PROGRAM
+============================================= */
 
 async function guardarPrograma(){
 
@@ -204,13 +220,17 @@ async function guardarPrograma(){
 
     nombre:
       document
-        .getElementById("rtNombre")
+        .getElementById(
+          "pgNombre"
+        )
         .value
         .trim(),
 
     descripcion:
       document
-        .getElementById("rtDescripcion")
+        .getElementById(
+          "pgDescripcion"
+        )
         .value
         .trim()
 
@@ -231,7 +251,9 @@ async function guardarPrograma(){
 
       .from("programs")
 
-      .insert([payload]);
+      .insert([
+        payload
+      ]);
 
   if(error){
 
@@ -245,1609 +267,15 @@ async function guardarPrograma(){
 
   }
 
-  cerrarprogramLightbox();
+  cerrarProgramLightbox();
 
   await cargarProgramas();
 
 }//guardarPrograma
 
-async function abrirDetalleRutina(id) {
-    rutinaActualId = id;
-  
-    const rutina = rutinas.find(r => r.id === id);
-    if (!rutina) return;
-  
-    document.getElementById(
-      "viewProgramTitle"
-    ).textContent =
-    
-      rutina.nombre
-    
-        ? rutina.nombre.charAt(0)
-            .toUpperCase()
-    
-          + rutina.nombre.slice(1)
-    
-        : "Sin nombre";
-  
-    document.getElementById("programRoutineList").innerHTML = `
-      <p style="margin-bottom:14px;color:var(--text-muted);">
-        ${rutina.descripcion || "Sin descripción"}
-      </p>
-  
-     
-  
-      <button id="addExerciseToRoutine" class="btn">
-        + Agregar ejercicio
-      </button>
-  
-      <div id="routineExerciseList" style="margin-top:18px;"></div>
-    `;
-  
-    document.getElementById("viewProgramOverlay").classList.add("active");
-  
-    document
-      .getElementById("addExerciseToRoutine")
-      .addEventListener("click", abrirSelectorEjercicios);
-  
-    const scrollBtn =
-    document.getElementById(
-      "routineScrollTop"
-    );
-  
-  const content =
-    document.getElementById(
-      "programRoutineList"
-    );
-  
-  if (scrollBtn && content) {
-  
-    content.addEventListener(
-      "scroll",
-      () => {
-  
-        scrollBtn.style.display =
-  
-          content.scrollTop > 250
-  
-            ? "block"
-  
-            : "none";
-  
-      }
-    );
-  
-    scrollBtn.onclick = () => {
-  
-      content.scrollTo({
-  
-        top:0,
-  
-        behavior:"smooth"
-  
-      });
-  
-    };
-  
-  }
-  
-    await cargarEjerciciosDeRutina(id);
-}//abrirDetalleRutina(id)
-
-function cerrarDetalleRutina() {
-    const overlay = document.getElementById("viewProgramOverlay");
-    const volverSelector = overlay.dataset.returnToSelector === "true";
-  
-    overlay.classList.remove("active");
-    overlay.dataset.returnToSelector = "false";
-  
-    if (volverSelector) {
-      const selector = document.getElementById("addExerciseOverlay");
-      selector.style.visibility = "visible";
-    }
-}//cerrarDetalleRutina()
-
-async function abrirSelectorEjercicios() {
-    const { data, error } = await routineClient
-      .from("exercises")
-      .select("id,nombre,nombre_en")
-      .order("nombre");
-  
-    const { data: existentes } = await routineClient
-      .from("routine_exercises")
-      .select("exercise_id")
-      .eq("routine_id", rutinaActualId);
-  
-    const ejerciciosExistentes = (existentes || []).map(
-      e => e.exercise_id
-    );
-  
-    if (error) {
-      console.error(error);
-      return;
-    }
-  
-    ejerciciosDisponibles = data || [];
-  
-    renderSelectorEjercicios(
-      ejerciciosDisponibles,
-      ejerciciosExistentes
-    );
-  
-    document.getElementById("addExerciseOverlay").classList.add("active");
-}//abrirSelectorEjercicios()
-
-function cerrarSelectorEjercicios() {
-  document.getElementById("addExerciseOverlay").classList.remove("active");
-}//cerrarSelectorEjercicios()
-
-function renderSelectorEjercicios(
-  lista,
-  existentes = []
-) {
-
-  const box =
-    document.getElementById(
-      "exercisePickerList"
-    );
-
-  box.innerHTML = lista.map(e => `
-
-    <div class="picker-row">
-
-      <div
-        class="picker-info"
-        data-id="${e.id}"
-      >
-
-        <div class="picker-name-en">
-          ${e.nombre_en || ""}
-        </div>
-
-        <div class="picker-name-es">
-          ${e.nombre || ""}
-        </div>
-
-      </div>
-
-      <button
-        class="picker-add-btn"
-        data-id="${e.id}"
-
-        ${existentes.includes(e.id)
-          ? "disabled"
-          : ""
-        }
-
-        style="
-          ${
-            existentes.includes(e.id)
-
-            ? `
-              opacity:0.45;
-              pointer-events:none;
-              color:#00ff88;
-            `
-
-            : ""
-          }
-        "
-      >
-
-        ${
-          existentes.includes(e.id)
-            ? "✓"
-            : "＋"
-        }
-
-      </button>
-
-    </div>
-
-  `).join("");
-
-  /* =========================
-     VER DETALLE EJERCICIO
-  ========================= */
-
-  document
-    .querySelectorAll(".picker-info")
-    .forEach(item => {
-
-      item.onclick = () => {
-
-        const exId =
-          parseInt(item.dataset.id);
-
-        abrirVistaEjercicio(exId);
-
-      };
-
-    });
-
-  /* =========================
-     AGREGAR EJERCICIO
-  ========================= */
-
-  document
-    .querySelectorAll(
-      ".picker-add-btn"
-    )
-    .forEach(btn => {
-
-      btn.onclick = async (ev) => {
-
-        ev.stopPropagation();
-
-        const exerciseId =
-          parseInt(btn.dataset.id);
-
-        if(!rutinaActualId)
-          return;
-
-        /* evita doble click */
-
-        if(
-          btn.dataset.loading === "true"
-        ) return;
-
-        btn.dataset.loading = "true";
-
-        /* =========================
-           OBTENER ÚLTIMO ORDEN
-        ========================= */
-
-        const {
-          data:lastExercise
-        } = await routineClient
-
-          .from("routine_exercises")
-
-          .select("orden")
-
-          .eq(
-            "routine_id",
-            rutinaActualId
-          )
-
-          .order(
-            "orden",
-            { ascending:false }
-          )
-
-          .limit(1)
-
-          .maybeSingle();
-
-        const nuevoOrden =
-
-          lastExercise?.orden
-
-            ? lastExercise.orden + 1
-
-            : 1;
-
-        /* =========================
-           INSERT EXERCISE
-        ========================= */
-
-        const {
-          data:insertedExercise,
-          error:errorInsert
-        } = await routineClient
-
-          .from("routine_exercises")
-
-          .insert([
-            {
-              routine_id:
-                rutinaActualId,
-
-              exercise_id:
-                exerciseId,
-
-              orden:
-                nuevoOrden
-            }
-          ])
-
-          .select()
-
-          .single();
-
-        if(errorInsert){
-
-          console.error(errorInsert);
-
-          btn.dataset.loading =
-            "false";
-
-          alert(
-            "No se pudo agregar"
-          );
-
-          return;
-
-        }
-
-        /* =========================
-           CREAR PRIMER SET
-        ========================= */
-
-        await routineClient
-
-          .from("routine_sets")
-
-          .insert([
-            {
-              routine_exercise_id:
-                insertedExercise.id,
-
-              set_number:1,
-
-              weight:0,
-
-              reps:0
-            }
-          ]);
-
-        /* =========================
-           UPDATE UI
-        ========================= */
-
-        btn.textContent = "✓";
-
-        btn.style.color = "#00ff88";
-
-        btn.style.pointerEvents =
-          "none";
-
-        await abrirDetalleRutina(
-          rutinaActualId
-        );
-
-        await cargarProgramas();
-
-      };
-
-    });
-
-}//renderSelectorEjercicios
-
-async function abrirVistaEjercicio(exId) {
-      const selectorAbierto = document
-        .getElementById("addExerciseOverlay")
-        .classList.contains("active");
-    
-      //if (selectorAbierto) {
-        //cerrarSelectorEjercicios();
-      //}
-    
-      const { data, error } = await routineClient
-        .from("exercises")
-        .select("*")
-        .eq("id", exId)
-        .single();
-    
-      if (error || !data) {
-        console.error(error);
-        return;
-      }
-    
-      const ex = data;
-    
-      document.getElementById("programRoutineList").innerHTML = `
-        ${ex.imagen
-          ? `<img class="detail-img" src="${ex.imagen}" style="width:100%;max-height:220px;object-fit:contain;border-radius:12px;margin-bottom:16px;background:#0a0a0a;">`
-          : `<div class="card-thumb no-image-box">No image</div>`
-        }
-      
-        <div class="detail-section">
-          <h2 class="detail-name-en">${ex.nombre_en || ex.nombre || ""}</h2>
-          <div class="detail-name-es">${ex.nombre || ""}</div>
-      
-          <p>${ex.descripcion || ""}</p>
-      
-          <div class="detail-meta"><span style="color:#e5e7eb;font-weight:600;">Tipo:</span> <span style="color:#00ff88;">${formatValue(ex.tipo)}</span></div>
-    <div class="detail-meta"><span style="color:#e5e7eb;font-weight:600;">Equipo:</span> <span style="color:#00ff88;">${formatValue(ex.equipo)}</span></div>
-    <div class="detail-meta"><span style="color:#e5e7eb;font-weight:600;">Músculo primario:</span> <span style="color:#00ff88;">${formatValue(ex.musculo_primario)}</span></div>
-    <div class="detail-meta"><span style="color:#e5e7eb;font-weight:600;">Músculo secundario:</span> <span style="color:#00ff88;">${formatValue(ex.musculo_secundario)}</span></div>
-    <div class="detail-meta"><span style="color:#e5e7eb;font-weight:600;">Parte del cuerpo:</span> <span style="color:#00ff88;">${formatValue(ex.parte_cuerpo)}</span></div>
-      
-          ${
-            ex.video_url
-              ? `<a class="detail-video" href="${ex.video_url}" target="_blank">Ver video ↗</a>`
-              : ""
-          }
-        </div>
-      `;
-    
-      document.getElementById("viewProgramOverlay").dataset.returnToSelector =
-        selectorAbierto ? "true" : "false";
-    
-      document.getElementById("addExerciseOverlay").style.visibility = "hidden";
-      document.getElementById("viewProgramOverlay").classList.add("active");
-}//abrirVistaEjercicio(exId)
-
-function formatValue(value) {
-    if (!value) return "-";
-  
-    const map = {
-      peso_corporal: "Peso corporal",
-      peso_extra: "Peso extra",
-      rueda_abdominal: "Rueda abdominal",
-      upper_arms: "Brazos",
-      full_body: "Cuerpo completo",
-      chest: "Pecho",
-      back: "Espalda",
-      thighs: "Piernas",
-      glutes: "Glúteos",
-      shoulders: "Hombros",
-      abdominals: "Abdominales",
-      core: "Core",
-      pectorals: "Pectorales",
-      quadriceps: "Cuádriceps",
-      biceps: "Bíceps",
-      triceps: "Tríceps",
-      hamstrings: "Isquiotibiales",
-      obliques: "Oblicuos",
-      fuerza: "Fuerza",
-      cardio: "Cardio",
-      flexibilidad: "Flexibilidad",
-      movilidad: "Movilidad",
-      isometrico: "Isométrico",
-      pliometrico: "Pliométrico",
-      resistencia: "Resistencia",
-      mancuernas: "Mancuernas",
-      banda: "Banda"
-    };
-  
-    return map[value] || value.replaceAll("_", " ");
-}//formatValue(value)
-
-async function agregarEjercicioARutina(exerciseId) {
-  cerrarSelectorEjercicios();
-  abrirDetalleRutina(rutinaActualId);
-   await cargarEjerciciosDeRutina(rutinaActualId);
-   await cargarProgramas();
-}//agregarEjercicioARutina(exerciseId)
-
-function openConfirmModal({
-
-  title = "Confirmar",
-  message = "¿Seguro?",
-  confirmText = "Eliminar"
-
-}){
-
-  return new Promise(resolve => {
-
-    const overlay =
-      document.getElementById(
-        "confirmOverlay"
-      );
-
-    const titleEl =
-      document.getElementById(
-        "confirmTitle"
-      );
-
-    const msgEl =
-      document.getElementById(
-        "confirmMessage"
-      );
-
-    const okBtn =
-      document.getElementById(
-        "confirmOk"
-      );
-
-    const cancelBtn =
-      document.getElementById(
-        "confirmCancel"
-      );
-
-    titleEl.textContent =
-      title;
-
-    msgEl.textContent =
-      message;
-
-    okBtn.textContent =
-      confirmText;
-
-    overlay.classList.add(
-      "active"
-    );
-
-    const close = value => {
-
-      overlay.classList.remove(
-        "active"
-      );
-
-      resolve(value);
-
-    };
-
-    okBtn.onclick =
-      () => close(true);
-
-    cancelBtn.onclick =
-      () => close(false);
-
-    overlay.onclick = e => {
-
-      if(
-        e.target === overlay
-      ){
-
-        close(false);
-
-      }
-
-    };
-
-  });
-
-}////openConfirmModal
-
-async function cargarEjerciciosDeRutina(rutinaId) {
-
-  const { data, error } = await routineClient
-
-    .from("routine_exercises")
-
-    .select(`
-      id,
-      exercise_id,
-      rest_time,
-
-      exercises (
-        id,
-        nombre,
-        nombre_en,
-        equipo
-      ),
-
-      routine_sets (
-        id,
-        set_number,
-        weight,
-        reps
-      )
-    `)
-
-    .eq(
-      "routine_id",
-      rutinaId
-    )
-
-    .order(
-      "orden",
-      { ascending:true }
-    );
-
-  if (error) {
-
-    console.error(error);
-
-    return;
-
-  }
-
-  const box =
-    document.getElementById(
-      "routineExerciseList"
-    );
-
-  if (!box) return;
-
-  box.innerHTML = (data || []).length
-
-    ? data.map((item, index) => `
-
-        <div
-          class="routine-ex-item"
-          draggable="true"
-          data-routine-exercise-id="${item.id}"
-        >
-
-          <!-- HEADER -->
-
-         <div
-            class="routine-ex-header clickable"
-            data-accordion="${index}"
-          >
-          
-            <div class="drag-handle">
-              ≡
-            </div>
-          
-            <div class="routine-ex-main">
-          
-              <div class="routine-ex-name">
-                ${item.exercises?.nombre_en || ""}
-              </div>
-          
-              <div class="routine-ex-equipment">
-                ${formatValue(
-                  item.exercises?.equipo
-                ) || "Sin equipo"}
-              </div>
-          
-            </div>
-          
-            <button
-              class="delete-ex-btn delete-routine-ex-btn"
-              data-routine-exercise-id="${item.id}"
-            >
-          
-              <svg
-                viewBox="0 0 24 24"
-                width="20"
-                height="20"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-          
-                <path d="M3 6h18" />
-                <path d="M8 6V4h8v2" />
-                <path d="M19 6l-1 14H6L5 6" />
-                <path d="M10 11v6" />
-                <path d="M14 11v6" />
-          
-              </svg>
-          
-            </button>
-          
-            <div class="accordion-arrow">
-              ▾
-            </div>
-          
-          </div>
-
-          <!-- CONTENT -->
-
-          <div
-            class="
-              routine-ex-content
-              ${index === 0 ? "active" : ""}
-            "
-            id="accordion-${index}"
-          >
-
-            <!-- REST TIMER -->
-
-            <div class="exercise-rest-timer">
-
-              <span class="rest-label">
-                Temporizador de descanso:
-              </span>
-
-              <button
-                class="rest-time-btn"
-                data-routine-exercise="${item.id}"
-              >
-
-                ${item.rest_time || "Apagado"}
-
-              </button>
-
-            </div>
-
-            <!-- TABLE -->
-
-            <div class="routine-sets-table-wrap">
-
-              <table class="routine-sets-table">
-
-                <thead>
-
-                  <tr>
-
-                    <th>Set</th>
-
-                    <th>Anterior</th>
-
-                    <th>Lbs</th>
-
-                    <th>Reps</th>
-
-                    <th></th>
-
-                  </tr>
-
-                </thead>
-
-                <tbody
-                  id="sets-body-${index}"
-                >
-
-                  ${(item.routine_sets || [])
-
-                    .sort(
-                      (a,b) =>
-                        a.set_number - b.set_number
-                    )
-
-                    .map(set => `
-
-                      <tr>
-
-                        <td class="set-number">
-                          ${set.set_number}
-                        </td>
-
-                        <td class="set-prev">
-                          —
-                        </td>
-
-                        <td>
-
-                          <input
-                            type="number"
-                            class="
-                              set-input
-                              set-weight-input
-                            "
-                            data-set-id="${set.id}"
-                            value="${set.weight || 0}"
-                            placeholder="0"
-                          >
-
-                        </td>
-
-                        <td>
-
-                          <input
-                            type="number"
-                            class="
-                              set-input
-                              set-reps-input
-                            "
-                            data-set-id="${set.id}"
-                            value="${set.reps || 0}"
-                            placeholder="0"
-                          >
-
-                        </td>
-
-                        <td>
-
-                          <button
-                            class="delete-ex-btn"
-                            data-set-id="${set.id}"
-                          >
-
-                            <svg
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="1.8"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              width="20"
-                              height="20"
-                            >
-
-                              <path d="M3 6h18" />
-                              <path d="M8 6V4h8v2" />
-                              <path d="M19 6l-1 14H6L5 6" />
-                              <path d="M10 11v6" />
-                              <path d="M14 11v6" />
-
-                            </svg>
-
-                          </button>
-
-                        </td>
-
-                      </tr>
-
-                    `).join("")}
-
-                </tbody>
-
-              </table>
-
-            </div>
-
-            <!-- ADD SET -->
-
-            <button
-              class="add-set-btn"
-              data-set="${index}"
-              data-routine-exercise="${item.id}"
-            >
-
-              + Add Set
-
-            </button>
-
-          </div>
-
-        </div>
-
-      `).join("")
-
-    : `
-
-      <div class="routine-empty">
-
-        Sin ejercicios aún
-
-      </div>
-
-    `;
-
-  /* =========================
-     ACCORDION
-  ========================= */
-
-  document
-    .querySelectorAll(".clickable")
-    .forEach(header => {
-
-      header.addEventListener(
-        "click",
-        () => {
-
-          const id =
-            header.dataset.accordion;
-
-          document
-            .querySelectorAll(
-              ".routine-ex-content"
-            )
-            .forEach(el => {
-
-              el.classList.remove("active");
-
-            });
-
-          document
-            .getElementById(
-              `accordion-${id}`
-            )
-            .classList.add("active");
-
-        }
-      );
-
-    });
-
-  /* =========================
-     ADD SET
-  ========================= */
-
-  document
-    .querySelectorAll(".add-set-btn")
-    .forEach(btn => {
-
-      btn.addEventListener(
-        "click",
-        async () => {
-
-          const idx =
-            btn.dataset.set;
-
-          const routineExerciseId =
-            btn.dataset.routineExercise;
-
-          const tbody =
-            document.getElementById(
-              `sets-body-${idx}`
-            );
-
-          const setCount =
-            tbody.querySelectorAll("tr")
-              .length + 1;
-
-          /* INSERT DB */
-
-          const {
-            data:newSet,
-            error:errorInsert
-          } = await routineClient
-
-            .from("routine_sets")
-
-            .insert([
-              {
-                routine_exercise_id:
-                  routineExerciseId,
-
-                set_number:
-                  setCount,
-
-                weight:0,
-
-                reps:0
-              }
-            ])
-
-            .select()
-
-            .single();
-
-          if(errorInsert){
-
-            console.error(errorInsert);
-
-            return;
-
-          }
-
-          /* UPDATE UI */
-
-          tbody.insertAdjacentHTML(
-            "beforeend",
-
-            `
-
-            <tr>
-
-              <td class="set-number">
-                ${setCount}
-              </td>
-
-              <td class="set-prev">
-                —
-              </td>
-
-              <td>
-
-                <input
-                  type="number"
-                  class="
-                    set-input
-                    set-weight-input
-                  "
-                  data-set-id="${newSet.id}"
-                  value="0"
-                  placeholder="0"
-                >
-
-              </td>
-
-              <td>
-
-                <input
-                  type="number"
-                  class="
-                    set-input
-                    set-reps-input
-                  "
-                  data-set-id="${newSet.id}"
-                  value="0"
-                  placeholder="0"
-                >
-
-              </td>
-
-              <td>
-
-                <button
-                  class="delete-ex-btn"
-                  data-set-id="${newSet.id}"
-                >
-
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.8"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    width="20"
-                    height="20"
-                  >
-
-                    <path d="M3 6h18" />
-                    <path d="M8 6V4h8v2" />
-                    <path d="M19 6l-1 14H6L5 6" />
-                    <path d="M10 11v6" />
-                    <path d="M14 11v6" />
-
-                  </svg>
-
-                </button>
-
-              </td>
-
-            </tr>
-
-            `
-          );
-
-          attachSetAutosave();
-          attachDeleteSetEvents();
-
-        }
-      );
-
-    });
-
-  /* =========================
-     DRAG & DROP
-  ========================= */
-
-  const draggableItems =
-    document.querySelectorAll(
-      ".routine-ex-item"
-    );
-
-  let draggedItem = null;
-
-  draggableItems.forEach(item => {
-
-    item.addEventListener(
-      "dragstart",
-      () => {
-
-        draggedItem = item;
-
-        item.classList.add(
-          "dragging"
-        );
-
-      }
-    );
-
-    item.addEventListener(
-      "dragend",
-      async () => {
-
-        item.classList.remove(
-          "dragging"
-        );
-
-        document
-          .querySelectorAll(
-            ".routine-ex-item"
-          )
-          .forEach(el => {
-
-            el.classList.remove(
-              "drag-over"
-            );
-
-          });
-
-        const updatedItems =
-          document.querySelectorAll(
-            ".routine-ex-item"
-          );
-
-        for(
-          let i = 0;
-          i < updatedItems.length;
-          i++
-        ){
-
-          const id =
-            updatedItems[i].dataset
-              .routineExerciseId;
-
-          await routineClient
-
-            .from("routine_exercises")
-
-            .update({
-              orden:i + 1
-            })
-
-            .eq(
-              "id",
-              id
-            );
-
-        }
-
-      }
-    );
-
-    item.addEventListener(
-      "dragover",
-      (e) => {
-
-        e.preventDefault();
-
-        if(
-          item !== draggedItem
-        ){
-
-          item.classList.add(
-            "drag-over"
-          );
-
-        }
-
-      }
-    );
-
-    item.addEventListener(
-      "dragleave",
-      () => {
-
-        item.classList.remove(
-          "drag-over"
-        );
-
-      }
-    );
-
-    item.addEventListener(
-      "drop",
-      (e) => {
-
-        e.preventDefault();
-
-        item.classList.remove(
-          "drag-over"
-        );
-
-        if(
-          item !== draggedItem
-        ){
-
-          const container =
-            item.parentNode;
-
-          const items =
-            [
-              ...container.querySelectorAll(
-                ".routine-ex-item"
-              )
-            ];
-
-          const draggedIndex =
-            items.indexOf(
-              draggedItem
-            );
-
-          const targetIndex =
-            items.indexOf(item);
-
-          if(
-            draggedIndex < targetIndex
-          ){
-
-            item.after(
-              draggedItem
-            );
-
-          } else {
-
-            item.before(
-              draggedItem
-            );
-
-          }
-
-        }
-
-      }
-    );
-
-  });
-
-  attachSetAutosave();
-  attachDeleteSetEvents();
-  attachDeleteRoutineExerciseEvents();
-}//cargarEjerciciosDeRutina(rutinaId)
-
-function fillRestTimerOptions(){
-
-    const select =
-      document.getElementById(
-        "restTimerSelect"
-      );
-  
-    if(!select) return;
-  
-    select.innerHTML = `
-      <option value="Apagado">
-        Apagado
-      </option>
-    `;
-  
-    for(let i = 5; i <= 150; i += 5){
-  
-      const min =
-        Math.floor(i / 60);
-  
-      const sec =
-        i % 60;
-  
-      let label = "";
-  
-      if(min > 0){
-  
-        label += `${min}min`;
-  
-      }
-  
-      if(sec > 0){
-  
-        label +=
-          `${min > 0 ? " " : ""}${sec}s`;
-  
-      }
-  
-      select.innerHTML += `
-        <option value="${label}">
-          ${label}
-        </option>
-      `;
-  
-    }
-
-}//fillRestTimerOptions()
-
-function attachSetAutosave(){
-
-  document
-    .querySelectorAll(
-      ".set-weight-input, .set-reps-input"
-    )
-    .forEach(input => {
-
-      input.addEventListener(
-        "change",
-        async () => {
-
-          const setId =
-            input.dataset.setId;
-
-          const row =
-            input.closest("tr");
-
-          const weight =
-            row.querySelector(
-              ".set-weight-input"
-            ).value || 0;
-
-          const reps =
-            row.querySelector(
-              ".set-reps-input"
-            ).value || 0;
-
-          const { error } =
-            await routineClient
-
-              .from("routine_sets")
-
-              .update({
-                weight,
-                reps
-              })
-
-              .eq(
-                "id",
-                setId
-              );
-
-          if(error){
-
-            console.error(error);
-
-          }
-
-        }
-      );
-
-    });
-
-}//attachSetAutosave()
-
-function attachDeleteSetEvents(){
-
-  document
-    .querySelectorAll(
-      ".delete-ex-btn[data-set-id]"
-    )
-    .forEach(btn => {
-
-      btn.onclick = async () => {
-
-        const setId =
-          btn.dataset.setId;
-
-        const row =
-          btn.closest("tr");
-
-        if(!setId || !row)
-          return;
-
-        const { error } =
-          await routineClient
-
-            .from("routine_sets")
-
-            .delete()
-
-            .eq(
-              "id",
-              setId
-            );
-
-        if(error){
-
-          console.error(error);
-
-          return;
-
-        }
-
-        row.remove();
-
-      };
-
-    });
-
-}//attachDeleteSetEvents
-
-function attachDeleteRoutineExerciseEvents(){
-
-  document
-    .querySelectorAll(
-      ".delete-routine-ex-btn"
-    )
-    .forEach(btn => {
-
-      btn.onclick = async (e) => {
-
-        e.stopPropagation();
-
-        const confirmed =
-          await openConfirmModal({
-        
-            title:
-              "Eliminar ejercicio",
-        
-            message:
-              "Esta acción eliminará el ejercicio y todos sus sets.",
-        
-            confirmText:
-              "Eliminar"
-        
-          });
-        
-        if(!confirmed) return;
-
-        const routineExerciseId =
-          btn.dataset.routineExerciseId;
-
-        const { error } =
-          await routineClient
-
-            .from("routine_exercises")
-
-            .delete()
-
-            .eq(
-              "id",
-              routineExerciseId
-            );
-
-        if(error){
-
-          console.error(error);
-
-          alert(
-            "No se pudo eliminar"
-          );
-
-          return;
-
-        }
-
-        await abrirDetalleRutina(
-          rutinaActualId
-        );
-
-        await cargarProgramas();
-
-      };
-
-    });
-
-}//attachDeleteRoutineExerciseEvents
-
-async function abrirdeleteProgramOverlay(){
-
-  const overlay =
-    document.getElementById(
-      "deleteProgramOverlay"
-    );
-
-  const list =
-    document.getElementById(
-      "deleteProgramList"
-    );
-
-  const { data, error } =
-    await routineClient
-
-      .from("routines")
-
-      .select(`
-        id,
-        nombre,
-        categoria
-      `)
-
-      .order(
-        "created_at",
-        { ascending:false }
-      );
-
-  if(error){
-
-    console.error(error);
-
-    return;
-
-  }
-
-  list.innerHTML =
-    (data || []).map(routine => `
-
-      <div
-        class="delete-routine-row"
-      >
-
-        <div
-          class="delete-routine-info"
-        >
-
-          <div
-            class="delete-routine-name"
-          >
-          
-            ${
-              routine.nombre
-          
-                ? routine.nombre.charAt(0)
-                    .toUpperCase()
-          
-                  + routine.nombre.slice(1)
-          
-                : "Sin nombre"
-            }
-          
-          </div>
-
-          <div
-            class="delete-routine-meta"
-          >
-
-            ${routine.categoria || "Sin categoría"}
-
-          </div>
-
-        </div>
-
-        <button
-          class="
-            delete-ex-btn
-            delete-routine-final-btn
-          "
-          data-routine-id="${routine.id}"
-        >
-
-          <svg
-            viewBox="0 0 24 24"
-            width="20"
-            height="20"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-
-            <path d="M3 6h18" />
-            <path d="M8 6V4h8v2" />
-            <path d="M19 6l-1 14H6L5 6" />
-            <path d="M10 11v6" />
-            <path d="M14 11v6" />
-
-          </svg>
-
-        </button>
-
-      </div>
-
-    `).join("");
-
-  overlay.classList.add(
-    "active"
-  );
-
-  attachDeleteRoutineFinalEvents();
-
-}//abrirdeleteProgramOverlay
-
-function attachDeleteRoutineFinalEvents(){
-
-  document
-    .querySelectorAll(
-      ".delete-routine-final-btn"
-    )
-    .forEach(btn => {
-
-      btn.onclick = async () => {
-
-        const routineId =
-          btn.dataset.routineId;
-
-        const confirmed =
-          await openConfirmModal({
-
-            title:
-              "Eliminar rutina",
-
-            message:
-              "Esta acción eliminará todos los ejercicios y sets de la rutina.",
-
-            confirmText:
-              "Eliminar"
-
-          });
-
-        if(!confirmed) return;
-
-        const { error } =
-          await routineClient
-
-            .from("routines")
-
-            .delete()
-
-            .eq(
-              "id",
-              routineId
-            );
-
-        if(error){
-
-          console.error(error);
-
-          return;
-
-        }
-
-        await cargarProgramas();
-
-        await abrirdeleteProgramOverlay();
-
-      };
-
-    });
-
-}//attachDeleteRoutineFinalEvents
-
-document
-  .getElementById(
-    "closeDeleteProgramOverlay"
-  )
-  .onclick = () => {
-
-    document
-      .getElementById(
-        "deleteProgramOverlay"
-      )
-      .classList.remove(
-        "active"
-      );
-
-  };//document
+/* =============================================
+   OPEN PROGRAM DETAIL
+============================================= */
 
 async function abrirDetallePrograma(
   programId
@@ -1868,24 +296,18 @@ async function abrirDetallePrograma(
       "programRoutineList"
     );
 
-  if(
-    !overlay ||
-    !title ||
-    !list
-  ){
+  if(!overlay || !title || !list){
+
     return;
+
   }
 
   overlay.classList.add(
     "active"
   );
 
-  /* =============================================
-     OBTENER PROGRAMA
-  ============================================= */
-
   const {
-    data,
+    data:programa,
     error:programError
   } = await supabaseClient
 
@@ -1896,22 +318,11 @@ async function abrirDetallePrograma(
     .eq(
       "id",
       programId
-    );
+    )
 
-  if(programError){
+    .single();
 
-    console.error(
-      programError
-    );
-
-    return;
-
-  }
-
-  if(
-    !data ||
-    !data.length
-  ){
+  if(programError || !programa){
 
     console.error(
       "Programa no encontrado"
@@ -1921,16 +332,8 @@ async function abrirDetallePrograma(
 
   }
 
-  const programa =
-    data[0];
-
   title.textContent =
-    programa.nombre ||
-    "Programa";
-
-  /* =============================================
-     OBTENER RUTINAS
-  ============================================= */
+    programa.nombre;
 
   const {
     data:routines,
@@ -1956,16 +359,10 @@ async function abrirDetallePrograma(
 
   }
 
-  /* =============================================
-     SIN RUTINAS
-  ============================================= */
-
-  if(
-    !routines ||
-    !routines.length
-  ){
+  if(!routines.length){
 
     list.innerHTML = `
+
       <div class="program-card">
 
         <div class="program-name">
@@ -1977,23 +374,17 @@ async function abrirDetallePrograma(
         </div>
 
       </div>
+
     `;
 
     return;
 
   }
 
-  /* =============================================
-     RENDER RUTINAS
-  ============================================= */
-
   list.innerHTML =
     routines.map(r => `
 
-      <div
-        class="program-card"
-        data-id="${r.id}"
-      >
+      <div class="program-card">
 
         <div class="program-name">
 
@@ -2025,115 +416,53 @@ async function abrirDetallePrograma(
 
 }//abrirDetallePrograma
 
-document
-  .getElementById(
-    "viewProgramClose"
-  )
-  ?.addEventListener(
-    "click",
-    () => {
-
-      document
-        .getElementById(
-          "viewProgramOverlay"
-        )
-        .classList.remove(
-          "active"
-        );
-
-    }
-  );
-
-/* =============================================
-   PROGRAM LIGHTBOX
-============================================= */
-
-function abrirProgramLightbox(){
-
-  document
-    .getElementById(
-      "programLightbox"
-    )
-    .classList.add(
-      "active"
-    );
-
-}//abrirProgramLightbox
-
-function cerrarProgramLightbox(){
-
-  document
-    .getElementById(
-      "programLightbox"
-    )
-    .classList.remove(
-      "active"
-    );
-
-}//cerrarProgramLightbox
-
 /* =============================================
    CLOSE PROGRAM DETAIL
 ============================================= */
 
 function cerrarDetallePrograma(){
 
-  const overlay =
-    document.getElementById(
+  document
+    .getElementById(
       "viewProgramOverlay"
-    );
-
-  if(overlay){
-
-    overlay.classList.remove(
+    )
+    .classList.remove(
       "active"
     );
-
-  }
 
 }//cerrarDetallePrograma
 
 /* =============================================
-   OPEN DELETE PROGRAM OVERLAY
+   DELETE PROGRAM OVERLAY
 ============================================= */
 
 function abrirDeleteProgramOverlay(){
 
-  const overlay =
-    document.getElementById(
+  document
+    .getElementById(
       "deleteProgramOverlay"
-    );
-
-  if(overlay){
-
-    overlay.classList.add(
+    )
+    .classList.add(
       "active"
     );
-
-  }
 
 }//abrirDeleteProgramOverlay
 
-/* =============================================
-   CLOSE DELETE PROGRAM OVERLAY
-============================================= */
-
 function cerrarDeleteProgramOverlay(){
 
-  const overlay =
-    document.getElementById(
+  document
+    .getElementById(
       "deleteProgramOverlay"
-    );
-
-  if(overlay){
-
-    overlay.classList.remove(
+    )
+    .classList.remove(
       "active"
     );
 
-  }
-
 }//cerrarDeleteProgramOverlay
+
+/* =============================================
+   INIT
+============================================= */
 
 document.addEventListener(
   "DOMContentLoaded",
@@ -2141,105 +470,59 @@ document.addEventListener(
 
     cargarProgramas();
 
-    /* =========================
-       ADD PROGRAM
-    ========================= */
-
-    const addProgramBtn =
-      document.getElementById(
+    document
+      .getElementById(
         "addProgramBtn"
-      );
-
-    if(addProgramBtn){
-
-      addProgramBtn.addEventListener(
+      )
+      ?.addEventListener(
         "click",
         abrirProgramLightbox
       );
 
-    }
-
-    /* =========================
-       PROGRAM LIGHTBOX
-    ========================= */
-
-    const cancelBtn =
-      document.getElementById(
+    document
+      .getElementById(
         "pgCancel"
-      );
-
-    const saveBtn =
-      document.getElementById(
-        "pgSave"
-      );
-
-    if(cancelBtn){
-
-      cancelBtn.addEventListener(
+      )
+      ?.addEventListener(
         "click",
         cerrarProgramLightbox
       );
 
-    }
-
-    if(saveBtn){
-
-      saveBtn.addEventListener(
+    document
+      .getElementById(
+        "pgSave"
+      )
+      ?.addEventListener(
         "click",
         guardarPrograma
       );
 
-    }
-
-    /* =========================
-       VIEW PROGRAM
-    ========================= */
-
-    const closeView =
-      document.getElementById(
+    document
+      .getElementById(
         "viewProgramClose"
-      );
-
-    if(closeView){
-
-      closeView.addEventListener(
+      )
+      ?.addEventListener(
         "click",
         cerrarDetallePrograma
       );
 
-    }
-
-    /* =========================
-       DELETE PROGRAM
-    ========================= */
-
-    const deleteProgramBtn =
-      document.getElementById(
+    document
+      .getElementById(
         "deleteProgramBtn"
-      );
-
-    if(deleteProgramBtn){
-
-      deleteProgramBtn.addEventListener(
+      )
+      ?.addEventListener(
         "click",
         abrirDeleteProgramOverlay
       );
 
-    }
-
-    const closeDeleteBtn =
-      document.getElementById(
+    document
+      .getElementById(
         "closeDeleteProgramOverlay"
-      );
-
-    if(closeDeleteBtn){
-
-      closeDeleteBtn.addEventListener(
+      )
+      ?.addEventListener(
         "click",
         cerrarDeleteProgramOverlay
       );
-
-    }
 
   }
 );//DOMContentLoaded
