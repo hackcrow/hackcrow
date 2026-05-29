@@ -1,52 +1,45 @@
+```html
 <!DOCTYPE html>
 <html lang="es" data-theme="dark">
 
 <head>
 
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
 
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
+    content="width=device-width, initial-scale=1.0">
 
-  <title>Programas — Workouts</title>
+  <title>
+    Programas — Workout
+  </title>
 
   <!-- FONTS -->
 
-  <link rel="preconnect"
-    href="https://fonts.googleapis.com" />
-
-  <link rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin />
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com">
 
   <link
-    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;700&display=swap"
-    rel="stylesheet"
-  />
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
 
   <!-- GLOBAL CSS -->
 
   <link
     rel="stylesheet"
-    href="../css/style.css"
-  />
+    href="../css/style.css">
 
   <!-- PROGRAMS CSS -->
 
   <link
     rel="stylesheet"
-    href="../css/programs.css"
-  />
-
-  <!-- FAVICON -->
-
-  <link
-    rel="icon"
-    type="image/x-icon"
-    href="../src/images/favicon.ico"
-  />
+    href="../css/programs.css">
 
 </head>
 
@@ -64,17 +57,17 @@
 
   <div id="menuContainer"></div>
 
-  <!-- APP -->
+  <!-- PAGE -->
 
   <main id="app">
 
-    <section id="page-programs">
+    <div id="page-programs">
 
       <!-- HEADER -->
 
       <div class="page-header">
 
-        <div class="page-header-left">
+        <div>
 
           <div class="page-title">
             Programas
@@ -86,27 +79,68 @@
 
         </div>
 
-        <a
-          href="../index.html"
-          class="back-btn"
-        >
+        <div class="action-buttons">
 
-          ← Volver
+          <!-- DELETE -->
 
-        </a>
+          <button
+            id="deleteProgramBtn"
+            class="delete-ex-btn"
+            title="Eliminar Programa">
+
+            <svg
+              viewBox="0 0 24 24"
+              width="20"
+              height="20"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+
+              <path d="M3 6h18"/>
+              <path d="M8 6V4h8v2"/>
+              <path d="M19 6l-1 14H6L5 6"/>
+              <path d="M10 11v6"/>
+              <path d="M14 11v6"/>
+
+            </svg>
+
+          </button>
+
+          <!-- ADD -->
+
+          <button
+            id="addProgramBtn"
+            class="add-ex-btn"
+            title="Nuevo Programa">
+
+            ＋
+
+          </button>
+
+          <!-- BACK -->
+
+          <a
+            href="../index.html"
+            class="back-btn">
+
+            ← Volver
+
+          </a>
+
+        </div>
 
       </div>
 
-      <!-- FILTER BAR -->
+      <!-- FILTERS -->
 
       <div class="filter-bar">
-
-        <!-- FILTER PILLS -->
 
         <div class="filter-pills">
 
           <button class="pill active">
-            Todos
+            Todas
           </button>
 
           <button class="pill">
@@ -127,65 +161,13 @@
 
         </div>
 
-        <!-- ACTION BUTTONS -->
-
-        <div class="action-buttons">
-
-          <!-- DELETE -->
-
-          <button
-            id="deleteProgramBtn"
-            class="delete-ex-btn"
-            title="Eliminar programa"
-          >
-
-            <svg
-              viewBox="0 0 24 24"
-              width="20"
-              height="20"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-
-              <path d="M3 6h18"></path>
-
-              <path d="M8 6V4h8v2"></path>
-
-              <path d="M19 6l-1 14H6L5 6"></path>
-
-              <path d="M10 11v6"></path>
-
-              <path d="M14 11v6"></path>
-
-            </svg>
-
-          </button>
-
-          <!-- ADD -->
-
-          <button
-            id="addProgramBtn"
-            class="add-ex-btn"
-            title="Nuevo programa"
-          >
-
-            ＋
-
-          </button>
-
-        </div>
-
       </div>
 
       <!-- LOADING -->
 
       <div
         id="loadingPrograms"
-        class="terminal-loading"
-      >
+        class="terminal-loading">
 
         Loading programs...
 
@@ -195,19 +177,19 @@
 
       <div
         id="programGrid"
-        class="exercise-grid"
-      ></div>
+        class="program-grid">
 
-    </section>
+      </div>
+
+    </div>
 
   </main>
 
-  <!-- CREATE PROGRAM MODAL -->
+  <!-- CREATE PROGRAM -->
 
   <div
     id="programLightbox"
-    class="lightbox-overlay"
-  >
+    class="lightbox-overlay">
 
     <div class="lightbox-card">
 
@@ -224,13 +206,11 @@
         <input
           id="pgNombre"
           type="text"
-          placeholder="Nombre del programa"
-        />
+          placeholder="Nombre del programa">
 
         <textarea
           id="pgDescripcion"
-          placeholder="Descripción"
-        ></textarea>
+          placeholder="Descripción"></textarea>
 
       </div>
 
@@ -238,8 +218,7 @@
 
         <button
           id="pgCancel"
-          class="btn btn-ghost"
-        >
+          class="btn btn-ghost">
 
           Cancelar
 
@@ -247,8 +226,7 @@
 
         <button
           id="pgSave"
-          class="btn"
-        >
+          class="btn">
 
           Guardar
 
@@ -264,12 +242,10 @@
 
   <div
     id="viewProgramOverlay"
-    class="lightbox-overlay"
-  >
+    class="lightbox-overlay">
 
     <div
-      class="lightbox-card routine-detail-card"
-    >
+      class="lightbox-card routine-detail-card">
 
       <div class="lightbox-header">
 
@@ -285,49 +261,7 @@
 
         <button
           id="viewProgramClose"
-          class="btn btn-ghost"
-        >
-
-          Cerrar
-
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- DELETE PROGRAM -->
-
-  <div
-    id="deleteProgramOverlay"
-    class="lightbox-overlay"
-  >
-
-    <div
-      class="lightbox-card delete-routines-card"
-    >
-
-      <div class="lightbox-header">
-
-        <h2>
-          Administrar Programas
-        </h2>
-
-      </div>
-
-      <div
-        id="deleteProgramList"
-        class="delete-routine-list"
-      ></div>
-
-      <div class="lightbox-actions">
-
-        <button
-          id="closeDeleteProgramOverlay"
-          class="btn btn-ghost"
-        >
+          class="btn btn-ghost">
 
           Cerrar
 
@@ -350,3 +284,4 @@
 </body>
 
 </html>
+```
