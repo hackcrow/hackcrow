@@ -1,95 +1,17 @@
-/* =============================================
+```css
+/* =========================================
    PAGE
-============================================= */
+========================================= */
 
-.programs-page{
-
+#page-programs{
   width:100%;
-
-  max-width:1400px;
-
-  margin:auto;
-
-  padding:
-    140px 32px 120px;
-
+  max-width:100%;
+  overflow-x:hidden;
 }
 
-/* =============================================
-   HEADER
-============================================= */
-
-.programs-header{
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:space-between;
-
-  gap:24px;
-
-  margin-bottom:42px;
-
-}
-
-.programs-title{
-
-  font-size:42px;
-
-  font-weight:700;
-
-  letter-spacing:-2px;
-
-}
-
-.programs-subtitle{
-
-  margin-top:8px;
-
-  font-size:13px;
-
-  opacity:.55;
-
-  font-family:"DM Mono", monospace;
-
-}
-
-/* =============================================
-   ADD BTN
-============================================= */
-
-.add-program-btn{
-
-  width:58px;
-
-  height:58px;
-
-  border:none;
-
-  border-radius:18px;
-
-  font-size:32px;
-
-  cursor:pointer;
-
-  background:var(--accent);
-
-  color:#fff;
-
-  transition:.2s ease;
-
-}
-
-.add-program-btn:hover{
-
-  transform:translateY(-2px);
-
-}
-
-/* =============================================
+/* =========================================
    GRID
-============================================= */
+========================================= */
 
 .program-grid{
 
@@ -98,39 +20,46 @@
   grid-template-columns:
     repeat(
       auto-fill,
-      minmax(320px,1fr)
+      minmax(260px,1fr)
     );
 
-  gap:28px;
+  gap:18px;
+
+  margin-top:22px;
 
 }
 
-/* =============================================
+/* =========================================
    CARD
-============================================= */
+========================================= */
 
 .program-card{
 
-  background:var(--card);
+  position:relative;
+
+  background:
+    rgba(255,255,255,.04);
 
   border:
-    1px solid rgba(255,255,255,.06);
+    1px solid rgba(255,255,255,.08);
 
-  border-radius:28px;
+  border-radius:18px;
 
-  padding:28px;
+  padding:18px;
 
-  min-height:220px;
+  backdrop-filter:blur(8px);
 
-  cursor:pointer;
+  transition:
+    transform .18s ease,
+    border-color .18s ease;
 
-  transition:.25s ease;
+  min-height:180px;
 
   display:flex;
 
   flex-direction:column;
 
-  justify-content:space-between;
+  justify-content:center;
 
 }
 
@@ -139,269 +68,94 @@
   transform:translateY(-4px);
 
   border-color:
-    rgba(255,255,255,.12);
+    rgba(0,255,136,.35);
 
 }
+
+/* =========================================
+   TEXT
+========================================= */
 
 .program-name{
 
-  font-size:28px;
+  font-size:18px;
 
   font-weight:700;
 
-  line-height:1.1;
+  color:#00ff88;
+
+  margin-bottom:10px;
 
 }
 
-.program-description{
+.program-desc{
 
-  margin-top:18px;
+  font-size:13px;
 
-  opacity:.72;
+  line-height:1.5;
 
-  line-height:1.6;
-
-  font-size:15px;
+  color:
+    rgba(255,255,255,.72);
 
 }
 
-/* =============================================
-   MODAL
-============================================= */
+/* =========================================
+   HEADER BUTTONS
+========================================= */
 
-.modal-overlay{
-
-  position:fixed;
-
-  inset:0;
-
-  background:
-    rgba(0,0,0,.65);
-
-  backdrop-filter:blur(12px);
+.action-buttons{
 
   display:flex;
 
   align-items:center;
 
-  justify-content:center;
-
-  padding:24px;
-
-  opacity:0;
-
-  visibility:hidden;
-
-  transition:.2s ease;
-
-  z-index:999;
+  gap:10px;
 
 }
 
-.modal-overlay.active{
+/* =========================================
+   LOADING
+========================================= */
 
-  opacity:1;
+.terminal-loading{
 
-  visibility:visible;
+  display:none;
 
-}
+  text-align:center;
 
-.modal-card{
+  margin:40px 0;
 
-  width:100%;
+  font-family:"Courier New",monospace;
 
-  max-width:520px;
+  font-size:14px;
 
-  background:var(--card);
+  letter-spacing:1px;
 
-  border:
-    1px solid rgba(255,255,255,.06);
+  color:#00ff88;
 
-  border-radius:32px;
+  opacity:.85;
 
-  padding:28px;
-
-}
-
-.view-program-card{
-
-  max-width:760px;
+  text-transform:uppercase;
 
 }
 
-.modal-header{
+.terminal-loading::after{
 
-  margin-bottom:24px;
+  content:"_";
 
-}
-
-.modal-header h2{
-
-  font-size:28px;
+  animation:blinkCursor .9s infinite;
 
 }
 
-.modal-body{
+@keyframes blinkCursor{
 
-  display:flex;
+  0%,50%{
+    opacity:1;
+  }
 
-  flex-direction:column;
-
-  gap:18px;
-
-}
-
-.modal-body input,
-.modal-body textarea{
-
-  width:100%;
-
-  border:none;
-
-  outline:none;
-
-  background:#111;
-
-  color:#fff;
-
-  border-radius:18px;
-
-  padding:18px;
-
-  font-size:15px;
+  51%,100%{
+    opacity:0;
+  }
 
 }
-
-.modal-body textarea{
-
-  resize:none;
-
-  min-height:140px;
-
-}
-
-.modal-actions{
-
-  display:flex;
-
-  justify-content:flex-end;
-
-  gap:14px;
-
-  margin-top:28px;
-
-}
-
-/* =============================================
-   BUTTONS
-============================================= */
-
-.btn{
-
-  border:none;
-
-  outline:none;
-
-  padding:
-    14px 22px;
-
-  border-radius:16px;
-
-  cursor:pointer;
-
-  background:var(--accent);
-
-  color:#fff;
-
-  font-weight:600;
-
-}
-
-.btn-ghost{
-
-  background:transparent;
-
-  border:
-    1px solid rgba(255,255,255,.1);
-
-}
-
-/* =============================================
-   VIEW CONTENT
-============================================= */
-
-.view-program-content{
-
-  min-height:180px;
-
-}
-
-/* TOP ACTIONS */
-
-.top-actions{
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:space-between;
-
-  margin-bottom:22px;
-
-}
-
-.back-link{
-
-  color:var(--text-muted);
-
-  text-decoration:none;
-
-  font-size:.9rem;
-
-  transition:.2s ease;
-
-}
-
-.back-link:hover{
-
-  color:var(--text);
-
-}
-
-/* SAME BUTTON AS LIBRARY */
-
-.pill-add-btn {
-
-  margin-left: auto;
-
-  background: none;
-
-  border: none;
-
-  padding: 0;
-
-  color: #00ff88;
-
-  font-size: 42px;
-
-  font-weight: 300;
-
-  line-height: 1;
-
-  cursor: pointer;
-
-  font-family: "DM Sans", sans-serif;
-
-  transition:
-    transform .15s ease,
-    opacity .15s ease;
-
-}
-
-.pill-add-btn:hover {
-
-  transform: scale(1.12);
-
-  opacity: .8;
-
-}
+```
