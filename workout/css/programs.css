@@ -1,1 +1,337 @@
+/* =============================================
+   PAGE
+============================================= */
 
+.programs-page{
+
+  width:100%;
+
+  max-width:1400px;
+
+  margin:auto;
+
+  padding:
+    140px 32px 120px;
+
+}
+
+/* =============================================
+   HEADER
+============================================= */
+
+.programs-header{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:24px;
+
+  margin-bottom:42px;
+
+}
+
+.programs-title{
+
+  font-size:42px;
+
+  font-weight:700;
+
+  letter-spacing:-2px;
+
+}
+
+.programs-subtitle{
+
+  margin-top:8px;
+
+  font-size:13px;
+
+  opacity:.55;
+
+  font-family:"DM Mono", monospace;
+
+}
+
+/* =============================================
+   ADD BTN
+============================================= */
+
+.add-program-btn{
+
+  width:58px;
+
+  height:58px;
+
+  border:none;
+
+  border-radius:18px;
+
+  font-size:32px;
+
+  cursor:pointer;
+
+  background:var(--accent);
+
+  color:#fff;
+
+  transition:.2s ease;
+
+}
+
+.add-program-btn:hover{
+
+  transform:translateY(-2px);
+
+}
+
+/* =============================================
+   GRID
+============================================= */
+
+.program-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fill,
+      minmax(320px,1fr)
+    );
+
+  gap:28px;
+
+}
+
+/* =============================================
+   CARD
+============================================= */
+
+.program-card{
+
+  background:var(--card);
+
+  border:
+    1px solid rgba(255,255,255,.06);
+
+  border-radius:28px;
+
+  padding:28px;
+
+  min-height:220px;
+
+  cursor:pointer;
+
+  transition:.25s ease;
+
+  display:flex;
+
+  flex-direction:column;
+
+  justify-content:space-between;
+
+}
+
+.program-card:hover{
+
+  transform:translateY(-4px);
+
+  border-color:
+    rgba(255,255,255,.12);
+
+}
+
+.program-name{
+
+  font-size:28px;
+
+  font-weight:700;
+
+  line-height:1.1;
+
+}
+
+.program-description{
+
+  margin-top:18px;
+
+  opacity:.72;
+
+  line-height:1.6;
+
+  font-size:15px;
+
+}
+
+/* =============================================
+   MODAL
+============================================= */
+
+.modal-overlay{
+
+  position:fixed;
+
+  inset:0;
+
+  background:
+    rgba(0,0,0,.65);
+
+  backdrop-filter:blur(12px);
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:24px;
+
+  opacity:0;
+
+  visibility:hidden;
+
+  transition:.2s ease;
+
+  z-index:999;
+
+}
+
+.modal-overlay.active{
+
+  opacity:1;
+
+  visibility:visible;
+
+}
+
+.modal-card{
+
+  width:100%;
+
+  max-width:520px;
+
+  background:var(--card);
+
+  border:
+    1px solid rgba(255,255,255,.06);
+
+  border-radius:32px;
+
+  padding:28px;
+
+}
+
+.view-program-card{
+
+  max-width:760px;
+
+}
+
+.modal-header{
+
+  margin-bottom:24px;
+
+}
+
+.modal-header h2{
+
+  font-size:28px;
+
+}
+
+.modal-body{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:18px;
+
+}
+
+.modal-body input,
+.modal-body textarea{
+
+  width:100%;
+
+  border:none;
+
+  outline:none;
+
+  background:#111;
+
+  color:#fff;
+
+  border-radius:18px;
+
+  padding:18px;
+
+  font-size:15px;
+
+}
+
+.modal-body textarea{
+
+  resize:none;
+
+  min-height:140px;
+
+}
+
+.modal-actions{
+
+  display:flex;
+
+  justify-content:flex-end;
+
+  gap:14px;
+
+  margin-top:28px;
+
+}
+
+/* =============================================
+   BUTTONS
+============================================= */
+
+.btn{
+
+  border:none;
+
+  outline:none;
+
+  padding:
+    14px 22px;
+
+  border-radius:16px;
+
+  cursor:pointer;
+
+  background:var(--accent);
+
+  color:#fff;
+
+  font-weight:600;
+
+}
+
+.btn-ghost{
+
+  background:transparent;
+
+  border:
+    1px solid rgba(255,255,255,.1);
+
+}
+
+/* =============================================
+   VIEW CONTENT
+============================================= */
+
+.view-program-content{
+
+  min-height:180px;
+
+}
