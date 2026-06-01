@@ -33,5 +33,23 @@ document.addEventListener(
 
     cargarProgramas();
 
+    document
+      .getElementById(
+        "addProgramBtn"
+      )
+      .addEventListener(
+        "click",
+        abrirProgramLightbox
+      );
+
+    document
+      .getElementById(
+        "pgCancel"
+      )
+      .addEventListener(
+        "click",
+        cerrarProgramLightbox
+      );
+
   }
 );//DOMContentLoaded
