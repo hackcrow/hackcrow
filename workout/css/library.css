@@ -1307,3 +1307,16 @@ html, body {
   line-height: 1;
 
 }
+
+.filter-pills{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.pill{
+  padding:6px 12px;
+  font-size:.78rem;
+  line-height:1;
+  border-radius:999px;
+}
