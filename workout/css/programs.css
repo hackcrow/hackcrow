@@ -74,15 +74,13 @@
 
 .program-name{
 
-  font-size:22px;
-
   color:#00ff88;
+
+  font-size:18px;
 
   font-weight:700;
 
-  margin-bottom:12px;
-
-  line-height:1.2;
+  margin-bottom:8px;
 
 }
 
