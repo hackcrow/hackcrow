@@ -1,7 +1,41 @@
 let programas = [];
 
-async function cargarProgramas() {
-  console.log("cargar programas");
+async function cargarProgramas(){
+
+  const { data, error } =
+    await supabase
+      .from("programs")
+      .select("*")
+      .order(
+        "created_at",
+        {
+          ascending:false
+        }
+      );
+
+  console.log(
+    "program count:",
+    data?.length
+  );
+
+  console.log(
+    "program error:",
+    error
+  );
+
+  if(error){
+
+    console.error(error);
+
+    return;
+
+  }
+
+  programas =
+    data || [];
+
+  renderProgramas();
+
 }//cargarProgramas()
 
 function abrirProgramLightbox(){
@@ -28,32 +62,7 @@ function cerrarProgramLightbox(){
 
 }//cerrarProgramLightbox()
 
-function guardarPrograma(){
-
-  const nombre =
-    document
-      .getElementById(
-        "pgNombre"
-      )
-      .value
-      .trim();
-
-  const descripcion =
-    document
-      .getElementById(
-        "pgDescripcion"
-      )
-      .value
-      .trim();
-
-  console.log({
-    nombre,
-    descripcion
-  });
-
-}//guardarPrograma()
-
-function guardarPrograma(){
+async function guardarPrograma(){
 
   const nombre =
     document
@@ -73,21 +82,29 @@ function guardarPrograma(){
 
   if(!nombre) return;
 
-  programas.push({
+  const { error } =
+    await supabase
+      .from("programs")
+      .insert([
+        {
+          nombre,
+          descripcion
+        }
+      ]);
 
-    id: Date.now(),
+  if(error){
 
-    nombre,
+    console.error(error);
 
-    descripcion
+    return;
 
-  });
+  }
 
   cerrarProgramLightbox();
 
-  renderProgramas();
+  cargarProgramas();
 
-}//guardarPrograma()
+}//guardarPrograma
 
 function renderProgramas(){
 
