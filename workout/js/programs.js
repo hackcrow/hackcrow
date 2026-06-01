@@ -130,8 +130,8 @@ function renderProgramas(){
 
         <div class="program-name">
 
-          ${programa.nombre}
-
+          ${programa.nombre.charAt(0).toUpperCase() + programa.nombre.slice(1)}
+        
         </div>
 
         <div class="program-desc">
