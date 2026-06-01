@@ -269,17 +269,10 @@
 ========================================= */
 
 #page-programs{
-
   width:100%;
-
-  max-width:1200px;
-
+  max-width:980px;
   margin:0 auto;
-
-  padding:24px;
-
-  box-sizing:border-box;
-
+  padding:32px 24px;
 }
 
 /* =========================================
@@ -364,4 +357,15 @@
 
 }
 
+.page-title{
+  font-size:3rem;
+  font-weight:700;
+  margin-bottom:8px;
+}
+
+.page-subtitle{
+  font-size:0.85rem;
+  letter-spacing:2px;
+  opacity:.7;
+}
 
