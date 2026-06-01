@@ -63,7 +63,9 @@ function cerrarProgramLightbox(){
 }//cerrarProgramLightbox()
 
 async function guardarPrograma(){
-
+  console.log(
+  "guardarPrograma"
+);
   const nombre =
     document
       .getElementById(
