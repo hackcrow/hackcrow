@@ -1,3 +1,4 @@
+let programas = [];
 
 async function cargarProgramas() {
   console.log("cargar programas");
@@ -51,6 +52,82 @@ function guardarPrograma(){
   });
 
 }//guardarPrograma()
+
+function guardarPrograma(){
+
+  const nombre =
+    document
+      .getElementById(
+        "pgNombre"
+      )
+      .value
+      .trim();
+
+  const descripcion =
+    document
+      .getElementById(
+        "pgDescripcion"
+      )
+      .value
+      .trim();
+
+  if(!nombre) return;
+
+  programas.push({
+
+    id: Date.now(),
+
+    nombre,
+
+    descripcion
+
+  });
+
+  cerrarProgramLightbox();
+
+  renderProgramas();
+
+}//guardarPrograma()
+
+function renderProgramas(){
+
+  const grid =
+    document.getElementById(
+      "programGrid"
+    );
+
+  if(!grid) return;
+
+  grid.innerHTML = "";
+
+  programas.forEach(programa => {
+
+    grid.innerHTML += `
+
+      <div
+        class="program-card"
+        data-id="${programa.id}"
+      >
+
+        <div class="program-name">
+
+          ${programa.nombre}
+
+        </div>
+
+        <div class="program-desc">
+
+          ${programa.descripcion}
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+}//renderProgramas()
 
 document.addEventListener(
   "DOMContentLoaded",
