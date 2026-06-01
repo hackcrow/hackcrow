@@ -76,41 +76,19 @@ body {
 ============================================= */
 
 #topbar {
-
   position: fixed;
-
   top: 27px;
-
-  left: 50%;
-
-  transform: translateX(-50%);
-
-  width: 100%;
-
-  max-width: 980px;
-
+  left: 0;
+  right: 0;
   z-index: 1000;
-
   height: 60px;
-
   display: flex;
-
   align-items: center;
-
   justify-content: space-between;
-
   padding: 0 24px;
-
-  box-sizing: border-box;
-
   background: var(--bg);
-
   border-bottom: 1px solid var(--border);
-
-  transition:
-    background var(--transition),
-    border-color var(--transition);
-
+  transition: background var(--transition), border-color var(--transition);
 }
 
 .topbar-left {
