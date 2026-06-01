@@ -27,6 +27,31 @@ function cerrarProgramLightbox(){
 
 }//cerrarProgramLightbox()
 
+function guardarPrograma(){
+
+  const nombre =
+    document
+      .getElementById(
+        "pgNombre"
+      )
+      .value
+      .trim();
+
+  const descripcion =
+    document
+      .getElementById(
+        "pgDescripcion"
+      )
+      .value
+      .trim();
+
+  console.log({
+    nombre,
+    descripcion
+  });
+
+}//guardarPrograma()
+
 document.addEventListener(
   "DOMContentLoaded",
   () => {
@@ -49,6 +74,14 @@ document.addEventListener(
       .addEventListener(
         "click",
         cerrarProgramLightbox
+      );
+     document
+      .getElementById(
+        "pgSave"
+      )
+      .addEventListener(
+        "click",
+        guardarPrograma
       );
 
   }
