@@ -3,7 +3,7 @@ let programas = [];
 async function cargarProgramas(){
 
   const { data, error } =
-    await supabase
+    await supabaseClient
       .from("programs")
       .select("*")
       .order(
@@ -83,7 +83,7 @@ async function guardarPrograma(){
   if(!nombre) return;
 
   const { error } =
-    await supabase
+    await supabaseClient
       .from("programs")
       .insert([
         {
