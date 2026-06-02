@@ -373,6 +373,21 @@ async function abrirRutina(id){
     .textContent =
       rutina.nombre;
 
+  console.log(
+    "rutina id:",
+    id
+  );
+  
+  console.log(
+    "ejercicios:",
+    ejercicios
+  );
+  
+  console.log(
+    "error:",
+    error
+  );
+  
   const {
     data:ejercicios,
     error
