@@ -435,3 +435,15 @@
     rgba(255,255,255,.45);
 
 }
+
+.add-routine-btn{
+
+  margin-top:16px;
+
+  width:auto;
+
+  font-size:.78rem;
+
+  padding:8px 14px;
+
+}
