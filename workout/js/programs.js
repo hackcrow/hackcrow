@@ -358,6 +358,10 @@ document.addEventListener(
 
     cargarProgramas();
 
+    /* ===========================
+       PROGRAMAS
+    =========================== */
+
     document
       .getElementById(
         "addProgramBtn"
@@ -375,13 +379,63 @@ document.addEventListener(
         "click",
         cerrarProgramLightbox
       );
-     document
+
+    document
       .getElementById(
         "pgSave"
       )
       .addEventListener(
         "click",
         guardarPrograma
+      );
+
+    /* ===========================
+       RUTINAS
+    =========================== */
+
+    document
+      .getElementById(
+        "addRoutineBtn"
+      )
+      .addEventListener(
+        "click",
+        () => {
+
+          document
+            .getElementById(
+              "routineLightbox"
+            )
+            .classList
+            .add("open");
+
+        }
+      );
+
+    document
+      .getElementById(
+        "rtCancel"
+      )
+      .addEventListener(
+        "click",
+        () => {
+
+          document
+            .getElementById(
+              "routineLightbox"
+            )
+            .classList
+            .remove("open");
+
+        }
+      );
+
+    document
+      .getElementById(
+        "rtSave"
+      )
+      .addEventListener(
+        "click",
+        guardarRutina
       );
 
   }
