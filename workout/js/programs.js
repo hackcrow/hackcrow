@@ -260,7 +260,9 @@ async function guardarRutina(){
 }//guardarRutina()
 
 async function abrirPrograma(id){
+
   programaActivo = id;
+
   const programa =
     programas.find(
       p => p.id === id
@@ -302,29 +304,40 @@ async function abrirPrograma(id){
     routines.length === 0
   ){
 
-    list.innerHTML =
-      `
+    list.innerHTML = `
       <div class="empty-state">
         No hay rutinas
       </div>
-      `;
+    `;
 
   }else{
 
     routines.forEach(r => {
 
       list.innerHTML += `
-        <div class="routine-row">
 
-          <div class="routine-name">
-            ${r.nombre}
+        <div
+          class="routine-row"
+          onclick="abrirRutina(${r.id})">
+
+          <div>
+
+            <div class="routine-name">
+              ${r.nombre}
+            </div>
+
+            <div class="routine-category">
+              ${r.categoria ?? ""}
+            </div>
+
           </div>
 
-          <div class="routine-category">
-            ${r.categoria ?? ""}
+          <div class="routine-arrow">
+            →
           </div>
 
         </div>
+
       `;
 
     });
@@ -339,6 +352,15 @@ async function abrirPrograma(id){
     .add("open");
 
 }//abrirPrograma
+
+async function abrirRutina(id){
+
+  console.log(
+    "abrir rutina:",
+    id
+  );
+
+}
 
 document
   .getElementById(
