@@ -262,10 +262,9 @@
 
       <div id="programRoutineList"></div>
 
-      <button
+     <button
         id="addRoutineBtn"
-        class="btn"
-        style="margin-top:16px;width:100%;">
+        class="btn btn-ghost add-routine-btn">
       
         + Agregar rutina
       
@@ -310,10 +309,29 @@
         id="rtDescripcion"
         placeholder="Descripción"></textarea>
 
-      <input
-        id="rtCategoria"
-        type="text"
-        placeholder="Categoría">
+      <select id="rtCategoria">
+
+          <option value="">
+            Selecciona categoría
+          </option>
+        
+          <option value="Push">
+            Push
+          </option>
+        
+          <option value="Pull">
+            Pull
+          </option>
+        
+          <option value="Pierna">
+            Pierna
+          </option>
+        
+          <option value="Full Body">
+            Full Body
+          </option>
+        
+        </select>
 
     </div>
 
