@@ -355,12 +355,41 @@ async function abrirPrograma(id){
 
 async function abrirRutina(id){
 
-  console.log(
-    "abrir rutina:",
-    id
-  );
+  const {
+    data:rutina
+  } =
+    await supabaseClient
+      .from("routines")
+      .select("*")
+      .eq("id", id)
+      .single();
 
-}
+  document
+    .getElementById(
+      "routineDetailTitle"
+    )
+    .textContent =
+      rutina.nombre;
+
+  document
+    .getElementById(
+      "routineExerciseList"
+    )
+    .innerHTML =
+      `
+      <div class="empty-state">
+        No hay ejercicios
+      </div>
+      `;
+
+  document
+    .getElementById(
+      "routineDetailOverlay"
+    )
+    .classList
+    .add("open");
+
+}//abrirRutina
 
 document
   .getElementById(
@@ -541,6 +570,24 @@ document.addEventListener(
             .classList
             .remove("open");
 
+        }
+      );
+
+    document
+      .getElementById(
+        "routineDetailClose"
+      )
+      .addEventListener(
+        "click",
+        () => {
+    
+          document
+            .getElementById(
+              "routineDetailOverlay"
+            )
+            .classList
+            .remove("open");
+    
         }
       );
 
