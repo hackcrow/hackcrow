@@ -355,116 +355,115 @@ async function abrirPrograma(id){
 
 async function abrirRutina(id){
 
-rutinaActiva = id;
-
-const {
-data:rutina
-} =
-await supabaseClient
-.from("routines")
-.select("*")
-.eq("id", id)
-.single();
-
-document
-.getElementById(
-"routineDetailTitle"
-)
-.textContent =
-rutina.nombre;
-
-const {
-data:ejercicios,
-error
-} =
-await supabaseClient
-.from("routine_exercises")
-.select(`         *,
-        exercises(*)
-      `)
-.eq(
-"routine_id",
-id
-)
-.order(
-"orden"
-);
-
-console.log(
-"rutina id:",
-id
-);
-
-console.log(
-"ejercicios:",
-ejercicios
-);
-
-console.log(
-"error:",
-error
-);
-
-const list =
-document.getElementById(
-"routineExerciseList"
-);
-
-list.innerHTML = "";
-
-if(
-!ejercicios ||
-ejercicios.length === 0
-){
-
-```
-list.innerHTML = `
-  <div class="empty-state">
-    No hay ejercicios
-  </div>
-`;
-```
-
-}else{
-
-```
-ejercicios.forEach(e => {
-
-  list.innerHTML += `
-
-    <div class="routine-exercise-row">
-
-      <div>
-
-        <div class="exercise-name">
-
-          ${e.exercises?.nombre ?? "Sin nombre"}
-
-        </div>
-
-        <div class="exercise-muscle">
-
-          ${e.exercises?.parte_cuerpo ?? ""}
-
-        </div>
-
+    rutinaActiva = id;
+    
+    const {
+    data:rutina
+    } =
+    await supabaseClient
+    .from("routines")
+    .select("*")
+    .eq("id", id)
+    .single();
+    
+    document
+    .getElementById(
+    "routineDetailTitle"
+    )
+    .textContent =
+    rutina.nombre;
+    
+    const {
+    data:ejercicios,
+    error
+    } =
+    await supabaseClient
+    .from("routine_exercises")
+    .select(`         *,
+            exercises(*)
+          `)
+    .eq(
+    "routine_id",
+    id
+    )
+    .order(
+    "orden"
+    );
+    
+    console.log(
+    "rutina id:",
+    id
+    );
+    
+    console.log(
+    "ejercicios:",
+    ejercicios
+    );
+    
+    console.log(
+    "error:",
+    error
+    );
+    
+    const list =
+    document.getElementById(
+    "routineExerciseList"
+    );
+    
+    list.innerHTML = "";
+    
+    if(
+    !ejercicios ||
+    ejercicios.length === 0
+    ){
+    
+    list.innerHTML = `
+      <div class="empty-state">
+        No hay ejercicios
       </div>
-
-    </div>
-
-  `;
-
-});
-```
-
-}
-
-document
-.getElementById(
-"routineDetailOverlay"
-)
-.classList
-.add("open");
+    `;
+    
+    
+    }else{
+    
+    
+    ejercicios.forEach(e => {
+    
+      list.innerHTML += `
+    
+        <div class="routine-exercise-row">
+    
+          <div>
+    
+            <div class="exercise-name">
+    
+              ${e.exercises?.nombre ?? "Sin nombre"}
+    
+            </div>
+    
+            <div class="exercise-muscle">
+    
+              ${e.exercises?.parte_cuerpo ?? ""}
+    
+            </div>
+    
+          </div>
+    
+        </div>
+    
+      `;
+    
+    });
+    
+    
+    }
+    
+    document
+    .getElementById(
+    "routineDetailOverlay"
+    )
+    .classList
+    .add("open");
 
 }//abrirRutina
 
