@@ -166,6 +166,99 @@ function renderProgramas(){
 
 }//renderProgramas()
 
+async function guardarRutina(){
+
+  const nombre =
+    document
+      .getElementById(
+        "rtNombre"
+      )
+      .value
+      .trim();
+
+  if(!nombre){
+
+    alert(
+      "Escribe un nombre"
+    );
+
+    return;
+
+  }
+
+  const descripcion =
+    document
+      .getElementById(
+        "rtDescripcion"
+      )
+      .value
+      .trim();
+
+  const categoria =
+    document
+      .getElementById(
+        "rtCategoria"
+      )
+      .value
+      .trim();
+
+  const {
+    error
+  } =
+    await supabaseClient
+      .from("routines")
+      .insert([{
+
+        nombre,
+        descripcion,
+        categoria,
+
+        program_id:
+          programaActivo
+
+      }]);
+
+  if(error){
+
+    console.error(
+      error
+    );
+
+    return;
+
+  }
+
+  document
+    .getElementById(
+      "rtNombre"
+    )
+    .value = "";
+
+  document
+    .getElementById(
+      "rtDescripcion"
+    )
+    .value = "";
+
+  document
+    .getElementById(
+      "rtCategoria"
+    )
+    .value = "";
+
+  document
+    .getElementById(
+      "routineLightbox"
+    )
+    .classList
+    .remove("open");
+
+  abrirPrograma(
+    programaActivo
+  );
+
+}//guardarRutina()
+
 async function abrirPrograma(id){
   programaActivo = id;
   const programa =
