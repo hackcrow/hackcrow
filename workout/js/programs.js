@@ -146,7 +146,123 @@ function renderProgramas(){
 
   });
 
+  document
+  .querySelectorAll(".program-card")
+  .forEach(card => {
+
+    card.addEventListener("click", () => {
+
+      const id =
+        Number(
+          card.dataset.id
+        );
+
+      abrirPrograma(id);
+
+    });
+
+  });
+
 }//renderProgramas()
+
+async function abrirPrograma(id){
+
+  const programa =
+    programas.find(
+      p => p.id === id
+    );
+
+  if(!programa) return;
+
+  document.getElementById(
+    "viewProgramTitle"
+  ).textContent =
+    programa.nombre;
+
+  const {
+    data:routines,
+    error
+  } =
+    await supabaseClient
+      .from("routines")
+      .select("*")
+      .eq(
+        "program_id",
+        id
+      );
+
+  console.log(
+    "routines:",
+    routines
+  );
+
+  const list =
+    document.getElementById(
+      "programRoutineList"
+    );
+
+  list.innerHTML = "";
+
+  if(
+    !routines ||
+    routines.length === 0
+  ){
+
+    list.innerHTML =
+      `
+      <div class="empty-state">
+        No hay rutinas
+      </div>
+      `;
+
+  }else{
+
+    routines.forEach(r => {
+
+      list.innerHTML += `
+        <div class="routine-row">
+
+          <div class="routine-name">
+            ${r.nombre}
+          </div>
+
+          <div class="routine-category">
+            ${r.categoria ?? ""}
+          </div>
+
+        </div>
+      `;
+
+    });
+
+  }
+
+  document
+    .getElementById(
+      "viewProgramOverlay"
+    )
+    .classList
+    .add("open");
+
+}//abrirPrograma
+
+document
+  .getElementById(
+    "viewProgramClose"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      document
+        .getElementById(
+          "viewProgramOverlay"
+        )
+        .classList
+        .remove("open");
+
+    }
+  );//boton cerrar programa
 
 document.addEventListener(
   "DOMContentLoaded",
