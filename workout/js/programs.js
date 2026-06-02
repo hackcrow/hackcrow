@@ -355,6 +355,8 @@ async function abrirPrograma(id){
 
 async function abrirRutina(id){
 
+  rutinaActiva = id;
+
   const {
     data:rutina
   } =
@@ -371,16 +373,78 @@ async function abrirRutina(id){
     .textContent =
       rutina.nombre;
 
-  document
-    .getElementById(
+  const {
+    data:ejercicios,
+    error
+  } =
+    await supabaseClient
+      .from("routine_exercises")
+      .select(`
+        *,
+        exercises(*)
+      `)
+      .eq(
+        "routine_id",
+        id
+      )
+      .order(
+        "orden"
+      );
+
+  console.log(
+    "ejercicios rutina:",
+    ejercicios
+  );
+
+  const list =
+    document.getElementById(
       "routineExerciseList"
-    )
-    .innerHTML =
-      `
+    );
+
+  list.innerHTML = "";
+
+  if(
+    !ejercicios ||
+    ejercicios.length === 0
+  ){
+
+    list.innerHTML = `
       <div class="empty-state">
         No hay ejercicios
       </div>
+    `;
+
+  }else{
+
+    ejercicios.forEach(e => {
+
+      list.innerHTML += `
+
+        <div class="routine-exercise-row">
+
+          <div>
+
+            <div class="exercise-name">
+
+              ${e.exercises.nombre}
+
+            </div>
+
+            <div class="exercise-muscle">
+
+              ${e.exercises.parte_cuerpo ?? ""}
+
+            </div>
+
+          </div>
+
+        </div>
+
       `;
+
+    });
+
+  }
 
   document
     .getElementById(
