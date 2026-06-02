@@ -356,59 +356,80 @@ async function abrirPrograma(id){
 
 async function abrirSelectorEjercicios(){
 
-  const {
+    const {
     data:ejercicios,
     error
-  } =
+    } =
     await supabaseClient
-      .from("exercises")
-      .select("*")
-      .order("nombre");
-
-  console.log(
-    ejercicios
-  );
-
-  const list =
+    .from("exercises")
+    .select("*")
+    .order("nombre_en");
+    
+    const list =
     document.getElementById(
-      "exercisePickerList"
+    "exercisePickerList"
     );
-
-  list.innerHTML = "";
-
-  ejercicios.forEach(e => {
-
+    
+    list.innerHTML = "";
+    
+    ejercicios.forEach(e => {
+    
     list.innerHTML += `
-
+    
       <div
         class="picker-exercise-row"
         onclick="agregarEjercicioARutina(${e.id})">
-
-        <div>
-
-          <div class="exercise-name">
-
-            ${e.nombre}
-
-          </div>
-
-          <div class="exercise-muscle">
-
-            ${e.parte_cuerpo ?? ""}
-
-          </div>
-
+    
+        <div class="picker-thumb">
+    
+          ${
+            e.imagen
+              ? `
+                <img
+                  src="${e.imagen}"
+                  alt="${e.nombre_en}">
+              `
+              : ""
+          }
+    
         </div>
-
+    
+        <div class="picker-info">
+    
+          <div class="exercise-name">
+    
+            ${e.nombre_en}
+    
+          </div>
+    
+          <div class="exercise-muscle">
+    
+            ${
+              e.parte_cuerpo
+                ? e.parte_cuerpo
+                    .replaceAll("_"," ")
+                    .toLowerCase()
+                    .replace(
+                      /\b\w/g,
+                      letra =>
+                        letra.toUpperCase()
+                    )
+                : ""
+            }
+    
+          </div>
+    
+        </div>
+    
       </div>
-
+    
     `;
-
-  });
-
-  document
+    
+    });
+    
+    document
     .getElementById(
-      "exercisePickerOverlay"
+    "exercisePickerOverlay"
     )
     .classList
     .add("open");
