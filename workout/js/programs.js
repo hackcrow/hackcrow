@@ -355,118 +355,116 @@ async function abrirPrograma(id){
 
 async function abrirRutina(id){
 
-  rutinaActiva = id;
+rutinaActiva = id;
 
-  const {
-    data:rutina
-  } =
-    await supabaseClient
-      .from("routines")
-      .select("*")
-      .eq("id", id)
-      .single();
+const {
+data:rutina
+} =
+await supabaseClient
+.from("routines")
+.select("*")
+.eq("id", id)
+.single();
 
-  document
-    .getElementById(
-      "routineDetailTitle"
-    )
-    .textContent =
-      rutina.nombre;
+document
+.getElementById(
+"routineDetailTitle"
+)
+.textContent =
+rutina.nombre;
 
-  console.log(
-    "rutina id:",
-    id
-  );
-  
-  console.log(
-    "ejercicios:",
-    ejercicios
-  );
-  
-  console.log(
-    "error:",
-    error
-  );
-  
-  const {
-    data:ejercicios,
-    error
-  } =
-    await supabaseClient
-      .from("routine_exercises")
-      .select(`
-        *,
+const {
+data:ejercicios,
+error
+} =
+await supabaseClient
+.from("routine_exercises")
+.select(`         *,
         exercises(*)
       `)
-      .eq(
-        "routine_id",
-        id
-      )
-      .order(
-        "orden"
-      );
+.eq(
+"routine_id",
+id
+)
+.order(
+"orden"
+);
 
-  console.log(
-    "ejercicios rutina:",
-    ejercicios
-  );
+console.log(
+"rutina id:",
+id
+);
 
-  const list =
-    document.getElementById(
-      "routineExerciseList"
-    );
+console.log(
+"ejercicios:",
+ejercicios
+);
 
-  list.innerHTML = "";
+console.log(
+"error:",
+error
+);
 
-  if(
-    !ejercicios ||
-    ejercicios.length === 0
-  ){
+const list =
+document.getElementById(
+"routineExerciseList"
+);
 
-    list.innerHTML = `
-      <div class="empty-state">
-        No hay ejercicios
-      </div>
-    `;
+list.innerHTML = "";
 
-  }else{
+if(
+!ejercicios ||
+ejercicios.length === 0
+){
 
-    ejercicios.forEach(e => {
+```
+list.innerHTML = `
+  <div class="empty-state">
+    No hay ejercicios
+  </div>
+`;
+```
 
-      list.innerHTML += `
+}else{
 
-        <div class="routine-exercise-row">
+```
+ejercicios.forEach(e => {
 
-          <div>
+  list.innerHTML += `
 
-            <div class="exercise-name">
+    <div class="routine-exercise-row">
 
-              ${e.exercises.nombre}
+      <div>
 
-            </div>
+        <div class="exercise-name">
 
-            <div class="exercise-muscle">
-
-              ${e.exercises.parte_cuerpo ?? ""}
-
-            </div>
-
-          </div>
+          ${e.exercises?.nombre ?? "Sin nombre"}
 
         </div>
 
-      `;
+        <div class="exercise-muscle">
 
-    });
+          ${e.exercises?.parte_cuerpo ?? ""}
 
-  }
+        </div>
 
-  document
-    .getElementById(
-      "routineDetailOverlay"
-    )
-    .classList
-    .add("open");
+      </div>
+
+    </div>
+
+  `;
+
+});
+```
+
+}
+
+document
+.getElementById(
+"routineDetailOverlay"
+)
+.classList
+.add("open");
 
 }//abrirRutina
 
