@@ -359,7 +359,8 @@
 }
 
 .lightbox-body input,
-.lightbox-body textarea{
+.lightbox-body textarea,
+.lightbox-body select{
 
   width:100%;
 
