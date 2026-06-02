@@ -1,5 +1,6 @@
 let programas = [];
 let programaActivo = null;
+let rutinaActiva = null;
 
 async function cargarProgramas(){
 
@@ -353,6 +354,67 @@ async function abrirPrograma(id){
 
 }//abrirPrograma
 
+async function abrirSelectorEjercicios(){
+
+  const {
+    data:ejercicios,
+    error
+  } =
+    await supabaseClient
+      .from("exercises")
+      .select("*")
+      .order("nombre");
+
+  console.log(
+    ejercicios
+  );
+
+  const list =
+    document.getElementById(
+      "exercisePickerList"
+    );
+
+  list.innerHTML = "";
+
+  ejercicios.forEach(e => {
+
+    list.innerHTML += `
+
+      <div
+        class="picker-exercise-row"
+        onclick="agregarEjercicioARutina(${e.id})">
+
+        <div>
+
+          <div class="exercise-name">
+
+            ${e.nombre}
+
+          </div>
+
+          <div class="exercise-muscle">
+
+            ${e.parte_cuerpo ?? ""}
+
+          </div>
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+  document
+    .getElementById(
+      "exercisePickerOverlay"
+    )
+    .classList
+    .add("open");
+
+}//abrirSelectorEjercicios
+
 async function abrirRutina(id){
 
     rutinaActiva = id;
@@ -646,6 +708,33 @@ document.addEventListener(
             .classList
             .remove("open");
 
+        }
+      );
+
+    document
+      .getElementById(
+        "addExerciseBtn"
+      )
+      .addEventListener(
+        "click",
+        abrirSelectorEjercicios
+      );
+    
+    document
+      .getElementById(
+        "exercisePickerClose"
+      )
+      .addEventListener(
+        "click",
+        () => {
+    
+          document
+            .getElementById(
+              "exercisePickerOverlay"
+            )
+            .classList
+            .remove("open");
+    
         }
       );
 
