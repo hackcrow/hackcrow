@@ -1,4 +1,5 @@
 let programas = [];
+let programaActivo = null;
 
 async function cargarProgramas(){
 
@@ -166,7 +167,7 @@ function renderProgramas(){
 }//renderProgramas()
 
 async function abrirPrograma(id){
-
+  programaActivo = id;
   const programa =
     programas.find(
       p => p.id === id
@@ -263,6 +264,93 @@ document
 
     }
   );//boton cerrar programa
+
+/* ===========================
+   NUEVA RUTINA
+=========================== */
+
+document
+  .getElementById("addRoutineBtn")
+  .addEventListener("click", () => {
+
+    document
+      .getElementById("routineLightbox")
+      .classList
+      .add("open");
+
+  });
+
+document
+  .getElementById("rtCancel")
+  .addEventListener("click", () => {
+
+    document
+      .getElementById("routineLightbox")
+      .classList
+      .remove("open");
+
+  });
+
+document
+  .getElementById("rtSave")
+  .addEventListener(
+    "click",
+    async () => {
+
+      const nombre =
+        document
+          .getElementById("rtNombre")
+          .value
+          .trim();
+
+      if(!nombre) return;
+
+      const descripcion =
+        document
+          .getElementById("rtDescripcion")
+          .value
+          .trim();
+
+      const categoria =
+        document
+          .getElementById("rtCategoria")
+          .value
+          .trim();
+
+      const { error } =
+        await supabaseClient
+          .from("routines")
+          .insert([{
+
+            nombre,
+            descripcion,
+            categoria,
+            program_id:
+              programaActivo
+
+          }]);
+
+      if(error){
+
+        console.error(error);
+
+        return;
+
+      }
+
+      document
+        .getElementById(
+          "routineLightbox"
+        )
+        .classList
+        .remove("open");
+
+      abrirPrograma(
+        programaActivo
+      );
+
+    }
+  );
 
 document.addEventListener(
   "DOMContentLoaded",
