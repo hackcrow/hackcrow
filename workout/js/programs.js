@@ -366,55 +366,55 @@ function agregarEjercicioARutina(id){
 
 async function abrirSelectorEjercicios(){
 
-  document
-      .getElementById(
-        "loadingExercisePicker"
-      )
-      .style.display =
-        "block";
+    document
+    .getElementById(
+    "loadingExercisePicker"
+    )
+    .style.display =
+    "block";
     
     document
-      .getElementById(
-        "exercisePickerOverlay"
-      )
-      .classList
-      .add("open");
-
+    .getElementById(
+    "exercisePickerOverlay"
+    )
+    .classList
+    .add("open");
+    
     document
-      .getElementById(
-        "exercisePickerList"
-      )
-      .innerHTML = "";
-  
+    .getElementById(
+    "exercisePickerList"
+    )
+    .innerHTML = "";
+    
     const {
-      data:actuales
+    data:actuales
     } =
-      await supabaseClient
-        .from("routine_exercises")
-        .select("exercise_id")
-        .eq(
-          "routine_id",
-          rutinaActiva
-        );
+    await supabaseClient
+    .from("routine_exercises")
+    .select("exercise_id")
+    .eq(
+    "routine_id",
+    rutinaActiva
+    );
     
     ejerciciosSeleccionados =
-      actuales.map(
-        e => e.exercise_id
-      );
-  
+    actuales.map(
+    e => e.exercise_id
+    );
+    
     const {
-        data:ejercicios,
-        error
-        } =
-        await supabaseClient
-        .from("exercises")
-        .select("*")
-        .order("nombre_en");
-        
-        const list =
-        document.getElementById(
-        "exercisePickerList"
-      );
+    data:ejercicios,
+    error
+    } =
+    await supabaseClient
+    .from("exercises")
+    .select("*")
+    .order("nombre_en");
+    
+    const list =
+    document.getElementById(
+    "exercisePickerList"
+    );
     
     list.innerHTML = "";
     
@@ -422,16 +422,16 @@ async function abrirSelectorEjercicios(){
     
     list.innerHTML += `
     
-    <div
+      <div
         class="picker-exercise-row ${
           ejerciciosSeleccionados.includes(e.id)
             ? "selected"
             : ""
         }"
-        onclick="toggleExerciseSelection(this, ${e.id})"
-      
+        onclick="toggleExerciseSelection(this, ${e.id})">
+    
         <div class="picker-thumb">
-      
+    
           ${
             e.imagen
               ? `
@@ -441,19 +441,19 @@ async function abrirSelectorEjercicios(){
               `
               : ""
           }
-      
+    
         </div>
-      
+    
         <div class="picker-info">
-      
+    
           <div class="exercise-name">
-      
+    
             ${e.nombre_en}
-      
+    
           </div>
-      
+    
           <div class="exercise-muscle">
-      
+    
             ${
               e.parte_cuerpo
                 ? e.parte_cuerpo
@@ -466,17 +466,17 @@ async function abrirSelectorEjercicios(){
                     )
                 : ""
             }
-      
+    
           </div>
-      
+    
         </div>
-      
+    
         <div class="picker-check">
-      
+    
           ✔
-      
+    
         </div>
-      
+    
       </div>
     
     `;
@@ -484,20 +484,14 @@ async function abrirSelectorEjercicios(){
     });
     
     document
-      .getElementById(
-      "exercisePickerOverlay"
-      )
-      .classList
-      .add("open");
-
-    document
-      .getElementById(
-        "loadingExercisePicker"
-      )
-      .style.display =
-        "none";
+    .getElementById(
+    "loadingExercisePicker"
+    )
+    .style.display =
+    "none";
 
 }//abrirSelectorEjercicios
+
 
 function toggleExerciseSelection(
     element,
