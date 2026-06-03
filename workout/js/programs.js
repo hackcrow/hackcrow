@@ -665,17 +665,19 @@ document
 
 function abrirDetalleEjercicio(id){
 
-    console.log(
-    "detalle ejercicio:",
-    id
-    );
-    
-    document
-    .getElementById(
-    "exerciseDetailOverlay"
-    )
-    .classList
-    .add("open");
+console.log(
+"detalle ejercicio:",
+id
+);
+
+const modal =
+document.getElementById(
+"exerciseDetailOverlay"
+);
+
+console.log(modal);
+
+modal.classList.add("open");
 
 }//abrirDetalleEjercicio
 
