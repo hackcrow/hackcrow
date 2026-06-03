@@ -695,3 +695,19 @@
   display:block;
 
 }
+
+.save-selection-btn{
+
+  width:auto;
+
+  min-width:160px;
+
+  margin:16px auto 0;
+
+  display:block;
+
+  padding:10px 18px;
+
+  font-size:13px;
+
+}
