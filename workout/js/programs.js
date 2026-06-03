@@ -578,26 +578,37 @@ async function abrirRutina(id){
       list.innerHTML += `
     
         <div
-          class="routine-exercise-row"
-          onclick="abrirDetalleEjercicio(${e.exercises.id})">
-    
-          <div>
-    
-            <div class="exercise-name">
-    
-              ${e.exercises?.nombre ?? "Sin nombre"}
-    
+            class="routine-exercise-row"
+            onclick="abrirDetalleEjercicio(${e.exercises.id})">
+          
+            <div>
+          
+              <div class="exercise-name">
+          
+                ${e.exercises?.nombre_en ?? "No Name"}
+          
+              </div>
+          
+              <div class="exercise-muscle">
+          
+                ${
+                  e.exercises?.parte_cuerpo
+                    ? e.exercises.parte_cuerpo
+                        .replaceAll("_"," ")
+                        .toLowerCase()
+                        .replace(
+                          /\b\w/g,
+                          letra =>
+                            letra.toUpperCase()
+                        )
+                    : ""
+                }
+          
+              </div>
+          
             </div>
-    
-            <div class="exercise-muscle">
-    
-              ${e.exercises?.parte_cuerpo ?? ""}
-    
-            </div>
-    
+          
           </div>
-    
-        </div>
     
       `;
     
