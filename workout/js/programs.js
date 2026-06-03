@@ -378,7 +378,7 @@ async function abrirSelectorEjercicios(){
     
       <div
         class="picker-exercise-row"
-        onclick="agregarEjercicioARutina(${e.id})">
+        ">
     
         <div class="picker-thumb">
     
