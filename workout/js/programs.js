@@ -841,6 +841,14 @@ modal.classList.add("open");
 
 }//abrirDetalleEjercicio
 
+function guardarSeleccionEjercicios(){
+
+  console.log(
+    ejerciciosSeleccionados
+  );
+
+// }/guardarSeleccionEjercicios
+
 document.addEventListener(
   "DOMContentLoaded",
   () => {
@@ -979,6 +987,15 @@ document.addEventListener(
             .remove("open");
     
         }
+      );
+
+    document
+      .getElementById(
+        "saveExerciseSelection"
+      )
+      .addEventListener(
+        "click",
+        guardarSeleccionEjercicios
       );
 
     document
