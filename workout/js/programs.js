@@ -847,7 +847,7 @@ function guardarSeleccionEjercicios(){
     ejerciciosSeleccionados
   );
 
-// }/guardarSeleccionEjercicios
+}//guardarSeleccionEjercicios
 
 document.addEventListener(
   "DOMContentLoaded",
