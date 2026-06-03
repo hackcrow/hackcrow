@@ -444,6 +444,63 @@ async function abrirSelectorEjercicios(){
 
 }//abrirSelectorEjercicios
 
+async function agregarEjercicioARutina(id){
+
+    const {
+    data:actuales
+    } =
+    await supabaseClient
+    .from("routine_exercises")
+    .select("orden")
+    .eq(
+    "routine_id",
+    rutinaActiva
+    )
+    .order(
+    "orden",
+    { ascending:false }
+    )
+    .limit(1);
+    
+    const nuevoOrden =
+    actuales?.length
+    ? actuales[0].orden + 1
+    : 1;
+    
+    const {
+    error
+    } =
+    await supabaseClient
+    .from("routine_exercises")
+    .insert({
+    routine_id: rutinaActiva,
+    exercise_id: id,
+    orden: nuevoOrden
+    });
+    
+    if(error){
+    
+    ```
+    console.error(error);
+    return;
+    ```
+    
+    }
+    
+    document
+    .getElementById(
+    "exercisePickerOverlay"
+    )
+    .classList
+    .remove("open");
+    
+    abrirRutina(
+    rutinaActiva
+    );
+
+}//agregarEjercicioARutina
+
+
 async function abrirRutina(id){
 
     rutinaActiva = id;
