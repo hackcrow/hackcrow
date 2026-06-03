@@ -1012,7 +1012,7 @@ document.addEventListener(
         }
       );
 
-    documentdocument
+    document
       .getElementById(
         "addExerciseBtn"
       )
