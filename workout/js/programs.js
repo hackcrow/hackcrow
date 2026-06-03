@@ -514,15 +514,15 @@ async function abrirRutina(id){
       </div>
     `;
     
-    
     }else{
-    
     
     ejercicios.forEach(e => {
     
       list.innerHTML += `
     
-        <div class="routine-exercise-row" onclick="abrirDetalleEjercicio()">
+        <div
+          class="routine-exercise-row"
+          onclick="abrirDetalleEjercicio(${e.exercises.id})">
     
           <div>
     
@@ -546,7 +546,6 @@ async function abrirRutina(id){
     
     });
     
-    
     }
     
     document
@@ -557,6 +556,7 @@ async function abrirRutina(id){
     .add("open");
 
 }//abrirRutina
+
 
 document
   .getElementById(
@@ -663,11 +663,16 @@ document
     }
   );
 
-function abrirDetalleEjercicio(){
+function abrirDetalleEjercicio(id){
 
-  document
+    console.log(
+    "detalle ejercicio:",
+    id
+    );
+    
+    document
     .getElementById(
-      "exerciseDetailOverlay"
+    "exerciseDetailOverlay"
     )
     .classList
     .add("open");
