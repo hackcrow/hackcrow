@@ -365,6 +365,26 @@ function agregarEjercicioARutina(id){
 
 async function abrirSelectorEjercicios(){
 
+  document
+      .getElementById(
+        "loadingExercisePicker"
+      )
+      .style.display =
+        "block";
+    
+    document
+      .getElementById(
+        "exercisePickerOverlay"
+      )
+      .classList
+      .add("open");
+
+    document
+      .getElementById(
+        "exercisePickerList"
+      )
+      .innerHTML = "";
+
     const {
     data:ejercicios,
     error
@@ -436,11 +456,18 @@ async function abrirSelectorEjercicios(){
     });
     
     document
-    .getElementById(
-    "exercisePickerOverlay"
-    )
-    .classList
-    .add("open");
+      .getElementById(
+      "exercisePickerOverlay"
+      )
+      .classList
+      .add("open");
+
+    document
+      .getElementById(
+        "loadingExercisePicker"
+      )
+      .style.display =
+        "none";
 
 }//abrirSelectorEjercicios
 
