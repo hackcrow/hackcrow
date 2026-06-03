@@ -1061,14 +1061,17 @@ document.addEventListener(
         }
       );
 
-    document
-      .getElementById(
-        "saveExerciseSelection"
-      )
-      .addEventListener(
-        "click",
-        guardarSeleccionEjercicios
-      );
+    console.log(
+  document.getElementById(
+    "saveExerciseSelection"
+  )
+);
+
+    console.log(
+  document.getElementById(
+    "saveExerciseSelection"
+  )
+);
 
     document
       .getElementById(
