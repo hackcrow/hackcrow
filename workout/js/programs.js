@@ -42,10 +42,10 @@ async function cargarProgramas(){
 }//cargarProgramas()
 
 async function guardarSeleccionEjercicios(){
-   console.log(
+
+  console.log(
     "ENTRO A GUARDAR"
   );
-
 
   const {
     data:actuales,
@@ -74,17 +74,13 @@ async function guardarSeleccionEjercicios(){
   const eliminar =
     idsActuales.filter(
       id =>
-        !ejerciciosSeleccionados.includes(
-          id
-        )
+        !ejerciciosSeleccionados.includes(id)
     );
 
   const agregar =
     ejerciciosSeleccionados.filter(
       id =>
-        !idsActuales.includes(
-          id
-        )
+        !idsActuales.includes(id)
     );
 
   console.log(
@@ -1016,7 +1012,7 @@ document.addEventListener(
         }
       );
 
-    document
+    documentdocument
       .getElementById(
         "addExerciseBtn"
       )
@@ -1042,7 +1038,7 @@ document.addEventListener(
     
         }
       );
-
+    
     document
       .getElementById(
         "routineDetailClose"
@@ -1060,19 +1056,16 @@ document.addEventListener(
     
         }
       );
-
-    console.log(
-  document.getElementById(
-    "saveExerciseSelection"
-  )
-);
-
-    console.log(
-  document.getElementById(
-    "saveExerciseSelection"
-  )
-);
-
+    
+    document
+      .getElementById(
+        "saveExerciseSelection"
+      )
+      .addEventListener(
+        "click",
+        guardarSeleccionEjercicios
+      );
+    
     document
       .getElementById(
         "rtSave"
@@ -1081,6 +1074,6 @@ document.addEventListener(
         "click",
         guardarRutina
       );
-
-  }
+    
+    }
 );//DOMContentLoaded
