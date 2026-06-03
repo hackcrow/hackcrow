@@ -669,3 +669,45 @@
   background:#111;
 
 }
+
+.picker-exercise-row{
+
+  position:relative;
+
+}
+
+.picker-exercise-row.selected{
+
+  border-color:#00ff88;
+
+  background:
+    rgba(0,255,136,.08);
+
+}
+
+.picker-check{
+
+  position:absolute;
+
+  right:14px;
+
+  top:50%;
+
+  transform:translateY(-50%);
+
+  color:#00ff88;
+
+  font-size:18px;
+
+  font-weight:700;
+
+  display:none;
+
+}
+
+.picker-exercise-row.selected
+.picker-check{
+
+  display:block;
+
+}
