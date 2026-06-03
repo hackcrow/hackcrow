@@ -514,7 +514,7 @@ async function abrirRutina(id){
     
       list.innerHTML += `
     
-        <div class="routine-exercise-row">
+        <div class="routine-exercise-row" onclick="abrirDetalleEjercicio()">
     
           <div>
     
@@ -655,6 +655,17 @@ document
     }
   );
 
+function abrirDetalleEjercicio(){
+
+  document
+    .getElementById(
+      "exerciseDetailOverlay"
+    )
+    .classList
+    .add("open");
+
+}//abrirDetalleEjercicio
+
 document.addEventListener(
   "DOMContentLoaded",
   () => {
@@ -729,6 +740,24 @@ document.addEventListener(
             .classList
             .remove("open");
 
+        }
+      );
+
+    document
+      .getElementById(
+        "detailExerciseClose"
+      )
+      .addEventListener(
+        "click",
+        () => {
+    
+          document
+            .getElementById(
+              "exerciseDetailOverlay"
+            )
+            .classList
+            .remove("open");
+    
         }
       );
 
