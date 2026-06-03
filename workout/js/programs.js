@@ -405,11 +405,12 @@ async function abrirSelectorEjercicios(){
     
     list.innerHTML += `
     
-     <div class="picker-exercise-row"
-      onclick="agregarEjercicioARutina(${e.id})">
-    
+    <div
+        class="picker-exercise-row"
+        onclick="toggleExerciseSelection(this)">
+      
         <div class="picker-thumb">
-    
+      
           ${
             e.imagen
               ? `
@@ -419,19 +420,19 @@ async function abrirSelectorEjercicios(){
               `
               : ""
           }
-    
+      
         </div>
-    
+      
         <div class="picker-info">
-    
+      
           <div class="exercise-name">
-    
+      
             ${e.nombre_en}
-    
+      
           </div>
-    
+      
           <div class="exercise-muscle">
-    
+      
             ${
               e.parte_cuerpo
                 ? e.parte_cuerpo
@@ -444,11 +445,17 @@ async function abrirSelectorEjercicios(){
                     )
                 : ""
             }
-    
+      
           </div>
-    
+      
         </div>
-    
+      
+        <div class="picker-check">
+      
+          ✔
+      
+        </div>
+      
       </div>
     
     `;
@@ -470,6 +477,14 @@ async function abrirSelectorEjercicios(){
         "none";
 
 }//abrirSelectorEjercicios
+
+function toggleExerciseSelection(element){
+
+  element.classList.toggle(
+    "selected"
+  );
+
+}//toggleExerciseSelection
 
 async function agregarEjercicioARutina(id){
 
