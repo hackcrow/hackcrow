@@ -42,6 +42,10 @@ async function cargarProgramas(){
 }//cargarProgramas()
 
 async function guardarSeleccionEjercicios(){
+   console.log(
+    "ENTRO A GUARDAR"
+  );
+
 
   const {
     data:actuales,
