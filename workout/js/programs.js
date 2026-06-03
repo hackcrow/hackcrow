@@ -428,7 +428,7 @@ async function abrirSelectorEjercicios(){
             ? "selected"
             : ""
         }"
-        onclick="toggleExerciseSelection(this)">
+        onclick="toggleExerciseSelection(this, ${e.id})"
       
         <div class="picker-thumb">
       
@@ -499,11 +499,46 @@ async function abrirSelectorEjercicios(){
 
 }//abrirSelectorEjercicios
 
-function toggleExerciseSelection(element){
-
-  element.classList.toggle(
-    "selected"
-  );
+function toggleExerciseSelection(
+    element,
+    exerciseId
+  ){
+  
+    element.classList.toggle(
+      "selected"
+    );
+  
+    if(
+      element.classList.contains(
+        "selected"
+      )
+    ){
+  
+      if(
+        !ejerciciosSeleccionados.includes(
+          exerciseId
+        )
+      ){
+  
+        ejerciciosSeleccionados.push(
+          exerciseId
+        );
+  
+      }
+  
+    }else{
+  
+      ejerciciosSeleccionados =
+        ejerciciosSeleccionados.filter(
+          id =>
+            id !== exerciseId
+        );
+  
+    }
+  
+    console.log(
+      ejerciciosSeleccionados
+    );
 
 }//toggleExerciseSelection
 
