@@ -989,14 +989,7 @@ document.addEventListener(
         }
       );
 
-    document
-      .getElementById(
-        "saveExerciseSelection"
-      )
-      .addEventListener(
-        "click",
-        guardarSeleccionEjercicios
-      );
+    
 
     document
       .getElementById(
