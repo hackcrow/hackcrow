@@ -354,6 +354,15 @@ async function abrirPrograma(id){
 
 }//abrirPrograma
 
+function agregarEjercicioARutina(id){
+
+  console.log(
+    "agregar ejercicio:",
+    id
+  );
+
+}//agregarEjercicioARutina
+
 async function abrirSelectorEjercicios(){
 
     const {
@@ -376,9 +385,8 @@ async function abrirSelectorEjercicios(){
     
     list.innerHTML += `
     
-      <div
-        class="picker-exercise-row"
-        ">
+     <div class="picker-exercise-row"
+      onclick="agregarEjercicioARutina(${e.id})">
     
         <div class="picker-thumb">
     
