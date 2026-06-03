@@ -619,33 +619,52 @@
 
 .picker-thumb{
 
-  width:52px;
+  display:flex;
 
-  height:52px;
+  align-items:center;
 
-  flex-shrink:0;
+  justify-content:center;
 
-  border-radius:10px;
-
-  overflow:hidden;
-
-  background:
-    rgba(255,255,255,.04);
+  background: rgba(255,255,255,.04);
 
 }
 
 .picker-thumb img{
 
-  width:100%;
+  width:80%;
 
-  height:100%;
+  height:80%;
 
-  object-fit:cover;
+  object-fit:contain;
 
 }
 
 .picker-info{
 
   flex:1;
+
+}
+
+.exercise-detail-card{
+
+  width:min(760px,92vw);
+
+  max-height:85vh;
+
+  overflow-y:auto;
+
+}
+
+.detail-exercise-image{
+
+  width:100%;
+
+  max-height:320px;
+
+  object-fit:contain;
+
+  border-radius:16px;
+
+  background:#111;
 
 }
