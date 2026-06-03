@@ -1,6 +1,7 @@
 let programas = [];
 let programaActivo = null;
 let rutinaActiva = null;
+let ejerciciosSeleccionados = [];
 
 async function cargarProgramas(){
 
@@ -384,20 +385,36 @@ async function abrirSelectorEjercicios(){
         "exercisePickerList"
       )
       .innerHTML = "";
-
+  
     const {
-    data:ejercicios,
-    error
+      data:actuales
     } =
-    await supabaseClient
-    .from("exercises")
-    .select("*")
-    .order("nombre_en");
+      await supabaseClient
+        .from("routine_exercises")
+        .select("exercise_id")
+        .eq(
+          "routine_id",
+          rutinaActiva
+        );
     
-    const list =
-    document.getElementById(
-    "exercisePickerList"
-    );
+    ejerciciosSeleccionados =
+      actuales.map(
+        e => e.exercise_id
+      );
+  
+    const {
+        data:ejercicios,
+        error
+        } =
+        await supabaseClient
+        .from("exercises")
+        .select("*")
+        .order("nombre_en");
+        
+        const list =
+        document.getElementById(
+        "exercisePickerList"
+      );
     
     list.innerHTML = "";
     
@@ -406,7 +423,11 @@ async function abrirSelectorEjercicios(){
     list.innerHTML += `
     
     <div
-        class="picker-exercise-row"
+        class="picker-exercise-row ${
+          ejerciciosSeleccionados.includes(e.id)
+            ? "selected"
+            : ""
+        }"
         onclick="toggleExerciseSelection(this)">
       
         <div class="picker-thumb">
