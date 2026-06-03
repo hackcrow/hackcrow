@@ -367,6 +367,13 @@ function agregarEjercicioARutina(id){
 async function abrirSelectorEjercicios(){
 
     document
+      .getElementById(
+        "saveExerciseSelection"
+      )
+      .style.display =
+        "none";
+  
+    document
     .getElementById(
     "loadingExercisePicker"
     )
@@ -484,11 +491,18 @@ async function abrirSelectorEjercicios(){
     });
     
     document
-    .getElementById(
-    "loadingExercisePicker"
-    )
-    .style.display =
-    "none";
+      .getElementById(
+        "loadingExercisePicker"
+      )
+      .style.display =
+        "none";
+    
+    document
+      .getElementById(
+        "saveExerciseSelection"
+      )
+      .style.display =
+        "block";
 
 }//abrirSelectorEjercicios
 
