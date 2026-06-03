@@ -41,6 +41,60 @@ async function cargarProgramas(){
 
 }//cargarProgramas()
 
+async function guardarSeleccionEjercicios(){
+
+  const {
+    data:actuales,
+    error
+  } =
+    await supabaseClient
+      .from("routine_exercises")
+      .select("*")
+      .eq(
+        "routine_id",
+        rutinaActiva
+      );
+
+  if(error){
+
+    console.error(error);
+    return;
+
+  }
+
+  const idsActuales =
+    actuales.map(
+      e => e.exercise_id
+    );
+
+  const eliminar =
+    idsActuales.filter(
+      id =>
+        !ejerciciosSeleccionados.includes(
+          id
+        )
+    );
+
+  const agregar =
+    ejerciciosSeleccionados.filter(
+      id =>
+        !idsActuales.includes(
+          id
+        )
+    );
+
+  console.log(
+    "eliminar:",
+    eliminar
+  );
+
+  console.log(
+    "agregar:",
+    agregar
+  );
+
+}//guardarSeleccionEjercicios
+
 function abrirProgramLightbox(){
 
   document
