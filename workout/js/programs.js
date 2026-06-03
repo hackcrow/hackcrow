@@ -909,13 +909,7 @@ modal.classList.add("open");
 
 }//abrirDetalleEjercicio
 
-function guardarSeleccionEjercicios(){
 
-  console.log(
-    ejerciciosSeleccionados
-  );
-
-}//guardarSeleccionEjercicios
 
 document.addEventListener(
   "DOMContentLoaded",
