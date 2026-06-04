@@ -851,3 +851,38 @@
   transform:scale(1.08);
 
 }
+
+.routine-exercise-body{
+
+  display:none;
+
+  margin-top:16px;
+
+  padding-top:16px;
+
+  border-top:1px solid rgba(255,255,255,.08);
+
+}
+
+.routine-exercise-card.expanded
+.routine-exercise-body{
+
+  display:block;
+
+}
+
+.exercise-rest-timer{
+
+  font-size:13px;
+
+  color:rgba(255,255,255,.65);
+
+  margin-bottom:12px;
+
+}
+
+.add-set-btn{
+
+  width:100%;
+
+}
