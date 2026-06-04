@@ -945,18 +945,58 @@ async function abrirRutina(id){
           <div class="routine-exercise-body">
 
             <div class="exercise-rest-timer">
-
+          
               Rest Timer: Off
-
+          
             </div>
-
+          
+            <div class="set-table">
+          
+              <div class="set-header">
+          
+                <div>Set</div>
+          
+                <div>Previous</div>
+          
+                <div>Weight</div>
+          
+                <div>Reps</div>
+          
+              </div>
+          
+              <div class="set-row">
+          
+                <div>1</div>
+          
+                <div>—</div>
+          
+                <div>
+          
+                  <input
+                    type="number"
+                    value="0">
+          
+                </div>
+          
+                <div>
+          
+                  <input
+                    type="number"
+                    value="0">
+          
+                </div>
+          
+              </div>
+          
+            </div>
+          
             <button
               class="btn btn-ghost add-set-btn">
-
+          
               + Add Set
-
+          
             </button>
-
+          
           </div>
 
         </div>
