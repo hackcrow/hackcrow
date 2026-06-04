@@ -802,104 +802,105 @@ async function agregarEjercicioARutina(id){
 
 async function abrirRutina(id){
 
-    rutinaActiva = id;
-    
-    const {
+  rutinaActiva = id;
+
+  const {
     data:rutina
-    } =
+  } =
     await supabaseClient
-    .from("routines")
-    .select("*")
-    .eq("id", id)
-    .single();
-    
-    document
+      .from("routines")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+  document
     .getElementById(
-    "routineDetailTitle"
+      "routineDetailTitle"
     )
     .textContent =
-    rutina.nombre;
-    
-    const {
+      rutina.nombre;
+
+  const {
     data:ejercicios,
     error
-    } =
+  } =
     await supabaseClient
-    .from("routine_exercises")
-    .select(`         *,
-            exercises(*)
-          `)
-    .eq(
-    "routine_id",
-    id
-    )
-    .order(
-    "orden"
-    );
-    
-    console.log(
+      .from("routine_exercises")
+      .select(`
+        *,
+        exercises(*)
+      `)
+      .eq(
+        "routine_id",
+        id
+      )
+      .order(
+        "orden"
+      );
+
+  console.log(
     "rutina id:",
     id
-    );
-    
-    console.log(
+  );
+
+  console.log(
     "ejercicios:",
     ejercicios
-    );
-    
-    console.log(
+  );
+
+  console.log(
     "error:",
     error
-    );
-    
-    const list =
+  );
+
+  const list =
     document.getElementById(
-    "routineExerciseList"
+      "routineExerciseList"
     );
-    
-    list.innerHTML = "";
-    
-    if(
+
+  list.innerHTML = "";
+
+  if(
     !ejercicios ||
     ejercicios.length === 0
-    ){
-    
+  ){
+
     list.innerHTML = `
       <div class="empty-state">
         No hay ejercicios
       </div>
     `;
-    
-    }else{
-    
-   ejercicios.forEach(e => {
+
+  }else{
+
+    ejercicios.forEach(e => {
 
       list.innerHTML += `
-    
+
         <div class="routine-exercise-card">
-    
+
           <div class="routine-exercise-header">
-    
+
             <div
               class="routine-exercise-info"
               onclick="abrirDetalleEjercicio(${e.exercises.id})">
-    
+
               <div class="exercise-drag">
-    
+
                 ☰
-    
+
               </div>
-    
+
               <div>
-    
+
                 <div class="exercise-name">
-    
+
                   ${e.exercises?.nombre_en ?? "No Name"}
-    
+
                 </div>
-    
+
                 <div class="exercise-muscle">
-    
+
                   ${
                     e.exercises?.parte_cuerpo
                       ? e.exercises.parte_cuerpo
@@ -912,46 +913,63 @@ async function abrirRutina(id){
                           )
                       : ""
                   }
-    
+
                 </div>
-    
+
               </div>
-    
+
             </div>
-    
+
             <div class="routine-exercise-actions">
-    
+
               <button
                 class="exercise-delete-btn"
                 onclick="event.stopPropagation();">
-    
+
                 🗑
-    
+
               </button>
-    
+
               <button
                 class="exercise-expand-btn"
                 onclick="event.stopPropagation();toggleExerciseCard(this);">
-              
+
                 ▼
-              
+
               </button>
-    
+
             </div>
-    
+
           </div>
-    
+
+          <div class="routine-exercise-body">
+
+            <div class="exercise-rest-timer">
+
+              Rest Timer: Off
+
+            </div>
+
+            <button
+              class="btn btn-ghost add-set-btn">
+
+              + Add Set
+
+            </button>
+
+          </div>
+
         </div>
-    
+
       `;
-    
+
     });
-    
-    }
-    
-    document
+
+  }
+
+  document
     .getElementById(
-    "routineDetailOverlay"
+      "routineDetailOverlay"
     )
     .classList
     .add("open");
