@@ -850,42 +850,76 @@ async function abrirRutina(id){
     
     }else{
     
-    ejercicios.forEach(e => {
-    
+   ejercicios.forEach(e => {
+
       list.innerHTML += `
     
-        <div
-            class="routine-exercise-row"
-            onclick="abrirDetalleEjercicio(${e.exercises.id})">
-          
-            <div>
-          
-              <div class="exercise-name">
-          
-                ${e.exercises?.nombre_en ?? "No Name"}
-          
+        <div class="routine-exercise-card">
+    
+          <div class="routine-exercise-header">
+    
+            <div
+              class="routine-exercise-info"
+              onclick="abrirDetalleEjercicio(${e.exercises.id})">
+    
+              <div class="exercise-drag">
+    
+                ☰
+    
               </div>
-          
-              <div class="exercise-muscle">
-          
-                ${
-                  e.exercises?.parte_cuerpo
-                    ? e.exercises.parte_cuerpo
-                        .replaceAll("_"," ")
-                        .toLowerCase()
-                        .replace(
-                          /\b\w/g,
-                          letra =>
-                            letra.toUpperCase()
-                        )
-                    : ""
-                }
-          
+    
+              <div>
+    
+                <div class="exercise-name">
+    
+                  ${e.exercises?.nombre_en ?? "No Name"}
+    
+                </div>
+    
+                <div class="exercise-muscle">
+    
+                  ${
+                    e.exercises?.parte_cuerpo
+                      ? e.exercises.parte_cuerpo
+                          .replaceAll("_"," ")
+                          .toLowerCase()
+                          .replace(
+                            /\b\w/g,
+                            letra =>
+                              letra.toUpperCase()
+                          )
+                      : ""
+                  }
+    
+                </div>
+    
               </div>
-          
+    
             </div>
-          
+    
+            <div class="routine-exercise-actions">
+    
+              <button
+                class="exercise-delete-btn"
+                onclick="event.stopPropagation();">
+    
+                🗑
+    
+              </button>
+    
+              <button
+                class="exercise-expand-btn"
+                onclick="event.stopPropagation();">
+    
+                ▼
+    
+              </button>
+    
+            </div>
+    
           </div>
+    
+        </div>
     
       `;
     
