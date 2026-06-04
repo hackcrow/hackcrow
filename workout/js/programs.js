@@ -931,10 +931,10 @@ async function abrirRutina(id){
     
               <button
                 class="exercise-expand-btn"
-                onclick="event.stopPropagation();">
-    
+                onclick="event.stopPropagation();toggleExerciseCard(this);">
+              
                 ▼
-    
+              
               </button>
     
             </div>
