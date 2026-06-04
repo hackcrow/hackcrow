@@ -78,6 +78,37 @@ async function guardarSeleccionEjercicios(){
     eliminar
   );
 
+  if(
+  eliminar.length > 0
+){
+
+  const {
+        error:deleteError
+      } =
+        await supabaseClient
+          .from("routine_exercises")
+          .delete()
+          .eq(
+            "routine_id",
+            rutinaActiva
+          )
+          .in(
+            "exercise_id",
+            eliminar
+          );
+    
+      if(deleteError){
+    
+        console.error(
+          deleteError
+        );
+    
+        return;
+    
+      }
+    
+    }
+
 }//guardarSeleccionEjercicios
 
 function abrirProgramLightbox(){
