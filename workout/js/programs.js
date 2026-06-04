@@ -958,7 +958,7 @@ async function abrirRutina(id){
           
                 <div>Previous</div>
           
-                <div>Weight</div>
+                <div>Lbs</div>
           
                 <div>Reps</div>
           
