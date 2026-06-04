@@ -996,3 +996,25 @@
   width:min(345px,95vw);
 
 }
+
+.delete-set-btn{
+
+  background:none;
+
+  border:none;
+
+  color:#ff4d4f;
+
+  cursor:pointer;
+
+  font-size:16px;
+
+  font-weight:600;
+
+}
+
+.delete-set-btn:hover{
+
+  color:#ff8080;
+
+}
