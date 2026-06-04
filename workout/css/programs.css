@@ -711,3 +711,45 @@
   font-size:13px;
 
 }
+
+#toast{
+
+  position:fixed;
+
+  bottom:24px;
+
+  right:24px;
+
+  padding:14px 18px;
+
+  border:1px solid rgba(0,255,170,.25);
+
+  background:#111;
+
+  color:#00ffaa;
+
+  font-family:"DM Mono", monospace;
+
+  font-size:13px;
+
+  border-radius:12px;
+
+  opacity:0;
+
+  transform:translateY(12px);
+
+  pointer-events:none;
+
+  transition:.25s ease;
+
+  z-index:99999;
+
+}
+
+#toast.show{
+
+  opacity:1;
+
+  transform:translateY(0);
+
+}
