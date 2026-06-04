@@ -41,6 +41,39 @@ async function cargarProgramas(){
 
 }//cargarProgramas()
 
+function mostrarToast(
+  mensaje
+){
+
+  const toast =
+    document.getElementById(
+      "toast"
+    );
+
+  document
+    .getElementById(
+      "toastMessage"
+    )
+    .textContent =
+      mensaje;
+
+  toast.classList.add(
+    "show"
+  );
+
+  setTimeout(
+    () => {
+
+      toast.classList.remove(
+        "show"
+      );
+
+    },
+    2500
+  );
+
+}//mostrarToast
+
 async function guardarSeleccionEjercicios(){
 
   const {
@@ -173,9 +206,9 @@ async function guardarSeleccionEjercicios(){
     rutinaActiva
   );
 
-  alert(
-    "Cambios guardados"
-  );
+  mostrarToast(
+  "✓ Cambios guardados"
+);
 
 }//guardarSeleccionEjercicios
 
