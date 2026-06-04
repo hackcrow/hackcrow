@@ -162,7 +162,18 @@ async function guardarSeleccionEjercicios(){
 
   }
 
-  console.log(
+  document
+    .getElementById(
+      "exercisePickerOverlay"
+    )
+    .classList
+    .remove("open");
+
+  await abrirRutina(
+    rutinaActiva
+  );
+
+  alert(
     "Cambios guardados"
   );
 
