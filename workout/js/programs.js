@@ -41,6 +41,28 @@ async function cargarProgramas(){
 
 }//cargarProgramas()
 
+function toggleExerciseCard(
+    button
+  ){
+  
+    const card =
+      button.closest(
+        ".routine-exercise-card"
+      );
+  
+    card.classList.toggle(
+      "expanded"
+    );
+  
+    button.textContent =
+      card.classList.contains(
+        "expanded"
+      )
+        ? "▲"
+        : "▼";
+
+}//toggleExerciseCard
+
 function mostrarToast(
   mensaje
 ){
