@@ -277,6 +277,51 @@ function abrirProgramLightbox(){
 
 }//abrirProgramLightbox()
 
+function addSet(button){
+
+  const card =
+    button.closest(
+      ".routine-exercise-card"
+    );
+
+  const rowsContainer =
+    card.querySelector(
+      ".set-rows"
+    );
+
+  const setNumber =
+    rowsContainer.children.length + 1;
+
+  rowsContainer.innerHTML += `
+
+    <div class="set-row">
+
+      <div>${setNumber}</div>
+
+      <div>—</div>
+
+      <div>
+
+        <input
+          type="text"
+          value="0">
+
+      </div>
+
+      <div>
+
+        <input
+          type="text"
+          value="0">
+
+      </div>
+
+    </div>
+
+  `;
+
+}//addSet
+
 function cerrarProgramLightbox(){
 
   document
@@ -1026,10 +1071,11 @@ async function abrirRutina(id){
             </div>
     
             <button
-              class="btn btn-ghost add-set-btn">
-    
+              class="btn btn-ghost add-set-btn"
+              onclick="addSet(this)">
+            
               + Add Set
-    
+            
             </button>
     
           </div>
