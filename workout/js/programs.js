@@ -42,24 +42,55 @@ async function cargarProgramas(){
 }//cargarProgramas()
 
 function toggleExerciseCard(
-    button
-  ){
-  
-    const card =
-      button.closest(
-        ".routine-exercise-card"
-      );
-  
-    card.classList.toggle(
+  button
+){
+
+  const card =
+    button.closest(
+      ".routine-exercise-card"
+    );
+
+  const expanded =
+    card.classList.contains(
       "expanded"
     );
-  
-    button.textContent =
-      card.classList.contains(
+
+  document
+    .querySelectorAll(
+      ".routine-exercise-card"
+    )
+    .forEach(c => {
+
+      c.classList.remove(
         "expanded"
-      )
-        ? "▲"
-        : "▼";
+      );
+
+      const btn =
+        c.querySelector(
+          ".exercise-expand-btn"
+        );
+
+      if(btn){
+
+        btn.textContent =
+          "▼";
+
+      }
+
+    });
+
+  if(
+    !expanded
+  ){
+
+    card.classList.add(
+      "expanded"
+    );
+
+    button.textContent =
+      "▲";
+
+  }
 
 }//toggleExerciseCard
 
