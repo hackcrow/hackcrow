@@ -973,7 +973,7 @@ async function abrirRutina(id){
                 <div>
           
                   <input
-                    type="number"
+                    type="text"
                     value="0">
           
                 </div>
