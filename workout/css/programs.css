@@ -995,3 +995,9 @@
   border-radius:8px;
 
 }
+
+.routine-workout-card{
+
+  width:min(900px,95vw);
+
+}
