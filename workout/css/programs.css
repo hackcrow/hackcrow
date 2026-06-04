@@ -886,3 +886,58 @@
   width:100%;
 
 }
+
+.set-table{
+
+  margin-top:14px;
+
+}
+
+.set-header,
+.set-row{
+
+  display:grid;
+
+  grid-template-columns:
+    50px
+    1fr
+    80px
+    80px;
+
+  gap:10px;
+
+  align-items:center;
+
+}
+
+.set-header{
+
+  font-size:12px;
+
+  opacity:.65;
+
+  margin-bottom:10px;
+
+}
+
+.set-row{
+
+  margin-bottom:10px;
+
+}
+
+.set-row input{
+
+  width:100%;
+
+  padding:8px;
+
+  border:1px solid rgba(255,255,255,.08);
+
+  background:rgba(255,255,255,.03);
+
+  color:white;
+
+  border-radius:8px;
+
+}
