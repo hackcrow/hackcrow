@@ -265,6 +265,8 @@ async function guardarSeleccionEjercicios(){
 
 }//guardarSeleccionEjercicios
 
+
+
 function abrirProgramLightbox(){
 
   document
@@ -276,6 +278,17 @@ function abrirProgramLightbox(){
     );
 
 }//abrirProgramLightbox()
+
+function deleteSet(button){
+
+  const row =
+    button.closest(
+      ".set-row"
+    );
+
+  row.remove();
+
+}//deleteSet
 
 function addSet(button){
 
@@ -1040,30 +1053,40 @@ async function abrirRutina(id){
     
               </div>
     
-              <div class="set-rows">
-    
-                <div class="set-row">
-    
+              <div class="set-row">
+
                   <div>1</div>
-    
+                
                   <div>—</div>
-    
+                
                   <div>
-    
+                
                     <input
                       type="text"
                       value="0">
-    
+                
                   </div>
-    
+                
                   <div>
-    
+                
                     <input
                       type="text"
                       value="0">
-    
+                
                   </div>
-    
+                
+                  <div>
+                
+                    <button
+                      class="delete-set-btn"
+                      onclick="deleteSet(this)">
+                
+                      ✕
+                
+                    </button>
+                
+                  </div>
+                
                 </div>
     
               </div>
@@ -1078,6 +1101,18 @@ async function abrirRutina(id){
             
             </button>
     
+          </div>
+
+          <div>
+
+            <button
+              class="delete-set-btn"
+              onclick="deleteSet(this)">
+      
+              ✕
+      
+            </button>
+      
           </div>
     
         </div>
