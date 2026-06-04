@@ -907,31 +907,31 @@ async function abrirRutina(id){
     ejercicios.forEach(e => {
 
       list.innerHTML += `
-
+    
         <div class="routine-exercise-card">
-
+    
           <div class="routine-exercise-header">
-
+    
             <div
               class="routine-exercise-info"
               onclick="abrirDetalleEjercicio(${e.exercises.id})">
-
+    
               <div class="exercise-drag">
-
+    
                 ☰
-
+    
               </div>
-
+    
               <div>
-
+    
                 <div class="exercise-name">
-
+    
                   ${e.exercises?.nombre_en ?? "No Name"}
-
+    
                 </div>
-
+    
                 <div class="exercise-muscle">
-
+    
                   ${
                     e.exercises?.parte_cuerpo
                       ? e.exercises.parte_cuerpo
@@ -944,96 +944,100 @@ async function abrirRutina(id){
                           )
                       : ""
                   }
-
+    
                 </div>
-
+    
               </div>
-
+    
             </div>
-
+    
             <div class="routine-exercise-actions">
-
+    
               <button
                 class="exercise-delete-btn"
                 onclick="event.stopPropagation();">
-
+    
                 🗑
-
+    
               </button>
-
+    
               <button
                 class="exercise-expand-btn"
                 onclick="event.stopPropagation();toggleExerciseCard(this);">
-
+    
                 ▼
-
+    
               </button>
-
+    
             </div>
-
+    
           </div>
-
+    
           <div class="routine-exercise-body">
-
+    
             <div class="exercise-rest-timer">
-          
+    
               Rest Timer: Off
-          
+    
             </div>
-          
+    
             <div class="set-table">
-          
+    
               <div class="set-header">
-          
+    
                 <div>Set</div>
-          
+    
                 <div>Previous</div>
-          
+    
                 <div>Lbs</div>
-          
+    
                 <div>Reps</div>
-          
+    
               </div>
-          
-              <div class="set-row">
-          
-                <div>1</div>
-          
-                <div>—</div>
-          
-                <div>
-          
-                  <input
-                    type="text"
-                    value="0">
-          
+    
+              <div class="set-rows">
+    
+                <div class="set-row">
+    
+                  <div>1</div>
+    
+                  <div>—</div>
+    
+                  <div>
+    
+                    <input
+                      type="text"
+                      value="0">
+    
+                  </div>
+    
+                  <div>
+    
+                    <input
+                      type="text"
+                      value="0">
+    
+                  </div>
+    
                 </div>
-          
-                <div>
-          
-                  <input
-                    type="number"
-                    value="0">
-          
-                </div>
-          
+    
               </div>
-          
+    
             </div>
-          
+    
             <button
               class="btn btn-ghost add-set-btn">
-          
+    
               + Add Set
-          
+    
             </button>
-          
+    
           </div>
-
+    
         </div>
-
+    
       `;
-
+    
     });
 
   }
