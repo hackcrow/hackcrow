@@ -810,28 +810,13 @@
 
 }
 
-.exercise-delete-btn,
-.exercise-expand-btn{
-
-  background:none;
-
-  border:none;
-
-  color:#ff3b3b;
-
-  cursor:pointer;
-
-  font-size:18px;
-
-}
-
 .exercise-delete-btn{
 
   background:none;
 
   border:none;
 
-  color:#ff5d5d;
+  color:#ff4d4f;
 
   cursor:pointer;
 
@@ -842,6 +827,26 @@
 .exercise-delete-btn:hover{
 
   color:#ff8080;
+
+}
+
+.exercise-expand-btn{
+
+  background:none;
+
+  border:none;
+
+  color:var(--accent);
+
+  cursor:pointer;
+
+  font-size:18px;
+
+}
+
+.exercise-expand-btn:hover{
+
+  opacity:.8;
 
   transform:scale(1.08);
 
