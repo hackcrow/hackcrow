@@ -43,10 +43,6 @@ async function cargarProgramas(){
 
 async function guardarSeleccionEjercicios(){
 
-  console.log(
-    "ENTRO A GUARDAR"
-  );
-
   const {
     data:actuales,
     error
@@ -77,20 +73,9 @@ async function guardarSeleccionEjercicios(){
         !ejerciciosSeleccionados.includes(id)
     );
 
-  const agregar =
-    ejerciciosSeleccionados.filter(
-      id =>
-        !idsActuales.includes(id)
-    );
-
   console.log(
     "eliminar:",
     eliminar
-  );
-
-  console.log(
-    "agregar:",
-    agregar
   );
 
 }//guardarSeleccionEjercicios
