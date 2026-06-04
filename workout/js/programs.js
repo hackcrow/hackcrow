@@ -70,44 +70,101 @@ async function guardarSeleccionEjercicios(){
   const eliminar =
     idsActuales.filter(
       id =>
-        !ejerciciosSeleccionados.includes(id)
+        !ejerciciosSeleccionados.includes(
+          id
+        )
     );
 
-  console.log(
-    "eliminar:",
-    eliminar
-  );
+  if(
+    eliminar.length > 0
+  ){
+
+    const {
+      error:deleteError
+    } =
+      await supabaseClient
+        .from("routine_exercises")
+        .delete()
+        .eq(
+          "routine_id",
+          rutinaActiva
+        )
+        .in(
+          "exercise_id",
+          eliminar
+        );
+
+    if(deleteError){
+
+      console.error(
+        deleteError
+      );
+
+      return;
+
+    }
+
+  }
+
+  const agregar =
+    ejerciciosSeleccionados.filter(
+      id =>
+        !idsActuales.includes(
+          id
+        )
+    );
 
   if(
-  eliminar.length > 0
-){
+    agregar.length > 0
+  ){
 
-  const {
-        error:deleteError
-      } =
-        await supabaseClient
-          .from("routine_exercises")
-          .delete()
-          .eq(
-            "routine_id",
-            rutinaActiva
-          )
-          .in(
-            "exercise_id",
-            eliminar
-          );
-    
-      if(deleteError){
-    
-        console.error(
-          deleteError
+    const nuevos =
+      agregar.map(
+        (
+          exerciseId,
+          index
+        ) => ({
+
+          routine_id:
+            rutinaActiva,
+
+          exercise_id:
+            exerciseId,
+
+          orden:
+            idsActuales.length +
+            index +
+            1
+
+        })
+      );
+
+    const {
+      error:insertError
+    } =
+      await supabaseClient
+        .from(
+          "routine_exercises"
+        )
+        .insert(
+          nuevos
         );
-    
-        return;
-    
-      }
-    
+
+    if(insertError){
+
+      console.error(
+        insertError
+      );
+
+      return;
+
     }
+
+  }
+
+  console.log(
+    "Cambios guardados"
+  );
 
 }//guardarSeleccionEjercicios
 
