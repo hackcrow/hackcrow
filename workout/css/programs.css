@@ -892,6 +892,8 @@
 
   margin-top:14px;
 
+  overflow-x:hidden;
+
 }
 
 .set-header,
@@ -900,15 +902,13 @@
   display:grid;
 
   grid-template-columns:
+    35px
     50px
-    80px
-    120px
-    120px
-    40px;
+    70px
+    70px
+    25px;
 
   align-items:center;
-
-  gap:12px;
 
 }
 
@@ -937,13 +937,13 @@
 
 .set-row input{
 
-  width:70px;
+  width:60px;
 
   height:42px;
 
   box-sizing:border-box;
 
-  padding:0 12px;
+  padding:0 8px;
 
   border:none;
 
