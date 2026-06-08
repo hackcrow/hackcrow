@@ -1118,6 +1118,14 @@ async function abrirRutina(id){
                 + Add Set
           
               </button>
+
+              <button
+                class="btn save-sets-btn"
+                onclick="guardarSets(this)">
+              
+                💾 Guardar Sets
+              
+              </button>
           
             </div>
           
