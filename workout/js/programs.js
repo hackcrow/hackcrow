@@ -329,6 +329,18 @@ function addSet(button){
 
       </div>
 
+      <div>
+
+        <button
+          class="delete-set-btn"
+          onclick="deleteSet(this)">
+
+          ✕
+
+        </button>
+
+      </div>
+
     </div>
 
   `;
