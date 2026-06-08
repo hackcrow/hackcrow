@@ -1042,15 +1042,17 @@ async function abrirRutina(id){
               <div class="set-table">
           
                 <div class="set-header">
-          
+
                   <div>Set</div>
-          
+                
                   <div>Previous</div>
-          
+                
                   <div>Lbs</div>
-          
+                
                   <div>Reps</div>
-          
+                
+                  <div></div>
+                
                 </div>
           
                 <div class="set-rows">
