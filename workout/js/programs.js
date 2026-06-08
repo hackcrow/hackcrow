@@ -1306,8 +1306,52 @@ async function guardarSets(button){
     }
   );
 
-  console.log(
-    sets
+  const {
+    error:deleteError
+  } =
+    await supabaseClient
+      .from(
+        "routine_sets"
+      )
+      .delete()
+      .eq(
+        "routine_exercise_id",
+        routineExerciseId
+      );
+
+  if(deleteError){
+
+    console.error(
+      deleteError
+    );
+
+    return;
+
+  }
+
+  const {
+    error:insertError
+  } =
+    await supabaseClient
+      .from(
+        "routine_sets"
+      )
+      .insert(
+        sets
+      );
+
+  if(insertError){
+
+    console.error(
+      insertError
+    );
+
+    return;
+
+  }
+
+  mostrarToast(
+    "Sets guardados"
   );
 
 }//guardarSets
