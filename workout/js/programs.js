@@ -1119,11 +1119,11 @@ async function abrirRutina(id){
           
               </button>
 
-              <button
-                class="btn save-sets-btn"
+             <button
+                class="btn btn-ghost save-sets-btn"
                 onclick="guardarSets(this)">
               
-                💾 Guardar Sets
+                Save Sets
               
               </button>
           
