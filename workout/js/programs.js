@@ -1265,9 +1265,49 @@ async function guardarSets(button){
         .routineExerciseId
     );
 
+  const rows =
+    card.querySelectorAll(
+      ".set-row"
+    );
+
+  const sets = [];
+
+  rows.forEach(
+    (
+      row,
+      index
+    ) => {
+
+      const inputs =
+        row.querySelectorAll(
+          "input"
+        );
+
+      sets.push({
+
+        routine_exercise_id:
+          routineExerciseId,
+
+        set_number:
+          index + 1,
+
+        weight:
+          Number(
+            inputs[0].value
+          ) || 0,
+
+        reps:
+          Number(
+            inputs[1].value
+          ) || 0
+
+      });
+
+    }
+  );
+
   console.log(
-    "routineExerciseId:",
-    routineExerciseId
+    sets
   );
 
 }//guardarSets
