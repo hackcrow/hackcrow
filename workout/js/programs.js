@@ -1252,21 +1252,41 @@ document
     }
   );
 
+async function guardarSets(button){
+
+  const card =
+    button.closest(
+      ".routine-exercise-card"
+    );
+
+  const routineExerciseId =
+    Number(
+      card.dataset
+        .routineExerciseId
+    );
+
+  console.log(
+    "routineExerciseId:",
+    routineExerciseId
+  );
+
+}//guardarSets
+
 function abrirDetalleEjercicio(id){
 
-console.log(
-"detalle ejercicio:",
-id
-);
-
-const modal =
-document.getElementById(
-"exerciseDetailOverlay"
-);
-
-console.log(modal);
-
-modal.classList.add("open");
+  console.log(
+  "detalle ejercicio:",
+  id
+  );
+  
+  const modal =
+  document.getElementById(
+  "exerciseDetailOverlay"
+  );
+  
+  console.log(modal);
+  
+  modal.classList.add("open");
 
 }//abrirDetalleEjercicio
 
