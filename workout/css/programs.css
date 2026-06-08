@@ -900,12 +900,11 @@
   display:grid;
 
   grid-template-columns:
-    40px
-    60px
-    70px
-    70px;
-
-  gap:10px;
+    50px
+    1fr
+    90px
+    90px
+    40px;
 
   align-items:center;
 
