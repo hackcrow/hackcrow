@@ -979,168 +979,231 @@ async function abrirRutina(id){
 
   }else{
 
-    ejercicios.forEach(e => {
+  ejercicios.forEach(e => {
 
-      list.innerHTML += `
-    
-        <div
-          class="routine-exercise-card"
-          data-routine-exercise-id="${e.id}">
+    let setsHtml = "";
 
-            <div class="routine-exercise-header">
-          
-              <div
-                class="routine-exercise-info"
-                onclick="abrirDetalleEjercicio(${e.exercises.id})">
-          
-                <div class="exercise-drag">
-          
-                  ☰
-          
-                </div>
-          
-                <div>
-          
-                  <div class="exercise-name">
-          
-                    ${e.exercises?.nombre_en ?? "No Name"}
-          
-                  </div>
-          
-                  <div class="exercise-muscle">
-          
-                    ${
-                      e.exercises?.parte_cuerpo
-                        ? e.exercises.parte_cuerpo
-                            .replaceAll("_"," ")
-                            .toLowerCase()
-                            .replace(
-                              /\b\w/g,
-                              letra =>
-                                letra.toUpperCase()
-                            )
-                        : ""
-                    }
-          
-                  </div>
-          
-                </div>
-          
+    if(
+      e.routine_sets &&
+      e.routine_sets.length > 0
+    ){
+
+      e.routine_sets.forEach(
+        set => {
+
+          setsHtml += `
+
+            <div class="set-row">
+
+              <div>${set.set_number}</div>
+
+              <div>—</div>
+
+              <div>
+
+                <input
+                  type="text"
+                  value="${set.weight}">
+
               </div>
-          
-              <div class="routine-exercise-actions">
-          
+
+              <div>
+
+                <input
+                  type="text"
+                  value="${set.reps}">
+
+              </div>
+
+              <div>
+
                 <button
-                  class="exercise-delete-btn"
-                  onclick="event.stopPropagation();">
-          
-                  🗑
-          
-                </button>
-          
-                <button
-                  class="exercise-expand-btn"
-                  onclick="event.stopPropagation();toggleExerciseCard(this);">
-          
-                  ▼
-          
-                </button>
-          
-              </div>
-          
-            </div>
-          
-            <div class="routine-exercise-body">
-          
-              <div class="exercise-rest-timer">
-          
-                Rest Timer: Off
-          
-              </div>
-          
-              <div class="set-table">
-          
-                <div class="set-header">
+                  class="delete-set-btn"
+                  onclick="deleteSet(this)">
 
-                  <div>Set</div>
-                
-                  <div>Previous</div>
-                
-                  <div>Lbs</div>
-                
-                  <div>Reps</div>
-                
-                  <div></div>
-                
-                </div>
-          
-                <div class="set-rows">
-          
-                  <div class="set-row">
-          
-                    <div>1</div>
-          
-                    <div>—</div>
-          
-                    <div>
-          
-                      <input
-                        type="text"
-                        value="0">
-          
-                    </div>
-          
-                    <div>
-          
-                      <input
-                        type="text"
-                        value="0">
-          
-                    </div>
-          
-                    <div>
-          
-                      <button
-                        class="delete-set-btn"
-                        onclick="deleteSet(this)">
-          
-                        ✕
-          
-                      </button>
-          
-                    </div>
-          
-                  </div>
-          
-                </div>
-          
-              </div>
-          
-              <button
-                class="btn btn-ghost add-set-btn"
-                onclick="addSet(this)">
-          
-                + Add Set
-          
-              </button>
+                  ✕
 
-             <button
-                class="btn btn-ghost save-sets-btn"
-                onclick="guardarSets(this)">
-              
-                Save Sets
-              
-              </button>
-          
+                </button>
+
+              </div>
+
             </div>
-          
+
+          `;
+
+        }
+      );
+
+    }else{
+
+      setsHtml = `
+
+        <div class="set-row">
+
+          <div>1</div>
+
+          <div>—</div>
+
+          <div>
+
+            <input
+              type="text"
+              value="0">
+
           </div>
-    
-      `;
-    
-    });
 
-  }
+          <div>
+
+            <input
+              type="text"
+              value="0">
+
+          </div>
+
+          <div>
+
+            <button
+              class="delete-set-btn"
+              onclick="deleteSet(this)">
+
+              ✕
+
+            </button>
+
+          </div>
+
+        </div>
+
+      `;
+
+    }
+
+    list.innerHTML += `
+  
+      <div
+        class="routine-exercise-card"
+        data-routine-exercise-id="${e.id}">
+
+        <div class="routine-exercise-header">
+        
+          <div
+            class="routine-exercise-info"
+            onclick="abrirDetalleEjercicio(${e.exercises.id})">
+        
+            <div class="exercise-drag">
+        
+              ☰
+        
+            </div>
+        
+            <div>
+        
+              <div class="exercise-name">
+        
+                ${e.exercises?.nombre_en ?? "No Name"}
+        
+              </div>
+        
+              <div class="exercise-muscle">
+        
+                ${
+                  e.exercises?.parte_cuerpo
+                    ? e.exercises.parte_cuerpo
+                        .replaceAll("_"," ")
+                        .toLowerCase()
+                        .replace(
+                          /\b\w/g,
+                          letra =>
+                            letra.toUpperCase()
+                        )
+                    : ""
+                }
+        
+              </div>
+        
+            </div>
+        
+          </div>
+        
+          <div class="routine-exercise-actions">
+        
+            <button
+              class="exercise-delete-btn"
+              onclick="event.stopPropagation();">
+        
+              🗑
+        
+            </button>
+        
+            <button
+              class="exercise-expand-btn"
+              onclick="event.stopPropagation();toggleExerciseCard(this);">
+        
+              ▼
+        
+            </button>
+        
+          </div>
+        
+        </div>
+        
+        <div class="routine-exercise-body">
+        
+          <div class="exercise-rest-timer">
+        
+            Rest Timer: Off
+        
+          </div>
+        
+          <div class="set-table">
+        
+            <div class="set-header">
+
+              <div>Set</div>
+            
+              <div>Previous</div>
+            
+              <div>Lbs</div>
+            
+              <div>Reps</div>
+            
+              <div></div>
+            
+            </div>
+        
+            <div class="set-rows">
+
+              ${setsHtml}
+
+            </div>
+        
+          </div>
+        
+          <button
+            class="btn btn-ghost add-set-btn"
+            onclick="addSet(this)">
+        
+            + Add Set
+        
+          </button>
+
+          <button
+            class="btn btn-ghost save-sets-btn"
+            onclick="guardarSets(this)">
+            
+            Save Sets
+            
+          </button>
+        
+        </div>
+        
+      </div>
+  
+    `;
+
+  });
+
+}
 
   document
     .getElementById(
