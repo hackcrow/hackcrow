@@ -922,22 +922,27 @@ async function abrirRutina(id){
       rutina.nombre;
 
   const {
-    data:ejercicios,
-    error
-  } =
-    await supabaseClient
-      .from("routine_exercises")
-      .select(`
-        *,
-        exercises(*)
-      `)
-      .eq(
-        "routine_id",
-        id
-      )
-      .order(
-        "orden"
-      );
+      data:ejercicios,
+      error
+    } =
+      await supabaseClient
+        .from("routine_exercises")
+        .select(`
+          *,
+          exercises(*),
+          routine_sets(*)
+        `)
+        .eq(
+          "routine_id",
+          id
+        )
+        .order(
+          "orden"
+        );
+  
+  console.log(
+    ejercicios
+  );
 
   console.log(
     "rutina id:",
