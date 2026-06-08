@@ -978,7 +978,9 @@ async function abrirRutina(id){
 
       list.innerHTML += `
     
-        <div class="routine-exercise-card">
+        <div
+          class="routine-exercise-card"
+          data-routine-exercise-id="${e.id}">
 
             <div class="routine-exercise-header">
           
