@@ -1133,10 +1133,10 @@ async function abrirRutina(id){
         
             <button
               class="exercise-delete-btn"
-              onclick="event.stopPropagation();">
-        
+              onclick="event.stopPropagation();eliminarEjercicio(${e.id});">
+            
               🗑
-        
+            
             </button>
         
             <button
@@ -1446,7 +1446,57 @@ function abrirDetalleEjercicio(id){
 
 }//abrirDetalleEjercicio
 
+async function eliminarEjercicio(
+  routineExerciseId
+){
 
+  const confirmar =
+    confirm(
+      "¿Eliminar este ejercicio de la rutina?"
+    );
+
+  if(
+    !confirmar
+  ){
+    return;
+  }
+
+  const {
+    error
+  } =
+    await supabaseClient
+      .from(
+        "routine_exercises"
+      )
+      .delete()
+      .eq(
+        "id",
+        routineExerciseId
+      );
+
+  if(error){
+
+    console.error(
+      error
+    );
+
+    mostrarToast(
+      "Error al eliminar"
+    );
+
+    return;
+
+  }
+
+  mostrarToast(
+    "Ejercicio eliminado"
+  );
+
+  abrirRutina(
+    rutinaActiva
+  );
+
+}//eliminarEjercicio
 
 document.addEventListener(
   "DOMContentLoaded",
