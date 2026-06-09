@@ -1155,10 +1155,68 @@ async function abrirRutina(id){
         <div class="routine-exercise-body">
         
           <div class="exercise-rest-timer">
-        
-            Rest Timer: Off
-        
-          </div>
+
+              <label>
+            
+                Rest Timer
+            
+              </label>
+            
+              <select
+                class="rest-time-select"
+                onchange="guardarRestTime(this, ${e.id})">
+            
+                <option
+                  value=""
+                  ${!e.rest_time ? "selected" : ""}>
+            
+                  Off
+            
+                </option>
+            
+                <option
+                  value="30"
+                  ${e.rest_time == 30 ? "selected" : ""}>
+            
+                  30s
+            
+                </option>
+            
+                <option
+                  value="60"
+                  ${e.rest_time == 60 ? "selected" : ""}>
+            
+                  60s
+            
+                </option>
+            
+                <option
+                  value="90"
+                  ${e.rest_time == 90 ? "selected" : ""}>
+            
+                  90s
+            
+                </option>
+            
+                <option
+                  value="120"
+                  ${e.rest_time == 120 ? "selected" : ""}>
+            
+                  120s
+            
+                </option>
+            
+                <option
+                  value="180"
+                  ${e.rest_time == 180 ? "selected" : ""}>
+            
+                  180s
+            
+                </option>
+            
+              </select>
+            
+            </div>
         
           <div class="set-table">
         
@@ -1470,6 +1528,56 @@ async function eliminarEjercicio(
     .add("open");
 
 }//eliminarEjercicio
+
+async function guardarRestTime(
+  select,
+  routineExerciseId
+){
+
+  const valor =
+    select.value === ""
+      ? null
+      : Number(
+          select.value
+        );
+
+  const {
+    error
+  } =
+    await supabaseClient
+      .from(
+        "routine_exercises"
+      )
+      .update({
+
+        rest_time:
+          valor
+
+      })
+      .eq(
+        "id",
+        routineExerciseId
+      );
+
+  if(error){
+
+    console.error(
+      error
+    );
+
+    mostrarToast(
+      "Error"
+    );
+
+    return;
+
+  }
+
+  mostrarToast(
+    "Rest Timer actualizado"
+  );
+
+}//guardarRestTime
 
 document
   .getElementById(
