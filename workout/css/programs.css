@@ -1125,7 +1125,24 @@
 
 }
 
+.delete-routine-item{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  padding:12px 0;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.05);
+
+}
+
 .routine-delete-btn{
+
+  color:#ff4d4d;
 
   background:none;
 
@@ -1133,6 +1150,12 @@
 
   cursor:pointer;
 
-  font-size:18px;
+  font-size:20px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
 
 }
