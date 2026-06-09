@@ -1086,8 +1086,9 @@ async function abrirRutina(id){
     list.innerHTML += `
   
       <div
-        class="routine-exercise-card"
-        data-routine-exercise-id="${e.id}">
+          class="routine-exercise-card"
+          data-routine-exercise-id="${e.id}"
+          draggable="true">
 
         <div class="routine-exercise-header">
         
@@ -1268,6 +1269,8 @@ async function abrirRutina(id){
 
 }
 
+  activarDragDropEjercicios();
+
   document
     .getElementById(
       "routineDetailOverlay"
@@ -1276,6 +1279,182 @@ async function abrirRutina(id){
     .add("open");
 
 }//abrirRutina
+
+function activarDragDropEjercicios(){
+
+  const draggableItems =
+    document.querySelectorAll(
+      ".routine-exercise-card"
+    );
+
+  let draggedItem =
+    null;
+
+  draggableItems.forEach(
+    item => {
+
+      item.addEventListener(
+        "dragstart",
+        () => {
+
+          draggedItem =
+            item;
+
+          item.classList.add(
+            "dragging"
+          );
+
+        }
+      );
+
+      item.addEventListener(
+        "dragend",
+        async () => {
+
+          item.classList.remove(
+            "dragging"
+          );
+
+          document
+            .querySelectorAll(
+              ".routine-exercise-card"
+            )
+            .forEach(
+              el => {
+
+                el.classList.remove(
+                  "drag-over"
+                );
+
+              }
+            );
+
+          const updatedItems =
+            document.querySelectorAll(
+              ".routine-exercise-card"
+            );
+
+          for(
+            let i = 0;
+            i < updatedItems.length;
+            i++
+          ){
+
+            const id =
+              updatedItems[i]
+                .dataset
+                .routineExerciseId;
+
+            await supabaseClient
+
+              .from(
+                "routine_exercises"
+              )
+
+              .update({
+                orden:i + 1
+              })
+
+              .eq(
+                "id",
+                id
+              );
+
+          }
+
+        }
+      );
+
+      item.addEventListener(
+        "dragover",
+        e => {
+
+          e.preventDefault();
+
+          if(
+            item !== draggedItem
+          ){
+
+            item.classList.add(
+              "drag-over"
+            );
+
+          }
+
+        }
+      );
+
+      item.addEventListener(
+        "dragleave",
+        () => {
+
+          item.classList.remove(
+            "drag-over"
+          );
+
+        }
+      );
+
+      item.addEventListener(
+        "drop",
+        e => {
+
+          e.preventDefault();
+
+          item.classList.remove(
+            "drag-over"
+          );
+
+          if(
+            item !== draggedItem
+          ){
+
+            const container =
+              item.parentNode;
+
+            const items =
+              [
+                ...container.querySelectorAll(
+                  ".routine-exercise-card"
+                )
+              ];
+
+            const draggedIndex =
+              items.indexOf(
+                draggedItem
+              );
+
+            const targetIndex =
+              items.indexOf(
+                item
+              );
+
+            if(
+              draggedIndex <
+              targetIndex
+            ){
+
+              item.after(
+                draggedItem
+              );
+
+            }else{
+
+              item.before(
+                draggedItem
+              );
+
+            }
+
+          }
+
+        }
+      );
+
+    }
+  );
+
+}//activarDragDropEjercicios
 
 
 document
