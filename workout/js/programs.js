@@ -997,23 +997,27 @@ async function abrirRutina(id){
 
               <div>${set.set_number}</div>
 
-              <div>—</div>
-
-              <div>
-
-                <input
-                  type="text"
-                  value="${set.weight}">
-
-              </div>
-
-              <div>
-
-                <input
-                  type="text"
-                  value="${set.reps}">
-
-              </div>
+                <div>
+                
+                  ${set.weight}x${set.reps}
+                
+                </div>
+                
+                <div>
+                
+                  <input
+                    type="text"
+                    value="${set.weight}">
+                
+                </div>
+                
+                <div>
+                
+                  <input
+                    type="text"
+                    value="${set.reps}">
+                
+                </div>
 
               <div>
 
