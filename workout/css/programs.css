@@ -767,6 +767,32 @@
 
   margin-bottom:14px;
 
+  transition:
+    transform .18s ease,
+    opacity .18s ease,
+    filter .18s ease,
+    box-shadow .18s ease;
+
+}
+
+.routine-exercise-card.dragging{
+
+  opacity:.55;
+
+  filter:blur(2px);
+
+  transform:scale(.98);
+
+}
+
+.routine-exercise-card.drag-over{
+
+  transform:translateY(-4px);
+
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.15),
+    0 12px 30px rgba(0,0,0,.35);
+
 }
 
 .routine-exercise-header{
@@ -1066,3 +1092,4 @@
   padding:6px 10px;
 
 }
+
