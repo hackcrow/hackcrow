@@ -1134,7 +1134,7 @@ async function abrirRutina(id){
         
             <button
               class="exercise-delete-btn"
-              onclick="event.stopPropagation();eliminarEjercicio(${e.id});">
+              onclick="event.stopPropagation();eliminarEjercicio(${e.id}, '${e.exercises?.nombre_en ?? "Exercise"}');">
             
               🗑
             
@@ -1448,11 +1448,19 @@ function abrirDetalleEjercicio(id){
 }//abrirDetalleEjercicio
 
 async function eliminarEjercicio(
-  routineExerciseId
+  routineExerciseId,
+  nombreEjercicio
 ){
 
   ejercicioPendienteEliminar =
     routineExerciseId;
+
+  document
+    .querySelector(
+      "#deleteExerciseOverlay .lightbox-body p"
+    )
+    .textContent =
+      `¿Deseas eliminar "${nombreEjercicio}" de la rutina?`;
 
   document
     .getElementById(
