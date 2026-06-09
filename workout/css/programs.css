@@ -777,24 +777,22 @@
 
 .routine-exercise-card.dragging{
 
-  opacity:.55;
+  opacity:.45;
 
-  filter:blur(2px);
+  filter:blur(3px);
 
-  transform:scale(.98);
+  transform:scale(.96);
 
 }
 
 .routine-exercise-card.drag-over{
 
-  border-color:
-    rgba(255,255,255,.25);
+  transform:translateY(-6px);
 
-  background:
-    rgba(255,255,255,.03);
-
-  transform:
-    translateY(-4px);
+  box-shadow:
+    0 0 12px rgba(255,255,255,.10),
+    0 0 24px rgba(255,255,255,.05),
+    0 12px 30px rgba(0,0,0,.40);
 
 }
 
