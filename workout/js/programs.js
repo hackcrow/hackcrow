@@ -2,6 +2,7 @@ let programas = [];
 let programaActivo = null;
 let rutinaActiva = null;
 let ejerciciosSeleccionados = [];
+let ejercicioPendienteEliminar = null;
 
 async function cargarProgramas(){
 
@@ -1450,53 +1451,97 @@ async function eliminarEjercicio(
   routineExerciseId
 ){
 
-  const confirmar =
-    confirm(
-      "¿Eliminar este ejercicio de la rutina?"
-    );
+  ejercicioPendienteEliminar =
+    routineExerciseId;
 
-  if(
-    !confirmar
-  ){
-    return;
-  }
-
-  const {
-    error
-  } =
-    await supabaseClient
-      .from(
-        "routine_exercises"
-      )
-      .delete()
-      .eq(
-        "id",
-        routineExerciseId
-      );
-
-  if(error){
-
-    console.error(
-      error
-    );
-
-    mostrarToast(
-      "Error al eliminar"
-    );
-
-    return;
-
-  }
-
-  mostrarToast(
-    "Ejercicio eliminado"
-  );
-
-  abrirRutina(
-    rutinaActiva
-  );
+  document
+    .getElementById(
+      "deleteExerciseOverlay"
+    )
+    .classList
+    .add("open");
 
 }//eliminarEjercicio
+
+document
+  .getElementById(
+    "deleteExerciseCancel"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      document
+        .getElementById(
+          "deleteExerciseOverlay"
+        )
+        .classList
+        .remove("open");
+
+      ejercicioPendienteEliminar =
+        null;
+
+    }
+  );
+
+document
+  .getElementById(
+    "deleteExerciseConfirm"
+  )
+  .addEventListener(
+    "click",
+    async () => {
+
+      if(
+        !ejercicioPendienteEliminar
+      ){
+        return;
+      }
+
+      const {
+        error
+      } =
+        await supabaseClient
+          .from(
+            "routine_exercises"
+          )
+          .delete()
+          .eq(
+            "id",
+            ejercicioPendienteEliminar
+          );
+
+      if(error){
+
+        console.error(
+          error
+        );
+
+        mostrarToast(
+          "Error al eliminar"
+        );
+
+        return;
+
+      }
+
+      document
+        .getElementById(
+          "deleteExerciseOverlay"
+        )
+        .classList
+        .remove("open");
+
+      mostrarToast(
+        "Ejercicio eliminado"
+      );
+
+      abrirRutina(
+        rutinaActiva
+      );
+
+    }
+  );//document eliminar ejercicio
 
 document.addEventListener(
   "DOMContentLoaded",
