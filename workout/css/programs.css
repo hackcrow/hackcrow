@@ -1040,3 +1040,29 @@
   text-align:center;
 
 }
+
+.exercise-rest-timer{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  margin-bottom:12px;
+
+}
+
+.rest-time-select{
+
+  background:#111;
+
+  color:white;
+
+  border:1px solid rgba(255,255,255,.08);
+
+  border-radius:10px;
+
+  padding:6px 10px;
+
+}
