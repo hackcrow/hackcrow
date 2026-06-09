@@ -1838,6 +1838,42 @@ document
     }
   );//document eliminar ejercicio
 
+document
+  .getElementById(
+    "deleteProgramBtn"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      document
+        .getElementById(
+          "deleteRoutineOverlay"
+        )
+        .classList
+        .add("open");
+
+    }
+  );
+
+document
+  .getElementById(
+    "deleteRoutineClose"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      document
+        .getElementById(
+          "deleteRoutineOverlay"
+        )
+        .classList
+        .remove("open");
+
+    }
+  );
+
 document.addEventListener(
   "DOMContentLoaded",
   () => {
