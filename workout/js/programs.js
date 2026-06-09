@@ -42,6 +42,73 @@ async function cargarProgramas(){
 
 }//cargarProgramas()
 
+async function cargarRutinasEliminar(){
+
+  const list =
+    document.getElementById(
+      "deleteRoutineList"
+    );
+
+  list.innerHTML =
+    "Loading...";
+
+  const {
+    data:routines,
+    error
+  } =
+    await supabaseClient
+      .from("routines")
+      .select("*")
+      .order(
+        "nombre"
+      );
+
+  if(error){
+
+    console.error(
+      error
+    );
+
+    list.innerHTML =
+      "Error loading routines";
+
+    return;
+
+  }
+
+  list.innerHTML = "";
+
+  routines.forEach(
+    rutina => {
+
+      list.innerHTML += `
+
+        <div
+          class="delete-routine-item">
+
+          <span>
+
+            ${rutina.nombre}
+
+          </span>
+
+          <button
+            class="routine-delete-btn"
+            onclick="confirmarEliminarRutina(${rutina.id}, '${rutina.nombre}')">
+
+            🗑
+
+          </button>
+
+        </div>
+
+      `;
+
+    }
+  );
+
+}//cargarRutinasEliminar
+
 function toggleExerciseCard(
   button
 ){
@@ -1844,7 +1911,9 @@ document
   )
   .addEventListener(
     "click",
-    () => {
+    async () => {
+
+      await cargarRutinasEliminar();
 
       document
         .getElementById(
