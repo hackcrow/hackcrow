@@ -1159,3 +1159,9 @@
   justify-content:center;
 
 }
+
+.delete-program-card{
+
+  width:min(4200px,95vw);
+
+}
