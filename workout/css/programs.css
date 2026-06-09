@@ -1162,6 +1162,17 @@
 
 .delete-program-card{
 
-  width:min(4200px,95vw);
+  width:min(380px,95vw);
+
+  background:#111;
+
+  border:1px solid rgba(255,255,255,.08);
+
+  border-radius:20px;
+
+  padding:24px;
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.5);
 
 }
