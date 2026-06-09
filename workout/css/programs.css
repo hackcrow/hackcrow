@@ -1094,3 +1094,18 @@
 
 }
 
+.delete-routine-card{
+
+  width:min(600px,95vw);
+
+}
+
+.delete-routine-list{
+
+  max-height:400px;
+
+  overflow-y:auto;
+
+  margin-top:10px;
+
+}
