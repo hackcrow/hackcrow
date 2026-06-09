@@ -787,11 +787,14 @@
 
 .routine-exercise-card.drag-over{
 
-  transform:translateY(-4px);
+  border-color:
+    rgba(255,255,255,.25);
 
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,.15),
-    0 12px 30px rgba(0,0,0,.35);
+  background:
+    rgba(255,255,255,.03);
+
+  transform:
+    translateY(-4px);
 
 }
 
