@@ -1193,3 +1193,45 @@
   color:white;
 
 }
+
+.routine-row{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+}
+
+.routine-main{
+
+  flex:1;
+
+  cursor:pointer;
+
+}
+
+.routine-actions{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:12px;
+
+}
+
+.routine-delete-btn{
+
+  background:none;
+
+  border:none;
+
+  color:#ff4d4d;
+
+  cursor:pointer;
+
+  font-size:18px;
+
+}
