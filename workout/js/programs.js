@@ -1898,18 +1898,30 @@ async function guardarSets(button){
 function abrirDetalleEjercicio(id){
 
   console.log(
-  "detalle ejercicio:",
-  id
+    "detalle ejercicio:",
+    id
   );
-  
+
+  const ejercicio =
+    ejercicios.find(
+      e =>
+        e.exercises &&
+        e.exercises.id === id
+    );
+
+  console.log(
+    "datos ejercicio:",
+    ejercicio
+  );
+
   const modal =
-  document.getElementById(
-  "exerciseDetailOverlay"
+    document.getElementById(
+      "exerciseDetailOverlay"
+    );
+
+  modal.classList.add(
+    "open"
   );
-  
-  console.log(modal);
-  
-  modal.classList.add("open");
 
 }//abrirDetalleEjercicio
 
