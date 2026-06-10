@@ -1321,24 +1321,26 @@ async function abrirRutina(id){
 
         <div class="routine-exercise-header">
         
-         <div class="routine-exercise-info">
-        
+         <div
+            class="routine-exercise-info"
+            onclick="abrirDetalleEjercicio(${e.exercises.id})">
+          
             <div class="exercise-drag">
-        
+          
               ☰
-        
+          
             </div>
-        
+          
             <div>
-        
+          
               <div class="exercise-name">
-        
+          
                 ${e.exercises?.nombre_en ?? "No Name"}
-        
+          
               </div>
-        
+          
               <div class="exercise-muscle">
-        
+          
                 ${
                   e.exercises?.parte_cuerpo
                     ? e.exercises.parte_cuerpo
@@ -1351,8 +1353,12 @@ async function abrirRutina(id){
                         )
                     : ""
                 }
-        
+          
               </div>
+          
+            </div>
+          
+          </div>
         
             </div>
         
@@ -1446,19 +1452,7 @@ async function abrirRutina(id){
         
           </div>
         
-          <!-- DETALLE EJERCICIO -->
-
-<div class="exercise-preview">
-
-  <h3>
-
-    TEST DETALLE EJERCICIO
-
-  </h3>
-
-</div>
-
-<!-- FIN DETALLE EJERCICIO -->
+          
         
           <div class="set-table">
         
