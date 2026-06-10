@@ -1113,11 +1113,19 @@ async function abrirRutina(id){
       .single();
 
   document
-    .getElementById(
-      "routineDetailTitle"
-    )
-    .textContent =
-      rutina.nombre;
+  .getElementById(
+    "routineDetailTitle"
+  )
+  .textContent =
+    rutina.nombre
+      ? rutina.nombre
+          .toLowerCase()
+          .replace(
+            /\b\w/g,
+            letra =>
+              letra.toUpperCase()
+          )
+      : "";
 
   const {
     data:ejercicios,
