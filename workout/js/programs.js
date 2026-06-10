@@ -5,6 +5,7 @@ let ejerciciosSeleccionados = [];
 let ejercicioPendienteEliminar = null;
 let programToDelete = null;
 let routineToDelete = null;
+let ejerciciosActuales = [];
 
 async function cargarProgramas(){
 
@@ -1174,7 +1175,10 @@ async function abrirRutina(id){
       .order(
         "orden"
       );
-
+  
+ejerciciosActuales =
+  ejercicios || [];
+  
   console.log(
     ejercicios
   );
@@ -1903,7 +1907,7 @@ function abrirDetalleEjercicio(id){
   );
 
   const ejercicio =
-    ejercicios.find(
+    ejerciciosActuales.find(
       e =>
         e.exercises &&
         e.exercises.id === id
