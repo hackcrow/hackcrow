@@ -1248,6 +1248,38 @@
 
   font-size:18px;
 
+  letter-spacing:2px;
+
   opacity:.7;
+
+  font-family:'DM Mono', monospace;
+
+}
+
+.loading-routines::after{
+
+  content:"";
+
+  animation:loadingDots 1.2s infinite;
+
+}
+
+@keyframes loadingDots{
+
+  0%{
+    content:"";
+  }
+
+  33%{
+    content:".";
+  }
+
+  66%{
+    content:"..";
+  }
+
+  100%{
+    content:"...";
+  }
 
 }
