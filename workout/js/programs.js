@@ -1448,60 +1448,18 @@ async function abrirRutina(id){
           </div>
         
           <!-- DETALLE EJERCICIO -->
-        
-          <div class="exercise-preview">
-        
-            <div class="exercise-preview-title">
-        
-              ${e.exercises?.nombre_en ?? ""}
-        
-            </div>
-        
-            <div class="exercise-preview-subtitle">
-        
-              ${e.exercises?.nombre ?? ""}
-        
-            </div>
-        
-            <img
-              class="exercise-preview-image"
-              src="${e.exercises?.imagen ?? ""}">
-        
-            <div class="exercise-preview-description">
-        
-              ${e.exercises?.descripcion ?? ""}
-        
-            </div>
-        
-            <div class="exercise-preview-tags">
-        
-              <span>
-        
-                ${
-                  e.exercises?.equipo
-                    ? e.exercises.equipo
-                        .replaceAll("_"," ")
-                    : ""
-                }
-        
-              </span>
-        
-              <span>
-        
-                ${
-                  e.exercises?.parte_cuerpo
-                    ? e.exercises.parte_cuerpo
-                        .replaceAll("_"," ")
-                    : ""
-                }
-        
-              </span>
-        
-            </div>
-        
-          </div>
-        
-          <!-- FIN DETALLE EJERCICIO -->
+
+<div class="exercise-preview">
+
+  <h3>
+
+    TEST DETALLE EJERCICIO
+
+  </h3>
+
+</div>
+
+<!-- FIN DETALLE EJERCICIO -->
         
           <div class="set-table">
         
