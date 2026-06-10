@@ -53,14 +53,18 @@ async function cargarRutinasEliminar(){
     "Loading...";
 
   const {
-    data:routines,
-    error
-  } =
+      data:programs,
+      error
+    }
+    =
     await supabaseClient
-      .from("routines")
+      .from("programs")
       .select("*")
       .order(
-        "nombre"
+        "created_at",
+        {
+          ascending:false
+        }
       );
 
   if(error){
@@ -78,34 +82,34 @@ async function cargarRutinasEliminar(){
 
   list.innerHTML = "";
 
-  routines.forEach(
-    rutina => {
-
-      list.innerHTML += `
-
-        <div
-          class="delete-routine-item">
-
-          <span>
-
-            ${rutina.nombre}
-
-          </span>
-
-          <button
-            class="routine-delete-btn"
-            onclick="confirmarEliminarRutina(${rutina.id}, '${rutina.nombre}')">
-
-            🗑
-
-          </button>
-
-        </div>
-
-      `;
-
-    }
-  );
+  programs.forEach(
+      programa => {
+    
+        list.innerHTML += `
+    
+          <div
+            class="delete-routine-item">
+    
+            <span>
+    
+              ${programa.nombre}
+    
+            </span>
+    
+            <button
+              class="routine-delete-btn"
+              onclick="confirmarEliminarPrograma(${programa.id}, '${programa.nombre}')">
+    
+              🗑
+    
+            </button>
+    
+          </div>
+    
+        `;
+    
+      }
+    );
 
 }//cargarRutinasEliminar
 
