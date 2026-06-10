@@ -1063,6 +1063,8 @@ async function abrirRutina(id){
 
   rutinaActiva = id;
 
+  
+
   const {
     data:rutina
   } =
@@ -1121,6 +1123,16 @@ async function abrirRutina(id){
     document.getElementById(
       "routineExerciseList"
     );
+
+  list.innerHTML = `
+
+  <div class="loading-routines">
+
+    Loading
+
+  </div>
+
+`;
 
   list.innerHTML = "";
 
