@@ -1063,7 +1063,27 @@ async function abrirRutina(id){
 
   rutinaActiva = id;
 
-  
+  const list =
+    document.getElementById(
+      "routineExerciseList"
+    );
+
+  document
+    .getElementById(
+      "routineDetailOverlay"
+    )
+    .classList
+    .add("open");
+
+  list.innerHTML = `
+
+    <div class="loading-routines">
+
+      Loading
+
+    </div>
+
+  `;
 
   const {
     data:rutina
@@ -1082,24 +1102,24 @@ async function abrirRutina(id){
       rutina.nombre;
 
   const {
-      data:ejercicios,
-      error
-    } =
-      await supabaseClient
-        .from("routine_exercises")
-        .select(`
-          *,
-          exercises(*),
-          routine_sets(*)
-        `)
-        .eq(
-          "routine_id",
-          id
-        )
-        .order(
-          "orden"
-        );
-  
+    data:ejercicios,
+    error
+  } =
+    await supabaseClient
+      .from("routine_exercises")
+      .select(`
+        *,
+        exercises(*),
+        routine_sets(*)
+      `)
+      .eq(
+        "routine_id",
+        id
+      )
+      .order(
+        "orden"
+      );
+
   console.log(
     ejercicios
   );
@@ -1119,21 +1139,6 @@ async function abrirRutina(id){
     error
   );
 
-  const list =
-    document.getElementById(
-      "routineExerciseList"
-    );
-
-  list.innerHTML = `
-
-  <div class="loading-routines">
-
-    Loading
-
-  </div>
-
-`;
-
   list.innerHTML = "";
 
   if(
@@ -1148,6 +1153,12 @@ async function abrirRutina(id){
     `;
 
   }else{
+
+    // tu código actual del forEach...
+
+  }
+
+}//abrirRutina
 
   ejercicios.forEach(e => {
 
