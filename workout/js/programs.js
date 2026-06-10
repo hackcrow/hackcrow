@@ -2099,6 +2099,27 @@ document
     }
   );
 
+document
+  .getElementById(
+    "cancelDeleteRoutineBtn"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      document
+        .getElementById(
+          "confirmDeleteRoutineOverlay"
+        )
+        .classList
+        .remove("open");
+
+      routineToDelete =
+        null;
+
+    }
+  );
+
 //DOMContentLoaded
 
 document.addEventListener(
