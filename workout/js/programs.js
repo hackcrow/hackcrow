@@ -1968,6 +1968,29 @@ document
     }
   );
 
+document
+  .getElementById(
+    "cancelDeleteProgramBtn"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      document
+        .getElementById(
+          "confirmDeleteProgramOverlay"
+        )
+        .classList
+        .remove("open");
+
+      programToDelete =
+        null;
+
+    }
+  );
+
+//DOMContentLoaded
+
 document.addEventListener(
   "DOMContentLoaded",
   () => {
