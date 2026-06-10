@@ -1293,3 +1293,51 @@
   border:1px solid red;
 
 }
+
+.exercise-detail-card{
+
+  max-width:420px;
+
+}
+
+.detail-exercise-image{
+
+  width:180px;
+
+  display:block;
+
+  margin:0 auto 16px;
+
+}
+
+.exercise-detail-label{
+
+  text-align:center;
+
+  margin-bottom:8px;
+
+  opacity:.9;
+
+}
+
+.exercise-detail-tag{
+
+  text-align:center;
+
+  margin-bottom:8px;
+
+  font-size:13px;
+
+  opacity:.7;
+
+}
+
+#detailExerciseDescription{
+
+  margin-top:14px;
+
+  text-align:center;
+
+  line-height:1.5;
+
+}
