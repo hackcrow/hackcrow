@@ -1283,3 +1283,13 @@
   }
 
 }
+
+.exercise-preview{
+
+  padding:16px;
+
+  margin:16px 0;
+
+  border:1px solid red;
+
+}
