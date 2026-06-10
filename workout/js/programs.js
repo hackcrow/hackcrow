@@ -3,6 +3,7 @@ let programaActivo = null;
 let rutinaActiva = null;
 let ejerciciosSeleccionados = [];
 let ejercicioPendienteEliminar = null;
+let programToDelete = null;
 
 async function cargarProgramas(){
 
@@ -41,6 +42,26 @@ async function cargarProgramas(){
   renderProgramas();
 
 }//cargarProgramas()
+
+function confirmarEliminarPrograma( id, nombre ){
+
+  programToDelete = id;
+
+  document
+    .getElementById(
+      "confirmDeleteProgramText"
+    )
+    .textContent =
+      `¿Eliminar "${nombre}"?`;
+
+  document
+    .getElementById(
+      "confirmDeleteProgramOverlay"
+    )
+    .classList
+    .add("open");
+
+}//confirmarEliminarPrograma
 
 async function cargarRutinasEliminar(){
 
