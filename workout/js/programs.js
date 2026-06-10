@@ -1154,13 +1154,7 @@ async function abrirRutina(id){
 
   }else{
 
-    // tu código actual del forEach...
-
-  }
-
-}//abrirRutina
-
-  ejercicios.forEach(e => {
+    ejercicios.forEach(e => {
 
     let setsHtml = "";
 
