@@ -1989,6 +1989,61 @@ document
     }
   );
 
+document
+  .getElementById(
+    "confirmDeleteProgramBtn"
+  )
+  .addEventListener(
+    "click",
+    async () => {
+
+      if(
+        !programToDelete
+      ) return;
+
+      const {
+        error
+      } =
+        await supabaseClient
+          .from("programs")
+          .delete()
+          .eq(
+            "id",
+            programToDelete
+          );
+
+      if(error){
+
+        console.error(
+          error
+        );
+
+        return;
+
+      }
+
+      document
+        .getElementById(
+          "confirmDeleteProgramOverlay"
+        )
+        .classList
+        .remove("open");
+
+      document
+        .getElementById(
+          "deleteRoutineOverlay"
+        )
+        .classList
+        .remove("open");
+
+      programToDelete =
+        null;
+
+      await cargarProgramas();
+
+    }
+  );
+
 //DOMContentLoaded
 
 document.addEventListener(
