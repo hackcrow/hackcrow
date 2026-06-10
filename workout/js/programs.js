@@ -757,14 +757,32 @@ async function abrirPrograma(id){
 
               <div class="routine-name">
 
-                ${r.nombre}
-
+                ${
+                  r.nombre
+                    ? r.nombre
+                        .toLowerCase()
+                        .replace(
+                          /\b\w/g,
+                          letra => letra.toUpperCase()
+                        )
+                    : ""
+                }
+              
               </div>
-
+              
               <div class="routine-category">
-
-                ${r.categoria ?? ""}
-
+              
+                ${
+                  r.categoria
+                    ? r.categoria
+                        .toLowerCase()
+                        .replace(
+                          /\b\w/g,
+                          letra => letra.toUpperCase()
+                        )
+                    : ""
+                }
+              
               </div>
 
             </div>
