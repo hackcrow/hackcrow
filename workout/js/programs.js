@@ -1383,91 +1383,147 @@ async function abrirRutina(id){
         </div>
         
         <div class="routine-exercise-body">
-        
-          <div class="exercise-rest-timer">
 
-              <label>
-            
-                Rest Timer
-            
-              </label>
-            
-              <select
-                class="rest-time-select"
-                onchange="guardarRestTime(this, ${e.id})">
-            
-                <option
-                  value=""
-                  ${!e.rest_time ? "selected" : ""}>
-            
-                  Off
-            
-                </option>
-            
-                <option
-                  value="30"
-                  ${e.rest_time == 30 ? "selected" : ""}>
-            
-                  30s
-            
-                </option>
-            
-                <option
-                  value="60"
-                  ${e.rest_time == 60 ? "selected" : ""}>
-            
-                  60s
-            
-                </option>
-            
-                <option
-                  value="90"
-                  ${e.rest_time == 90 ? "selected" : ""}>
-            
-                  90s
-            
-                </option>
-            
-                <option
-                  value="120"
-                  ${e.rest_time == 120 ? "selected" : ""}>
-            
-                  120s
-            
-                </option>
-            
-                <option
-                  value="180"
-                  ${e.rest_time == 180 ? "selected" : ""}>
-            
-                  180s
-            
-                </option>
-            
-              </select>
-            
+          <div class="exercise-rest-timer">
+        
+            <label>
+        
+              Rest Timer
+        
+            </label>
+        
+            <select
+              class="rest-time-select"
+              onchange="guardarRestTime(this, ${e.id})">
+        
+              <option
+                value=""
+                ${!e.rest_time ? "selected" : ""}>
+        
+                Off
+        
+              </option>
+        
+              <option
+                value="30"
+                ${e.rest_time == 30 ? "selected" : ""}>
+        
+                30s
+        
+              </option>
+        
+              <option
+                value="60"
+                ${e.rest_time == 60 ? "selected" : ""}>
+        
+                60s
+        
+              </option>
+        
+              <option
+                value="90"
+                ${e.rest_time == 90 ? "selected" : ""}>
+        
+                90s
+        
+              </option>
+        
+              <option
+                value="120"
+                ${e.rest_time == 120 ? "selected" : ""}>
+        
+                120s
+        
+              </option>
+        
+              <option
+                value="180"
+                ${e.rest_time == 180 ? "selected" : ""}>
+        
+                180s
+        
+              </option>
+        
+            </select>
+        
+          </div>
+        
+          <!-- DETALLE EJERCICIO -->
+        
+          <div class="exercise-preview">
+        
+            <div class="exercise-preview-title">
+        
+              ${e.exercises?.nombre_en ?? ""}
+        
             </div>
+        
+            <div class="exercise-preview-subtitle">
+        
+              ${e.exercises?.nombre ?? ""}
+        
+            </div>
+        
+            <img
+              class="exercise-preview-image"
+              src="${e.exercises?.imagen ?? ""}">
+        
+            <div class="exercise-preview-description">
+        
+              ${e.exercises?.descripcion ?? ""}
+        
+            </div>
+        
+            <div class="exercise-preview-tags">
+        
+              <span>
+        
+                ${
+                  e.exercises?.equipo
+                    ? e.exercises.equipo
+                        .replaceAll("_"," ")
+                    : ""
+                }
+        
+              </span>
+        
+              <span>
+        
+                ${
+                  e.exercises?.parte_cuerpo
+                    ? e.exercises.parte_cuerpo
+                        .replaceAll("_"," ")
+                    : ""
+                }
+        
+              </span>
+        
+            </div>
+        
+          </div>
+        
+          <!-- FIN DETALLE EJERCICIO -->
         
           <div class="set-table">
         
             <div class="set-header">
-
+        
               <div>Set</div>
-            
+        
               <div>Previous</div>
-            
+        
               <div>Lbs</div>
-            
+        
               <div>Reps</div>
-            
+        
               <div></div>
-            
+        
             </div>
         
             <div class="set-rows">
-
+        
               ${setsHtml}
-
+        
             </div>
         
           </div>
@@ -1479,18 +1535,16 @@ async function abrirRutina(id){
             + Add Set
         
           </button>
-
+        
           <button
             class="btn btn-ghost save-sets-btn"
             onclick="guardarSets(this)">
-            
+        
             Save Sets
-            
+        
           </button>
         
         </div>
-        
-      </div>
   
     `;
 
