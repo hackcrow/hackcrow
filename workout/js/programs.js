@@ -683,10 +683,21 @@ async function abrirPrograma(id){
 
   if(!programa) return;
 
-  document.getElementById(
-    "viewProgramTitle"
-  ).textContent =
-    programa.nombre;
+  const nombrePrograma =
+  programa.nombre
+    ? programa.nombre
+        .toLowerCase()
+        .replace(
+          /\b\w/g,
+          letra =>
+            letra.toUpperCase()
+        )
+    : "";
+
+document.getElementById(
+  "viewProgramTitle"
+).textContent =
+  nombrePrograma;
 
   const list =
     document.getElementById(
