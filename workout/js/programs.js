@@ -676,21 +676,6 @@ async function abrirPrograma(id){
 
   programaActivo = id;
 
-  const list =
-      document.getElementById(
-        "routineList"
-      );
-    
-    list.innerHTML = `
-    
-      <div class="loading-routines">
-    
-        Loading...
-    
-      </div>
-    
-    `;
-
   const programa =
     programas.find(
       p => p.id === id
@@ -702,6 +687,28 @@ async function abrirPrograma(id){
     "viewProgramTitle"
   ).textContent =
     programa.nombre;
+
+  const list =
+    document.getElementById(
+      "programRoutineList"
+    );
+
+  list.innerHTML = `
+
+    <div class="loading-routines">
+
+      Loading...
+
+    </div>
+
+  `;
+
+  document
+    .getElementById(
+      "viewProgramOverlay"
+    )
+    .classList
+    .add("open");
 
   const {
     data:routines,
@@ -719,11 +726,6 @@ async function abrirPrograma(id){
     "routines:",
     routines
   );
-
-  const list =
-    document.getElementById(
-      "programRoutineList"
-    );
 
   list.innerHTML = "";
 
@@ -743,35 +745,35 @@ async function abrirPrograma(id){
     routines.forEach(r => {
 
       list.innerHTML += `
-    
+
         <div
           class="routine-row">
-    
+
           <div
             class="routine-main"
             onclick="abrirRutina(${r.id})">
-    
+
             <div>
-    
+
               <div class="routine-name">
-    
+
                 ${r.nombre}
-    
+
               </div>
-    
+
               <div class="routine-category">
-    
+
                 ${r.categoria ?? ""}
-    
+
               </div>
-    
+
             </div>
-    
+
           </div>
-    
+
           <div
             class="routine-actions">
-    
+
             <button
               class="routine-delete-btn"
               onclick="
@@ -781,34 +783,27 @@ async function abrirPrograma(id){
                   '${r.nombre}'
                 );
               ">
-    
+
               🗑
-    
+
             </button>
-    
+
             <div
               class="routine-arrow">
-    
+
               →
-    
+
             </div>
-    
+
           </div>
-    
+
         </div>
-    
+
       `;
-    
+
     });
 
   }
-
-  document
-    .getElementById(
-      "viewProgramOverlay"
-    )
-    .classList
-    .add("open");
 
 }//abrirPrograma
 
