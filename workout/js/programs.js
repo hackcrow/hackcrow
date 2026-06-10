@@ -1322,8 +1322,7 @@ async function abrirRutina(id){
         <div class="routine-exercise-header">
         
           <div
-            class="routine-exercise-info"
-            onclick="abrirDetalleEjercicio(${e.exercises.id})">
+            class="routine-exercise-info">
         
             <div class="exercise-drag">
         
