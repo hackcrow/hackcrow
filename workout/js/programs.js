@@ -676,6 +676,21 @@ async function abrirPrograma(id){
 
   programaActivo = id;
 
+  const list =
+      document.getElementById(
+        "routineList"
+      );
+    
+    list.innerHTML = `
+    
+      <div class="loading-routines">
+    
+        Loading...
+    
+      </div>
+    
+    `;
+
   const programa =
     programas.find(
       p => p.id === id
