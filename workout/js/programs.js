@@ -704,31 +704,62 @@ async function abrirPrograma(id){
     routines.forEach(r => {
 
       list.innerHTML += `
-
+    
         <div
-          class="routine-row"
-          onclick="abrirRutina(${r.id})">
-
-          <div>
-
-            <div class="routine-name">
-              ${r.nombre}
+          class="routine-row">
+    
+          <div
+            class="routine-main"
+            onclick="abrirRutina(${r.id})">
+    
+            <div>
+    
+              <div class="routine-name">
+    
+                ${r.nombre}
+    
+              </div>
+    
+              <div class="routine-category">
+    
+                ${r.categoria ?? ""}
+    
+              </div>
+    
             </div>
-
-            <div class="routine-category">
-              ${r.categoria ?? ""}
+    
+          </div>
+    
+          <div
+            class="routine-actions">
+    
+            <button
+              class="routine-delete-btn"
+              onclick="
+                event.stopPropagation();
+                confirmarEliminarRutina(
+                  ${r.id},
+                  '${r.nombre}'
+                );
+              ">
+    
+              🗑
+    
+            </button>
+    
+            <div
+              class="routine-arrow">
+    
+              →
+    
             </div>
-
+    
           </div>
-
-          <div class="routine-arrow">
-            →
-          </div>
-
+    
         </div>
-
+    
       `;
-
+    
     });
 
   }
