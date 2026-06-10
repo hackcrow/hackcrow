@@ -1112,11 +1112,13 @@ async function abrirRutina(id){
       .eq("id", id)
       .single();
 
-  document
-  .getElementById(
-    "routineDetailTitle"
-  )
-  .textContent =
+  console.log(
+    "nombre rutina:",
+    rutina.nombre
+  );
+
+  console.log(
+    "nombre formateado:",
     rutina.nombre
       ? rutina.nombre
           .toLowerCase()
@@ -1125,7 +1127,23 @@ async function abrirRutina(id){
             letra =>
               letra.toUpperCase()
           )
-      : "";
+      : ""
+  );
+
+  document
+    .getElementById(
+      "routineDetailTitle"
+    )
+    .textContent =
+      rutina.nombre
+        ? rutina.nombre
+            .toLowerCase()
+            .replace(
+              /\b\w/g,
+              letra =>
+                letra.toUpperCase()
+            )
+        : "";
 
   const {
     data:ejercicios,
