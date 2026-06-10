@@ -2120,6 +2120,56 @@ document
     }
   );
 
+document
+  .getElementById(
+    "confirmDeleteRoutineBtn"
+  )
+  .addEventListener(
+    "click",
+    async () => {
+
+      if(
+        !routineToDelete
+      ) return;
+
+      const {
+        error
+      } =
+        await supabaseClient
+          .from("routines")
+          .delete()
+          .eq(
+            "id",
+            routineToDelete
+          );
+
+      if(error){
+
+        console.error(
+          error
+        );
+
+        return;
+
+      }
+
+      document
+        .getElementById(
+          "confirmDeleteRoutineOverlay"
+        )
+        .classList
+        .remove("open");
+
+      routineToDelete =
+        null;
+
+      await abrirPrograma(
+        programaActivo
+      );
+
+    }
+  );
+
 //DOMContentLoaded
 
 document.addEventListener(
