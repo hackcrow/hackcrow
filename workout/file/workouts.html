@@ -7,50 +7,53 @@
 
   <meta
     name="viewport"
-    content="
-      width=device-width,
-      initial-scale=1.0,
-      maximum-scale=1.0
-    "
-  >
+    content="width=device-width, initial-scale=1.0">
 
   <title>
-    Entrenamientos — Workout
+    Programas — Workout
   </title>
+
+  <!-- FAVICON -->
+
+  <link
+    rel="icon"
+    href="../src/images/favicon.ico">
 
   <!-- FONTS -->
 
-  <link rel="preconnect"
+  <link
+    rel="preconnect"
     href="https://fonts.googleapis.com">
 
-  <link rel="preconnect"
+  <link
+    rel="preconnect"
     href="https://fonts.gstatic.com"
     crossorigin>
 
   <link
-    href="
-      https://fonts.googleapis.com/css2?
-      family=DM+Mono:wght@300;400;500&
-      family=DM+Sans:wght@300;400;500;600&
-      display=swap
-    "
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+
+  <!-- GLOBAL CSS -->
+
+  <link
     rel="stylesheet"
-  >
-
-  <!-- STYLES -->
-
-  <link rel="stylesheet"
     href="../css/style.css">
 
-  <link rel="stylesheet"
-    href="../css/workouts.css">
+  <!-- PROGRAMS CSS -->
+
+  <link
+    rel="stylesheet"
+    href="../css/programs.css">
 
 </head>
 
 <body>
+
   <!-- GLOBAL OVERLAY -->
- <div id="overlay"></div>
-  
+
+  <div id="overlay"></div>
+
   <!-- TOPBAR -->
 
   <div id="topbarContainer"></div>
@@ -65,26 +68,25 @@
 
     <div id="page-workouts">
 
-      <!-- HEADER -->
+      <!-- PAGE HEADER -->
 
       <div class="page-header">
 
         <div>
 
           <div class="page-title">
-            Entrenamientos
+            Entrenamiento
           </div>
 
           <div class="page-subtitle">
-            // Ejecuta tus rutinas
+            // Selecciona una rutina para entrenar
           </div>
 
         </div>
 
         <a
           class="back-btn"
-          href="../index.html"
-        >
+          href="../index.html">
 
           ← Volver
 
@@ -92,45 +94,28 @@
 
       </div>
 
-      <!-- ACTIVE WORKOUT -->
+      <!-- LOADING -->
 
       <div
-        id="activeWorkoutBox"
-        class="active-workout hidden"
-      >
+        id="loadingWorkouts"
+        class="terminal-loading">
 
-        <div class="active-label">
-          ENTRENAMIENTO ACTIVO
-        </div>
-
-        <div
-          id="activeWorkoutName"
-          class="active-name"
-        >
-        </div>
-
-        <button
-          id="continueWorkoutBtn"
-          class="btn"
-        >
-
-          Continuar
-
-        </button>
+        Loading workouts...
 
       </div>
 
-      <!-- ROUTINES -->
+      <!-- GRID -->
 
       <div
-        id="workoutRoutineList"
-        class="workout-grid"
-      >
+        id="workoutGrid"
+        class="program-grid">
+
       </div>
 
     </div>
 
   </main>
+  
 
   <!-- SCRIPTS -->
 
@@ -138,7 +123,7 @@
 
   <script src="../js/app.js"></script>
 
-  <script src="../js/workouts.js"></script>
+  <script src="../js/programs.js"></script>
 
 </body>
 
