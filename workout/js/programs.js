@@ -1918,31 +1918,72 @@ function abrirDetalleEjercicio(id){
     ejercicio
   );
 
-  const modal =
-    document.getElementById(
+  if(!ejercicio){
+
+    return;
+
+  }
+
+  const ex =
+    ejercicio.exercises;
+
+  document.getElementById(
+    "detailExerciseName"
+  ).textContent =
+    ex.nombre_en ||
+    ex.nombre ||
+    "Exercise";
+
+  document.getElementById(
+    "detailExerciseEnglish"
+  ).textContent =
+    ex.nombre_en || "";
+
+  document.getElementById(
+    "detailExerciseSpanish"
+  ).textContent =
+    ex.nombre || "";
+
+  document.getElementById(
+    "detailExerciseImage"
+  ).src =
+    ex.imagen || "";
+
+  document.getElementById(
+    "detailExerciseEquipment"
+  ).textContent =
+    ex.equipo
+      ? ex.equipo
+          .replaceAll("_"," ")
+          .replace(
+            /\b\w/g,
+            l => l.toUpperCase()
+          )
+      : "";
+
+  document.getElementById(
+    "detailExerciseMuscle"
+  ).textContent =
+    ex.parte_cuerpo
+      ? ex.parte_cuerpo
+          .replaceAll("_"," ")
+          .replace(
+            /\b\w/g,
+            l => l.toUpperCase()
+          )
+      : "";
+
+  document.getElementById(
+    "detailExerciseDescription"
+  ).textContent =
+    ex.descripcion || "";
+
+  document
+    .getElementById(
       "exerciseDetailOverlay"
-    );
-
-  console.log(
-  "exercise fields:",
-  ejercicio.exercises
-);
-
-console.table(
-  ejercicio.exercises
-);
-
-  console.log(
-  JSON.stringify(
-    ejercicio.exercises,
-    null,
-    2
-  )
-);
-
-  modal.classList.add(
-    "open"
-  );
+    )
+    .classList
+    .add("open");
 
 }//abrirDetalleEjercicio
 
