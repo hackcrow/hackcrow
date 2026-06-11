@@ -1927,28 +1927,30 @@ function abrirDetalleEjercicio(id){
   const ex =
     ejercicio.exercises;
 
+  /* Título superior vacío */
   document.getElementById(
     "detailExerciseName"
-  ).textContent =
-    ex.nombre_en ||
-    ex.nombre ||
-    "Exercise";
+  ).textContent = "";
 
+  /* Nombre inglés grande */
   document.getElementById(
     "detailExerciseEnglish"
   ).textContent =
     ex.nombre_en || "";
 
+  /* Nombre español debajo */
   document.getElementById(
     "detailExerciseSpanish"
   ).textContent =
     ex.nombre || "";
 
+  /* Imagen */
   document.getElementById(
     "detailExerciseImage"
   ).src =
     ex.imagen || "";
 
+  /* Equipo */
   document.getElementById(
     "detailExerciseEquipment"
   ).textContent =
@@ -1961,18 +1963,29 @@ function abrirDetalleEjercicio(id){
           )
       : "";
 
+  /* Músculo */
   document.getElementById(
     "detailExerciseMuscle"
   ).textContent =
-    ex.parte_cuerpo
-      ? ex.parte_cuerpo
+    ex.musculo_primario
+      ? ex.musculo_primario
           .replaceAll("_"," ")
           .replace(
             /\b\w/g,
             l => l.toUpperCase()
           )
-      : "";
+      : (
+          ex.parte_cuerpo
+            ? ex.parte_cuerpo
+                .replaceAll("_"," ")
+                .replace(
+                  /\b\w/g,
+                  l => l.toUpperCase()
+                )
+            : ""
+        );
 
+  /* Descripción */
   document.getElementById(
     "detailExerciseDescription"
   ).textContent =
