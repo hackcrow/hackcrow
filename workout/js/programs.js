@@ -1923,6 +1923,23 @@ function abrirDetalleEjercicio(id){
       "exerciseDetailOverlay"
     );
 
+  console.log(
+  "exercise fields:",
+  ejercicio.exercises
+);
+
+console.table(
+  ejercicio.exercises
+);
+
+  console.log(
+  JSON.stringify(
+    ejercicio.exercises,
+    null,
+    2
+  )
+);
+
   modal.classList.add(
     "open"
   );
