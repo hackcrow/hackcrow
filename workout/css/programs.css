@@ -1298,15 +1298,17 @@
 
 }
 
-..exercise-detail-card{
+.exercise-detail-card{
 
-  width:320px;
+  width:296px !important;
 
-  max-width:80vw;
+  height:370px !important;
 
-  padding:16px;
+  max-width:none;
 
-  border-radius:20px;
+  max-height:none;
+
+  overflow:hidden;
 
 }
 
