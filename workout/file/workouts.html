@@ -1,88 +1,24 @@
-<!DOCTYPE html>
-<html lang="es" data-theme="dark">
+<main id="app">
 
-<head>
+  <div id="page-workouts">
 
-  <meta charset="UTF-8">
+    <!-- PAGE HEADER -->
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0">
+    <div class="page-header">
 
-  <title>
-    Entrenamientos — Workout
-  </title>
+      <div>
 
-  <!-- FAVICON -->
-
-  <link
-    rel="icon"
-    href="../src/images/favicon.ico">
-
-  <!-- FONTS -->
-
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com">
-
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap"
-    rel="stylesheet">
-
-  <!-- GLOBAL CSS -->
-
-  <link
-    rel="stylesheet"
-    href="../css/style.css">
-
-  <!-- PROGRAMS CSS -->
-
-  <link
-    rel="stylesheet"
-    href="../css/programs.css">
-
-</head>
-
-<body>
-
-  <!-- GLOBAL OVERLAY -->
-
-  <div id="overlay"></div>
-
-  <!-- TOPBAR -->
-
-  <div id="topbarContainer"></div>
-
-  <!-- MENU -->
-
-  <div id="menuContainer"></div>
-
-  <!-- MAIN -->
-
-  <main id="app">
-
-    <div id="page-workouts">
-
-      <!-- PAGE HEADER -->
-
-      <div class="page-header">
-
-        <div>
-
-          <div class="page-title">
-            Entrenamientos
-          </div>
-
-          <div class="page-subtitle">
-            // Selecciona una rutina para entrenar
-          </div>
-
+        <div class="page-title">
+          Entrenamiento
         </div>
+
+        <div class="page-subtitle">
+          // Selecciona una rutina para entrenar
+        </div>
+
+      </div>
+
+      <div class="header-actions">
 
         <a
           class="back-btn"
@@ -94,37 +30,26 @@
 
       </div>
 
-      <!-- LOADING -->
+    </div>
 
-      <div
-        id="loadingWorkouts"
-        class="terminal-loading">
+    <!-- LOADING -->
 
-        Loading workouts...
+    <div
+      id="loadingWorkouts"
+      class="terminal-loading">
 
-      </div>
-
-      <!-- GRID -->
-
-      <div
-        id="workoutGrid"
-        class="program-grid">
-
-      </div>
+      Loading workouts...
 
     </div>
 
-  </main>
-  
+    <!-- GRID -->
 
-  <!-- SCRIPTS -->
+    <div
+      id="workoutGrid"
+      class="program-grid">
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    </div>
 
-  <script src="../js/app.js"></script>
+  </div>
 
-  <script src="../js/programs.js"></script>
-
-</body>
-
-</html>
+</main>
