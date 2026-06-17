@@ -152,3 +152,44 @@
   }
 
 }
+.delete-ex-btn{
+
+  color:#ef4444;
+
+}
+
+.delete-ex-btn:hover{
+
+  color:#f87171;
+
+}
+
+.add-ex-btn{
+
+  color:#00ff88;
+
+}
+
+.add-ex-btn:hover{
+
+  color:#4dffab;
+
+}
+
+.trash-icon{
+
+  width:20px;
+
+  height:20px;
+
+  fill:none;
+
+  stroke:currentColor;
+
+  stroke-width:1.8;
+
+  stroke-linecap:round;
+
+  stroke-linejoin:round;
+
+}
