@@ -10,6 +10,8 @@ const workoutClient =
     SUPABASE_KEY
   );
 
+console.log("workouts.js cargado");
+
 function abrirNuevoEntrenamiento(){
 
   document
