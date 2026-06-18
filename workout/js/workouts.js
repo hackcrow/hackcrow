@@ -6,11 +6,13 @@ const workoutClient =
 
 function abrirNuevoEntrenamiento(){
 
+  alert("CLICK");
+
   document
     .getElementById(
       "workoutLightbox"
     )
-    ?.classList
+    .classList
     .add("open");
 
 }//abrirNuevoEntrenamiento
