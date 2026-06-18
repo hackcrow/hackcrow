@@ -1,28 +1,8 @@
-
 const workoutClient =
   supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
   );
-
-console.log(
-  document.getElementById("addWorkoutBtn")
-);
-
-console.log(
-  "addWorkoutBtn:",
-  document.getElementById("addWorkoutBtn")
-);
-
-console.log(
-  "workoutLightbox:",
-  document.getElementById("workoutLightbox")
-);
-
-console.log(
-  "wkCancel:",
-  document.getElementById("wkCancel")
-);
 
 function abrirNuevoEntrenamiento(){
 
@@ -30,7 +10,7 @@ function abrirNuevoEntrenamiento(){
     .getElementById(
       "workoutLightbox"
     )
-    .classList
+    ?.classList
     .add("open");
 
 }//abrirNuevoEntrenamiento
@@ -41,25 +21,44 @@ function cerrarNuevoEntrenamiento(){
     .getElementById(
       "workoutLightbox"
     )
-    .classList
+    ?.classList
     .remove("open");
 
 }//cerrarNuevoEntrenamiento
 
-document
-  .getElementById(
-    "addWorkoutBtn"
-  )
-  ?.addEventListener(
-    "click",
-    abrirNuevoEntrenamiento
-  );
+document.addEventListener(
+  "DOMContentLoaded",
+  ()=>{
 
-document
-  .getElementById(
-    "wkCancel"
-  )
-  ?.addEventListener(
-    "click",
-    cerrarNuevoEntrenamiento
-  );
+    const addBtn =
+      document.getElementById(
+        "addWorkoutBtn"
+      );
+
+    const cancelBtn =
+      document.getElementById(
+        "wkCancel"
+      );
+
+    console.log(
+      "addWorkoutBtn:",
+      addBtn
+    );
+
+    console.log(
+      "wkCancel:",
+      cancelBtn
+    );
+
+    addBtn?.addEventListener(
+      "click",
+      abrirNuevoEntrenamiento
+    );
+
+    cancelBtn?.addEventListener(
+      "click",
+      cerrarNuevoEntrenamiento
+    );
+
+  }
+);
