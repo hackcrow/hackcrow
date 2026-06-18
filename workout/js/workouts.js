@@ -5,7 +5,24 @@ const workoutClient =
     SUPABASE_KEY
   );
 
-console.log("workouts.js cargado");
+console.log(
+  document.getElementById("addWorkoutBtn")
+);
+
+console.log(
+  "addWorkoutBtn:",
+  document.getElementById("addWorkoutBtn")
+);
+
+console.log(
+  "workoutLightbox:",
+  document.getElementById("workoutLightbox")
+);
+
+console.log(
+  "wkCancel:",
+  document.getElementById("wkCancel")
+);
 
 function abrirNuevoEntrenamiento(){
 
