@@ -191,6 +191,20 @@ async function cargarWorkouts(){
       
       `;
 
+      card.addEventListener(
+
+        "click",
+      
+        ()=>{
+      
+          console.log(
+            workout.id
+          );
+      
+        }
+      
+      );
+
       grid.appendChild(
         card
       );
