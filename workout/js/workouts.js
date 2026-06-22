@@ -6,7 +6,7 @@ const workoutClient =
 
 function abrirNuevoEntrenamiento(){
 
-  alert("CLICK");
+ 
 
   document
     .getElementById(
