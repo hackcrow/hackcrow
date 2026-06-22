@@ -4,11 +4,18 @@ const workoutClient =
     SUPABASE_KEY
   );
 
+function capitalizar(texto){
+
+  if(!texto) return "";
+
+  return texto.charAt(0).toUpperCase() +
+         texto.slice(1);
+
+}//capitalizar
+
 function abrirNuevoEntrenamiento(){
 
- 
-
-  document
+ document
     .getElementById(
       "workoutLightbox"
     )
@@ -171,17 +178,17 @@ async function cargarWorkouts(){
       card.innerHTML = `
 
         <div class="workout-name">
-
-          ${workout.nombre}
-
+      
+          ${capitalizar(workout.nombre)}
+      
         </div>
-
+      
         <div class="workout-description">
-
-          ${workout.descripcion || ""}
-
+      
+          ${capitalizar(workout.descripcion || "")}
+      
         </div>
-
+      
       `;
 
       grid.appendChild(
