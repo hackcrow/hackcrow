@@ -1,3 +1,6 @@
+let currentWorkoutId = null;
+let currentWorkoutName = "";
+
 const workoutClient =
   supabase.createClient(
     SUPABASE_URL,
@@ -178,31 +181,35 @@ async function cargarWorkouts(){
       card.innerHTML = `
 
         <div class="workout-name">
-      
+
           ${capitalizar(workout.nombre)}
-      
+
         </div>
-      
+
         <div class="workout-description">
-      
+
           ${capitalizar(workout.descripcion || "")}
-      
+
         </div>
-      
+
       `;
 
       card.addEventListener(
 
         "click",
-      
+
         ()=>{
-      
-          console.log(
-            workout.id
-          );
-      
+
+          currentWorkoutId =
+            workout.id;
+
+          currentWorkoutName =
+            workout.nombre;
+
+          abrirProgramas();
+
         }
-      
+
       );
 
       grid.appendChild(
@@ -214,6 +221,35 @@ async function cargarWorkouts(){
   );
 
 }//cargarWorkouts
+
+function abrirProgramas(){
+
+  document
+    .getElementById(
+      "programsTitle"
+    )
+    .textContent =
+      currentWorkoutName;
+
+  document
+    .getElementById(
+      "programsOverlay"
+    )
+    .classList
+    .add("open");
+
+}//abrirProgramas
+
+function cerrarProgramas(){
+
+  document
+    .getElementById(
+      "programsOverlay"
+    )
+    .classList
+    .remove("open");
+
+}//cerrarProgramas
 
 document.addEventListener(
   "DOMContentLoaded",
@@ -252,4 +288,14 @@ document.addEventListener(
     cargarWorkouts();
 
   }
+
+  document
+  .getElementById(
+    "closeProgramsBtn"
+  )
+  ?.addEventListener(
+    "click",
+    cerrarProgramas
+  );
+  
 );//DOMContentLoaded
