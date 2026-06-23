@@ -229,7 +229,9 @@ function abrirProgramas(){
       "programsTitle"
     )
     .textContent =
-      currentWorkoutName;
+      capitalizar(
+        currentWorkoutName
+      );
 
   document
     .getElementById(
