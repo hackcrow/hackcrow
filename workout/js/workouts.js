@@ -320,6 +320,28 @@ async function cargarProgramas(){
 
 }//cargarProgramas
 
+function abrirNuevoPrograma(){
+
+  document
+    .getElementById(
+      "programLightbox"
+    )
+    .classList
+    .add("open");
+
+}//abrirNuevoPrograma
+
+function cerrarNuevoPrograma(){
+
+  document
+    .getElementById(
+      "programLightbox"
+    )
+    .classList
+    .remove("open");
+
+}//cerrarNuevoPrograma
+
 document.addEventListener(
 
   "DOMContentLoaded",
@@ -368,6 +390,25 @@ document.addEventListener(
     cargarWorkouts();
 
   }
+
+  document
+    .getElementById(
+      "addProgramBtn"
+    )
+    ?.addEventListener(
+      "click",
+      abrirNuevoPrograma
+    );
+
+document
+    .getElementById(
+      "pgCancel"
+    )
+    ?.addEventListener(
+      "click",
+      cerrarNuevoPrograma
+    );
+  
 
 );//DOMContentLoaded
 
