@@ -387,28 +387,27 @@ document.addEventListener(
         cerrarProgramas
       );
 
+    document
+      .getElementById(
+        "addProgramBtn"
+      )
+      ?.addEventListener(
+        "click",
+        abrirNuevoPrograma
+      );
+
+    document
+      .getElementById(
+        "pgCancel"
+      )
+      ?.addEventListener(
+        "click",
+        cerrarNuevoPrograma
+      );
+
     cargarWorkouts();
 
   }
-
-  document
-    .getElementById(
-      "addProgramBtn"
-    )
-    ?.addEventListener(
-      "click",
-      abrirNuevoPrograma
-    );
-
-document
-    .getElementById(
-      "pgCancel"
-    )
-    ?.addEventListener(
-      "click",
-      cerrarNuevoPrograma
-    );
-  
 
 );//DOMContentLoaded
 
