@@ -426,3 +426,15 @@
   min-width:140px;
 
 }
+
+#closeProgramsBtn{
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  text-align:center;
+
+}
