@@ -385,3 +385,18 @@
   font-weight:700;
 
 }
+
+#programsOverlay .lightbox-actions{
+
+  justify-content:center;
+
+}
+
+
+#addProgramBtn{
+
+  display:block;
+
+  margin:20px auto;
+
+}
