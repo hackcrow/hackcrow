@@ -438,3 +438,27 @@
   text-align:center;
 
 }
+
+.program-item{
+
+  background:var(--card);
+
+  border:1px solid var(--border);
+
+  border-radius:14px;
+
+  padding:12px;
+
+  margin-bottom:12px;
+
+  cursor:pointer;
+
+  transition:.2s ease;
+
+}
+
+.program-item:hover{
+
+  border-color:#00ff88;
+
+}
