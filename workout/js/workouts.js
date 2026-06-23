@@ -252,7 +252,9 @@ function cerrarProgramas(){
 }//cerrarProgramas
 
 document.addEventListener(
+
   "DOMContentLoaded",
+
   ()=>{
 
     const addBtn =
@@ -285,17 +287,20 @@ document.addEventListener(
       guardarWorkout
     );
 
+    document
+      .getElementById(
+        "closeProgramsBtn"
+      )
+      ?.addEventListener(
+        "click",
+        cerrarProgramas
+      );
+
     cargarWorkouts();
 
   }
 
-  document
-  .getElementById(
-    "closeProgramsBtn"
-  )
-  ?.addEventListener(
-    "click",
-    cerrarProgramas
-  );
-  
 );//DOMContentLoaded
+
+
+
