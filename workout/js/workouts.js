@@ -233,6 +233,8 @@ function abrirProgramas(){
         currentWorkoutName
       );
 
+  cargarProgramas();
+
   document
     .getElementById(
       "programsOverlay"
@@ -252,6 +254,71 @@ function cerrarProgramas(){
     .remove("open");
 
 }//cerrarProgramas
+
+async function cargarProgramas(){
+
+  const container =
+    document.getElementById(
+      "programsList"
+    );
+
+  container.innerHTML = "";
+
+  const {
+    data,
+    error
+  } = await workoutClient
+
+    .from("programs")
+
+    .select("*")
+
+    .eq(
+      "workout_id",
+      currentWorkoutId
+    )
+
+    .order(
+      "created_at",
+      {
+        ascending:false
+      }
+    );
+
+  if(error){
+
+    console.error(error);
+
+    return;
+
+  }
+
+  data.forEach(
+
+    program => {
+
+      const item =
+        document.createElement(
+          "div"
+        );
+
+      item.className =
+        "program-item";
+
+      item.textContent =
+        capitalizar(
+          program.nombre
+        );
+
+      container.appendChild(
+        item
+      );
+
+    }
+
+  );
+
+}//cargarProgramas
 
 document.addEventListener(
 
