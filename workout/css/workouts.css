@@ -400,3 +400,29 @@
   margin:20px auto;
 
 }
+
+#programsOverlay .lightbox-card{
+
+  max-width:420px;
+
+  width:100%;
+
+}
+
+#programsOverlay .lightbox-actions{
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  margin-top:20px;
+
+}
+
+#programsOverlay #closeProgramsBtn{
+
+  min-width:140px;
+
+}
