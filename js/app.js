@@ -20,26 +20,32 @@ const fakeLogs = [
 let progress = 0;
 let logIndex = 0;
 
+/* ==========================================
+   LOADER
+========================================== */
+
 const interval = setInterval(() => {
 
     progress += 2;
 
-    if(progress > 100) progress = 100;
+    if (progress > 100) progress = 100;
 
     bar.style.width = progress + "%";
-    percent.innerText = progress + "%";
+    percent.textContent = progress + "%";
 
-    if(progress % 10 === 0 && logIndex < fakeLogs.length){
+    if (progress % 10 === 0 && logIndex < fakeLogs.length) {
 
         const log = document.createElement("div");
-        log.classList.add("log");
-        log.innerText = fakeLogs[logIndex];
+        log.className = "log";
+        log.textContent = fakeLogs[logIndex];
+
         logs.appendChild(log);
         logs.scrollTop = logs.scrollHeight;
+
         logIndex++;
     }
 
-    if(progress >= 100){
+    if (progress >= 100) {
 
         clearInterval(interval);
 
@@ -49,16 +55,51 @@ const interval = setInterval(() => {
             loader.style.opacity = "0";
 
             setTimeout(() => {
+
                 loader.style.display = "none";
                 main.classList.add("show");
-            },350);
 
-        },120);
+            }, 350);
+
+        }, 120);
+
     }
 
-},16);
+}, 16);
 
-/* PC HK */
+/* ==========================================
+   MENU
+========================================== */
+
+function toggleMenu() {
+
+    const opening = !secretMenu.classList.contains("showMenu");
+
+    secretMenu.classList.toggle("showMenu");
+
+    if (opening) {
+
+        // Reinicia la animación
+        secretMenu.classList.remove("boot");
+
+        void secretMenu.offsetWidth;
+
+        secretMenu.classList.add("boot");
+
+        // Elimina la clase al terminar
+        setTimeout(() => {
+
+            secretMenu.classList.remove("boot");
+
+        }, 700);
+
+    }
+
+}
+
+/* ==========================================
+   PC (HK)
+========================================== */
 
 let typed = "";
 
@@ -67,24 +108,30 @@ document.addEventListener("keydown", (e) => {
     typed += e.key.toLowerCase();
     typed = typed.slice(-2);
 
-    if(typed === "hk"){
-        secretMenu.classList.toggle("showMenu");
+    if (typed === "hk") {
+
+        toggleMenu();
         typed = "";
+
     }
 
 });
 
-/* MOBILE DOUBLE TAP */
+/* ==========================================
+   MOBILE (DOUBLE TAP)
+========================================== */
 
 let lastTap = 0;
 
-document.addEventListener("touchend", function(){
+document.addEventListener("touchend", () => {
 
-    const currentTime = new Date().getTime();
+    const currentTime = Date.now();
     const tapLength = currentTime - lastTap;
 
-    if(tapLength < 300 && tapLength > 0){
-        secretMenu.classList.toggle("showMenu");
+    if (tapLength < 300 && tapLength > 0) {
+
+        toggleMenu();
+
     }
 
     lastTap = currentTime;
