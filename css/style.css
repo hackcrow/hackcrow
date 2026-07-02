@@ -181,59 +181,79 @@ body{
 }
 
 /* ==================================================
-   MENU
+   MENU (NEW SYSTEM BAR STYLE)
 ================================================== */
 
 #secretMenu{
     position:fixed;
     top:-400px;
-    left:50%;
-    transform:translateX(-50%);
-    width:320px;
+    left:0;
+    transform:none;
+
+    width:100%;
     background:rgba(0,0,0,.92);
-    border:1px solid #00ff88;
+    border-bottom:1px solid #00ff88;
     box-shadow:
         0 0 20px #00ff88,
         0 0 50px rgba(0,255,136,.15);
-    padding:20px;
+
     z-index:100000;
     transition:.5s ease;
     backdrop-filter:blur(10px);
 }
 
 #secretMenu.showMenu{
-    top:20px;
+    top:0;
 }
 
 .menu-box{
     display:flex;
     flex-direction:column;
-    gap:15px;
 }
 
+/* TITULO */
 .menu-title{
+    width:100%;
     text-align:center;
     font-size:1.2rem;
     letter-spacing:4px;
-    margin-bottom:10px;
+    padding:12px 20px;
+
     text-shadow:0 0 10px #00ff88;
+    border-bottom:1px solid rgba(0,255,136,.2);
 }
 
-.menu-box button{
-    background:#050505;
-    border:1px solid #00ff88;
+/* FILA DE OPCIONES */
+.menu-options{
+    width:100%;
+    display:flex;
+}
+
+/* BOTONES IGUALES */
+.menu-options button{
+    flex:1;
+
+    background:transparent;
+    border:none;
+    border-right:1px solid rgba(0,255,136,.2);
+
     color:#00ff88;
-    padding:12px;
+    padding:14px 10px;
+
     cursor:pointer;
     font-family:'Share Tech Mono', monospace;
-    font-size:1rem;
+    font-size:.95rem;
+
     transition:.3s;
 }
 
-.menu-box button:hover{
-    background:#00ff88;
-    color:#000;
-    box-shadow:0 0 20px #00ff88;
+.menu-options button:last-child{
+    border-right:none;
+}
+
+.menu-options button:hover{
+    background:rgba(0,255,136,.08);
+    box-shadow:0 0 20px rgba(0,255,136,.2);
 }
 
 /* ==================================================
@@ -275,6 +295,10 @@ body{
     86%{ clip-path:inset(0 0 0 0); transform:translate(0); }
 }
 
+/* ==================================================
+   MOBILE
+================================================== */
+
 @media(max-width:700px){
     .glitch,.main-glitch{
         font-size:2.5rem;
@@ -284,5 +308,4 @@ body{
 
     .progress-container{ width:90%; }
     .logs{ width:90%; font-size:.8rem; }
-    #secretMenu{ width:90%; }
 }
