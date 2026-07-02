@@ -408,3 +408,67 @@ body{
     .progress-container{ width:90%; }
     .logs{ width:90%; font-size:.8rem; }
 }
+
+.menu-box{
+    display:flex;
+    flex-direction:column;
+    animation:menuBoot .35s ease-out;
+}
+
+/* entrada tipo sistema encendiéndose */
+@keyframes menuBoot{
+    0%{
+        opacity:0;
+        transform:translateY(-10px);
+        filter:brightness(2) blur(2px);
+    }
+    50%{
+        opacity:.5;
+        filter:brightness(1.5) blur(1px);
+    }
+    100%{
+        opacity:1;
+        transform:translateY(0);
+        filter:brightness(1) blur(0);
+    }
+}
+
+.menu-options button{
+    opacity:0;
+    transform:translateY(-5px);
+    animation:btnAppear .3s forwards;
+}
+
+/* delay por botón */
+.menu-options button:nth-child(1){ animation-delay:.05s; }
+.menu-options button:nth-child(2){ animation-delay:.10s; }
+.menu-options button:nth-child(3){ animation-delay:.15s; }
+.menu-options button:nth-child(4){ animation-delay:.20s; }
+
+@keyframes btnAppear{
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+#secretMenu.showMenu{
+    animation:menuGlitch .25s linear;
+}
+
+@keyframes menuGlitch{
+    0%{
+        transform:translateX(-2px);
+        filter:hue-rotate(20deg);
+    }
+    25%{
+        transform:translateX(2px);
+    }
+    50%{
+        transform:translateX(-1px);
+        filter:hue-rotate(-10deg);
+    }
+    100%{
+        transform:translateX(0);
+    }
+}
