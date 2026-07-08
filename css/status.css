@@ -1,0 +1,23 @@
+.version-label{
+
+    position:fixed;
+
+    bottom:12px;
+
+    left:18px;
+
+    font-size:1.3rem;
+
+    color:#00ff88;
+
+    opacity:.45;
+
+    text-shadow:0 0 8px #00ff88;
+
+    z-index:100001;
+
+    pointer-events:none;
+
+    user-select:none;
+
+}
