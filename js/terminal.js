@@ -1,44 +1,53 @@
 const terminalOutput = document.getElementById("terminalOutput");
-const commandInput = document.getElementById("commandInput");
 
-function addLine(text = "", className = ""){
+function printLine(text = "") {
 
     const line = document.createElement("div");
-
-    line.className = "line " + className;
-
+    line.className = "line";
     line.textContent = text;
 
     terminalOutput.appendChild(line);
-
     terminalOutput.scrollTop = terminalOutput.scrollHeight;
 
 }
 
-function initializeTerminal(){
+function createPrompt() {
+
+    const row = document.createElement("div");
+    row.className = "terminal-row";
+
+    const prompt = document.createElement("span");
+    prompt.className = "prompt";
+    prompt.textContent = ">";
+
+    const input = document.createElement("input");
+    input.type = "text";
+    input.className = "terminal-input";
+
+    input.autocomplete = "off";
+    input.autocorrect = "off";
+    input.autocapitalize = "off";
+    input.spellcheck = false;
+
+    row.appendChild(prompt);
+    row.appendChild(input);
+
+    terminalOutput.appendChild(row);
+
+    input.focus();
+
+}
+
+function initializeTerminal() {
 
     terminalOutput.innerHTML = "";
 
-    addLine("Connecting to Hackcrow Network...");
-    addLine("Authentication Successful");
-    addLine("");
-    addLine("Type HELP to begin.");
+    printLine("Connecting to Hackcrow Network...");
+    printLine("Authentication Successful");
+    printLine("");
+    printLine("Type HELP to begin.");
+    printLine("");
 
-    commandInput.value = "";
-    commandInput.focus();
+    createPrompt();
 
 }
-
-commandInput.addEventListener("keydown", function(e){
-
-    if(e.key !== "Enter") return;
-
-    const command = commandInput.value.trim();
-
-    addLine("> " + command);
-
-    commandInput.value = "";
-
-    terminalOutput.scrollTop = terminalOutput.scrollHeight;
-
-});
