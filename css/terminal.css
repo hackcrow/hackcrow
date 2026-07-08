@@ -86,3 +86,24 @@
     white-space:pre-wrap;
 
 }
+
+.terminal-input{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:0 20px 20px 20px;
+
+}
+
+.prompt{
+
+    color:#00ff88;
+
+    font-size:1rem;
+
+}
+
