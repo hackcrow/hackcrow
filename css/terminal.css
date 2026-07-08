@@ -63,3 +63,16 @@
     color:rgba(0,255,136,.35);
 
 }
+
+#terminalOutput{
+
+    flex:1;
+
+    overflow-y:auto;
+
+    padding:20px;
+
+    display:flex;
+    flex-direction:column;
+
+}
