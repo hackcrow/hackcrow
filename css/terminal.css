@@ -23,3 +23,23 @@
     flex-direction:column;
 
 }
+
+#commandInput{
+
+    flex:1;
+
+    background:transparent;
+
+    border:none;
+
+    outline:none;
+
+    color:#00ff88;
+
+    caret-color:#00ff88;
+
+    font-family:'Share Tech Mono', monospace;
+
+    font-size:1rem;
+
+}
