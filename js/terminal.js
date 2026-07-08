@@ -1,14 +1,44 @@
-function initializeTerminal() {
+const terminalOutput = document.getElementById("terminalOutput");
+const commandInput = document.getElementById("commandInput");
 
-    const output = document.getElementById("terminalOutput");
+function addLine(text = "", className = ""){
 
-    output.innerHTML = `
-        <div class="line">Connecting to Hackcrow Network...</div>
-        <div class="line">Authentication Successful</div>
-        <div class="line"></div>
-        <div class="line">Type <span class="highlight">HELP</span> to begin.</div>
-    `;
+    const line = document.createElement("div");
 
-    document.getElementById("commandInput").focus();
+    line.className = "line " + className;
+
+    line.textContent = text;
+
+    terminalOutput.appendChild(line);
+
+    terminalOutput.scrollTop = terminalOutput.scrollHeight;
 
 }
+
+function initializeTerminal(){
+
+    terminalOutput.innerHTML = "";
+
+    addLine("Connecting to Hackcrow Network...");
+    addLine("Authentication Successful");
+    addLine("");
+    addLine("Type HELP to begin.");
+
+    commandInput.value = "";
+    commandInput.focus();
+
+}
+
+commandInput.addEventListener("keydown", function(e){
+
+    if(e.key !== "Enter") return;
+
+    const command = commandInput.value.trim();
+
+    addLine("> " + command);
+
+    commandInput.value = "";
+
+    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+
+});
