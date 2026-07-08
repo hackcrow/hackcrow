@@ -1,23 +1,25 @@
-.version-label{
+#terminal{
 
-    position:fixed;
+    position:absolute;
 
-    bottom:12px;
+    top:35px;
 
-    left:18px;
+    left:60px;
 
-    font-size:1.3rem;
+    right:60px;
 
-    color:#00ff88;
+    width:auto;
 
-    opacity:.45;
+    height:80vh;
 
-    text-shadow:0 0 8px #00ff88;
+    border:1px solid #00ff88;
 
-    z-index:100001;
+    background:#050505;
 
-    pointer-events:none;
+    box-shadow:0 0 25px rgba(0,255,136,.2);
 
-    user-select:none;
+    display:flex;
+
+    flex-direction:column;
 
 }
