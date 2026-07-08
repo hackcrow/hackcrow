@@ -47,31 +47,9 @@ body{
 
 }
 
-/* ==================================================
-   VERSION LABEL
-================================================== */
 
-.version-label{
 
-    position:fixed;
 
-    top:6px;
-
-    left:50%;
-
-    transform:translateX(-50%);
-
-    font-size:.75rem;
-
-    opacity:.35;
-
-    letter-spacing:2px;
-
-    z-index:100001;
-
-    pointer-events:none;
-
-}
 
 /* ==================================================
    LOADER
