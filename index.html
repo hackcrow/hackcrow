@@ -13,6 +13,7 @@
         <!-- GLOBAL CSS -->
         
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/terminal.css">
     
     </head>
     <body>
@@ -77,10 +78,37 @@
         </div>
         
         <div id="mainContent">
-            <div class="main-glitch" data-text="HACKCROW">HACKCROW</div>
+
+            <div id="terminal">
+        
+                <div class="terminal-header">
+                    HACKCROW OS v3.0
+                </div>
+        
+                <div id="terminalOutput">
+        
+                </div>
+        
+                <div class="terminal-input">
+        
+                    <span class="prompt">&gt;</span>
+        
+                    <input
+                        id="commandInput"
+                        type="text"
+                        autocomplete="off"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        spellcheck="false">
+        
+                </div>
+        
+            </div>
+        
         </div>
         
         <script src="js/app.js"></script>
-    
+        <script src="js/terminal.js"></script>
+        <script src="js/commands.js"></script>
     </body>
 </html>
