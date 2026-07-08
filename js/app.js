@@ -58,6 +58,8 @@ const interval = setInterval(() => {
 
                 loader.style.display = "none";
                 main.classList.add("show");
+                
+                initializeTerminal();
 
             }, 350);
 
