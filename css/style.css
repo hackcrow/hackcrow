@@ -276,7 +276,7 @@ body{
         0 0 20px #00ff88,
         0 0 35px #00ff88;
 
-    animation:glitchHover .25s infinite;
+    //animation:glitchHover .25s infinite;
 }
 
 /* borde eléctrico superior */
@@ -323,7 +323,7 @@ body{
 
 /* ===== ANIMACIONES ===== */
 
-@keyframes glitchHover{
+/*@keyframes glitchHover{
     0%{
         transform:translateY(-3px) scale(1.06) skewX(-2deg);
         filter:brightness(1);
@@ -344,7 +344,7 @@ body{
         transform:translateY(-3px) scale(1.06) skewX(-2deg);
         filter:brightness(1);
     }
-}
+}*/
 
 @keyframes scanLine{
     0%{
