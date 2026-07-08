@@ -43,3 +43,23 @@
     font-size:1rem;
 
 }
+
+#commandInput::placeholder{
+
+    color:rgba(0,255,136,.35);
+
+}
+
+#commandInput::selection{
+
+    background:#00ff88;
+
+    color:#000;
+
+}
+
+#commandInput::-webkit-input-placeholder{
+
+    color:rgba(0,255,136,.35);
+
+}
