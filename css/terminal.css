@@ -24,45 +24,7 @@
 
 }
 
-#commandInput{
 
-    flex:1;
-
-    background:transparent;
-
-    border:none;
-
-    outline:none;
-
-    color:#00ff88;
-
-    caret-color:#00ff88;
-
-    font-family:'Share Tech Mono', monospace;
-
-    font-size:1rem;
-
-}
-
-#commandInput::placeholder{
-
-    color:rgba(0,255,136,.35);
-
-}
-
-#commandInput::selection{
-
-    background:#00ff88;
-
-    color:#000;
-
-}
-
-#commandInput::-webkit-input-placeholder{
-
-    color:rgba(0,255,136,.35);
-
-}
 
 #terminalOutput{
 
@@ -87,23 +49,4 @@
 
 }
 
-.terminal-input{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-
-    padding:0 20px 20px 20px;
-
-}
-
-.prompt{
-
-    color:#00ff88;
-
-    font-size:1rem;
-
-}
 
