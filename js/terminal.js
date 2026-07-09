@@ -12,13 +12,13 @@ function printLine(text = "", className = "") {
 
     terminalOutput.scrollTop = terminalOutput.scrollHeight;
 
-}
+}//printLine
 
 function printLines(lines) {
 
     lines.forEach(line => printLine(line));
 
-}
+}//printLines
 
 function createPrompt() {
 
@@ -59,41 +59,41 @@ function createPrompt() {
 
     });
 
-}
+}//createPrompt
 
 function executeCommand(command){
 
     const cmd = command.toLowerCase();
 
-    if(commands[cmd]){
+    const commandObject = commands.find(c =>
+        c.name === cmd ||
+        (c.aliases && c.aliases.includes(cmd))
+    );
 
-        const result = commands[cmd]();
-    
+    if(commandObject){
+
+        const result = commandObject.execute();
+
         if(result){
-    
-            printLines(result);
-    
-            printLine("");
-    
-            createPrompt();
-    
-        }
-    
-        return;
-    
-    }else{
 
-        printLine("");
-        printLine("Unknown command: " + command);
-        printLine("Type HELP to see available commands.");
+            printLines(result);
+            printLine("");
+            createPrompt();
+
+        }
+
+        return;
 
     }
 
     printLine("");
+    printLine("Unknown command: " + command);
+    printLine("Type HELP to see available commands.");
+    printLine("");
 
     createPrompt();
 
-}
+}//executeCommand
 
 function initializeTerminal(){
 
@@ -109,4 +109,4 @@ function initializeTerminal(){
 
     createPrompt();
 
-}
+}//initializeTerminal
