@@ -1,71 +1,109 @@
-const commands = {
+const commands = [
 
-    help(){
+    {
+        name: "help",
+        category: "System",
+        description: "Show available commands",
+        aliases: ["?"],
 
-        return [
+        execute() {
 
-            "═══════════════════════════════════════════════",
-            "              HACKCROW COMMAND INDEX",
-            "═══════════════════════════════════════════════",
-            "",
+            const lines = [];
 
-            "[ SYSTEM ]",
+            lines.push("════════════════════════════════════════════");
+            lines.push("            HACKCROW COMMAND INDEX");
+            lines.push("════════════════════════════════════════════");
+            lines.push("");
 
-            "help        Show available commands",
-            "about       About Hackcrow OS",
-            "version     Show current version",
-            "clear       Clear terminal",
-            "",
+            const categories = {};
 
-            "[ APPLICATIONS ]",
+            commands.forEach(cmd => {
 
-            "gym         Open HackGym",
-            "translate   Open Aurebesh Translator",
-            "words       Open 5 Daily Words",
-            "tools       Open Tools",
-            "",
+                if (!categories[cmd.category]) {
+                    categories[cmd.category] = [];
+                }
 
-            "Type a command and press ENTER.",
-            ""
+                categories[cmd.category].push(cmd);
 
-        ];
+            });
 
-    },
+            Object.keys(categories).forEach(category => {
 
-    about(){
+                lines.push("[" + category.toUpperCase() + "]");
+                lines.push("");
 
-        return [
+                categories[category].forEach(cmd => {
 
-            "Hackcrow OS",
-            "Version 3.0",
-            "",
-            "A hacker-inspired personal workspace",
-            "created by Rafael.",
-            ""
+                    lines.push(
+                        cmd.name.padEnd(12) + cmd.description
+                    );
 
-        ];
+                });
 
-    },
+                lines.push("");
 
-    version(){
+            });
 
-        return [
+            return lines;
 
-            "Hackcrow OS v3.0",
-            ""
-
-        ];
+        }
 
     },
 
-    clear(){
+    {
+        name: "about",
+        category: "System",
+        description: "About Hackcrow OS",
 
-        terminalOutput.innerHTML = "";
+        execute() {
 
-        createPrompt();
+            return [
 
-        return null;
+                "Hackcrow OS",
+                "Version 3.0",
+                "",
+                "Designed and developed by Rafael.",
+                ""
+
+            ];
+
+        }
+
+    },
+
+    {
+        name: "version",
+        category: "System",
+        description: "Show current version",
+
+        execute() {
+
+            return [
+
+                "Hackcrow OS v3.0",
+                ""
+
+            ];
+
+        }
+
+    },
+
+    {
+        name: "clear",
+        category: "System",
+        description: "Clear terminal",
+
+        execute() {
+
+            terminalOutput.innerHTML = "";
+
+            createPrompt();
+
+            return null;
+
+        }
 
     }
 
-};
+];
