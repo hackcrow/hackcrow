@@ -1,6 +1,7 @@
 function openTools(){
 
-    printLine("");
+    terminalOutput.innerHTML = "";
+
     printLine("Launching Tools...");
     printLine("Loading utilities...");
 
