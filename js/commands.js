@@ -181,6 +181,30 @@ const commands = [
 
         }
 
-    }
+    },
+
+    {
+        name: "echo",
+        category: "System",
+        description: "Print text",
+    
+        execute(args = "") {
+    
+            if(args.trim() === ""){
+    
+                return [
+                    ""
+                ];
+    
+            }
+    
+            return [
+                args,
+                ""
+            ];
+    
+        }
+    
+    },
 
 ];
