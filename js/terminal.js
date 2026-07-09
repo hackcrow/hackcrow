@@ -1,13 +1,22 @@
 const terminalOutput = document.getElementById("terminalOutput");
 
-function printLine(text = "") {
+function printLine(text = "", className = "") {
 
     const line = document.createElement("div");
-    line.className = "line";
+
+    line.className = "line " + className;
+
     line.textContent = text;
 
     terminalOutput.appendChild(line);
+
     terminalOutput.scrollTop = terminalOutput.scrollHeight;
+
+}
+
+function printLines(lines) {
+
+    lines.forEach(line => printLine(line));
 
 }
 
@@ -36,12 +45,50 @@ function createPrompt() {
 
     input.focus();
 
+    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+
+    input.addEventListener("keydown", function(e){
+
+        if(e.key !== "Enter") return;
+
+        const command = input.value.trim();
+
+        input.disabled = true;
+
+        executeCommand(command);
+
+    });
+
 }
 
-function initializeTerminal() {
+function executeCommand(command){
+
+    const cmd = command.toLowerCase();
+
+    if(commands[cmd]){
+
+        printLines(commands[cmd]());
+
+    }else{
+
+        printLine("");
+        printLine("Unknown command: " + command);
+        printLine("Type HELP to see available commands.");
+
+    }
+
+    printLine("");
+
+    createPrompt();
+
+}
+
+function initializeTerminal(){
 
     terminalOutput.innerHTML = "";
 
+    printLine("Hackcrow OS v3.0");
+    printLine("----------------------------------------");
     printLine("Connecting to Hackcrow Network...");
     printLine("Authentication Successful");
     printLine("");
