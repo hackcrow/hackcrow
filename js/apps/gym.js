@@ -1,6 +1,7 @@
 function openHackGym(){
 
-    printLine("");
+    terminalOutput.innerHTML = "";
+
     printLine("Launching HackGym...");
     printLine("Loading workout database...");
     printLine("Initializing modules...");
