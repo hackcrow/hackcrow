@@ -48,6 +48,16 @@ function createPrompt() {
     terminalOutput.scrollTop = terminalOutput.scrollHeight;
 
     input.addEventListener("keydown", function(e){
+        if(e.key === "Tab"){
+
+            e.preventDefault();
+        
+            input.value = autocompleteCommand(input.value);
+        
+            return;
+        
+        }
+        
         if(e.key === "ArrowUp"){
 
             e.preventDefault();
