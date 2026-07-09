@@ -1,6 +1,7 @@
 function openTranslator(){
 
-    printLine("");
+    terminalOutput.innerHTML = "";
+
     printLine("Launching Aurebesh Translator...");
     printLine("Loading Galactic Dictionary...");
     printLine("Initializing translator...");
