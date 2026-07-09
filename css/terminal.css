@@ -194,32 +194,3 @@
 
 }
 
-/* ===========================
-   BLOCK CURSOR
-=========================== */
-
-.terminal-input{
-
-    caret-color: transparent;
-
-}
-
-.terminal-input::after{
-
-    content:"█";
-
-    color:#00ff88;
-
-    animation:blinkCursor .8s steps(1) infinite;
-
-}
-
-@keyframes blinkCursor{
-
-    50%{
-
-        opacity:0;
-
-    }
-
-}
