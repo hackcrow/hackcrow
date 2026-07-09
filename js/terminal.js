@@ -107,7 +107,7 @@ function executeCommand(command){
 
     if(commandObject){
 
-        const result = commandObject.execute();
+        const result = commandObject.execute(args);
 
         if(result){
 
