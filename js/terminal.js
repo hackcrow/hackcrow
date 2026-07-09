@@ -48,6 +48,25 @@ function createPrompt() {
     terminalOutput.scrollTop = terminalOutput.scrollHeight;
 
     input.addEventListener("keydown", function(e){
+        if(e.key === "ArrowUp"){
+
+            e.preventDefault();
+        
+            input.value = previousHistory();
+        
+            return;
+        
+        }
+        
+        if(e.key === "ArrowDown"){
+        
+            e.preventDefault();
+        
+            input.value = nextHistory();
+        
+            return;
+        
+        }
 
         if(e.key !== "Enter") return;
 
