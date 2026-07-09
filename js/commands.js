@@ -110,56 +110,77 @@ const commands = [
         name: "history",
         category: "System",
         description: "Show command history",
-    
+
         execute() {
-    
+
             if(commandHistory.length === 0){
-    
+
                 return [
                     "No commands in history.",
                     ""
                 ];
-    
+
             }
-    
+
             const lines = [];
-    
+
             lines.push("COMMAND HISTORY");
             lines.push("----------------");
-    
+
             commandHistory.forEach((cmd, index) => {
-    
+
                 lines.push(`${index + 1}. ${cmd}`);
-    
+
             });
-    
+
             lines.push("");
-    
+
             return lines;
-    
-        },
 
-        {
-    name: "date",
-    category: "System",
-    description: "Show current date",
+        }
 
-    execute() {
+    },
 
-        const today = new Date();
+    {
+        name: "date",
+        category: "System",
+        description: "Show current date",
 
-        return [
+        execute() {
 
-            today.toLocaleDateString(),
+            const today = new Date();
 
-            ""
+            return [
 
-        ];
+                today.toLocaleDateString(),
+
+                ""
+
+            ];
+
+        }
+
+    },
+
+    {
+        name: "time",
+        category: "System",
+        description: "Show current time",
+
+        execute() {
+
+            const now = new Date();
+
+            return [
+
+                now.toLocaleTimeString(),
+
+                ""
+
+            ];
+
+        }
 
     }
-
-},
-
-}
 
 ];
