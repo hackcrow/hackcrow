@@ -1,6 +1,7 @@
 function openWords(){
 
-    printLine("");
+    terminalOutput.innerHTML = "";
+
     printLine("Launching 5 Daily Words...");
     printLine("Loading dictionary...");
     printLine("Synchronizing database...");
