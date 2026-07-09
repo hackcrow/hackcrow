@@ -67,8 +67,20 @@ function executeCommand(command){
 
     if(commands[cmd]){
 
-        printLines(commands[cmd]());
-
+        const result = commands[cmd]();
+    
+        if(result){
+    
+            printLines(result);
+    
+            printLine("");
+    
+            createPrompt();
+    
+        }
+    
+        return;
+    
     }else{
 
         printLine("");
