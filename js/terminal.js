@@ -94,7 +94,11 @@ function createPrompt() {
 
 function executeCommand(command){
 
-    const cmd = command.toLowerCase();
+    const parts = command.trim().split(" ");
+
+    const cmd = parts.shift().toLowerCase();
+    
+    const args = parts.join(" ");
 
     const commandObject = commands.find(c =>
         c.name === cmd ||
