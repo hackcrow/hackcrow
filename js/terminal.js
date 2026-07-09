@@ -53,6 +53,8 @@ function createPrompt() {
 
         const command = input.value.trim();
 
+        addToHistory(command);
+
         input.disabled = true;
 
         executeCommand(command);
