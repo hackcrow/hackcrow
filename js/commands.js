@@ -207,4 +207,64 @@ const commands = [
     
     },
 
+    {
+        name: "gym",
+        category: "Applications",
+        description: "Open HackGym",
+    
+        execute() {
+    
+            openHackGym();
+    
+            return null;
+    
+        }
+    
+    },
+
+    {
+        name: "translate",
+        category: "Applications",
+        description: "Open Aurebesh Translator",
+    
+        execute() {
+    
+            openTranslator();
+    
+            return null;
+    
+        }
+    
+    },
+
+    {
+        name: "words",
+        category: "Applications",
+        description: "Open 5 Daily Words",
+    
+        execute() {
+    
+            openWords();
+    
+            return null;
+    
+        }
+    
+    },
+
+    {
+        name: "tools",
+        category: "Applications",
+        description: "Open Tools",
+    
+        execute() {
+    
+            openTools();
+    
+            return null;
+    
+        }
+    
+    }
+
 ];
