@@ -1,39 +1,16 @@
 function openWords(){
 
-    terminalOutput.innerHTML = "";
+    launchApplication(
 
-    const lines = [
+        "5 Daily Words",
 
-        "Launching 5 Daily Words...",
-        "Loading dictionary...",
-        "Synchronizing database...",
-        "",
-        "Done.",
-        "",
-        "Opening application..."
+        [
+            "Loading dictionary...",
+            "Synchronizing database..."
+        ],
 
-    ];
+        "words/index.html"
 
-    let i = 0;
-
-    const interval = setInterval(() => {
-
-        printLine(lines[i]);
-
-        i++;
-
-        if(i >= lines.length){
-
-            clearInterval(interval);
-
-            setTimeout(() => {
-
-                window.location.href = "words/index.html";
-
-            }, 500);
-
-        }
-
-    }, 250);
+    );
 
 }
