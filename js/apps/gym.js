@@ -1,39 +1,16 @@
 function openHackGym(){
 
-    terminalOutput.innerHTML = "";
+    launchApplication(
 
-    const lines = [
+        "HackGym",
 
-        "Launching HackGym...",
-        "Loading workout database...",
-        "Initializing modules...",
-        "",
-        "Done.",
-        "",
-        "Opening application..."
+        [
+            "Loading workout database...",
+            "Initializing modules..."
+        ],
 
-    ];
+        "workout/index.html"
 
-    let i = 0;
-
-    const interval = setInterval(() => {
-
-        printLine(lines[i]);
-
-        i++;
-
-        if(i >= lines.length){
-
-            clearInterval(interval);
-
-            setTimeout(() => {
-
-                window.location.href = "workout/index.html";
-
-            }, 500);
-
-        }
-
-    }, 250);
+    );
 
 }
