@@ -1,16 +1,18 @@
 function openTranslator(){
 
-    launchApplication(
+    launchApplication({
 
-        "Aurebesh Translator",
+        name: "Aurebesh Translator",
 
-        [
+        messages: [
+
             "Loading Galactic Dictionary...",
             "Initializing translator..."
+
         ],
 
-        "aurebesh/index.html"
+        url: "aurebesh/index.html"
 
-    );
+    });
 
 }
