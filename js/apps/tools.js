@@ -1,16 +1,18 @@
 function openTools(){
 
-    launchApplication(
+    launchApplication({
 
-        "Tools",
+        name: "Tools",
 
-        [
+        messages: [
+
             "Loading utilities...",
             "Initializing modules..."
+
         ],
 
-        "tools/index.html"
+        url: "tools/index.html"
 
-    );
+    });
 
 }
