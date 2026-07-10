@@ -1,17 +1,17 @@
-function openTranslator(){
+function openWords(){
 
     launchApplication({
 
-        name: "Aurebesh Translator",
+        name: "5 Daily Words",
 
         messages: [
 
-            "Loading Galactic Dictionary...",
-            "Initializing translator..."
+            "Loading dictionary...",
+            "Synchronizing database..."
 
         ],
 
-        url: "aurebesh/index.html"
+        url: "words/index.html"
 
     });
 
