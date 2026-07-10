@@ -1,16 +1,18 @@
 function openHackGym(){
 
-    launchApplication(
+    launchApplication({
 
-        "HackGym",
+        name: "HackGym",
 
-        [
+        messages: [
+
             "Loading workout database...",
             "Initializing modules..."
+
         ],
 
-        "workout/index.html"
+        url: "workout/index.html"
 
-    );
+    });
 
 }
