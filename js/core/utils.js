@@ -1,4 +1,13 @@
-function launchApplication(name, messages, url){
+function launchApplication(options){
+
+    const {
+
+        name,
+        messages,
+        url,
+        delay = 250
+
+    } = options;
 
     terminalOutput.innerHTML = "";
 
@@ -33,6 +42,6 @@ function launchApplication(name, messages, url){
 
         }
 
-    }, 250);
+    }, delay);
 
 }
