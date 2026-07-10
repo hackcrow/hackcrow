@@ -2,14 +2,38 @@ function openHackGym(){
 
     terminalOutput.innerHTML = "";
 
-    printLine("Launching HackGym...");
-    printLine("Loading workout database...");
-    printLine("Initializing modules...");
+    const lines = [
 
-    setTimeout(() => {
+        "Launching HackGym...",
+        "Loading workout database...",
+        "Initializing modules...",
+        "",
+        "Done.",
+        "",
+        "Opening application..."
 
-        window.location.href = "workout/index.html";
+    ];
 
-    }, 1200);
+    let i = 0;
+
+    const interval = setInterval(() => {
+
+        printLine(lines[i]);
+
+        i++;
+
+        if(i >= lines.length){
+
+            clearInterval(interval);
+
+            setTimeout(() => {
+
+                window.location.href = "workout/index.html";
+
+            }, 500);
+
+        }
+
+    }, 250);
 
 }
