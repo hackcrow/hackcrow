@@ -1,39 +1,16 @@
 function openTranslator(){
 
-    terminalOutput.innerHTML = "";
+    launchApplication(
 
-    const lines = [
+        "Aurebesh Translator",
 
-        "Launching Aurebesh Translator...",
-        "Loading Galactic Dictionary...",
-        "Initializing translator...",
-        "",
-        "Done.",
-        "",
-        "Opening application..."
+        [
+            "Loading Galactic Dictionary...",
+            "Initializing translator..."
+        ],
 
-    ];
+        "aurebesh/index.html"
 
-    let i = 0;
-
-    const interval = setInterval(() => {
-
-        printLine(lines[i]);
-
-        i++;
-
-        if(i >= lines.length){
-
-            clearInterval(interval);
-
-            setTimeout(() => {
-
-                window.location.href = "aurebesh/index.html";
-
-            }, 500);
-
-        }
-
-    }, 250);
+    );
 
 }
