@@ -2,14 +2,38 @@ function openWords(){
 
     terminalOutput.innerHTML = "";
 
-    printLine("Launching 5 Daily Words...");
-    printLine("Loading dictionary...");
-    printLine("Synchronizing database...");
+    const lines = [
 
-    setTimeout(() => {
+        "Launching 5 Daily Words...",
+        "Loading dictionary...",
+        "Synchronizing database...",
+        "",
+        "Done.",
+        "",
+        "Opening application..."
 
-        window.location.href = "words/index.html";
+    ];
 
-    }, 1200);
+    let i = 0;
+
+    const interval = setInterval(() => {
+
+        printLine(lines[i]);
+
+        i++;
+
+        if(i >= lines.length){
+
+            clearInterval(interval);
+
+            setTimeout(() => {
+
+                window.location.href = "words/index.html";
+
+            }, 500);
+
+        }
+
+    }, 250);
 
 }
