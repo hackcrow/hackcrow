@@ -2,13 +2,38 @@ function openTools(){
 
     terminalOutput.innerHTML = "";
 
-    printLine("Launching Tools...");
-    printLine("Loading utilities...");
+    const lines = [
 
-    setTimeout(() => {
+        "Launching Tools...",
+        "Loading utilities...",
+        "Initializing modules...",
+        "",
+        "Done.",
+        "",
+        "Opening application..."
 
-        window.location.href = "tools/index.html";
+    ];
 
-    }, 1200);
+    let i = 0;
+
+    const interval = setInterval(() => {
+
+        printLine(lines[i]);
+
+        i++;
+
+        if(i >= lines.length){
+
+            clearInterval(interval);
+
+            setTimeout(() => {
+
+                window.location.href = "tools/index.html";
+
+            }, 500);
+
+        }
+
+    }, 250);
 
 }
