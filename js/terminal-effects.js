@@ -8,7 +8,13 @@ function startDigitalRain(){
 
         if(Math.random() < 0.80){
 
-            createRainColumn();
+            const amount = 1 + Math.floor(Math.random() * 3);
+
+                for(let i = 0; i < amount; i++){
+                
+                    createRainColumn();
+                
+                }
 
         }
 
@@ -26,7 +32,21 @@ function stopDigitalRain(){
 
 function createRainColumn(){
 
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#$%&@<>";
+    const glyphSets = [
+
+        "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン",
+    
+        "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん",
+    
+        "日月火水木金土空山川天風雨龍虎心光夢星",
+    
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    
+        "0123456789",
+    
+        "#$%&@<>*+=-"
+    
+    ];const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#$%&@<>";
 
     const column = document.createElement("div");
 
