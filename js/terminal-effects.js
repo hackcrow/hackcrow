@@ -6,7 +6,7 @@ function startDigitalRain(){
 
     rainInterval = setInterval(() => {
 
-        if(Math.random() < 0.35){
+        if(Math.random() < 0.80){
 
             createRainColumn();
 
@@ -38,7 +38,7 @@ function createRainColumn(){
 
     let text = "";
 
-    const length = 6 + Math.floor(Math.random() * 10);
+    const length = 15 + Math.floor(Math.random() * 15);
 
     for(let i=0;i<length;i++){
 
