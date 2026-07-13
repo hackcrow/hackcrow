@@ -64,7 +64,7 @@ const interval = setInterval(() => {
     
                 startDigitalRain();
     
-            },350);
+            },180);
     
         },120);
     
