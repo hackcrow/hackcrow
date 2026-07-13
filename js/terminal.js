@@ -145,3 +145,15 @@ function initializeTerminal(){
     createPrompt();
 
 }//initializeTerminal
+
+document.getElementById("terminal").addEventListener("click", () => {
+
+    const input = document.querySelector(".terminal-input");
+
+    if(input){
+
+        input.focus();
+
+    }
+
+});
