@@ -212,9 +212,13 @@
 
     line-height:14px;
 
-    text-shadow:
-        0 0 5px #00ff88,
-        0 0 12px #00ff88;
+    filter: blur(.35px);
+
+   text-shadow:
+       0 0 2px #00ff88,
+       0 0 6px #00ff88,
+       0 0 12px #00ff88,
+       0 0 20px rgba(0,255,136,.45);
 
     pointer-events:none;
 
