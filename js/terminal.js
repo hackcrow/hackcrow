@@ -134,11 +134,19 @@ async function initializeTerminal(){
 
     terminalOutput.innerHTML = "";
 
-    await typeLine("Connecting to Hackcrow Network...");
-    await typeLine("Authentication Successful");
+    await typeLine("Connecting to Hackcrow Network...", 12);
+
+    await new Promise(r => setTimeout(r, 150));
+
+    await typeLine("Authentication Successful", 18);
+
+    await new Promise(r => setTimeout(r, 200));
+
     await typeLine("");
-    await typeLine("Type HELP to begin.");
-    await typeLine("");
+
+    await typeLine("Type HELP to begin.", 18);
+
+    await new Promise(r => setTimeout(r, 250));
 
     createPrompt();
 
