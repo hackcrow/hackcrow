@@ -45,27 +45,30 @@ const interval = setInterval(() => {
         logIndex++;
     }
 
-    if (progress >= 100) {
+    if(progress >= 100){
 
         clearInterval(interval);
-
+    
         setTimeout(() => {
-
+    
+            loader.style.transition = "opacity .35s ease";
+            loader.style.opacity = "0";
+    
+            setTimeout(() => {
+    
                 loader.style.display = "none";
+    
                 main.classList.add("show");
-            
+    
                 initializeTerminal();
-            
+    
                 startDigitalRain();
-            
+    
             },350);
-
-        }, 120);
-
+    
+        },120);
+    
     }
-
-}, 16);
-
 /* ==========================================
    MENU
 ========================================== */
