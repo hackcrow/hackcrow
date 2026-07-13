@@ -92,27 +92,25 @@ function createRainColumn(){
 
 let rainEnabled = true;
 
-const rainButton = document.getElementById("rainToggle");
-
-rainButton.addEventListener("click", () => {
-
-    rainEnabled = !rainEnabled;
+function toggleDigitalRain(){
 
     if(rainEnabled){
 
-        startDigitalRain();
-
-        rainButton.textContent = "🌧";
-
-    }else{
-
         stopDigitalRain();
 
-        rainButton.textContent = "🚫";
+        rainEnabled = false;
+
+        return "Digital Rain Disabled.";
 
     }
 
-});
+    startDigitalRain();
+
+    rainEnabled = true;
+
+    return "Digital Rain Enabled.";
+
+}
 
 
 
