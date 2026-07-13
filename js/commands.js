@@ -265,11 +265,9 @@ const commands = [
     
         }
     
-    }
+    },
 
-];
-
-{
+    {
     name: "rain",
     category: "System",
     description: "Toggle digital rain",
@@ -285,4 +283,8 @@ const commands = [
 
     }
 
-},
+}
+
+];
+
+
