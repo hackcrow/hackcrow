@@ -121,7 +121,9 @@
 
     color:#00ff88;
 
-    text-shadow:0 0 8px #00ff88;
+    font-weight:600;
+
+    white-space:nowrap;
 
     user-select:none;
 
