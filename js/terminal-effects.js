@@ -90,4 +90,32 @@ function createRainColumn(){
 
     },2200);
 
+let rainEnabled = true;
+
+const rainButton = document.getElementById("rainToggle");
+
+rainButton.addEventListener("click", () => {
+
+    rainEnabled = !rainEnabled;
+
+    if(rainEnabled){
+
+        startDigitalRain();
+
+        rainButton.textContent = "🌧";
+
+    }else{
+
+        stopDigitalRain();
+
+        rainButton.textContent = "🚫";
+
+    }
+
+});
+
+
+
+    
 }
+
