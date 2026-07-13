@@ -10,21 +10,15 @@ function startDigitalRain(){
 
             const amount = 1 + Math.floor(Math.random() * 3);
 
-                let text = "";
+            for(let i = 0; i < amount; i++){
 
-                const length = 15 + Math.floor(Math.random() * 15);
-                
-                for(let i = 0; i < length; i++){
-                
-                    const set = glyphSets[Math.floor(Math.random() * glyphSets.length)];
-                
-                    text += set[Math.floor(Math.random() * set.length)] + "<br>";
-                
-                }
+                createRainColumn();
+
+            }
 
         }
 
-    }, 350);
+    },180);
 
 }
 
@@ -41,20 +35,18 @@ function createRainColumn(){
     const glyphSets = [
 
         "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン",
-    
-        "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん",
-    
-        "日月火水木金土空山川天風雨龍虎心光夢星",
-    
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-    
-        "0123456789",
-    
-        "#$%&@<>*+=-"
-    
-    ];const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#$%&@<>";
 
-    const column = document.createElement("div");
+        "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん",
+
+        "日月火水木金土空山川天風雨龍虎心光夢星",
+
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+
+        "0123456789",
+
+        "#$%&@<>*+=-"
+
+    ];
 
     const colors = [
 
@@ -63,24 +55,28 @@ function createRainColumn(){
         "#33ff99",
         "#66ffaa",
         "#55ff88"
-    
+
     ];
-    
-    column.style.color = colors[Math.floor(Math.random() * colors.length)];
+
+    const column = document.createElement("div");
 
     column.className = "digital-rain";
+
+    column.style.color = colors[Math.floor(Math.random() * colors.length)];
 
     column.style.left = Math.random() * window.innerWidth + "px";
 
     column.style.animationDuration = (1 + Math.random()) + "s";
 
-    let text = "";
-
     const length = 15 + Math.floor(Math.random() * 15);
 
-    for(let i=0;i<length;i++){
+    let text = "";
 
-        text += chars[Math.floor(Math.random()*chars.length)] + "<br>";
+    for(let i = 0; i < length; i++){
+
+        const set = glyphSets[Math.floor(Math.random() * glyphSets.length)];
+
+        text += set[Math.floor(Math.random() * set.length)] + "<br>";
 
     }
 
@@ -88,7 +84,7 @@ function createRainColumn(){
 
     document.body.appendChild(column);
 
-    setTimeout(()=>{
+    setTimeout(() => {
 
         column.remove();
 
