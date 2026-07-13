@@ -10,9 +10,15 @@ function startDigitalRain(){
 
             const amount = 1 + Math.floor(Math.random() * 3);
 
-                for(let i = 0; i < amount; i++){
+                let text = "";
+
+                const length = 15 + Math.floor(Math.random() * 15);
                 
-                    createRainColumn();
+                for(let i = 0; i < length; i++){
+                
+                    const set = glyphSets[Math.floor(Math.random() * glyphSets.length)];
+                
+                    text += set[Math.floor(Math.random() * set.length)] + "<br>";
                 
                 }
 
@@ -49,6 +55,18 @@ function createRainColumn(){
     ];const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#$%&@<>";
 
     const column = document.createElement("div");
+
+    const colors = [
+
+        "#00ff88",
+        "#00ff66",
+        "#33ff99",
+        "#66ffaa",
+        "#55ff88"
+    
+    ];
+    
+    column.style.color = colors[Math.floor(Math.random() * colors.length)];
 
     column.className = "digital-rain";
 
