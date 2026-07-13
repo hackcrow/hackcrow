@@ -263,3 +263,42 @@
     }
 
 }
+
+
+#rainToggle{
+
+    position:fixed;
+
+    right:20px;
+
+    bottom:20px;
+
+    width:42px;
+
+    height:42px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#111;
+
+    color:#00ff88;
+
+    border:1px solid #00ff88;
+
+    cursor:pointer;
+
+    opacity:.45;
+
+    transition:.25s;
+
+    z-index:999999;
+
+}
+
+#rainToggle:hover{
+
+    opacity:1;
+
+}
