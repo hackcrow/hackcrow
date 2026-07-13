@@ -268,3 +268,21 @@ const commands = [
     }
 
 ];
+
+{
+    name: "rain",
+    category: "System",
+    description: "Toggle digital rain",
+
+    execute(){
+
+        return [
+
+            toggleDigitalRain(),
+            ""
+
+        ];
+
+    }
+
+},
