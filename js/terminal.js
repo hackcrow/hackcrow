@@ -130,17 +130,15 @@ function executeCommand(command){
 
 }//executeCommand
 
-function initializeTerminal(){
+async function initializeTerminal(){
 
     terminalOutput.innerHTML = "";
 
-    printLine("Hackcrow OS v3.0");
-    printLine("----------------------------------------");
-    printLine("Connecting to Hackcrow Network...");
-    printLine("Authentication Successful");
-    printLine("");
-    printLine("Type HELP to begin.");
-    printLine("");
+    await typeLine("Connecting to Hackcrow Network...");
+    await typeLine("Authentication Successful");
+    await typeLine("");
+    await typeLine("Type HELP to begin.");
+    await typeLine("");
 
     createPrompt();
 
@@ -157,3 +155,22 @@ document.getElementById("terminal").addEventListener("click", () => {
     }
 
 });
+
+async function typeLine(text, speed = 20){
+
+    const line = document.createElement("div");
+    line.className = "line";
+
+    terminalOutput.appendChild(line);
+
+    for(const char of text){
+
+        line.textContent += char;
+
+        await new Promise(resolve => setTimeout(resolve, speed));
+
+    }
+
+    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+
+}
