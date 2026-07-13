@@ -89,7 +89,7 @@ function createRainColumn(){
         column.remove();
 
     },2200);
-
+}
 let rainEnabled = true;
 
 function toggleDigitalRain(){
