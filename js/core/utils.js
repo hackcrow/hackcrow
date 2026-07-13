@@ -1,11 +1,11 @@
-function launchApplication(options){
+async function launchApplication(options){
 
     const {
 
         name,
         messages,
         url,
-        delay = 250
+        delay = 20
 
     } = options;
 
@@ -22,26 +22,12 @@ function launchApplication(options){
 
     ];
 
-    let index = 0;
+    await typeLines(lines, delay);
 
-    const interval = setInterval(() => {
+    setTimeout(() => {
 
-        printLine(lines[index]);
+        window.location.href = url;
 
-        index++;
-
-        if(index >= lines.length){
-
-            clearInterval(interval);
-
-            setTimeout(() => {
-
-                window.location.href = url;
-
-            }, 500);
-
-        }
-
-    }, delay);
+    },500);
 
 }
