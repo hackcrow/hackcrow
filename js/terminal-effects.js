@@ -6,7 +6,9 @@ function startDigitalRain(){
 
     rainInterval = setInterval(() => {
 
-        if(Math.random() < 0.80){
+        const isMobile = window.innerWidth < 768;
+
+        if(Math.random() < (isMobile ? 0.35 : 0.80)){
 
             const amount = 1 + Math.floor(Math.random() * 3);
 
@@ -66,7 +68,10 @@ function createRainColumn(){
 
     column.style.left = Math.random() * window.innerWidth + "px";
 
-    column.style.animationDuration = (1 + Math.random()) + "s";
+    const isMobile = window.innerWidth < 768;
+
+    column.style.animationDuration =
+        (isMobile ? 2.8 : 1.5) + Math.random() + "s";
 
     const length = 15 + Math.floor(Math.random() * 15);
 
