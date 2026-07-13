@@ -27,7 +27,7 @@ function createPrompt() {
 
     const prompt = document.createElement("span");
     prompt.className = "prompt";
-    prompt.textContent = ">";
+    prompt.textContent = "hackcrow:~$ ";
 
     const input = document.createElement("input");
     input.type = "text";
