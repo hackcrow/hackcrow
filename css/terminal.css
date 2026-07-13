@@ -194,3 +194,68 @@
 
 }
 
+/* ==========================================
+   DIGITAL RAIN
+========================================== */
+
+.digital-rain{
+
+    position:fixed;
+
+    top:-200px;
+
+    color:#00ff88;
+
+    font-family:'Share Tech Mono', monospace;
+
+    font-size:14px;
+
+    line-height:14px;
+
+    text-shadow:
+        0 0 5px #00ff88,
+        0 0 12px #00ff88;
+
+    pointer-events:none;
+
+    user-select:none;
+
+    z-index:99999;
+
+    opacity:.8;
+
+    animation:rainFall linear forwards;
+
+}
+
+@keyframes rainFall{
+
+    from{
+
+        transform:translateY(-220px);
+
+        opacity:0;
+
+    }
+
+    10%{
+
+        opacity:1;
+
+    }
+
+    90%{
+
+        opacity:.9;
+
+    }
+
+    to{
+
+        transform:translateY(calc(100vh + 250px));
+
+        opacity:0;
+
+    }
+
+}
