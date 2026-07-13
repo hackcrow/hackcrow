@@ -181,4 +181,14 @@ async function typeLine(text, speed = 20){
 
     terminalOutput.scrollTop = terminalOutput.scrollHeight;
 
-}
+}//typeLine
+
+async function typeLines(lines, speed = 20){
+
+    for(const line of lines){
+
+        await typeLine(line, speed);
+
+    }
+
+}//typeLines
