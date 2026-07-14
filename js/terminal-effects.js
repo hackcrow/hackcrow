@@ -1,26 +1,68 @@
 let rainInterval = null;
 
+const RAIN_CONFIG = {
+
+    desktop: {
+
+        probability: 0.80,
+        interval: 180,
+        columnsPerTick: 3,
+        spacing: 12,
+        minLength: 15,
+        maxLength: 30,
+        minDuration: 1.5,
+        maxDuration: 2.5
+
+    },
+
+    mobile: {
+
+        probability: 0.20,
+        interval: 350,
+        columnsPerTick: 1,
+        spacing: 18,
+        minLength: 8,
+        maxLength: 16,
+        minDuration: 3.5,
+        maxDuration: 4.5
+
+    }
+
+};
+
+function getRainConfig(){
+
+    return window.innerWidth < 768
+        ? RAIN_CONFIG.mobile
+        : RAIN_CONFIG.desktop;
+
+}//getRainConfig
+
 function startDigitalRain(){
 
     if(rainInterval) return;
 
     rainInterval = setInterval(() => {
 
-        const isMobile = window.innerWidth < 768;
+       const isMobile = window.innerWidth < 768;
 
-        if(Math.random() < (isMobile ? 0.35 : 0.80)){
-
-            const amount = 1 + Math.floor(Math.random() * 3);
-
-            for(let i = 0; i < amount; i++){
-
-                createRainColumn();
-
-            }
-
-        }
-
-    },180);
+            rainInterval = setInterval(() => {
+            
+                if(Math.random() < (isMobile ? 0.20 : 0.80)){
+            
+                    const amount = isMobile
+                        ? 1
+                        : 1 + Math.floor(Math.random() * 3);
+            
+                    for(let i = 0; i < amount; i++){
+            
+                        createRainColumn();
+            
+                    }
+            
+                }
+            
+            }, isMobile ? 350 : 180);
 
 }
 
@@ -37,15 +79,10 @@ function createRainColumn(){
     const glyphSets = [
 
         "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン",
-
         "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん",
-
         "日月火水木金土空山川天風雨龍虎心光夢星",
-
         "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-
         "0123456789",
-
         "#$%&@<>*+=-"
 
     ];
@@ -60,6 +97,8 @@ function createRainColumn(){
 
     ];
 
+    const isMobile = window.innerWidth < 768;
+
     const column = document.createElement("div");
 
     column.className = "digital-rain";
@@ -69,17 +108,17 @@ function createRainColumn(){
     const spacing = isMobile ? 18 : 12;
 
     const columns = Math.floor(window.innerWidth / spacing);
-    
+
     const columnIndex = Math.floor(Math.random() * columns);
-    
+
     column.style.left = (columnIndex * spacing) + "px";
 
-    const isMobile = window.innerWidth < 768;
-
     column.style.animationDuration =
-        (isMobile ? 2.8 : 1.5) + Math.random() + "s";
+        (isMobile ? 3.5 : 1.5) + Math.random() + "s";
 
-    const length = 15 + Math.floor(Math.random() * 15);
+    const length = isMobile
+        ? 8 + Math.floor(Math.random() * 8)
+        : 15 + Math.floor(Math.random() * 15);
 
     let text = "";
 
@@ -100,28 +139,8 @@ function createRainColumn(){
         column.remove();
 
     },2200);
-}
-let rainEnabled = true;
 
-function toggleDigitalRain(){
-
-    if(rainEnabled){
-
-        stopDigitalRain();
-
-        rainEnabled = false;
-
-        return "Digital Rain Disabled.";
-
-    }
-
-    startDigitalRain();
-
-    rainEnabled = true;
-
-    return "Digital Rain Enabled.";
-
-}
+}//createRainColumn
 
 
 
