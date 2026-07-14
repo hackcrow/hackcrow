@@ -106,6 +106,25 @@ function createRainColumn(){
 
     ];
 
+    const NORMAL_GLYPHS = [
+
+        "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン",
+        "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん",
+        "日月火水木金土空山川天風雨龍虎心光夢星",
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+        "0123456789",
+        "#$%&@<>*+=-"
+    
+    ];
+    
+    const MATRIX_GLYPHS = [
+    
+        "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン",
+        "日月火水木金土空山川天風雨龍虎心光夢星",
+        "漢字無限電脳情報仮想世界精神機械生命"
+    
+    ];
+    
     const colors = [
 
         "#00ff88",
@@ -144,7 +163,10 @@ function createRainColumn(){
     let text = "";
 
     for(let i = 0; i < length; i++){
-
+        const glyphSets = matrixMode
+            ? MATRIX_GLYPHS
+            : NORMAL_GLYPHS;
+        
         const set = glyphSets[Math.floor(Math.random() * glyphSets.length)];
 
         text += set[Math.floor(Math.random() * set.length)] + "<br>";
