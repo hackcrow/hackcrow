@@ -36,33 +36,29 @@ function getRainConfig(){
         ? RAIN_CONFIG.mobile
         : RAIN_CONFIG.desktop;
 
-}//getRainConfig
+}
 
 function startDigitalRain(){
 
     if(rainInterval) return;
 
+    const config = getRainConfig();
+
     rainInterval = setInterval(() => {
 
-       const isMobile = window.innerWidth < 768;
+        if(Math.random() < config.probability){
 
-            rainInterval = setInterval(() => {
-            
-                if(Math.random() < (isMobile ? 0.20 : 0.80)){
-            
-                    const amount = isMobile
-                        ? 1
-                        : 1 + Math.floor(Math.random() * 3);
-            
-                    for(let i = 0; i < amount; i++){
-            
-                        createRainColumn();
-            
-                    }
-            
-                }
-            
-            }, isMobile ? 350 : 180);
+            const amount = 1 + Math.floor(Math.random() * config.columnsPerTick);
+
+            for(let i = 0; i < amount; i++){
+
+                createRainColumn();
+
+            }
+
+        }
+
+    }, config.interval);
 
 }
 
@@ -75,6 +71,8 @@ function stopDigitalRain(){
 }
 
 function createRainColumn(){
+
+    const config = getRainConfig();
 
     const glyphSets = [
 
@@ -97,28 +95,30 @@ function createRainColumn(){
 
     ];
 
-    const isMobile = window.innerWidth < 768;
-
     const column = document.createElement("div");
 
     column.className = "digital-rain";
 
     column.style.color = colors[Math.floor(Math.random() * colors.length)];
 
-    const spacing = isMobile ? 18 : 12;
-
-    const columns = Math.floor(window.innerWidth / spacing);
+    const columns = Math.floor(window.innerWidth / config.spacing);
 
     const columnIndex = Math.floor(Math.random() * columns);
 
-    column.style.left = (columnIndex * spacing) + "px";
+    column.style.left = (columnIndex * config.spacing) + "px";
 
     column.style.animationDuration =
-        (isMobile ? 3.5 : 1.5) + Math.random() + "s";
+        (
+            config.minDuration +
+            Math.random() * (config.maxDuration - config.minDuration)
+        ) + "s";
 
-    const length = isMobile
-        ? 8 + Math.floor(Math.random() * 8)
-        : 15 + Math.floor(Math.random() * 15);
+    const length =
+        config.minLength +
+        Math.floor(
+            Math.random() *
+            (config.maxLength - config.minLength + 1)
+        );
 
     let text = "";
 
@@ -138,12 +138,28 @@ function createRainColumn(){
 
         column.remove();
 
-    },2200);
+    }, 5000);
 
-}//createRainColumn
+}
 
+let rainEnabled = true;
 
+function toggleDigitalRain(){
 
-    
+    if(rainEnabled){
 
+        stopDigitalRain();
 
+        rainEnabled = false;
+
+        return "Digital Rain Disabled.";
+
+    }
+
+    startDigitalRain();
+
+    rainEnabled = true;
+
+    return "Digital Rain Enabled.";
+
+}
