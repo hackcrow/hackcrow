@@ -14,7 +14,9 @@ async function runHack(){
         "",
         "ACCESS GRANTED",
         "",
-        "...just kidding 😄"
+        "Simulation Complete.",
+        "",
+        "Welcome back, Sr. Starks."
 
     ];
 
