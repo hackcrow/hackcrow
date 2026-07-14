@@ -22,7 +22,8 @@
     display:flex;
 
     flex-direction:column;
-
+   
+    z-index:10;
 }
 
 /* ==================================================
@@ -199,7 +200,7 @@
 
     position:fixed;
 
-    top:-200px;
+    top:-120px;
 
     color:#00ff88;
 
@@ -226,6 +227,25 @@
     opacity:.8;
 
     animation:rainFall linear forwards;
+
+}
+
+body.matrix-mode .digital-rain{
+
+    color:#7CFF00;
+
+    opacity:1;
+
+    filter:
+        blur(.2px)
+        brightness(1.8);
+
+    text-shadow:
+        0 0 4px #7CFF00,
+        0 0 10px #7CFF00,
+        0 0 20px #7CFF00,
+        0 0 35px #7CFF00,
+        0 0 60px rgba(124,255,0,.9);
 
 }
 
