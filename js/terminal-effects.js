@@ -66,7 +66,13 @@ function createRainColumn(){
 
     column.style.color = colors[Math.floor(Math.random() * colors.length)];
 
-    column.style.left = Math.random() * window.innerWidth + "px";
+    const spacing = isMobile ? 18 : 12;
+
+    const columns = Math.floor(window.innerWidth / spacing);
+    
+    const columnIndex = Math.floor(Math.random() * columns);
+    
+    column.style.left = (columnIndex * spacing) + "px";
 
     const isMobile = window.innerWidth < 768;
 
