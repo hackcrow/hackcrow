@@ -268,22 +268,37 @@ const commands = [
     },
 
     {
-    name: "rain",
-    category: "System",
-    description: "Toggle digital rain",
+        name: "rain",
+        category: "System",
+        description: "Toggle digital rain",
+    
+        execute(){
+    
+            return [
+    
+                toggleDigitalRain(),
+                ""
+    
+            ];
+    
+        }
 
-    execute(){
+    },
 
-        return [
-
-            toggleDigitalRain(),
-            ""
-
-        ];
-
+    {
+        name: "hack",
+        category: "Fun",
+        description: "Fake hacking sequence",
+    
+        execute(){
+    
+            runHack();
+    
+            return null;
+    
+        }
+    
     }
-
-}
 
 ];
 
