@@ -28,15 +28,36 @@ const RAIN_CONFIG = {
 
     }
 
-};
+};//RAIN_CONFIG
+
+const MATRIX_CONFIG = {
+
+    probability: 1,
+    interval: 40,
+    columnsPerTick: 8,
+    spacing: 8,
+    minLength: 20,
+    maxLength: 40,
+    minDuration: 1,
+    maxDuration: 2
+
+};//MATRIX_CONFIG
+
+let matrixMode = false;
 
 function getRainConfig(){
+
+    if(matrixMode){
+
+        return MATRIX_CONFIG;
+
+    }
 
     return window.innerWidth < 768
         ? RAIN_CONFIG.mobile
         : RAIN_CONFIG.desktop;
 
-}
+}//getRainConfig
 
 function startDigitalRain(){
 
