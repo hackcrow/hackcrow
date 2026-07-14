@@ -298,7 +298,22 @@ const commands = [
     
         }
     
-    }
+    },
+
+    {
+        name: "matrix",
+        category: "Fun",
+        description: "Enter Matrix mode",
+    
+        execute(){
+    
+            runMatrix();
+    
+            return null;
+    
+        }
+    
+    },
 
 ];
 
