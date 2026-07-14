@@ -44,11 +44,11 @@ async function runMatrix(){
     stopDigitalRain();
     startDigitalRain();
 
-    terminal.style.visibility = "hidden";
+    document.body.classList.add("matrix-mode");
 
     await new Promise(r => setTimeout(r, 10000));
 
-    terminal.style.visibility = "visible";
+    document.body.classList.remove("matrix-mode");
 
     terminal.classList.remove("glitch");
 
