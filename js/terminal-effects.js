@@ -1,5 +1,6 @@
 let rainInterval = null;
 let matrixMode = false;
+let rainEnabled = true;
 
 const RAIN_CONFIG = {
 
