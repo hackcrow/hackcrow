@@ -35,23 +35,27 @@ const MATRIX_CONFIG = {
 
     desktop:{
 
-        spawnMin:40,
-        spawnMax:80,
-        lengthMin:18,
-        lengthMax:38,
-        durationMin:2,
-        durationMax:4
+        probability: 1.0,
+        interval: 70,
+        columnsPerTick: 6,
+        spacing: 10,
+        minLength: 20,
+        maxLength: 40,
+        minDuration: 2,
+        maxDuration: 4
 
     },
 
     mobile:{
 
-        spawnMin:80,
-        spawnMax:150,
-        lengthMin:16,
-        lengthMax:30,
-        durationMin:2.5,
-        durationMax:4.5
+        probability: 0.60,
+        interval: 120,
+        columnsPerTick: 3,
+        spacing: 14,
+        minLength: 14,
+        maxLength: 28,
+        minDuration: 2.5,
+        maxDuration: 4.5
 
     }
 
@@ -75,6 +79,18 @@ const NORMAL_GLYPHS = [
         "漢字無限電脳情報仮想世界精神機械生命"
     
     ];
+
+function getRainConfig(){
+
+    const isMobile = window.innerWidth <= 768;
+
+    const config = matrixMode
+        ? MATRIX_CONFIG
+        : RAIN_CONFIG;
+
+    return isMobile
+        ? config.mobile
+        : config.desktop;
 
 }//getRainConfig
 
