@@ -76,7 +76,7 @@ const NORMAL_GLYPHS = [
     
     ];
 
-getRainConfig//getRainConfig
+}//getRainConfig
 
 function startDigitalRain(){
 
