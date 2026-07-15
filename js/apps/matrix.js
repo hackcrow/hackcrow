@@ -39,23 +39,11 @@ async function runMatrix(){
 
     await new Promise(r => setTimeout(r, 500));
 
-    matrixMode = true;
+    enableMatrixMode();
 
-    stopDigitalRain();
-    startDigitalRain();
-
-    document.body.classList.add("matrix-mode");
-
-    await new Promise(r => setTimeout(r, 10000));
-
-    document.body.classList.remove("matrix-mode");
-
-    terminal.classList.remove("glitch");
-
-    matrixMode = false;
-
-    stopDigitalRain();
-    startDigitalRain();
+    await new Promise(r => setTimeout(r, 12000));
+    
+    disableMatrixMode();
 
     terminalOutput.innerHTML = "";
 
@@ -109,3 +97,31 @@ async function corruptTerminal(){
     await new Promise(r => setTimeout(r,250));
 
 }//corruptTerminal
+
+function enableMatrixMode(){
+
+    matrixMode = true;
+
+    stopDigitalRain();
+
+    startDigitalRain();
+
+    document.body.classList.add("matrix-mode");
+
+    terminal.classList.add("glitch");
+
+}//enableMatrixMode
+
+function disableMatrixMode(){
+
+    document.body.classList.remove("matrix-mode");
+
+    terminal.classList.remove("glitch");
+
+    matrixMode = false;
+
+    stopDigitalRain();
+
+    startDigitalRain();
+
+}//disableMatrixMode
