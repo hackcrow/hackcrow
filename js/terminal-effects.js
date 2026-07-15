@@ -1,8 +1,6 @@
 let rainInterval = null;
 let matrixMode = false;
 
-const RAIN_CONFIG
-
 const RAIN_CONFIG = {
 
     desktop: {
