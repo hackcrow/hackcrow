@@ -395,3 +395,21 @@ body.matrix-mode #terminal{
     transition:opacity .4s ease;
 
 }
+
+.matrix-column{
+
+    color:#7CFF00 !important;
+
+    opacity:1 !important;
+
+    filter:
+        blur(.15px)
+        brightness(2);
+
+    text-shadow:
+        0 0 6px #7CFF00,
+        0 0 12px #7CFF00,
+        0 0 24px #7CFF00,
+        0 0 40px rgba(124,255,0,.9);
+
+}
