@@ -1,4 +1,7 @@
 let rainInterval = null;
+let matrixMode = false;
+
+const RAIN_CONFIG
 
 const RAIN_CONFIG = {
 
@@ -43,7 +46,24 @@ const MATRIX_CONFIG = {
 
 };//MATRIX_CONFIG
 
-let matrixMode = false;
+const NORMAL_GLYPHS = [
+
+        "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン",
+        "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん",
+        "日月火水木金土空山川天風雨龍虎心光夢星",
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+        "0123456789",
+        "#$%&@<>*+=-"
+    
+    ];
+    
+    const MATRIX_GLYPHS = [
+    
+        "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン",
+        "日月火水木金土空山川天風雨龍虎心光夢星",
+        "漢字無限電脳情報仮想世界精神機械生命"
+    
+    ];
 
 function getRainConfig(){
 
@@ -89,41 +109,13 @@ function stopDigitalRain(){
 
     rainInterval = null;
 
-}
+}//startDigitalRain
 
 function createRainColumn(){
 
     const config = getRainConfig();
 
-    const glyphSets = [
-
-        "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン",
-        "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん",
-        "日月火水木金土空山川天風雨龍虎心光夢星",
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-        "0123456789",
-        "#$%&@<>*+=-"
-
-    ];
-
-    const NORMAL_GLYPHS = [
-
-        "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン",
-        "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん",
-        "日月火水木金土空山川天風雨龍虎心光夢星",
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-        "0123456789",
-        "#$%&@<>*+=-"
     
-    ];
-    
-    const MATRIX_GLYPHS = [
-    
-        "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン",
-        "日月火水木金土空山川天風雨龍虎心光夢星",
-        "漢字無限電脳情報仮想世界精神機械生命"
-    
-    ];
     
     const colors = [
 
@@ -183,9 +175,7 @@ function createRainColumn(){
 
     }, 5000);
 
-}
-
-let rainEnabled = true;
+}//createRainColumn
 
 function toggleDigitalRain(){
 
@@ -205,4 +195,4 @@ function toggleDigitalRain(){
 
     return "Digital Rain Enabled.";
 
-}
+}//toggleDigitalRain
