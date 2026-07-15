@@ -35,14 +35,27 @@ const RAIN_CONFIG = {
 
 const MATRIX_CONFIG = {
 
-    probability: 1,
-    interval: 40,
-    columnsPerTick: 8,
-    spacing: 8,
-    minLength: 20,
-    maxLength: 40,
-    minDuration: 1,
-    maxDuration: 2
+    desktop:{
+
+        spawnMin:40,
+        spawnMax:80,
+        lengthMin:18,
+        lengthMax:38,
+        durationMin:2,
+        durationMax:4
+
+    },
+
+    mobile:{
+
+        spawnMin:80,
+        spawnMax:150,
+        lengthMin:16,
+        lengthMax:30,
+        durationMin:2.5,
+        durationMax:4.5
+
+    }
 
 };//MATRIX_CONFIG
 
@@ -65,19 +78,7 @@ const NORMAL_GLYPHS = [
     
     ];
 
-function getRainConfig(){
-
-    if(matrixMode){
-
-        return MATRIX_CONFIG;
-
-    }
-
-    return window.innerWidth < 768
-        ? RAIN_CONFIG.mobile
-        : RAIN_CONFIG.desktop;
-
-}//getRainConfig
+getRainConfig//getRainConfig
 
 function startDigitalRain(){
 
@@ -115,8 +116,6 @@ function createRainColumn(){
 
     const config = getRainConfig();
 
-    
-    
     const colors = [
 
         "#00ff88",
@@ -128,6 +127,12 @@ function createRainColumn(){
     ];
 
     const column = document.createElement("div");
+
+    if(matrixMode){
+
+        column.classList.add("matrix-column");
+    
+    }
 
     column.className = "digital-rain";
 
