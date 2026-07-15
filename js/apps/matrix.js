@@ -1,3 +1,5 @@
+const terminal = document.getElementById("terminal");
+
 async function runMatrix(){
 
     if(matrixMode) return;
