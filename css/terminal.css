@@ -458,6 +458,9 @@ body.matrix-mode{
 
 body.matrix-mode #mainContent{
 
-    transform: scale(1.10);
+    transform:
+        scale(1.03)
+        perspective(1200px)
+        translateZ(40px);
 
 }
