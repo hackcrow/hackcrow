@@ -8,7 +8,7 @@ async function runMatrix(){
 
     await typeLine("Entering Matrix...", 20);
 
-    await new Promise(r => setTimeout(r, 500));
+    await new Promise(r => setTimeout(r, 300));
 
     await typeLine("", 1);
     await typeLine("Connecting to Zion...", 15);
@@ -35,9 +35,9 @@ async function runMatrix(){
 
     await new Promise(r => setTimeout(r, 600));
 
-    await corruptTerminal();
+    //await corruptTerminal();
 
-    terminal.classList.add("glitch");
+    //terminal.classList.add("glitch");
 
     await new Promise(r => setTimeout(r, 500));
 
@@ -57,11 +57,11 @@ async function runMatrix(){
 
     await new Promise(r => setTimeout(r, 500));
 
-    await corruptTerminal();
+    //await corruptTerminal();
 
-    terminal.classList.add("glitch");
+    //terminal.classList.add("glitch");
 
-    await new Promise(r => setTimeout(r, 350));
+    await new Promise(r => setTimeout(r, 300));
 
     terminal.classList.remove("glitch");
 
