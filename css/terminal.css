@@ -447,3 +447,17 @@ body.matrix-mode{
         contrast(1.12);
 
 }
+
+#mainContent{
+
+    transform: scale(1);
+
+    transition: transform .35s ease;
+
+}
+
+body.matrix-mode #mainContent{
+
+    transform: scale(1.02);
+
+}
