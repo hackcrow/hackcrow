@@ -380,6 +380,8 @@ body.matrix-mode{
 
     background:#000;
 
+    overflow:hidden;
+
 }
 
 body.matrix-mode #terminal{
@@ -411,5 +413,37 @@ body.matrix-mode #terminal{
         0 0 12px #7CFF00,
         0 0 24px #7CFF00,
         0 0 40px rgba(124,255,0,.9);
+
+}
+
+#terminal{
+
+    transform:scale(1);
+
+    transition:
+        transform .35s ease,
+        opacity .35s ease;
+
+}
+
+body.matrix-mode #terminal{
+
+    transform:scale(1.02);
+
+}
+
+body{
+
+    transition:
+        background .35s ease,
+        filter .35s ease;
+
+}
+
+body.matrix-mode{
+
+    filter:
+        brightness(1.08)
+        contrast(1.12);
 
 }
