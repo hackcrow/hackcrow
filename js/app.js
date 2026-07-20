@@ -62,7 +62,7 @@ const interval = setInterval(() => {
     
                 initializeTerminal();
     
-                startDigitalRain();
+               // startDigitalRain();
     
             },180);
     
