@@ -6,6 +6,17 @@ let ejercicioPendienteEliminar = null;
 let programToDelete = null;
 let routineToDelete = null;
 let ejerciciosActuales = [];
+let programas = [];
+
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
+
+const workoutId =
+  Number(
+    params.get("workout")
+  );
 
 async function cargarProgramas(){
 
@@ -13,6 +24,10 @@ async function cargarProgramas(){
     await supabaseClient
       .from("programs")
       .select("*")
+      .eq(
+        "workout_id",
+        workoutId
+      )
       .order(
         "created_at",
         {
