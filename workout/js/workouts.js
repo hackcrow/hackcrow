@@ -197,19 +197,14 @@ async function cargarWorkouts(){
       card.addEventListener(
 
         "click",
-
+      
         ()=>{
-
-          currentWorkoutId =
-            workout.id;
-
-          currentWorkoutName =
-            workout.nombre;
-
-          abrirProgramas();
-
+      
+          window.location.href =
+            `programs.html?workout=${workout.id}`;
+      
         }
-
+      
       );
 
       grid.appendChild(
