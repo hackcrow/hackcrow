@@ -20,43 +20,19 @@ const workoutId =
 
 async function cargarProgramas(){
 
-  const { data, error } =
-    await supabaseClient
-      .from("programs")
-      .select("*")
-      .eq(
-        "workout_id",
-        workoutId
-      )
-      .order(
-        "created_at",
-        {
-          ascending:false
-        }
-      );
+ console.log("workoutId:", workoutId);
 
-  console.log(
-    "program count:",
-    data?.length
-  );
+const { data, error } =
+  await supabaseClient
+    .from("programs")
+    .select("*")
+    .eq(
+      "workout_id",
+      workoutId
+    );
 
-  console.log(
-    "program error:",
-    error
-  );
-
-  if(error){
-
-    console.error(error);
-
-    return;
-
-  }
-
-  programas =
-    data || [];
-
-  renderProgramas();
+console.log("data:", data);
+console.log("error:", error);
 
 }//cargarProgramas()
 
