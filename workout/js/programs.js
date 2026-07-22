@@ -487,9 +487,7 @@ function cerrarProgramLightbox(){
 }//cerrarProgramLightbox()
 
 async function guardarPrograma(){
-  console.log(
-  "guardarPrograma"
-);
+
   const nombre =
     document
       .getElementById(
@@ -514,7 +512,8 @@ async function guardarPrograma(){
       .insert([
         {
           nombre,
-          descripcion
+          descripcion,
+          workout_id: workoutId
         }
       ]);
 
@@ -527,6 +526,18 @@ async function guardarPrograma(){
   }
 
   cerrarProgramLightbox();
+
+  document
+    .getElementById(
+      "pgNombre"
+    )
+    .value = "";
+
+  document
+    .getElementById(
+      "pgDescripcion"
+    )
+    .value = "";
 
   cargarProgramas();
 
