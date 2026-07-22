@@ -6,7 +6,6 @@ let ejercicioPendienteEliminar = null;
 let programToDelete = null;
 let routineToDelete = null;
 let ejerciciosActuales = [];
-let programas = [];
 
 const params =
   new URLSearchParams(
