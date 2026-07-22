@@ -601,7 +601,7 @@ function renderProgramas(){
 }//renderProgramas()
 
 async function guardarRutina(){
-
+  console.count("guardarRutina");
   const nombre =
     document
       .getElementById(
